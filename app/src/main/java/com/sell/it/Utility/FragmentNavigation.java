@@ -14,8 +14,8 @@ import com.sell.it.R;
 
 public class FragmentNavigation {
 
-    private FragmentManager fragmentManager;
-    private MainActivityInterface mainInterface;
+    private FragmentManager mFragmentManager;
+    private MainActivityInterface mMainInterface;
 
 
     private static FragmentNavigation ourInstance;
@@ -31,8 +31,9 @@ public class FragmentNavigation {
     }
 
     public void initComponents(MainActivity activity, MainActivityInterface mainInterface) {
-        fragmentManager = activity.getSupportFragmentManager();
-        this.mainInterface = mainInterface;
+        //TODO replace singleton class with static methods
+        mFragmentManager = activity.getSupportFragmentManager();
+        this.mMainInterface = mainInterface;
     }
 
     public void showLoginFragment() {
@@ -44,7 +45,7 @@ public class FragmentNavigation {
     }
 
     private void showFragment(Fragment fragment) {
-        (fragmentManager.beginTransaction())
+        (mFragmentManager.beginTransaction())
                 .replace(R.id.fragment_container, fragment, fragment.getClass().getCanonicalName())
                 .addToBackStack(fragment.getTag())
                 .commit();
@@ -52,20 +53,21 @@ public class FragmentNavigation {
 
 
     private void clearBackStack() {
-        for (int i = 1; i < fragmentManager.getBackStackEntryCount(); ++i) {
-            fragmentManager.popBackStack();
+        for (int i = 1; i < mFragmentManager.getBackStackEntryCount(); ++i) {
+            mFragmentManager.popBackStack();
         }
     }
 
     private void clearAllBackStack() {
-        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
-            fragmentManager.popBackStack();
+        for (int i = 0; i < mFragmentManager.getBackStackEntryCount(); ++i) {
+            mFragmentManager.popBackStack();
         }
     }
 
     private Fragment getTopFragment() {
-        int index = fragmentManager.getFragments().size() - 1;
-        return fragmentManager.getFragments().get(index);
+        //TODO mFragmentManager.getBackStackEntryCount()
+        int index = mFragmentManager.getFragments().size() - 1;
+        return mFragmentManager.getFragments().get(index);
     }
 
     private void exit() {
@@ -74,11 +76,12 @@ public class FragmentNavigation {
     }
 
     private void popBackStack() {
-        fragmentManager.popBackStack();
+        mFragmentManager.popBackStack();
     }
 
     public void showNotificationBar(String title, String message, Object image, boolean isError) {
-        mainInterface.showNotificationBar(title, message, image, isError);
+        //TODO remove this shit from here
+        mMainInterface.showNotificationBar(title, message, image, isError);
     }
 
     public void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {

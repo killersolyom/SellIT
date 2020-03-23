@@ -9,38 +9,27 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class GlideUtils {
 
-    private static GlideUtils mInstance = null;
-    private Context context;
+    private static Context mContext;
 
-    private GlideUtils() {
+    public static void initialize(Context context) {
+        mContext = context;
     }
 
-    public static GlideUtils getInstance() {
-        if (mInstance == null) {
-            mInstance = new GlideUtils();
-        }
-        return mInstance;
-    }
-
-    public void initialize(Context context) {
-        this.context = context;
-    }
-
-    public void loadAudioImage(int id, ImageView imageView) {
+    public static void loadImage(int id, ImageView imageView) {
         clearImage(imageView);
-        Glide.with(context).load(id).override(150).fitCenter().into(imageView);
+        Glide.with(mContext).load(id).fitCenter().into(imageView);
     }
 
-    public void loadBackgroundImage(int id, ImageView imageView) {
+    public static void loadBackgroundImage(int id, ImageView imageView) {
         clearImage(imageView);
-        Glide.with(context).load(id).centerCrop().into(imageView);
+        Glide.with(mContext).load(id).centerCrop().into(imageView);
     }
 
-    public void clearImage(ImageView imageView) {
-        Glide.with(context).clear(imageView);
+    public static void clearImage(ImageView imageView) {
+        Glide.with(mContext).clear(imageView);
     }
 
-    public void changeBackgroundWithFadeOut(int id, ImageView imageView) {
-        Glide.with(context).load(id).centerCrop().transition(withCrossFade(500)).into(imageView);
+    public void changeBackgroundWithFadeOut(int id, int delayTime, ImageView imageView) {
+        Glide.with(mContext).load(id).centerCrop().transition(withCrossFade(delayTime)).into(imageView);
     }
 }

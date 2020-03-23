@@ -31,9 +31,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         notificationBar = findViewById(R.id.notification_bar);
         navigationView = findViewById(R.id.nav_view);
         drawerLayout = findViewById(R.id.drawer_layout);
+        drawerHeaderImage = (navigationView.getHeaderView(0)).findViewById(R.id.drawer_menu_image);
+
         FragmentNavigation.getInstance().initComponents(this, this);
-        GlideUtils.getInstance().initialize(getApplicationContext());
-        DataManager.getInstance().initManager(this);
+        GlideUtils.initialize(getApplicationContext());
+        DataManager.initialize(getApplicationContext());
+
         if (savedInstanceState == null) {
             FragmentNavigation.getInstance().showLoginFragment();
         }
@@ -59,15 +62,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onPause() {
         super.onPause();
         notificationBar.clearAllTask();
-        GlideUtils.getInstance().clearImage(drawerHeaderImage);
+        GlideUtils.clearImage(drawerHeaderImage);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         navigationView.setNavigationItemSelectedListener(this);
-        drawerHeaderImage = (navigationView.getHeaderView(0)).findViewById(R.id.drawer_menu_image);
-        GlideUtils.getInstance().loadBackgroundImage(R.drawable.warning_image, drawerHeaderImage);
+        GlideUtils.loadBackgroundImage(R.drawable.warning_image, drawerHeaderImage);
     }
 
     @Override
