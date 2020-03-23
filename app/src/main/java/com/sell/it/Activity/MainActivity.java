@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (savedInstanceState == null) {
             FragmentNavigation.getInstance().showLoginFragment();
         }
+        
     }
 
     @Override
