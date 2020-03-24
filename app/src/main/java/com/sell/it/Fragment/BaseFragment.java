@@ -25,6 +25,7 @@ public abstract class BaseFragment extends Fragment {
         if (mFragmentView == null) {
             mFragmentView = initView(inflater, container);
             findView(mFragmentView);
+            initComponents();
         }
         return mFragmentView;
     }
@@ -33,4 +34,5 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void findView(View view);
 
+    protected abstract void initComponents();
 }
