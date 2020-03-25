@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.sell.it.Activity.MainActivity;
-import com.sell.it.CustomView.NotificationBar;
 import com.sell.it.Fragment.LoginFragment;
 import com.sell.it.Fragment.SettingsFragment;
 import com.sell.it.R;
@@ -15,11 +14,9 @@ import com.sell.it.R;
 public class FragmentNavigation {
 
     private static FragmentManager mFragmentManager;
-    private static NotificationBar mNotificationBar;
 
-    public static void initComponents(MainActivity activity, NotificationBar notificationBar) {
+    public static void initComponents(MainActivity activity) {
         mFragmentManager = activity.getSupportFragmentManager();
-        mNotificationBar = notificationBar;
     }
 
     public static void showLoginFragment() {
@@ -60,10 +57,6 @@ public class FragmentNavigation {
 
     private static void popBackStack() {
         mFragmentManager.popBackStack();
-    }
-
-    public static void showNotificationBar(String title, String message, Object image, boolean isError) {
-        mNotificationBar.showNotificationBar(title, message, image, isError);
     }
 
     public static void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {

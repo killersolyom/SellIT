@@ -10,18 +10,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
-import com.sell.it.CustomView.NotificationBar;
 import com.sell.it.R;
-import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.FragmentNavigation;
 import com.sell.it.Utility.GlideUtils;
+import com.sell.it.Utility.UtilityManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawerLayout;
-    private ImageView drawerHeaderImage;
-    private NavigationView navigationView;
-    private NotificationBar notificationBar;
+    private DrawerLayout mDrawerLayout;
+    private ImageView mDrawerHeaderImage;
+    private NavigationView mNavigationView;
     private final String FIRST_START_KEY = "FirstStart";
 
 
@@ -30,21 +28,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        initComponents();
+        UtilityManager.initUtilities(this);
         handleIntentEvents(getIntent());
     }
 
     private void initView() {
-        notificationBar = findViewById(R.id.notification_bar);
-        navigationView = findViewById(R.id.nav_view);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        drawerHeaderImage = (navigationView.getHeaderView(0)).findViewById(R.id.drawer_menu_image);
-    }
-
-    private void initComponents() {
-        FragmentNavigation.initComponents(this, notificationBar);
-        GlideUtils.initialize(getApplicationContext());
-        DataManager.initialize(getApplicationContext());
+        mNavigationView = findViewById(R.id.nav_view);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerHeaderImage = (mNavigationView.getHeaderView(0)).findViewById(R.id.drawer_menu_image);
     }
 
     private void handleIntentEvents(Intent intent) {
@@ -56,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        FragmentNavigation.handleNavigationItem(menuItem, drawerLayout);
+        FragmentNavigation.handleNavigationItem(menuItem, mDrawerLayout);
         return false;
     }
 
@@ -68,15 +59,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onPause() {
         super.onPause();
-        notificationBar.clearAllTask();
-        GlideUtils.clearImage(drawerHeaderImage);
+        GlideUtils.clearImage(mDrawerHeaderImage);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        navigationView.setNavigationItemSelectedListener(this);
-        GlideUtils.loadBackgroundImage(R.drawable.warning_image, drawerHeaderImage);
+        mNavigationView.setNavigationItemSelectedListener(this);
+        GlideUtils.loadBackgroundImage(R.drawable.warning_image, mDrawerHeaderImage);
     }
 
 }
