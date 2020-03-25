@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 public abstract class BaseFragment extends Fragment {
 
-    private View fragmentView;
+    private View mFragmentView;
 
     public BaseFragment() {
     }
@@ -22,15 +22,17 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (fragmentView == null) {
-            fragmentView = initView(inflater, container);
-            findView(fragmentView);
+        if (mFragmentView == null) {
+            mFragmentView = initView(inflater, container);
+            findView(mFragmentView);
+            initComponents();
         }
-        return fragmentView;
+        return mFragmentView;
     }
 
     protected abstract View initView(LayoutInflater inflater, ViewGroup container);
 
     protected abstract void findView(View view);
 
+    protected abstract void initComponents();
 }
