@@ -26,6 +26,7 @@ public abstract class BaseFragment extends Fragment {
             mFragmentView = initView(inflater, container);
             findView(mFragmentView);
             initComponents();
+            initListeners();
         }
         return mFragmentView;
     }
@@ -35,4 +36,8 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void findView(View view);
 
     protected abstract void initComponents();
+
+    protected void initListeners() {
+    }
+
 }
