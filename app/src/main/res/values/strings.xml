@@ -11,8 +11,12 @@
     <string name="menu_exit">Kilépés</string>
     <string name="menu_share">Megosztás</string>
     <string name="login_text">Login</string>
+    <string name="register_text">Sign up</string>
     <string name="app_name_text">SellIt</string>
     <string name="user_name">Username</string>
+    <string name="user_email">Email</string>
     <string name="password">Password</string>
-
+    <string name="user_first_name">First name</string>
+    <string name="user_last_name">Last name</string>
+    <string name="text_sign_up">Do you have an account? If not, Sign Up</string>
 </resources>

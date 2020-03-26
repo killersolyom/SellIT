@@ -6,42 +6,34 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.sell.it.R;
-import com.sell.it.Utility.FragmentNavigation;
 import com.sell.it.Utility.GlideUtils;
 
-public class LoginFragment extends BaseFragment {
+public class RegistrationFragment extends BaseFragment {
 
+    private EditText mEmailField;
+    private EditText mFirstNameField;
+    private EditText mLastNameField;
     private EditText mUsernameField;
     private EditText mPasswordField;
     private Button mLoginButton;
     private ImageView mApplicationLogo;
-    private TextView mSignUpText;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_registration, container, false);
     }
 
     @Override
     protected void findView(View view) {
+        mEmailField = view.findViewById(R.id.user_email_field);
+        mFirstNameField = view.findViewById(R.id.user_first_name_field);
+        mLastNameField = view.findViewById(R.id.user_last_name_field);
         mUsernameField = view.findViewById(R.id.user_name_field);
         mPasswordField = view.findViewById(R.id.user_password_field);
         mLoginButton = view.findViewById(R.id.login_button);
         mApplicationLogo = view.findViewById(R.id.app_logo_image);
-        mSignUpText = view.findViewById(R.id.text_have_account);
-    }
-
-    @Override
-    protected void initListeners() {
-        mSignUpText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentNavigation.showRegistrationFragment();
-            }
-        });
     }
 
     @Override
