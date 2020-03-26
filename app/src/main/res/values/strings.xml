@@ -11,5 +11,8 @@
     <string name="menu_exit">Kilépés</string>
     <string name="menu_share">Megosztás</string>
     <string name="login_text">Login</string>
+    <string name="app_name_text">SellIt</string>
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
 
 </resources>

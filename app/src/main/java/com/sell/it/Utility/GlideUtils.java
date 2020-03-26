@@ -20,6 +20,11 @@ public class GlideUtils {
         Glide.with(mContext).load(id).fitCenter().into(imageView);
     }
 
+    public static void loadImage(String path, ImageView imageView) {
+        clearImage(imageView);
+        Glide.with(mContext).load(path).fitCenter().into(imageView);
+    }
+
     public static void loadBackgroundImage(int id, ImageView imageView) {
         clearImage(imageView);
         Glide.with(mContext).load(id).centerCrop().into(imageView);
