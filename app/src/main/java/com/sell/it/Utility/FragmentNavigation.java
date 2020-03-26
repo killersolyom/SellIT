@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.sell.it.Activity.MainActivity;
+import com.sell.it.Fragment.AdvertisementFragment;
 import com.sell.it.Fragment.LoginFragment;
 import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
@@ -22,6 +23,10 @@ public class FragmentNavigation {
 
     public static void showLoginFragment() {
         showFragment(new LoginFragment());
+    }
+
+    public static void showAdvertisementFragment() {
+        showFragment(new AdvertisementFragment());
     }
 
     private static void showSettingsFragment() {
