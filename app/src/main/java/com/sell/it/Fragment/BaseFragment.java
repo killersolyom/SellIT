@@ -40,4 +40,18 @@ public abstract class BaseFragment extends Fragment {
     protected void initListeners() {
     }
 
+    protected void clearImages() {
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        clearImages();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initComponents();
+    }
 }
