@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import com.sell.it.Activity.MainActivity;
 import com.sell.it.Fragment.AdvertisementFragment;
 import com.sell.it.Fragment.LoginFragment;
+import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
 import com.sell.it.R;
 
@@ -30,6 +31,10 @@ public class FragmentNavigation {
 
     private static void showSettingsFragment() {
         showFragment(new SettingsFragment());
+    }
+
+    public static void showRegistrationFragment() {
+        showFragment(new RegistrationFragment());
     }
 
     private static void showFragment(Fragment fragment) {
