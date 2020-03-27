@@ -36,21 +36,17 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void initListeners() {
-        mSignUpText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentNavigation.showRegistrationFragment();
-            }
-        });
+        mSignUpText.setOnClickListener(v -> FragmentNavigation.showRegistrationFragment());
     }
 
     @Override
-    protected void initComponents() {
-        GlideUtils.loadImage("https://picsum.photos/200", mApplicationLogo);
+    protected void loadImages() {
+        GlideUtils.loadImageWithoutCache("https://picsum.photos/200", mApplicationLogo);
     }
 
     @Override
     protected void clearImages() {
         GlideUtils.clearImage(mApplicationLogo);
     }
+
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 public abstract class BaseFragment extends Fragment {
 
+    public final String TAG = this.getClass().getCanonicalName();
     private View mFragmentView;
 
     public BaseFragment() {
@@ -35,9 +36,13 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract void findView(View view);
 
-    protected abstract void initComponents();
+    protected void initComponents() {
+    }
 
     protected void initListeners() {
+    }
+
+    protected void loadImages() {
     }
 
     protected void clearImages() {
@@ -52,6 +57,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initComponents();
+        loadImages();
     }
 }

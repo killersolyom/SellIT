@@ -8,7 +8,9 @@ public class DataManager {
     private static SharedPreferences mPreference;
 
     public static void initialize(Context context) {
-        mPreference = context.getSharedPreferences(context.getApplicationContext().getPackageName(), 0);
+        if (mPreference == null) {
+            mPreference = context.getSharedPreferences(context.getApplicationContext().getPackageName(), 0);
+        }
     }
 
     private static void writeLongData(long number, String key) {

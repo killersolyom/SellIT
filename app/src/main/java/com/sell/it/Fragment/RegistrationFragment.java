@@ -38,7 +38,12 @@ public class RegistrationFragment extends BaseFragment {
 
     @Override
     protected void initComponents() {
-        GlideUtils.loadImage("https://picsum.photos/200", mApplicationLogo);
+
+    }
+
+    @Override
+    protected void loadImages() {
+        GlideUtils.loadImageWithoutCache("https://picsum.photos/200", mApplicationLogo);
     }
 
     @Override

@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.sell.it.Activity.MainActivity;
 import com.sell.it.Fragment.AdvertisementFragment;
+import com.sell.it.Fragment.BaseFragment;
 import com.sell.it.Fragment.LoginFragment;
 import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
@@ -18,7 +19,9 @@ public class FragmentNavigation {
     private static FragmentManager mFragmentManager;
 
     public static void initComponents(MainActivity activity) {
-        mFragmentManager = activity.getSupportFragmentManager();
+        if (mFragmentManager == null || mFragmentManager.isDestroyed()) {
+            mFragmentManager = activity.getSupportFragmentManager();
+        }
     }
 
     public static void showLoginFragment() {
@@ -37,31 +40,26 @@ public class FragmentNavigation {
         showFragment(new RegistrationFragment());
     }
 
-    private static void showFragment(Fragment fragment) {
+    private static void showFragment(BaseFragment fragment) {
         (mFragmentManager.beginTransaction())
-                .replace(R.id.fragment_container, fragment, fragment.getClass().getCanonicalName())
-                .addToBackStack(fragment.getTag())
+                .replace(R.id.fragment_container, fragment, fragment.TAG)
+                .addToBackStack(fragment.TAG)
                 .commit();
     }
 
-    private static void clearBackStack() {
-        for (int i = 1; i < mFragmentManager.getBackStackEntryCount(); ++i) {
+    private static void clearBackStack(boolean clearAll) {
+        for (int i = clearAll ? 0 : 1; i < mFragmentManager.getBackStackEntryCount(); ++i) {
             mFragmentManager.popBackStack();
         }
     }
 
-    private static void clearAllBackStack() {
-        for (int i = 0; i < mFragmentManager.getBackStackEntryCount(); ++i) {
-            mFragmentManager.popBackStack();
-        }
-    }
 
     private static Fragment getTopFragment() {
-        return mFragmentManager.getFragments().get(mFragmentManager.getFragments().size() - 1);
+        return mFragmentManager.getFragments().stream().findFirst().get();
     }
 
     private static void exit() {
-        clearAllBackStack();
+        clearBackStack(true);
         System.exit(0);
     }
 
@@ -72,11 +70,10 @@ public class FragmentNavigation {
     public static void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {
         switch (menuItem.getItemId()) {
             case R.id.nav_sounds:
-                clearBackStack();
+                clearBackStack(false);
                 drawerLayout.closeDrawers();
                 break;
             case R.id.nav_settings:
-                clearBackStack();
                 showSettingsFragment();
                 drawerLayout.closeDrawers();
                 break;
