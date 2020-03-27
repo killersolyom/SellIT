@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sell.it.Adapter.AdvertisementAdapter;
+import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.R;
 
 public class AdvertisementFragment extends BaseFragment {
 
     private RecyclerView recycle;
     private GridLayoutManager layoutManager;
-    private AdvertisementAdapter advertisementAdapter;
+    private ItemAdapter advertisementAdapter;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
@@ -30,7 +30,7 @@ public class AdvertisementFragment extends BaseFragment {
     protected void initComponents() {
         layoutManager = new GridLayoutManager(this.getContext(), 2);
         recycle.setLayoutManager(layoutManager);
-        advertisementAdapter = new AdvertisementAdapter();
+        advertisementAdapter = new ItemAdapter();
         recycle.setAdapter(advertisementAdapter);
     }
 
