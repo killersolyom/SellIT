@@ -24,4 +24,6 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public abstract void bindItem(BaseItem item);
+
+    public abstract void onItemClicked(BaseItem item);
 }

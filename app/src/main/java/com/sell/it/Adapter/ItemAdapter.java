@@ -22,7 +22,6 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        holder.setClickListener(v -> onItemClicked(position));
         holder.bindItem(mItemList.get(position));
     }
 
@@ -45,9 +44,6 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mItemList.addAll(itemList);
     }
 
-    private void onItemClicked(int position) {
-
-    }
 }
 
 
