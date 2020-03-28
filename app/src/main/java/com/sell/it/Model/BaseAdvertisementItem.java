@@ -1,5 +1,7 @@
 package com.sell.it.Model;
 
+import com.sell.it.Adapter.ItemType;
+
 public class BaseAdvertisementItem extends BaseItem {
 
     private String mTitle;

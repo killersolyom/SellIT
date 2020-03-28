@@ -1,4 +1,4 @@
-package com.sell.it.Model;
+package com.sell.it.Adapter;
 
 public class ItemType {
 

@@ -6,9 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sell.it.Model.BaseItem;
-
-public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder<GenericItem> extends RecyclerView.ViewHolder {
 
     ViewGroup mItemLayout;
 
@@ -19,11 +17,7 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
         findView(itemView);
     }
 
-    public void setClickListener(View.OnClickListener clickListener) {
-        mItemLayout.setOnClickListener(clickListener);
-    }
+    public abstract void bindItem(GenericItem item);
 
-    public abstract void bindItem(BaseItem item);
-
-    public abstract void onItemClicked(BaseItem item);
+    protected abstract void onItemClicked(GenericItem item);
 }

@@ -6,26 +6,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.sell.it.Model.BaseAdvertisementItem;
-import com.sell.it.Model.BaseItem;
 import com.sell.it.R;
 
-public class AdvertisementViewHolder extends BaseViewHolder {
+public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementItem> {
 
-    public TextView mTitleText;
+    private TextView mTitleText;
 
     public AdvertisementViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
     @Override
-    public void bindItem(BaseItem item) {
-        BaseAdvertisementItem advertisementItem = ((BaseAdvertisementItem) item);
+    public void bindItem(BaseAdvertisementItem advertisementItem) {
         mItemLayout.setOnClickListener(v -> onItemClicked(advertisementItem));
         mTitleText.setText(advertisementItem.getTitle());
     }
 
     @Override
-    public void onItemClicked(BaseItem item) {
+    protected void onItemClicked(BaseAdvertisementItem item) {
 
     }
 
