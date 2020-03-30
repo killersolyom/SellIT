@@ -5,28 +5,30 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.sell.it.Model.BaseDefaultItem;
 import com.sell.it.R;
 
-public class DefaultViewHolder extends BaseViewHolder {
+public class DefaultViewHolder extends BaseViewHolder<BaseDefaultItem> {
 
-    private TextView mInformationText;
+    private TextView mMessageText;
 
     public DefaultViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
     @Override
+    public void bindItem(BaseDefaultItem baseDefaultItem) {
+        mMessageText.setText(baseDefaultItem.getMessage());
+    }
+
+    @Override
+    protected void onItemClicked(BaseDefaultItem baseDefaultItem) {
+
+    }
+
+    @Override
     protected void findView(View itemView) {
-        mInformationText = itemView.findViewById(R.id.default_information_text);
+        mMessageText = itemView.findViewById(R.id.default_information_text);
     }
 
-    @Override
-    public void bindItem(Object o) {
-
-    }
-
-    @Override
-    protected void onItemClicked(Object o) {
-
-    }
 }
