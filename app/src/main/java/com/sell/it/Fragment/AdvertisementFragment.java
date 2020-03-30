@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.R;
 
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+
 public class AdvertisementFragment extends BaseFragment {
 
     private RecyclerView recycle;
     private GridLayoutManager layoutManager;
     private ItemAdapter advertisementAdapter;
+    private final int mPortraitColumnNumber = 2;
+    private final int mLandscapeColumnNumber = 3;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
@@ -34,4 +38,9 @@ public class AdvertisementFragment extends BaseFragment {
         recycle.setAdapter(advertisementAdapter);
     }
 
+    @Override
+    protected void handleRotationEvent(int orientation) {
+        layoutManager.setSpanCount((orientation == ORIENTATION_PORTRAIT) ?
+                mPortraitColumnNumber : mLandscapeColumnNumber);
+    }
 }
