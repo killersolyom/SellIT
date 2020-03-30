@@ -8,9 +8,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sell.it.R;
 import com.sell.it.Utility.FragmentNavigation;
-import com.sell.it.Utility.GlideUtils;
 
 public class LoginFragment extends BaseFragment {
 
@@ -41,12 +41,12 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void loadImages() {
-        GlideUtils.loadImageWithoutCache("https://picsum.photos/200", mApplicationLogo);
+        Glide.with(mFragmentView).load("https://picsum.photos/200").into(mApplicationLogo);
     }
 
     @Override
     protected void clearImages() {
-        GlideUtils.clearImage(mApplicationLogo);
+        Glide.with(mFragmentView).clear(mApplicationLogo);
     }
 
 }

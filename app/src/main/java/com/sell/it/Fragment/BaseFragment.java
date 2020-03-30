@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 public abstract class BaseFragment extends Fragment {
 
     public final String TAG = this.getClass().getCanonicalName();
-    private View mFragmentView;
+    protected View mFragmentView;
 
     public BaseFragment() {
     }
@@ -51,12 +51,17 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        clearImages();
+        if (mFragmentView != null) {
+            clearImages();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadImages();
+        if (mFragmentView != null) {
+            loadImages();
+        }
     }
+
 }

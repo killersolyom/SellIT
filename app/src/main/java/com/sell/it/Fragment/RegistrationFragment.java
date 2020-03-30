@@ -7,8 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.sell.it.R;
-import com.sell.it.Utility.GlideUtils;
 
 public class RegistrationFragment extends BaseFragment {
 
@@ -43,11 +43,11 @@ public class RegistrationFragment extends BaseFragment {
 
     @Override
     protected void loadImages() {
-        GlideUtils.loadImageWithoutCache("https://picsum.photos/200", mApplicationLogo);
+        Glide.with(mFragmentView).load("https://picsum.photos/200").into(mApplicationLogo);
     }
 
     @Override
     protected void clearImages() {
-        GlideUtils.clearImage(mApplicationLogo);
+        Glide.with(mFragmentView).clear(mApplicationLogo);
     }
 }

@@ -6,7 +6,6 @@ public class UtilityManager {
 
     public static void initUtilities(MainActivity activity) {
         FragmentNavigation.initComponents(activity);
-        GlideUtils.initialize(activity.getApplicationContext());
         DataManager.initialize(activity.getApplicationContext());
     }
 }

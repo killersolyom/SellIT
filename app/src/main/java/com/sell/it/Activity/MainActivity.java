@@ -9,10 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.sell.it.R;
 import com.sell.it.Utility.FragmentNavigation;
-import com.sell.it.Utility.GlideUtils;
 import com.sell.it.Utility.UtilityManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,14 +59,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onPause() {
         super.onPause();
-        GlideUtils.clearImage(mDrawerHeaderImage);
+        Glide.with(getApplicationContext()).clear(mDrawerHeaderImage);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mNavigationView.setNavigationItemSelectedListener(this);
-        GlideUtils.loadBackgroundImage(R.drawable.warning_image, mDrawerHeaderImage);
+        Glide.with(getApplicationContext()).load(R.drawable.warning_image).into(mDrawerHeaderImage);
     }
 
 }
