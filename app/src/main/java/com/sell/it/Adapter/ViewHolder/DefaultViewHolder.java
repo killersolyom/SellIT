@@ -14,7 +14,7 @@ public class DefaultViewHolder extends BaseViewHolder<BaseDefaultItem> {
     }
 
     @Override
-    public void bindItem(BaseDefaultItem baseDefaultItem) {
+    public void bindItem(BaseDefaultItem baseDefaultItem, int orientation) {
         //Nothing to do here, if we are here that means something went wrong :(
     }
 

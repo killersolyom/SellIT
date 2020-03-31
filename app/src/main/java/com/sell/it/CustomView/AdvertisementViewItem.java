@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sell.it.R;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+
 public class AdvertisementViewItem extends ConstraintLayout {
 
     private ImageView mAdvertisementImage;
@@ -33,4 +35,12 @@ public class AdvertisementViewItem extends ConstraintLayout {
         mAdvertisementTitle.setText(title);
     }
 
+    public void calculatePreferredSize(int orientation) {
+        if (ORIENTATION_LANDSCAPE == orientation) {
+            //this.setMaxWidth(600);
+           // this.setMinWidth(600);
+        } else {
+
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.sell.it.Adapter;
 
+import android.content.Context;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,16 +14,18 @@ import java.util.ArrayList;
 public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private ArrayList<BaseItem> mItemList = new ArrayList<>();
+    private Context mContext;
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        mContext = parent.getContext();
         return LayoutSelector.getLayoutForItem(parent, viewType);
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        holder.bindItem(mItemList.get(position));
+        holder.bindItem(mItemList.get(position),getOrientation());
     }
 
     @Override
@@ -33,6 +36,10 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemCount() {
         return mItemList.size();
+    }
+
+    private int getOrientation() {
+        return mContext.getResources().getConfiguration().orientation;
     }
 
     public void addItem(BaseItem item) {
