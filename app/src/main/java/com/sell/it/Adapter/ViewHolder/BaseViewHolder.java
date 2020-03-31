@@ -17,7 +17,7 @@ public abstract class BaseViewHolder<GenericItem> extends RecyclerView.ViewHolde
         findView(itemView);
     }
 
-    public abstract void bindItem(GenericItem item, int orientation);
+    public abstract void bindItem(GenericItem item);
 
     protected abstract void onItemClicked(GenericItem item);
 }

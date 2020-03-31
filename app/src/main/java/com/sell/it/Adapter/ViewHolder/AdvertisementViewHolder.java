@@ -17,10 +17,9 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     }
 
     @Override
-    public void bindItem(BaseAdvertisementItem advertisementItem, int orientation) {
+    public void bindItem(BaseAdvertisementItem advertisementItem) {
         mItemLayout.setOnClickListener(v -> onItemClicked(advertisementItem));
         mAdvertisement.setTitle(advertisementItem.getTitle());
-        mAdvertisement.calculatePreferredSize(orientation);
     }
 
     @Override
