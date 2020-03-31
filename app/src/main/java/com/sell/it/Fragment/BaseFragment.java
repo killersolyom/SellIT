@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 public abstract class BaseFragment extends Fragment {
 
     public final String TAG = this.getClass().getCanonicalName();
-    private View mFragmentView;
+    protected View mFragmentView;
 
     public BaseFragment() {
     }
@@ -48,15 +48,28 @@ public abstract class BaseFragment extends Fragment {
     protected void clearImages() {
     }
 
+    protected void handleRotationEvent() {
+    }
+
+    protected int getOrientation() {
+        return getResources().getConfiguration().orientation;
+    }
+
     @Override
     public void onPause() {
         super.onPause();
-        clearImages();
+        if (mFragmentView != null) {
+            clearImages();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadImages();
+        handleRotationEvent();
+        if (mFragmentView != null) {
+            loadImages();
+        }
     }
+
 }

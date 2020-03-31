@@ -8,16 +8,17 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
-import com.sell.it.Model.BaseAdvertisementItem;
-import com.sell.it.Model.BaseItem;
-import com.sell.it.Model.FakeItem;
 import com.sell.it.R;
+
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class AdvertisementFragment extends BaseFragment {
 
-    private RecyclerView mRecycle;
+    private RecyclerView mRecyclerView;
     private GridLayoutManager mLayoutManager;
     private ItemAdapter mAdvertisementAdapter;
+    private final int mPortraitColumnNumber = 2;
+    private final int mLandscapeColumnNumber = 3;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
@@ -26,22 +27,23 @@ public class AdvertisementFragment extends BaseFragment {
 
     @Override
     protected void findView(View view) {
-        mRecycle = view.findViewById(R.id.advertisement_recycler_view);
+        mRecyclerView = view.findViewById(R.id.advertisement_recycler_view);
     }
 
     @Override
     protected void initComponents() {
-        mLayoutManager = new GridLayoutManager(this.getContext(), 2);
-        mRecycle.setLayoutManager(mLayoutManager);
+        mLayoutManager = new GridLayoutManager(this.getContext(), getColumnNumberByOrientation());
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mAdvertisementAdapter = new ItemAdapter();
-        mRecycle.setAdapter(mAdvertisementAdapter);
-        BaseAdvertisementItem advItem = new BaseAdvertisementItem();
-        advItem.setTitle("Ez egy adv");
-        FakeItem fakeItem = new FakeItem();
-        fakeItem.setTitle("Ez nem egy adv, ez hiba.");
-        mAdvertisementAdapter.addItem(advItem);
-        mAdvertisementAdapter.addItem(fakeItem);
-
+        mRecyclerView.setAdapter(mAdvertisementAdapter);
     }
 
+    @Override
+    protected void handleRotationEvent() {
+        mLayoutManager.setSpanCount(getColumnNumberByOrientation());
+    }
+
+    private int getColumnNumberByOrientation() {
+        return getOrientation() == ORIENTATION_PORTRAIT ? mPortraitColumnNumber : mLandscapeColumnNumber;
+    }
 }

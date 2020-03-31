@@ -23,16 +23,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/app_logo_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_title_text" />
 
     <EditText
         android:id="@+id/user_email_field"
@@ -44,7 +34,7 @@
         android:hint="@string/user_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_logo_image" />
+        app:layout_constraintTop_toBottomOf="@id/app_title_text" />
 
     <EditText
         android:id="@+id/user_first_name_field"

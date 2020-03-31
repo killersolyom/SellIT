@@ -37,6 +37,7 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public void addItem(BaseItem item) {
         mItemList.add(item);
+        notifyItemInserted(mItemList.indexOf(item));
     }
 
     public void addItemList(ArrayList<BaseItem> itemList) {

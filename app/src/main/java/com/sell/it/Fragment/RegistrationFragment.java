@@ -18,7 +18,6 @@ public class RegistrationFragment extends BaseFragment {
     private EditText mUsernameField;
     private EditText mPasswordField;
     private Button mLoginButton;
-    private ImageView mApplicationLogo;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
@@ -33,7 +32,6 @@ public class RegistrationFragment extends BaseFragment {
         mUsernameField = view.findViewById(R.id.user_name_field);
         mPasswordField = view.findViewById(R.id.user_password_field);
         mLoginButton = view.findViewById(R.id.login_button);
-        mApplicationLogo = view.findViewById(R.id.app_logo_image);
     }
 
     @Override
@@ -43,11 +41,10 @@ public class RegistrationFragment extends BaseFragment {
 
     @Override
     protected void loadImages() {
-        GlideUtils.loadImageWithoutCache("https://picsum.photos/200", mApplicationLogo);
     }
 
     @Override
     protected void clearImages() {
-        GlideUtils.clearImage(mApplicationLogo);
+
     }
 }

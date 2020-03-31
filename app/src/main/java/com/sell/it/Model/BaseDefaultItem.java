@@ -1,21 +1,14 @@
 package com.sell.it.Model;
 
-import com.sell.it.Adapter.ItemType;
+import com.sell.it.Model.Constant.Values;
 
 public class BaseDefaultItem extends BaseItem {
 
-    private String mMessage;
-
-    public BaseDefaultItem(){}
-
-    public String getMessage(){ return mMessage;}
-
-    public void setMessage(String mMessage){
-        this.mMessage = mMessage;
+    public BaseDefaultItem() {
     }
 
     @Override
     public int getItemType() {
-        return ItemType.BASE_DEFAULT_TYPE;
+        return Values.ItemType.BASE_DEFAULT_TYPE;
     }
 }

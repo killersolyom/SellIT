@@ -86,10 +86,15 @@ public class FragmentNavigation {
     }
 
     public static void onBackPressed() {
-        if (getTopFragment() instanceof LoginFragment) {
+        if (shouldExit()) {
             exit();
         } else {
             popBackStack();
         }
+    }
+
+    private static boolean shouldExit() {
+        return (getTopFragment() instanceof LoginFragment ||
+                mFragmentManager.getBackStackEntryCount() == 1);
     }
 }
