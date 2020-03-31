@@ -1,8 +1,8 @@
 package com.sell.it.Model;
 
-import com.sell.it.Adapter.ItemType;
+import com.sell.it.Model.Constant.Values;
 
-public class BaseAdvertisementItem extends BaseItem {
+public class BaseAdvertisementItem extends BaseDefaultItem {
 
     private String mTitle;
 
@@ -19,6 +19,6 @@ public class BaseAdvertisementItem extends BaseItem {
 
     @Override
     public int getItemType() {
-        return ItemType.BASE_ADVERTISEMENT_TYPE;
+        return Values.ItemType.BASE_ADVERTISEMENT_TYPE;
     }
 }

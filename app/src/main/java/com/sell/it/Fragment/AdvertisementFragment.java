@@ -14,9 +14,9 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class AdvertisementFragment extends BaseFragment {
 
-    private RecyclerView recycle;
-    private GridLayoutManager layoutManager;
-    private ItemAdapter advertisementAdapter;
+    private RecyclerView mRecyclerView;
+    private GridLayoutManager mLayoutManager;
+    private ItemAdapter mAdvertisementAdapter;
     private final int mPortraitColumnNumber = 2;
     private final int mLandscapeColumnNumber = 3;
 
@@ -27,20 +27,23 @@ public class AdvertisementFragment extends BaseFragment {
 
     @Override
     protected void findView(View view) {
-        recycle = view.findViewById(R.id.advertisement_recycler_view);
+        mRecyclerView = view.findViewById(R.id.advertisement_recycler_view);
     }
 
     @Override
     protected void initComponents() {
-        layoutManager = new GridLayoutManager(this.getContext(), 2);
-        recycle.setLayoutManager(layoutManager);
-        advertisementAdapter = new ItemAdapter();
-        recycle.setAdapter(advertisementAdapter);
+        mLayoutManager = new GridLayoutManager(this.getContext(), getColumnNumberByOrientation());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdvertisementAdapter = new ItemAdapter();
+        mRecyclerView.setAdapter(mAdvertisementAdapter);
     }
 
     @Override
-    protected void handleRotationEvent(int orientation) {
-        layoutManager.setSpanCount((orientation == ORIENTATION_PORTRAIT) ?
-                mPortraitColumnNumber : mLandscapeColumnNumber);
+    protected void handleRotationEvent() {
+        mLayoutManager.setSpanCount(getColumnNumberByOrientation());
+    }
+
+    private int getColumnNumberByOrientation() {
+        return getOrientation() == ORIENTATION_PORTRAIT ? mPortraitColumnNumber : mLandscapeColumnNumber;
     }
 }
