@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sell.it.R;
 
 public class AdvertisementViewItem extends ConstraintLayout {
@@ -21,7 +22,11 @@ public class AdvertisementViewItem extends ConstraintLayout {
         LayoutInflater.from(context).inflate(R.layout.advertisement_component_layout, this);
         mAdvertisementImage = findViewById(R.id.advertisement_image);
         mAdvertisementTitle = findViewById(R.id.advertisement_title);
-        Glide.with(context).load("https://picsum.photos/200").into(mAdvertisementImage);
+        Glide.with(context)
+                .load("https://picsum.photos/200")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(mAdvertisementImage);
     }
 
     public void setTitle(String title) {

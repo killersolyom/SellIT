@@ -48,7 +48,11 @@ public abstract class BaseFragment extends Fragment {
     protected void clearImages() {
     }
 
-    protected void handleRotationEvent(int orientation) {
+    protected void handleRotationEvent() {
+    }
+
+    protected int getOrientation() {
+        return getResources().getConfiguration().orientation;
     }
 
     @Override
@@ -62,7 +66,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        handleRotationEvent(this.getResources().getConfiguration().orientation);
+        handleRotationEvent();
         if (mFragmentView != null) {
             loadImages();
         }

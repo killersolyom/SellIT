@@ -1,32 +1,29 @@
 package com.sell.it.Adapter.ViewHolder;
 
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.sell.it.R;
+import com.sell.it.Model.BaseDefaultItem;
 
-public class DefaultViewHolder extends BaseViewHolder {
+public class DefaultViewHolder extends BaseViewHolder<BaseDefaultItem> {
 
-    private TextView mInformationText;
 
     public DefaultViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
     @Override
+    public void bindItem(BaseDefaultItem baseDefaultItem) {
+        //Nothing to do here, if we are here that means something went wrong :(
+    }
+
+    @Override
+    protected void onItemClicked(BaseDefaultItem baseDefaultItem) {
+    }
+
+    @Override
     protected void findView(View itemView) {
-        mInformationText = itemView.findViewById(R.id.default_information_text);
     }
 
-    @Override
-    public void bindItem(Object o) {
-
-    }
-
-    @Override
-    protected void onItemClicked(Object o) {
-
-    }
 }
