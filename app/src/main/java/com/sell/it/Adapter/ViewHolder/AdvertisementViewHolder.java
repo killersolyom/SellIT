@@ -18,12 +18,14 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
 
     @Override
     public void bindItem(BaseAdvertisementItem advertisementItem) {
-        mItemLayout.setOnClickListener(v -> onItemClicked(advertisementItem));
+        mAdvertisement.setOnClickListener(v -> onItemClicked(advertisementItem));
         mAdvertisement.setTitle(advertisementItem.getTitle());
+        mAdvertisement.loadImage("https://picsum.photos/600");
+        mAdvertisement.bindItem(advertisementItem);
     }
 
     @Override
-    protected void onItemClicked(BaseAdvertisementItem item) {
+    protected void onItemClicked(BaseAdvertisementItem advertisementItem) {
 
     }
 
@@ -31,6 +33,11 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     protected void findView(View itemView) {
         mItemLayout = itemView.findViewById(R.id.recycler_view_item);
         mAdvertisement = itemView.findViewById(R.id.advertisement_item);
+    }
+
+    @Override
+    public void unBindItem() {
+        mAdvertisement.unbind();
     }
 
 }

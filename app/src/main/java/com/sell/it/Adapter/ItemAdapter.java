@@ -26,6 +26,12 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     @Override
+    public void onViewRecycled(@NonNull BaseViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.unBindItem();
+    }
+
+    @Override
     public int getItemViewType(int position) {
         return mItemList.get(position).getItemType();
     }
@@ -43,6 +49,10 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void addItemList(ArrayList<BaseItem> itemList) {
         mItemList.clear();
         mItemList.addAll(itemList);
+    }
+
+    public void clearItems() {
+        mItemList.clear();
     }
 
 }
