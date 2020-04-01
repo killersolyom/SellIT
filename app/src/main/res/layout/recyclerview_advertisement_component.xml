@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recycler_view_item"
-    android:stateListAnimator="@drawable/item_animator"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,7 +9,8 @@
         android:id="@+id/advertisement_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="@dimen/advertisement_item_padding"
+        android:stateListAnimator="@drawable/item_animator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

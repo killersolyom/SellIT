@@ -19,7 +19,7 @@
         android:id="@+id/advertisement_title"
         android:layout_width="match_parent"
         android:layout_height="18dp"
-        android:background="@color/advertisementTitleBackground"
+        android:background="@drawable/header_gradient"
         android:ellipsize="end"
         android:gravity="center|start"
         android:paddingStart="3dp"
@@ -33,7 +33,7 @@
         android:id="@+id/advertisement_extra_info_view"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@color/advertisementInfoBackground"
+        android:background="@drawable/footer_gradient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

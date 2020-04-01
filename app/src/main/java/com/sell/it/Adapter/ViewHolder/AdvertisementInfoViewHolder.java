@@ -26,4 +26,8 @@ public class AdvertisementInfoViewHolder extends BaseViewHolder<AdvertisementInf
         mInfoTextView = itemView.findViewById(R.id.info_text_view);
     }
 
+    @Override
+    public void unBindItem() {
+        mInfoTextView.setText(null);
+    }
 }
