@@ -10,14 +10,17 @@ public abstract class BaseViewHolder<GenericItem> extends RecyclerView.ViewHolde
 
     ViewGroup mItemLayout;
 
-    protected abstract void findView(View itemView);
-
     BaseViewHolder(@NonNull View itemView) {
         super(itemView);
         findView(itemView);
     }
 
-    public abstract void bindItem(GenericItem item);
+    protected void findView(View itemView) {
+    }
 
-    protected abstract void onItemClicked(GenericItem item);
+    public void bindItem(GenericItem genericItem) {
+    }
+
+    protected void onItemClicked(GenericItem genericItem) {
+    }
 }
