@@ -69,15 +69,13 @@ public class FragmentNavigation {
 
     public static void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {
         switch (menuItem.getItemId()) {
-            case R.id.nav_sounds:
+            case R.id.home:
                 clearBackStack(false);
                 drawerLayout.closeDrawers();
                 break;
             case R.id.nav_settings:
                 showSettingsFragment();
                 drawerLayout.closeDrawers();
-                break;
-            case R.id.nav_share:
                 break;
             case R.id.nav_exit:
                 exit();
