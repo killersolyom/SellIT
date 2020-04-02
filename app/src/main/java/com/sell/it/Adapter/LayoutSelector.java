@@ -7,6 +7,7 @@ import com.sell.it.Adapter.ViewHolder.AdvertisementInfoViewHolder;
 import com.sell.it.Adapter.ViewHolder.AdvertisementViewHolder;
 import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
 import com.sell.it.Adapter.ViewHolder.DefaultViewHolder;
+import com.sell.it.Adapter.ViewHolder.LanguageItemViewHolder;
 import com.sell.it.Adapter.ViewHolder.TextSeparatorViewHolder;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
@@ -21,6 +22,8 @@ class LayoutSelector {
                 return new AdvertisementInfoViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_advertisement_info_component, parent, false));
             case Values.ItemType.SEPARATOR_ITEM_TYPE:
                 return new TextSeparatorViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_separator_component, parent, false));
+            case Values.ItemType.LANGUAGE_ITEM_TYPE:
+                return new LanguageItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_language_component, parent, false));
             default:
                 return new DefaultViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.default_viewholder, parent, false));
         }

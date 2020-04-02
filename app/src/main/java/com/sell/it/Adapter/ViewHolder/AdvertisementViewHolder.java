@@ -5,7 +5,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.sell.it.CustomView.AdvertisementViewItem;
-import com.sell.it.Model.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
 
 public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementItem> {

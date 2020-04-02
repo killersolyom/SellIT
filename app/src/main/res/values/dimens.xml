@@ -7,4 +7,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="advertisement_item_padding">5dp</dimen>
     <dimen name="advertisement_item_inner_padding">0.5dp</dimen>
+    <dimen name="default_button_height">45dp</dimen>
+    <dimen name="default_button_margin">60dp</dimen>
 </resources>

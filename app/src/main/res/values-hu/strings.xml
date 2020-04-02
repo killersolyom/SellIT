@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SellIT</string>
+    <string name="menu_home">Otthon</string>
+    <string name="menu_settings">Beállitások</string>
+    <string name="menu_exit">Kilépés</string>
+    <string name="login_text">Bejelentkezés</string>
+    <string name="register_text">Regisztráció</string>
+    <string name="app_name_text">SellIt</string>
+    <string name="user_name">Felhasználónév</string>
+    <string name="user_email">Email cím</string>
+    <string name="password">Jelszó</string>
+    <string name="user_first_name">Keresztnév</string>
+    <string name="user_last_name">Családnév</string>
+    <string name="text_sign_up">Még nem regisztrált? tegye meg most!</string>
+    <string name="language">Nyelv</string>
+    <string name="english_language">English</string>
+    <string name="hungarian_language">Magyar</string>
+</resources>

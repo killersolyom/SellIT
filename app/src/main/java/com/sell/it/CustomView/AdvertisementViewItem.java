@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sell.it.Adapter.ItemAdapter;
-import com.sell.it.Model.AdvertisementInfoItem;
-import com.sell.it.Model.BaseAdvertisementItem;
-import com.sell.it.Model.TextSeparatorItem;
+import com.sell.it.Model.ViewHolderItem.AdvertisementInfoItem;
+import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.TextSeparatorItem;
 import com.sell.it.R;
+
+import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
@@ -38,7 +40,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         mAdvertisementImage = findViewById(R.id.advertisement_image);
         mAdvertisementTitle = findViewById(R.id.advertisement_title);
         mAdvertisementInfoView = findViewById(R.id.advertisement_extra_info_view);
-        mAdvertisementInfoView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        mAdvertisementInfoView.setLayoutManager(new LinearLayoutManager(getContext(), HORIZONTAL, false));
         mInfoAdapter = new ItemAdapter();
         mAdvertisementInfoView.setAdapter(mInfoAdapter);
     }
