@@ -4,7 +4,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.sell.it.Model.TextSeparatorItem;
+import com.sell.it.Model.ViewHolderItem.TextSeparatorItem;
 
 public class TextSeparatorViewHolder extends BaseViewHolder<TextSeparatorItem> {
 

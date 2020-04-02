@@ -13,4 +13,7 @@
     <string name="user_first_name">Keresztnév</string>
     <string name="user_last_name">Családnév</string>
     <string name="text_sign_up">Még nem regisztrált? tegye meg most!</string>
+    <string name="language">Nyelv</string>
+    <string name="english_language">English</string>
+    <string name="hungarian_language">Magyar</string>
 </resources>

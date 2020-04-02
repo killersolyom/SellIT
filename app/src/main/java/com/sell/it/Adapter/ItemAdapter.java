@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
-import com.sell.it.Model.BaseItem;
+import com.sell.it.Model.ViewHolderItem.BaseItem;
 
 import java.util.ArrayList;
 

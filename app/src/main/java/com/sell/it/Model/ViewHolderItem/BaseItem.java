@@ -1,4 +1,4 @@
-package com.sell.it.Model;
+package com.sell.it.Model.ViewHolderItem;
 
 public abstract class BaseItem {
 

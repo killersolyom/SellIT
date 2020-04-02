@@ -1,4 +1,4 @@
-package com.sell.it.Model;
+package com.sell.it.Model.ViewHolderItem;
 
 import com.sell.it.Model.Constant.Values;
 
