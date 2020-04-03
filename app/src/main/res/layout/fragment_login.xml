@@ -72,9 +72,10 @@
 
     <TextView
         android:id="@+id/text_have_account"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_button_margin"
+        android:maxLines="2"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/default_button_margin"
         android:text="@string/text_sign_up"
@@ -82,5 +83,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
+
+    <TextView
+        android:id="@+id/guest_user_text"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/default_button_margin"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="@dimen/default_button_margin"
+        android:gravity="start"
+        android:text="@string/text_guest_user"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_have_account" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

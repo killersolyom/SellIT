@@ -25,9 +25,9 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
-        app:itemTextColor="@color/colorWhite"
+        app:itemTextColor="@color/colorRed"
         app:itemIconTint="@color/colorRed"
-        android:background="@color/colorTransparentBlack"
+        android:background="@color/colorTransparentWhite"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

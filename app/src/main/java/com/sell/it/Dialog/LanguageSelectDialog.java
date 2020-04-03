@@ -16,12 +16,22 @@ import static androidx.recyclerview.widget.LinearLayoutManager.VERTICAL;
 
 public class LanguageSelectDialog {
 
-    public LanguageSelectDialog(Context context) {
-        showDialog(context);
+    private static Dialog dialog;
+
+    public static void showDialog(Context context) {
+        initDialog(context);
+        dialog.show();
     }
 
-    private void showDialog(Context context) {
-        Dialog dialog = new Dialog(context);
+    public static void dismissDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
+    }
+
+    private static void initDialog(Context context) {
+        dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.language_selector_dialog_layout);
@@ -30,10 +40,9 @@ public class LanguageSelectDialog {
         ItemAdapter languageAdapter = new ItemAdapter();
         fillLanguageAdapter(languageAdapter, context);
         languageView.setAdapter(languageAdapter);
-        dialog.show();
     }
 
-    private void fillLanguageAdapter(ItemAdapter languageAdapter, Context context) {
+    private static void fillLanguageAdapter(ItemAdapter languageAdapter, Context context) {
         languageAdapter.addItem(
                 new LanguageItem(Values.Language.LANGUAGE_KEY_ENGLISH,
                         context.getString(R.string.english_language),

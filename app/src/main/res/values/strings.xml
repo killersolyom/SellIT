@@ -12,7 +12,11 @@
     <string name="user_first_name">First name</string>
     <string name="user_last_name">Last name</string>
     <string name="text_sign_up">Do you have an account? If not, Sign Up</string>
+    <string name="text_guest_user">Login as guest</string>
     <string name="language">Language</string>
     <string name="english_language">English</string>
     <string name="hungarian_language">Magyar</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="restart_needed">In order to change the application language, it needs to be restarted. Do you agree? </string>
 </resources>

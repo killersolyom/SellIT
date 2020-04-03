@@ -12,8 +12,12 @@
     <string name="password">Jelszó</string>
     <string name="user_first_name">Keresztnév</string>
     <string name="user_last_name">Családnév</string>
-    <string name="text_sign_up">Még nem regisztrált? tegye meg most!</string>
+    <string name="text_sign_up">Még nem regisztrált? Tegye meg most!</string>
+    <string name="text_guest_user">Belépés vendégként</string>
     <string name="language">Nyelv</string>
     <string name="english_language">English</string>
     <string name="hungarian_language">Magyar</string>
+    <string name="yes">Igen</string>
+    <string name="no">Nem</string>
+    <string name="restart_needed">A nyelvváltáshoz újra kell índítani az alkalmazást. Engedélyezi ezt?</string>
 </resources>

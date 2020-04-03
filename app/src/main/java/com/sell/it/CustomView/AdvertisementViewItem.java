@@ -18,6 +18,7 @@ import com.sell.it.Model.ViewHolderItem.TextSeparatorItem;
 import com.sell.it.R;
 
 import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
@@ -58,7 +59,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         mAdvertisementTitle.setText(title);
         //TODO Dummy data generator, remove it
         for (int i = 0; i < 5; i++) {
-            mInfoAdapter.addItem(new AdvertisementInfoItem(i + "Data"));
+            mInfoAdapter.addItem(new AdvertisementInfoItem("Data " + i));
             mInfoAdapter.addItem(new TextSeparatorItem());
         }
     }
@@ -66,6 +67,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     public void loadImage(String imagePath) {
         Glide.with(getContext())
                 .load(imagePath)
+                .transition(withCrossFade(500))
                 .placeholder(R.drawable.placeholder_image)
                 .error(R.drawable.placeholder_error_image)
                 .centerCrop()

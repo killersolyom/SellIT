@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +23,8 @@ import com.sell.it.Utility.FragmentNavigation;
 import com.sell.it.Utility.UtilityManager;
 
 import java.util.Locale;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -61,13 +64,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void handleIntentEvents(Intent intent) {
-
         if (intent.getBooleanExtra(LANGUAGE_CHANGED_KEY, false)) {
-            finish();
+            loadPreferredLanguage();
+            restart();
         } else if (!intent.getBooleanExtra(FIRST_START_KEY, false)) {
             FragmentNavigation.showLoginFragment();
             intent.putExtra(FIRST_START_KEY, true);
         }
+    }
+
+    private void restart() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(FIRST_START_KEY, false);
+        startActivity(intent);
+        finish();
+        Runtime.getRuntime().exit(0);
     }
 
     private void loadPreferredLanguage() {
@@ -87,7 +99,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        FragmentNavigation.onBackPressed();
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawers();
+        } else {
+            FragmentNavigation.onBackPressed();
+        }
     }
 
     @Override
