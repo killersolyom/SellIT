@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.sell.it.R;
 import com.sell.it.Utility.GlideUtils;
 
@@ -30,6 +32,8 @@ public class RegistrationFragment extends BaseFragment {
     private EditText mPasswordField;
     private Button mRegisterButton;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabase;
     private String TAG = "REGISTRATIONFRAGMENT";
 
     @Override
@@ -50,6 +54,8 @@ public class RegistrationFragment extends BaseFragment {
     @Override
     protected void initComponents() {
         mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabase = mFirebaseDatabase.getReference("sellit-2d6d8");
     }
 
     @Override
@@ -67,15 +73,21 @@ public class RegistrationFragment extends BaseFragment {
     }
 
     private void registerUser(){
-        String mEmail = mEmailField.getText().toString().trim();
-        String mPassword = mPasswordField.getText().toString().trim();
+        String email = mEmailField.getText().toString().trim();
+        String password = mPasswordField.getText().toString().trim();
+        String firstName = mFirstNameField.getText().toString().trim();
+        String lastName = mLastNameField.getText().toString().trim();
+        String username = mUsernameField.getText().toString().trim();
 
-        if(!mEmail.isEmpty() && !mPassword.isEmpty()) {
-            mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
+        if(!email.isEmpty() && !password.isEmpty()) {
+            mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(Objects.requireNonNull(getActivity()), task -> {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "createUserWithEmail:success");
+                            writeNewUserToDatabase(email,firstName,lastName,username);
+                            saveNewUserToSharedPreferences();
                             FirebaseUser mLoggedInUser = mAuth.getCurrentUser();
+                            resetFields();
                         } else {
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                         }
@@ -84,5 +96,23 @@ public class RegistrationFragment extends BaseFragment {
         else {
             Log.w(TAG, "Email or password is empty.");
         }
+    }
+
+    private void writeNewUserToDatabase(String email, String firstName, String lastName, String username){
+        mDatabase.child("users").child(email).setValue(firstName);
+        mDatabase.child("users").child(email).setValue(lastName);
+        mDatabase.child("users").child(email).setValue(username);
+    }
+
+    private void saveNewUserToSharedPreferences(){
+
+    }
+
+    private void resetFields(){
+        mEmailField.setText("");
+        mFirstNameField.setText("");
+        mLastNameField.setText("");
+        mUsernameField.setText("");
+        mPasswordField.setText("");
     }
 }
