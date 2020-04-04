@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
+import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
@@ -36,6 +37,13 @@ public class AdvertisementFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdvertisementAdapter = new ItemAdapter();
         mRecyclerView.setAdapter(mAdvertisementAdapter);
+        //TODO Dummy data generator, remove it
+        for (int i = 0 ; i < 100 ; i++){
+            BaseAdvertisementItem advertisementItem = new BaseAdvertisementItem();
+            advertisementItem.setTitle("Title for advertisement " + i);
+            mAdvertisementAdapter.addItem(advertisementItem);
+        }
+
     }
 
     @Override

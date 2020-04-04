@@ -3,8 +3,17 @@ package com.sell.it.Utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.sell.it.Model.Constant.Values;
+import com.sell.it.Model.User;
+
 public class DataManager {
     private static final String ALPHA_KEY = "Alpha_key";
+    private static final String LANGUAGE_KEY = "Alpha_key";
+    private static final String EMAIL_KEY = "Alpha_key";
+    private static final String FIRSTNAME_KEY = "Alpha_key";
+    private static final String LASTNAME_KEY = "Alpha_key";
+    private static final String USERNAME_KEY = "Alpha_key";
+
     private static SharedPreferences mPreference;
 
     public static void initialize(Context context) {
@@ -15,6 +24,14 @@ public class DataManager {
 
     private static void writeLongData(long number, String key) {
         mPreference.edit().putLong(key, number).apply();
+    }
+
+    private static void writeString(String value, String key) {
+        mPreference.edit().putString(key, value).apply();
+    }
+
+    private static String readStringData(String key) {
+        return mPreference.getString(key, "");
     }
 
     private static long readLongData(String key) {
@@ -48,5 +65,20 @@ public class DataManager {
 
     private static int readIntData(String key) {
         return mPreference.getInt(key, 0);
+    }
+
+    public static void saveLanguage(String language) {
+        writeString(language, LANGUAGE_KEY);
+    }
+
+    public static String getLanguage() {
+        return mPreference.getString(LANGUAGE_KEY, Values.Language.LANGUAGE_KEY_ENGLISH);
+    }
+
+    public static void saveUser(User user){
+        writeString(user.getmEmailAddress(),EMAIL_KEY);
+        writeString(user.getmFirstName(),FIRSTNAME_KEY);
+        writeString(user.getmLastName(),LASTNAME_KEY);
+        writeString(user.getmUsername(),USERNAME_KEY);
     }
 }

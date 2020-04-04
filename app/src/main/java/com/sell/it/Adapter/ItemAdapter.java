@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
-import com.sell.it.Model.BaseItem;
+import com.sell.it.Model.ViewHolderItem.BaseItem;
 
 import java.util.ArrayList;
 
@@ -23,6 +23,12 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         holder.bindItem(mItemList.get(position));
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull BaseViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.unBindItem();
     }
 
     @Override
@@ -43,6 +49,10 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void addItemList(ArrayList<BaseItem> itemList) {
         mItemList.clear();
         mItemList.addAll(itemList);
+    }
+
+    public void clearItems() {
+        mItemList.clear();
     }
 
 }

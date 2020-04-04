@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.sell.it.Activity.MainActivity;
 import com.sell.it.Fragment.AdvertisementFragment;
@@ -41,10 +42,25 @@ public class FragmentNavigation {
     }
 
     private static void showFragment(BaseFragment fragment) {
-        (mFragmentManager.beginTransaction())
-                .replace(R.id.fragment_container, fragment, fragment.TAG)
-                .addToBackStack(fragment.TAG)
-                .commit();
+        BaseFragment fragmentFromBackStack = castToBaseFragment(mFragmentManager.findFragmentByTag(fragment.TAG));
+
+        if ((fragmentFromBackStack != null)) {
+            createTransaction().show(fragmentFromBackStack);
+        } else {
+            createTransaction().replace(R.id.fragment_container, fragment, fragment.TAG)
+                    .addToBackStack(fragment.TAG)
+                    .commit();
+        }
+    }
+
+    private static FragmentTransaction createTransaction() {
+        return mFragmentManager.beginTransaction().setCustomAnimations(
+                R.anim.enter_from_right, R.anim.exit_to_left,
+                R.anim.enter_from_left, R.anim.exit_to_right);
+    }
+
+    private static BaseFragment castToBaseFragment(Fragment fragment) {
+        return fragment instanceof BaseFragment ? (BaseFragment) fragment : null;
     }
 
     private static void clearBackStack(boolean clearAll) {
@@ -69,15 +85,13 @@ public class FragmentNavigation {
 
     public static void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {
         switch (menuItem.getItemId()) {
-            case R.id.nav_sounds:
+            case R.id.home:
                 clearBackStack(false);
                 drawerLayout.closeDrawers();
                 break;
             case R.id.nav_settings:
                 showSettingsFragment();
                 drawerLayout.closeDrawers();
-                break;
-            case R.id.nav_share:
                 break;
             case R.id.nav_exit:
                 exit();
