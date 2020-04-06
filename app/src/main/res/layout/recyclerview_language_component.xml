@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="15dp"
     android:paddingEnd="15dp"
-    android:stateListAnimator="@drawable/item_animator">
+    android:stateListAnimator="@drawable/item_click_animator">
 
     <ImageView
         android:id="@+id/language_item_image"
