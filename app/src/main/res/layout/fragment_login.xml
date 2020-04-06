@@ -37,11 +37,14 @@
     <EditText
         android:id="@+id/user_name_field"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="60dp"
+        android:background="@drawable/item_rounded_background"
         android:hint="@string/user_name"
+        android:paddingStart="10dp"
+        android:paddingEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_logo_image" />
@@ -49,11 +52,14 @@
     <EditText
         android:id="@+id/user_password_field"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
+        android:background="@drawable/item_rounded_background"
         android:hint="@string/password"
+        android:paddingStart="10dp"
+        android:paddingEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_name_field" />
@@ -61,10 +67,14 @@
     <Button
         android:id="@+id/login_button"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginStart="60dp"
+        android:layout_height="@dimen/default_item_height"
+        android:layout_marginStart="@dimen/default_button_margin"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="@dimen/default_button_margin"
+        android:background="@drawable/item_rounded_background"
+        android:paddingStart="10dp"
+        android:paddingEnd="5dp"
+        android:stateListAnimator="@drawable/item_click_animator"
         android:text="@string/login_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,16 +82,30 @@
 
     <TextView
         android:id="@+id/text_have_account"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginStart="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_button_margin"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="@dimen/default_button_margin"
+        android:maxLines="2"
         android:text="@string/text_sign_up"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/login_button" />
+
+    <TextView
+        android:id="@+id/guest_user_text"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginStart="@dimen/default_button_margin"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="@dimen/default_button_margin"
+        android:gravity="start"
+        android:text="@string/text_guest_user"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_have_account" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

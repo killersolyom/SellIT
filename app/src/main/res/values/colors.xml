@@ -4,12 +4,17 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparentWhite">#9AFFFFFF</color>
     <color name="colorRed">#EB0606</color>
     <color name="colorBlack">#070707</color>
     <color name="colorGreen">#2CEC0D</color>
     <color name="colorBlue">#65DBE6</color>
     <color name="colorOverlay">#CC090808</color>
     <color name="colorTransparentBlack">#A8030303</color>
-    <color name="colorTransparentOverlay">#72030303</color>
+    <color name="colorTransparentOverlay">#40030303</color>
+    <color name="colorTransparentEditText">#BAFFFFFF</color>
+    <color name="advertisementTitleBackground">#66070707</color>
+    <color name="advertisementInfoBackground">#A6070707</color>
+    <color name="fragmentBackground">#E4161616</color>
 
 </resources>

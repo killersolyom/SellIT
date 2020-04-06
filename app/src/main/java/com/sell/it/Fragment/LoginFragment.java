@@ -19,6 +19,7 @@ public class LoginFragment extends BaseFragment {
     private Button mLoginButton;
     private ImageView mApplicationLogo;
     private TextView mSignUpText;
+    private TextView mGuestUserText;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
@@ -32,16 +33,18 @@ public class LoginFragment extends BaseFragment {
         mLoginButton = view.findViewById(R.id.login_button);
         mApplicationLogo = view.findViewById(R.id.app_logo_image);
         mSignUpText = view.findViewById(R.id.text_have_account);
+        mGuestUserText = view.findViewById(R.id.guest_user_text);
     }
 
     @Override
     protected void initListeners() {
         mSignUpText.setOnClickListener(v -> FragmentNavigation.showRegistrationFragment());
+        mGuestUserText.setOnClickListener(v -> FragmentNavigation.showAdvertisementFragment());
     }
 
     @Override
     protected void loadImages() {
-        GlideUtils.loadImageWithoutCache("https://picsum.photos/200", mApplicationLogo);
+        Glide.with(mFragmentView).load(R.drawable.app_logo_png).into(mApplicationLogo);
     }
 
     @Override

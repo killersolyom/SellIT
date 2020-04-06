@@ -4,7 +4,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.sell.it.Model.BaseDefaultItem;
+import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
 
 public class DefaultViewHolder extends BaseViewHolder<BaseDefaultItem> {
 

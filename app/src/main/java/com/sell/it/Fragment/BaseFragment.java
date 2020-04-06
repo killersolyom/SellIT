@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.sell.it.R;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -28,6 +31,7 @@ public abstract class BaseFragment extends Fragment {
             findView(mFragmentView);
             initComponents();
             initListeners();
+            mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
         }
         return mFragmentView;
     }
