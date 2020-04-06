@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentNavigation.showLoginFragment();
             intent.putExtra(FIRST_START_KEY, true);
         }
-
     }
 
     private void restart() {
