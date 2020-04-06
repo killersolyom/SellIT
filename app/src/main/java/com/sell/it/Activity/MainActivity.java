@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initView();
         initReceiver();
         handleIntentEvents(getIntent());
-        loadPreferredLanguage();
     }
 
     private void initView() {
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void handleIntentEvents(Intent intent) {
         if (intent.getBooleanExtra(LANGUAGE_CHANGED_KEY, false)) {
-            loadPreferredLanguage();
             restart();
         } else if (!intent.getBooleanExtra(FIRST_START_KEY, false)) {
             FragmentNavigation.showLoginFragment();
@@ -95,6 +93,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         FragmentNavigation.handleNavigationItem(menuItem, mDrawerLayout);
         return false;
+    }
+
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        DataManager.initialize(context);
+        loadPreferredLanguage();
     }
 
     @Override
