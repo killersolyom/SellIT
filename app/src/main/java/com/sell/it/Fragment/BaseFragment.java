@@ -6,11 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.sell.it.R;
 
 public abstract class BaseFragment extends Fragment {
 
-    private View fragmentView;
+    public final String TAG = this.getClass().getCanonicalName();
+    protected View mFragmentView;
 
     public BaseFragment() {
     }
@@ -22,15 +26,54 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (fragmentView == null) {
-            fragmentView = initView(inflater, container);
-            findView(fragmentView);
+        if (mFragmentView == null) {
+            mFragmentView = initView(inflater, container);
+            findView(mFragmentView);
+            initComponents();
+            initListeners();
+            mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
         }
-        return fragmentView;
+        return mFragmentView;
     }
 
     protected abstract View initView(LayoutInflater inflater, ViewGroup container);
 
     protected abstract void findView(View view);
+
+    protected void initComponents() {
+    }
+
+    protected void initListeners() {
+    }
+
+    protected void loadImages() {
+    }
+
+    protected void clearImages() {
+    }
+
+    protected void handleRotationEvent() {
+    }
+
+    protected int getOrientation() {
+        return getResources().getConfiguration().orientation;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mFragmentView != null) {
+            clearImages();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        handleRotationEvent();
+        if (mFragmentView != null) {
+            loadImages();
+        }
+    }
 
 }
