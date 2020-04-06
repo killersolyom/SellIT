@@ -44,7 +44,7 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void loadImages() {
-        Glide.with(mFragmentView).load("https://picsum.photos/200").into(mApplicationLogo);
+        Glide.with(mFragmentView).load(R.drawable.app_logo_png).into(mApplicationLogo);
     }
 
     @Override

@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
+import com.sell.it.Communication.ActivityCallbackInterface;
 import com.sell.it.R;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.FragmentNavigation;
@@ -26,7 +27,7 @@ import java.util.Locale;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCallbackInterface {
 
     private DrawerLayout mDrawerLayout;
     private BroadcastReceiver mReceiver;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        UtilityManager.initUtilities(this);
+        UtilityManager.initUtilities(this, this);
         initView();
         initReceiver();
         handleIntentEvents(getIntent());
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         mNavigationView.setNavigationItemSelectedListener(this);
         registerReceiver(mReceiver, new IntentFilter(INTENT_FILTER_KEY));
-        Glide.with(getApplicationContext()).load(R.drawable.warning_image).into(mDrawerHeaderImage);
+        Glide.with(getApplicationContext()).load(R.drawable.app_logo_png).into(mDrawerHeaderImage);
     }
 
     @Override
@@ -131,4 +132,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         unregisterReceiver(mReceiver);
     }
 
+    @Override
+    public void enableDrawerLayout() {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    @Override
+    public void disableDrawerLayout() {
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
 }
