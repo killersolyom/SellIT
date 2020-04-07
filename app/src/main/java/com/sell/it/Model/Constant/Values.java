@@ -15,5 +15,11 @@ public class Values {
         public static final String LANGUAGE_KEY_HUNGARY = "hu";
     }
 
+    public static class DrawerControlAction {
+        public static final String CLOSE_ACTION = "CLOSE";
+        public static final String ENABLE_ACTION = "ENABLE";
+        public static final String DISABLE_ACTION = "DISABLE";
+    }
+
 
 }

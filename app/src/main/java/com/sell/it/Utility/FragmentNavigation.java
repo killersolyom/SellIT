@@ -1,8 +1,5 @@
 package com.sell.it.Utility;
 
-import android.view.MenuItem;
-
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,16 +13,28 @@ import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
 import com.sell.it.R;
 
+import static com.sell.it.Model.Constant.Values.DrawerControlAction.CLOSE_ACTION;
+import static com.sell.it.Model.Constant.Values.DrawerControlAction.DISABLE_ACTION;
+import static com.sell.it.Model.Constant.Values.DrawerControlAction.ENABLE_ACTION;
+
 public class FragmentNavigation {
 
     private static FragmentManager mFragmentManager;
     private static ActivityCallbackInterface mMainInterface;
+    private static FragmentManager.OnBackStackChangedListener mBackStackChangedListener;
 
-    public static void initComponents(MainActivity activity, ActivityCallbackInterface mainInterface) {
-        if (mFragmentManager == null || mFragmentManager.isDestroyed()) {
+    static void initComponents(MainActivity activity, ActivityCallbackInterface mainInterface) {
+        if (shouldInit()) {
             mFragmentManager = activity.getSupportFragmentManager();
+            mBackStackChangedListener = FragmentNavigation::handleBackStackChangeEvent;
+            mMainInterface = mainInterface;
+            mFragmentManager.addOnBackStackChangedListener(mBackStackChangedListener);
         }
-        mMainInterface = mainInterface;
+    }
+
+    private static boolean shouldInit() {
+        return mFragmentManager == null || mMainInterface == null ||
+                mBackStackChangedListener == null || mFragmentManager.isDestroyed();
     }
 
     public static void showLoginFragment() {
@@ -45,24 +54,15 @@ public class FragmentNavigation {
     }
 
     private static void showFragment(BaseFragment fragment) {
-        BaseFragment fragmentFromBackStack = castToBaseFragment(mFragmentManager.findFragmentByTag(fragment.TAG));
+        BaseFragment fragmentFromBackStack =
+                castToBaseFragment(mFragmentManager.findFragmentByTag(fragment.TAG));
 
         if ((fragmentFromBackStack != null)) {
             createTransaction().show(fragmentFromBackStack);
-            onBackStackChanged(fragmentFromBackStack);
         } else {
             createTransaction().replace(R.id.fragment_container, fragment, fragment.TAG)
                     .addToBackStack(fragment.TAG)
                     .commit();
-            onBackStackChanged(fragment);
-        }
-    }
-
-    private static void onBackStackChanged(Fragment fragment) {
-        if (fragment instanceof AdvertisementFragment || fragment instanceof SettingsFragment) {
-            mMainInterface.enableDrawerLayout();
-        } else {
-            mMainInterface.disableDrawerLayout();
         }
     }
 
@@ -82,42 +82,52 @@ public class FragmentNavigation {
         }
     }
 
-
-    private static Fragment getTopFragment() {
-        return mFragmentManager.getFragments().stream().findFirst().get();
+    private static void handleBackStackChangeEvent() {
+        BaseFragment topFragment = getTopFragment();
+        mMainInterface.onDrawerLayoutEvent(
+                shouldEnableDrawerLayout(topFragment) ? ENABLE_ACTION : DISABLE_ACTION);
     }
 
-    private static void exit() {
-        clearBackStack(true);
-        System.exit(0);
+    private static boolean shouldEnableDrawerLayout(BaseFragment fragment) {
+        return fragment instanceof AdvertisementFragment || fragment instanceof SettingsFragment;
+    }
+
+    private static BaseFragment getTopFragment() {
+        return castToBaseFragment(mFragmentManager
+                .getFragments()
+                .stream()
+                .filter(it -> it instanceof BaseFragment && it.isVisible())
+                .findFirst()
+                .orElse(null));
     }
 
     private static void popBackStack() {
         mFragmentManager.popBackStack();
     }
 
-    public static void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {
-        switch (menuItem.getItemId()) {
+    public static boolean onDrawerItemSelected(int menuItemId) {
+        switch (menuItemId) {
             case R.id.home:
                 clearBackStack(false);
-                drawerLayout.closeDrawers();
                 break;
             case R.id.nav_settings:
                 showSettingsFragment();
-                drawerLayout.closeDrawers();
                 break;
             case R.id.nav_exit:
                 exit();
                 break;
         }
+        mMainInterface.onDrawerLayoutEvent(CLOSE_ACTION);
+        return true;
     }
 
     public static void onBackPressed() {
-        if (shouldExit()) {
+        if (mMainInterface.isDrawerOpen()) {
+            mMainInterface.onDrawerLayoutEvent(CLOSE_ACTION);
+        } else if (shouldExit()) {
             exit();
         } else {
             popBackStack();
-            onBackStackChanged(getTopFragment());
         }
     }
 
@@ -125,4 +135,11 @@ public class FragmentNavigation {
         return (getTopFragment() instanceof LoginFragment ||
                 mFragmentManager.getBackStackEntryCount() == 1);
     }
+
+    private static void exit() {
+        mFragmentManager.removeOnBackStackChangedListener(mBackStackChangedListener);
+        clearBackStack(true);
+        System.exit(0);
+    }
+
 }
