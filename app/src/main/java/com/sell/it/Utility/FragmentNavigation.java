@@ -118,7 +118,7 @@ public class FragmentNavigation {
                 break;
         }
         mMainInterface.onDrawerLayoutEvent(CLOSE_ACTION);
-        return true;
+        return false;
     }
 
     public static void onBackPressed() {
