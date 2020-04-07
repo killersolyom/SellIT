@@ -4,10 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.sell.it.Model.Constant.Values;
+import com.sell.it.Model.User;
 
 public class DataManager {
     private static final String ALPHA_KEY = "Alpha_key";
     private static final String LANGUAGE_KEY = "Alpha_key";
+    private static final String EMAIL_KEY = "Alpha_key";
+    private static final String FIRSTNAME_KEY = "Alpha_key";
+    private static final String LASTNAME_KEY = "Alpha_key";
+    private static final String USERNAME_KEY = "Alpha_key";
+
     private static SharedPreferences mPreference;
 
     public static void initialize(Context context) {
@@ -67,5 +73,12 @@ public class DataManager {
 
     public static String getLanguage() {
         return mPreference.getString(LANGUAGE_KEY, Values.Language.LANGUAGE_KEY_ENGLISH);
+    }
+
+    public static void saveUser(User user){
+        writeString(user.getmEmailAddress(),EMAIL_KEY);
+        writeString(user.getmFirstName(),FIRSTNAME_KEY);
+        writeString(user.getmLastName(),LASTNAME_KEY);
+        writeString(user.getmUsername(),USERNAME_KEY);
     }
 }
