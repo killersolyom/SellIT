@@ -19,6 +19,8 @@ import static com.sell.it.Model.Constant.Values.DrawerControlAction.ENABLE_ACTIO
 
 public class FragmentNavigation {
 
+    private static long mExitTimeLimit = 100;
+    private static long mLastBackPressTime;
     private static FragmentManager mFragmentManager;
     private static ActivityCallbackInterface mMainInterface;
     private static FragmentManager.OnBackStackChangedListener mBackStackChangedListener;
@@ -29,6 +31,7 @@ public class FragmentNavigation {
             mBackStackChangedListener = FragmentNavigation::handleBackStackChangeEvent;
             mMainInterface = mainInterface;
             mFragmentManager.addOnBackStackChangedListener(mBackStackChangedListener);
+            mLastBackPressTime = System.currentTimeMillis();
         }
     }
 
@@ -56,8 +59,11 @@ public class FragmentNavigation {
     private static void showFragment(BaseFragment fragment) {
         BaseFragment fragmentFromBackStack =
                 castToBaseFragment(mFragmentManager.findFragmentByTag(fragment.TAG));
+        boolean isInBackStack = fragmentFromBackStack != null;
 
-        if ((fragmentFromBackStack != null)) {
+        beforeFragmentLoaded(isInBackStack ? fragmentFromBackStack : fragment, isInBackStack);
+
+        if (isInBackStack) {
             createTransaction().show(fragmentFromBackStack);
         } else {
             createTransaction().replace(R.id.fragment_container, fragment, fragment.TAG)
@@ -79,6 +85,12 @@ public class FragmentNavigation {
     private static void clearBackStack(boolean clearAll) {
         for (int i = clearAll ? 0 : 1; i < mFragmentManager.getBackStackEntryCount(); ++i) {
             mFragmentManager.popBackStack();
+        }
+    }
+
+    private static void beforeFragmentLoaded(BaseFragment fragment, boolean isInBackStack) {
+        if (fragment instanceof AdvertisementFragment) {
+            clearBackStack(!isInBackStack);
         }
     }
 
@@ -108,7 +120,7 @@ public class FragmentNavigation {
     public static boolean onDrawerItemSelected(int menuItemId) {
         switch (menuItemId) {
             case R.id.home:
-                clearBackStack(false);
+                showAdvertisementFragment();
                 break;
             case R.id.nav_settings:
                 showSettingsFragment();
@@ -124,11 +136,18 @@ public class FragmentNavigation {
     public static void onBackPressed() {
         if (mMainInterface.isDrawerOpen()) {
             mMainInterface.onDrawerLayoutEvent(CLOSE_ACTION);
-        } else if (shouldExit()) {
+        } else if (shouldExit() || isDoubleBackPressPerformed()) {
             exit();
         } else {
             popBackStack();
         }
+    }
+
+    private static boolean isDoubleBackPressPerformed() {
+        long currentTime = System.currentTimeMillis();
+        boolean isUnderTimeLimit = Math.abs(currentTime - mLastBackPressTime) <= mExitTimeLimit;
+        mLastBackPressTime = currentTime;
+        return isUnderTimeLimit;
     }
 
     private static boolean shouldExit() {
