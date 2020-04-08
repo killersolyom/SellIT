@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -85,8 +86,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void attachBaseContext(Context context) {
-        super.attachBaseContext(context);
-        LanguageManager.loadPreferredLanguage(context);
+        super.attachBaseContext(LanguageManager.loadPreferredLanguage(context));
+    }
+
+    @Override
+    public Context createConfigurationContext(Configuration overrideConfiguration) {
+        return super.createConfigurationContext(
+                LanguageManager.loadLanguageIntoConfig(overrideConfiguration));
     }
 
     @Override
