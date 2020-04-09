@@ -19,8 +19,8 @@ import static com.sell.it.Model.Constant.Values.DrawerControlAction.ENABLE_ACTIO
 
 public class FragmentNavigation {
 
-    private static long mExitTimeLimit = 100;
     private static long mLastBackPressTime;
+    private static final long mExitTimeLimit = 350;
     private static FragmentManager mFragmentManager;
     private static ActivityCallbackInterface mMainInterface;
     private static FragmentManager.OnBackStackChangedListener mBackStackChangedListener;
@@ -136,9 +136,13 @@ public class FragmentNavigation {
     public static void onBackPressed() {
         if (mMainInterface.isDrawerOpen()) {
             mMainInterface.onDrawerLayoutEvent(CLOSE_ACTION);
-        } else if (shouldExit() || isDoubleBackPressPerformed()) {
-            exit();
-        } else {
+        } else if (isDoubleBackPressPerformed()) {
+            if (shouldExit()) {
+                exit();
+            } else {
+                //TODO press again notification
+            }
+        } else if (shouldPop()) {
             popBackStack();
         }
     }
@@ -151,8 +155,13 @@ public class FragmentNavigation {
     }
 
     private static boolean shouldExit() {
-        return (getTopFragment() instanceof LoginFragment ||
-                mFragmentManager.getBackStackEntryCount() == 1);
+        BaseFragment fragment = getTopFragment();
+        return (fragment instanceof AdvertisementFragment || fragment instanceof LoginFragment);
+    }
+
+    private static boolean shouldPop() {
+        BaseFragment fragment = getTopFragment();
+        return !(fragment instanceof AdvertisementFragment || fragment instanceof LoginFragment);
     }
 
     private static void exit() {

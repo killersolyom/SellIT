@@ -17,15 +17,17 @@ import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.TextSeparatorItem;
 import com.sell.it.R;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
-    private ImageView mAdvertisementImage;
-    private TextView mAdvertisementTitle;
-    private RecyclerView mAdvertisementInfoView;
     private ItemAdapter mInfoAdapter;
+    private TextView mAdvertisementTitle;
+    private ImageView mAdvertisementImage;
+    private RecyclerView mAdvertisementInfoView;
 
     public AdvertisementViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -47,6 +49,9 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     }
 
     public void bindItem(BaseAdvertisementItem advertisementItem) {
+        int random = (int) (100 * ThreadLocalRandom.current().nextDouble(2, 10));
+        loadImage("https://picsum.photos/" + random);
+        setTitle(advertisementItem.getTitle());
     }
 
     public void unbind() {
@@ -55,7 +60,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         mInfoAdapter.clearItems();
     }
 
-    public void setTitle(String title) {
+    private void setTitle(String title) {
         mAdvertisementTitle.setText(title);
         //TODO Dummy data generator, remove it
         for (int i = 0; i < 5; i++) {
@@ -71,8 +76,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
                 .placeholder(R.drawable.placeholder_image)
                 .error(R.drawable.placeholder_error_image)
                 .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(mAdvertisementImage);
     }
 
