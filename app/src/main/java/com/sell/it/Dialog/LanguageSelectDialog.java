@@ -5,14 +5,12 @@ import android.content.Context;
 import android.view.Window;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
+import com.sell.it.CustomView.ItemRecyclerView;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.ViewHolderItem.LanguageItem;
 import com.sell.it.R;
-
-import static androidx.recyclerview.widget.LinearLayoutManager.VERTICAL;
 
 public class LanguageSelectDialog {
 
@@ -35,11 +33,10 @@ public class LanguageSelectDialog {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.language_selector_dialog_layout);
-        RecyclerView languageView = dialog.findViewById(R.id.language_recycler);
-        languageView.setLayoutManager(new LinearLayoutManager(context, VERTICAL, false));
+        ItemRecyclerView languageView = dialog.findViewById(R.id.language_recycler);
         ItemAdapter languageAdapter = new ItemAdapter();
+        languageView.initParams(languageAdapter, new LinearLayoutManager(context));
         fillLanguageAdapter(languageAdapter, context);
-        languageView.setAdapter(languageAdapter);
     }
 
     private static void fillLanguageAdapter(ItemAdapter languageAdapter, Context context) {

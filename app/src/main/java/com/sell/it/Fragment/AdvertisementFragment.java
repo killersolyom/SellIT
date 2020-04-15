@@ -5,9 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
+import com.sell.it.CustomView.ItemRecyclerView;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
 
@@ -15,7 +15,7 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class AdvertisementFragment extends BaseFragment {
 
-    private RecyclerView mRecyclerView;
+    private ItemRecyclerView mRecyclerView;
     private GridLayoutManager mLayoutManager;
     private ItemAdapter mAdvertisementAdapter;
     private final int mPortraitColumnNumber = 2;
@@ -34,11 +34,11 @@ public class AdvertisementFragment extends BaseFragment {
     @Override
     protected void initComponents() {
         mLayoutManager = new GridLayoutManager(this.getContext(), getColumnNumberByOrientation());
-        mRecyclerView.setLayoutManager(mLayoutManager);
         mAdvertisementAdapter = new ItemAdapter();
-        mRecyclerView.setAdapter(mAdvertisementAdapter);
+        mRecyclerView.initParams(mAdvertisementAdapter, mLayoutManager, 8);
+
         //TODO Dummy data generator, remove it
-        for (int i = 0 ; i < 100 ; i++){
+        for (int i = 0; i < 100; i++) {
             BaseAdvertisementItem advertisementItem = new BaseAdvertisementItem();
             advertisementItem.setTitle("Title for advertisement " + i);
             mAdvertisementAdapter.addItem(advertisementItem);

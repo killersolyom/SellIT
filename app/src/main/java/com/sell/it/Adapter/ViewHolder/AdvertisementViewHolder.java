@@ -23,6 +23,11 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     }
 
     @Override
+    public void unBindItem() {
+        mAdvertisement.unbind();
+    }
+
+    @Override
     protected void onItemClicked(BaseAdvertisementItem advertisementItem) {
 
     }
@@ -30,11 +35,6 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     @Override
     protected void findView(View itemView) {
         mAdvertisement = itemView.findViewById(R.id.advertisement_item);
-    }
-
-    @Override
-    public void unBindItem() {
-        mAdvertisement.unbind();
     }
 
 }
