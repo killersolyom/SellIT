@@ -5,30 +5,34 @@ public class User {
     private String mFirstName;
     private String mLastName;
     private String mUsername;
+    private String mPassword;
 
     public User() {
     }
 
-    public User(String mEmailAddress, String mFirstName, String mLastName, String mUsername) {
+    public User(String mEmailAddress, String mFirstName, String mLastName, String mUsername, String mPassword) {
         this.mEmailAddress = mEmailAddress;
         this.mFirstName = mFirstName;
         this.mLastName = mLastName;
         this.mUsername = mUsername;
+        this.mPassword = mPassword;
     }
 
-    public String getmEmailAddress() {
+    public String getEmailAddress() {
         return mEmailAddress;
     }
 
-    public String getmFirstName() {
+    public String getFirstName() {
         return mFirstName;
     }
 
-    public String getmLastName() {
+    public String getLastName() {
         return mLastName;
     }
 
-    public String getmUsername() {
+    public String getUsername() {
         return mUsername;
     }
+
+    public String getPassword() {return mPassword;}
 }

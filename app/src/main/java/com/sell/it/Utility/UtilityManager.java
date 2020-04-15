@@ -8,5 +8,6 @@ public class UtilityManager {
     public static void initUtilities(MainActivity activity, ActivityCallbackInterface mainInterface) {
         FragmentNavigation.initComponents(activity,mainInterface);
         DataManager.initialize(activity.getApplicationContext());
+        DatabaseManager.initialize(activity.getApplicationContext());
     }
 }

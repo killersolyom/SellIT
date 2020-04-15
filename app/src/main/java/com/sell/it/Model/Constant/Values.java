@@ -15,5 +15,12 @@ public class Values {
         public static final String LANGUAGE_KEY_HUNGARY = "hu";
     }
 
+    public static class User {
+        public static final String USERNAME = "username";
+        public static final String EMAIL = "email";
+        public static final String FIRST_NAME = "firstname";
+        public static final String LAST_NAME = "lastname";
+        public static final String PASSWORD = "pass";
 
+    }
 }
