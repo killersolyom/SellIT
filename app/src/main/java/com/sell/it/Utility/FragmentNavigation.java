@@ -11,6 +11,7 @@ import com.sell.it.Fragment.BaseFragment;
 import com.sell.it.Fragment.LoginFragment;
 import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
+import com.sell.it.Model.Event;
 import com.sell.it.R;
 
 import static com.sell.it.Model.Constant.Values.DrawerControlAction.CLOSE_ACTION;
@@ -111,6 +112,13 @@ public class FragmentNavigation {
                 .filter(it -> it instanceof BaseFragment && it.isVisible())
                 .findFirst()
                 .orElse(null));
+    }
+
+    public static void dispatchEvent(Event event) {
+        BaseFragment fragment = getTopFragment();
+        if(fragment != null){
+            fragment.onEvent(event);
+        }
     }
 
     private static void popBackStack() {
