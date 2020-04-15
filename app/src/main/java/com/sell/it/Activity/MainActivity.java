@@ -94,16 +94,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public Context createConfigurationContext(Configuration overrideConfiguration) {
+        return super.createConfigurationContext(
+                LanguageManager.loadLanguageIntoConfig(overrideConfiguration));
+    }
+
+    @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         FragmentNavigation.dispatchEvent(new Event(SCREEN_ORIENTATION,
                 newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? LANDSCAPE : PORTRAIT));
-    }
-
-    @Override
-    public Context createConfigurationContext(Configuration overrideConfiguration) {
-        return super.createConfigurationContext(
-                LanguageManager.loadLanguageIntoConfig(overrideConfiguration));
     }
 
     @Override
