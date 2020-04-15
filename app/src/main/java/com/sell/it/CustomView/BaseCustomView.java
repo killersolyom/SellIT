@@ -14,11 +14,14 @@ public abstract class BaseCustomView<Item> extends ConstraintLayout {
         super(context, attrs);
         if (itemView == null) {
             inflateView(context);
+            initView();
             initializeComponents();
         }
     }
 
     protected abstract void inflateView(Context context);
+
+    protected abstract void initView();
 
     protected abstract void initializeComponents();
 

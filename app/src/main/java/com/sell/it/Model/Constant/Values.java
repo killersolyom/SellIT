@@ -21,5 +21,14 @@ public class Values {
         public static final String DISABLE_ACTION = "DISABLE";
     }
 
+    public static class Event {
+        public static final String SCREEN_ORIENTATION = "ORIENTATION";
+    }
+
+    public static class Orientation {
+        public static final String PORTRAIT = "PORTRAIT";
+        public static final String LANDSCAPE = "LANDSCAPE";
+    }
+
 
 }

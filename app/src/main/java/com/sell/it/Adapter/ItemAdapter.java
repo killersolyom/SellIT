@@ -6,13 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
-import com.sell.it.Model.ViewHolderItem.BaseItem;
-
-import java.util.ArrayList;
+import com.sell.it.Communication.RecyclerViewInterface;
 
 public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private ArrayList<BaseItem> mItemList = new ArrayList<>();
+    private RecyclerViewInterface mRecyclerInterface;
+
+    public ItemAdapter(RecyclerViewInterface recyclerInterface) {
+        this.mRecyclerInterface = recyclerInterface;
+    }
 
     @NonNull
     @Override
@@ -22,7 +24,7 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        holder.bindItem(mItemList.get(position));
+        holder.bindItem(mRecyclerInterface.getItem(position));
     }
 
     @Override
@@ -33,26 +35,12 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return mItemList.get(position).getItemType();
+        return mRecyclerInterface.getViewType(position);
     }
 
     @Override
     public int getItemCount() {
-        return mItemList.size();
-    }
-
-    public void addItem(BaseItem item) {
-        mItemList.add(item);
-        notifyItemInserted(mItemList.indexOf(item));
-    }
-
-    public void addItemList(ArrayList<BaseItem> itemList) {
-        mItemList.clear();
-        mItemList.addAll(itemList);
-    }
-
-    public void clearItems() {
-        mItemList.clear();
+        return mRecyclerInterface.getItemCount();
     }
 
 }

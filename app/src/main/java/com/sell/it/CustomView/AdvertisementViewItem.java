@@ -7,27 +7,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Model.ViewHolderItem.AdvertisementInfoItem;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.TextSeparatorItem;
 import com.sell.it.R;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
-    private ItemAdapter mInfoAdapter;
     private TextView mAdvertisementTitle;
     private ImageView mAdvertisementImage;
-    private RecyclerView mAdvertisementInfoView;
+    private CustomRecyclerView mInfoRecyclerView;
 
     public AdvertisementViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -39,33 +34,34 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     }
 
     @Override
-    protected void initializeComponents() {
+    protected void initView() {
         mAdvertisementImage = findViewById(R.id.advertisement_image);
         mAdvertisementTitle = findViewById(R.id.advertisement_title);
-        mAdvertisementInfoView = findViewById(R.id.advertisement_extra_info_view);
-        mAdvertisementInfoView.setLayoutManager(new LinearLayoutManager(getContext(), HORIZONTAL, false));
-        mInfoAdapter = new ItemAdapter();
-        mAdvertisementInfoView.setAdapter(mInfoAdapter);
+        mInfoRecyclerView = findViewById(R.id.advertisement_extra_info_view);
+    }
+
+    @Override
+    protected void initializeComponents() {
+        mInfoRecyclerView.initParams(new LinearLayoutManager(getContext(), HORIZONTAL, false));
     }
 
     public void bindItem(BaseAdvertisementItem advertisementItem) {
-        int random = (int) (100 * ThreadLocalRandom.current().nextDouble(2, 10));
-        loadImage("https://picsum.photos/" + random);
         setTitle(advertisementItem.getTitle());
+        loadImage(advertisementItem.getFirstImage());
     }
 
     public void unbind() {
         Glide.with(getContext()).clear(mAdvertisementImage);
         mAdvertisementTitle.setText(null);
-        mInfoAdapter.clearItems();
+        mInfoRecyclerView.clearItems();
     }
 
     private void setTitle(String title) {
         mAdvertisementTitle.setText(title);
         //TODO Dummy data generator, remove it
         for (int i = 0; i < 5; i++) {
-            mInfoAdapter.addItem(new AdvertisementInfoItem("Data " + i));
-            mInfoAdapter.addItem(new TextSeparatorItem());
+            mInfoRecyclerView.addItem(new AdvertisementInfoItem("Data " + i));
+            mInfoRecyclerView.addItem(new TextSeparatorItem());
         }
     }
 
