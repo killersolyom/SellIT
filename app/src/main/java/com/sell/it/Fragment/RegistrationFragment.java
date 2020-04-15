@@ -1,17 +1,27 @@
 package com.sell.it.Fragment;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
 import com.sell.it.R;
+import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
+import com.sell.it.Utility.FragmentNavigation;
+
+import static com.sell.it.Model.Constant.Values.Firebase.FAIL;
+import static com.sell.it.Model.Constant.Values.Firebase.SUCCESS;
+import static com.sell.it.Model.Constant.Values.Firebase.USER_KEY;
 
 public class RegistrationFragment extends BaseFragment {
 
@@ -61,16 +71,37 @@ public class RegistrationFragment extends BaseFragment {
         mRegisterButton.setOnClickListener(v -> registerUser());
     }
 
-    private void registerUser(){
+    private void registerUser() {
         String email = mEmailField.getText().toString().trim();
         String password = mPasswordField.getText().toString().trim();
         String firstName = mFirstNameField.getText().toString().trim();
         String lastName = mLastNameField.getText().toString().trim();
         String username = mUsernameField.getText().toString().trim();
 
-        User user = new User(email,firstName,lastName,username,password);
+        User user = new User(email, firstName, lastName, username, password);
         DatabaseManager.createUser(user);
-
     }
 
+    @Override
+    public void onEvent(Event event) {
+        switch (event.getEventType()) {
+            case Event.FIREBASE:
+                handleFireBaseEvent(event.getEvent(),event.getExtras());
+            default:
+                break;
+        }
+    }
+
+    private void handleFireBaseEvent(String event, @NonNull Bundle extras) {
+        switch (event) {
+            case SUCCESS:
+                User user = (User) extras.getSerializable(USER_KEY);
+                DataManager.saveUser(user);
+                FragmentNavigation.showAdvertisementFragment();
+                break;
+            case FAIL:
+                //TODO notification
+                break;
+        }
+    }
 }

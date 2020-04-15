@@ -29,13 +29,14 @@ public class Values {
         public static final String DISABLE_ACTION = "DISABLE";
     }
 
-    public static class Event {
-        public static final String SCREEN_ORIENTATION = "ORIENTATION";
-    }
-
     public static class Orientation {
         public static final String PORTRAIT = "PORTRAIT";
         public static final String LANDSCAPE = "LANDSCAPE";
     }
 
+    public static class Firebase {
+        public static final String SUCCESS = "SUCCESS";
+        public static final String FAIL = "FAIL";
+        public static final String USER_KEY = "USER_KEY";
+    }
 }

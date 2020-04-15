@@ -3,17 +3,25 @@ package com.sell.it.Utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
+
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.User;
+
+import static com.sell.it.Model.Constant.Values.User.EMAIL;
+import static com.sell.it.Model.Constant.Values.User.FIRST_NAME;
+import static com.sell.it.Model.Constant.Values.User.LAST_NAME;
+import static com.sell.it.Model.Constant.Values.User.PASSWORD;
+import static com.sell.it.Model.Constant.Values.User.USERNAME;
 
 public class DataManager {
     private static final String ALPHA_KEY = "Alpha_key";
     private static final String LANGUAGE_KEY = "Alpha_key";
-    private static final String EMAIL_KEY = "Alpha_key";
-    private static final String FIRSTNAME_KEY = "Alpha_key";
-    private static final String LASTNAME_KEY = "Alpha_key";
-    private static final String USERNAME_KEY = "Alpha_key";
-    private static final String PASSWORD_KEY = "Alpha_key";
+    private static final String EMAIL_KEY = "email_key";
+    private static final String FIRSTNAME_KEY = "firstname_key";
+    private static final String LASTNAME_KEY = "lastname_key";
+    private static final String USERNAME_KEY = "username_key";
+    private static final String PASSWORD_KEY = "password_key";
 
     private static SharedPreferences mPreference;
 
@@ -31,8 +39,8 @@ public class DataManager {
         mPreference.edit().putString(key, value).apply();
     }
 
-    private static String readStringData(String key) {
-        return mPreference.getString(key, "");
+    private static String readStringData(String key, String defaultValue) {
+        return mPreference.getString(key, defaultValue);
     }
 
     private static long readLongData(String key) {
@@ -76,7 +84,7 @@ public class DataManager {
         return mPreference.getString(LANGUAGE_KEY, Values.Language.LANGUAGE_KEY_ENGLISH);
     }
 
-    public static void saveUser(User user){
+    public static void saveUser(@NonNull User user){
         writeString(user.getEmailAddress(),EMAIL_KEY);
         writeString(user.getFirstName(),FIRSTNAME_KEY);
         writeString(user.getLastName(),LASTNAME_KEY);
@@ -85,21 +93,20 @@ public class DataManager {
     }
 
     public static User getUser(){
-        String username = mPreference.getString(USERNAME_KEY, Values.User.USERNAME);
-        String email = mPreference.getString(EMAIL_KEY, Values.User.EMAIL);
-        String firstName = mPreference.getString(FIRSTNAME_KEY, Values.User.FIRST_NAME);
-        String lastName = mPreference.getString(LASTNAME_KEY, Values.User.LAST_NAME);
-        String password = mPreference.getString(PASSWORD_KEY, Values.User.PASSWORD);
+        String username = readStringData(USERNAME_KEY,USERNAME);
+        String email = readStringData(EMAIL_KEY, EMAIL);
+        String firstName = readStringData(FIRSTNAME_KEY, FIRST_NAME);
+        String lastName = readStringData(LASTNAME_KEY, LAST_NAME);
+        String password = readStringData(PASSWORD_KEY, PASSWORD);
 
         return new User(email,firstName,lastName,username,password);
     }
 
     public static boolean isUserExist(User user){
-        if (user.getEmailAddress().equals("email") || user.getPassword().equals("pass")) {
-            return false;
-        }
-        else {
-            return false;
-        }
+        return !(user.getEmailAddress().equals(EMAIL)
+                || user.getPassword().equals(PASSWORD)
+                || user.getFirstName().equals(FIRST_NAME)
+                || user.getLastName().equals(LAST_NAME)
+                || user.getUsername().equals(USERNAME));
     }
 }

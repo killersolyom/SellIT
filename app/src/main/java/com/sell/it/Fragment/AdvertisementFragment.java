@@ -11,7 +11,6 @@ import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
 
-import static com.sell.it.Model.Constant.Values.Event.SCREEN_ORIENTATION;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
 public class AdvertisementFragment extends BaseFragment {
@@ -53,7 +52,7 @@ public class AdvertisementFragment extends BaseFragment {
     @Override
     public void onEvent(Event event) {
         switch (event.getEventType()) {
-            case SCREEN_ORIENTATION:
+            case Event.SCREEN_ORIENTATION:
                 handleRotationEvent(event.getEvent());
             default:
                 break;

@@ -1,6 +1,8 @@
 package com.sell.it.Model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String mEmailAddress;
     private String mFirstName;
     private String mLastName;

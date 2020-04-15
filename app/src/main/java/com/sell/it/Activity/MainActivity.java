@@ -27,7 +27,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.sell.it.Model.Constant.Values.DrawerControlAction.CLOSE_ACTION;
 import static com.sell.it.Model.Constant.Values.DrawerControlAction.DISABLE_ACTION;
 import static com.sell.it.Model.Constant.Values.DrawerControlAction.ENABLE_ACTION;
-import static com.sell.it.Model.Constant.Values.Event.SCREEN_ORIENTATION;
 import static com.sell.it.Model.Constant.Values.Orientation.LANDSCAPE;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        FragmentNavigation.dispatchEvent(new Event(SCREEN_ORIENTATION,
+        FragmentNavigation.dispatchEvent(new Event(Event.SCREEN_ORIENTATION,
                 newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? LANDSCAPE : PORTRAIT));
     }
 
