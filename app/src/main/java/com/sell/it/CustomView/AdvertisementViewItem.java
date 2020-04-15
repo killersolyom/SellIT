@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Model.ViewHolderItem.AdvertisementInfoItem;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.TextSeparatorItem;
@@ -21,10 +20,9 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
-    private ItemAdapter mInfoAdapter;
     private TextView mAdvertisementTitle;
     private ImageView mAdvertisementImage;
-    private ItemRecyclerView mInfoRecyclerView;
+    private CustomRecyclerView mInfoRecyclerView;
 
     public AdvertisementViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -44,8 +42,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
 
     @Override
     protected void initializeComponents() {
-        mInfoAdapter = new ItemAdapter();
-        mInfoRecyclerView.initParams(mInfoAdapter, new LinearLayoutManager(getContext(), HORIZONTAL, false));
+        mInfoRecyclerView.initParams(new LinearLayoutManager(getContext(), HORIZONTAL, false));
     }
 
     public void bindItem(BaseAdvertisementItem advertisementItem) {
@@ -56,15 +53,15 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     public void unbind() {
         Glide.with(getContext()).clear(mAdvertisementImage);
         mAdvertisementTitle.setText(null);
-        mInfoAdapter.clearItems();
+        mInfoRecyclerView.clearItems();
     }
 
     private void setTitle(String title) {
         mAdvertisementTitle.setText(title);
         //TODO Dummy data generator, remove it
         for (int i = 0; i < 5; i++) {
-            mInfoAdapter.addItem(new AdvertisementInfoItem("Data " + i));
-            mInfoAdapter.addItem(new TextSeparatorItem());
+            mInfoRecyclerView.addItem(new AdvertisementInfoItem("Data " + i));
+            mInfoRecyclerView.addItem(new TextSeparatorItem());
         }
     }
 
