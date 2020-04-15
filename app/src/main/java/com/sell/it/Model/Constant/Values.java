@@ -21,6 +21,21 @@ public class Values {
         public static final String FIRST_NAME = "firstname";
         public static final String LAST_NAME = "lastname";
         public static final String PASSWORD = "pass";
-
     }
+
+    public static class DrawerControlAction {
+        public static final String CLOSE_ACTION = "CLOSE";
+        public static final String ENABLE_ACTION = "ENABLE";
+        public static final String DISABLE_ACTION = "DISABLE";
+    }
+
+    public static class Event {
+        public static final String SCREEN_ORIENTATION = "ORIENTATION";
+    }
+
+    public static class Orientation {
+        public static final String PORTRAIT = "PORTRAIT";
+        public static final String LANDSCAPE = "LANDSCAPE";
+    }
+
 }

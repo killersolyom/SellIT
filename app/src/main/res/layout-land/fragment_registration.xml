@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/app_title_text" />
 
     <EditText
-        android:id="@+id/user_last_name_field"
+        android:id="@+id/user_first_name_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="30dp"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/app_title_text" />
 
     <EditText
-        android:id="@+id/user_first_name_field"
+        android:id="@+id/user_last_name_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="60dp"
@@ -78,8 +78,8 @@
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/user_first_name_field"
-        app:layout_constraintTop_toBottomOf="@+id/user_last_name_field" />
+        app:layout_constraintStart_toEndOf="@id/user_password_field"
+        app:layout_constraintTop_toBottomOf="@+id/user_first_name_field" />
 
     <EditText
         android:id="@+id/user_password_field"
@@ -93,7 +93,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_first_name_field" />
+        app:layout_constraintTop_toBottomOf="@+id/user_last_name_field" />
 
     <Button
         android:id="@+id/register_button"

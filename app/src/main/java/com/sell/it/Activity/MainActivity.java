@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -18,16 +17,22 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.sell.it.Communication.ActivityCallbackInterface;
+import com.sell.it.Model.Event;
 import com.sell.it.R;
-import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.FragmentNavigation;
+import com.sell.it.Utility.LanguageManager;
 import com.sell.it.Utility.UtilityManager;
 
-import java.util.Locale;
-
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.sell.it.Model.Constant.Values.DrawerControlAction.CLOSE_ACTION;
+import static com.sell.it.Model.Constant.Values.DrawerControlAction.DISABLE_ACTION;
+import static com.sell.it.Model.Constant.Values.DrawerControlAction.ENABLE_ACTION;
+import static com.sell.it.Model.Constant.Values.Event.SCREEN_ORIENTATION;
+import static com.sell.it.Model.Constant.Values.Orientation.LANDSCAPE;
+import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCallbackInterface {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, ActivityCallbackInterface {
 
     private DrawerLayout mDrawerLayout;
     private BroadcastReceiver mReceiver;
@@ -36,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String FIRST_START_KEY = "FirstStart";
     public static final String LANGUAGE_CHANGED_KEY = "languageChangeEvent";
     public static final String INTENT_FILTER_KEY = "applicationIntentFilter";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,43 +77,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void restart() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(FIRST_START_KEY, false);
-        startActivity(intent);
+        startActivity(new Intent(this, MainActivity.class)
+                .addFlags(FLAG_ACTIVITY_NEW_TASK).putExtra(FIRST_START_KEY, false));
         finish();
         Runtime.getRuntime().exit(0);
     }
 
-    private void loadPreferredLanguage() {
-        Resources res = getResources();
-        Locale locale = new Locale(DataManager.getLanguage());
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.setLocale(locale);
-        res.updateConfiguration(config, res.getDisplayMetrics());
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        FragmentNavigation.handleNavigationItem(menuItem, mDrawerLayout);
-        return false;
+        return FragmentNavigation.onDrawerItemSelected(menuItem.getItemId());
     }
 
     @Override
     protected void attachBaseContext(Context context) {
-        super.attachBaseContext(context);
-        DataManager.initialize(context);
-        loadPreferredLanguage();
+        super.attachBaseContext(LanguageManager.loadPreferredLanguage(context));
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        FragmentNavigation.dispatchEvent(new Event(SCREEN_ORIENTATION,
+                newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? LANDSCAPE : PORTRAIT));
+    }
+
+    @Override
+    public Context createConfigurationContext(Configuration overrideConfiguration) {
+        return super.createConfigurationContext(
+                LanguageManager.loadLanguageIntoConfig(overrideConfiguration));
     }
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawers();
-        } else {
-            FragmentNavigation.onBackPressed();
-        }
+        FragmentNavigation.onBackPressed();
     }
 
     @Override
@@ -133,12 +132,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void enableDrawerLayout() {
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    public void onDrawerLayoutEvent(String event) {
+        switch (event) {
+            case CLOSE_ACTION:
+                mDrawerLayout.closeDrawers();
+                break;
+            case ENABLE_ACTION:
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                break;
+            case DISABLE_ACTION:
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                break;
+        }
     }
 
     @Override
-    public void disableDrawerLayout() {
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    public boolean isDrawerOpen() {
+        return mDrawerLayout.isDrawerOpen(GravityCompat.START);
     }
+
 }
