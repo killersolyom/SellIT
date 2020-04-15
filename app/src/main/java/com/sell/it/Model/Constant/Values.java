@@ -15,6 +15,14 @@ public class Values {
         public static final String LANGUAGE_KEY_HUNGARY = "hu";
     }
 
+    public static class User {
+        public static final String USERNAME = "username";
+        public static final String EMAIL = "email";
+        public static final String FIRST_NAME = "firstname";
+        public static final String LAST_NAME = "lastname";
+        public static final String PASSWORD = "pass";
+    }
+
     public static class DrawerControlAction {
         public static final String CLOSE_ACTION = "CLOSE";
         public static final String ENABLE_ACTION = "ENABLE";
@@ -29,6 +37,5 @@ public class Values {
         public static final String PORTRAIT = "PORTRAIT";
         public static final String LANDSCAPE = "LANDSCAPE";
     }
-
 
 }

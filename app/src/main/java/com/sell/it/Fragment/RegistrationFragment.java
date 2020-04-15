@@ -1,6 +1,5 @@
 package com.sell.it.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,14 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.sell.it.Model.User;
 import com.sell.it.R;
-import com.sell.it.Utility.DataManager;
-
-import java.util.Objects;
+import com.sell.it.Utility.DatabaseManager;
 
 public class RegistrationFragment extends BaseFragment {
 
@@ -28,7 +24,6 @@ public class RegistrationFragment extends BaseFragment {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabase;
-    private String TAG = "REGISTRATIONFRAGMENT";
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container) {
@@ -73,40 +68,9 @@ public class RegistrationFragment extends BaseFragment {
         String lastName = mLastNameField.getText().toString().trim();
         String username = mUsernameField.getText().toString().trim();
 
-        if(!email.isEmpty() && !password.isEmpty()) {
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(Objects.requireNonNull(getActivity()), task -> {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "createUserWithEmail:success");
-                            User user = new User(email,firstName,lastName,username);
-                            writeNewUserToDatabase(user);
-                            saveNewUserToSharedPreferences(user);
-                            FirebaseUser mLoggedInUser = mAuth.getCurrentUser();
-                            resetFields();
-                        } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        }
-                    });
-        }
-        else {
-            Log.w(TAG, "Email or password is empty.");
-        }
+        User user = new User(email,firstName,lastName,username,password);
+        DatabaseManager.createUser(user);
+
     }
 
-    private void writeNewUserToDatabase(User user){
-        mDatabase.child("users").child(Objects.requireNonNull(mAuth.getUid()))
-                .setValue(user);
-    }
-
-    private void saveNewUserToSharedPreferences(User user){
-        DataManager.saveUser(user);
-    }
-
-    private void resetFields(){
-        mEmailField.setText("");
-        mFirstNameField.setText("");
-        mLastNameField.setText("");
-        mUsernameField.setText("");
-        mPasswordField.setText("");
-    }
 }

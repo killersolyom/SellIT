@@ -13,6 +13,7 @@ public class DataManager {
     private static final String FIRSTNAME_KEY = "Alpha_key";
     private static final String LASTNAME_KEY = "Alpha_key";
     private static final String USERNAME_KEY = "Alpha_key";
+    private static final String PASSWORD_KEY = "Alpha_key";
 
     private static SharedPreferences mPreference;
 
@@ -76,9 +77,29 @@ public class DataManager {
     }
 
     public static void saveUser(User user){
-        writeString(user.getmEmailAddress(),EMAIL_KEY);
-        writeString(user.getmFirstName(),FIRSTNAME_KEY);
-        writeString(user.getmLastName(),LASTNAME_KEY);
-        writeString(user.getmUsername(),USERNAME_KEY);
+        writeString(user.getEmailAddress(),EMAIL_KEY);
+        writeString(user.getFirstName(),FIRSTNAME_KEY);
+        writeString(user.getLastName(),LASTNAME_KEY);
+        writeString(user.getUsername(),USERNAME_KEY);
+        writeString(user.getPassword(),PASSWORD_KEY);
+    }
+
+    public static User getUser(){
+        String username = mPreference.getString(USERNAME_KEY, Values.User.USERNAME);
+        String email = mPreference.getString(EMAIL_KEY, Values.User.EMAIL);
+        String firstName = mPreference.getString(FIRSTNAME_KEY, Values.User.FIRST_NAME);
+        String lastName = mPreference.getString(LASTNAME_KEY, Values.User.LAST_NAME);
+        String password = mPreference.getString(PASSWORD_KEY, Values.User.PASSWORD);
+
+        return new User(email,firstName,lastName,username,password);
+    }
+
+    public static boolean isUserExist(User user){
+        if (user.getEmailAddress().equals("email") || user.getPassword().equals("pass")) {
+            return false;
+        }
+        else {
+            return false;
+        }
     }
 }
