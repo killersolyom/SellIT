@@ -44,8 +44,3 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 }
-
-
-
-
-

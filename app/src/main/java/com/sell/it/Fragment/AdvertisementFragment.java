@@ -1,8 +1,6 @@
 package com.sell.it.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -18,8 +16,8 @@ public class AdvertisementFragment extends BaseFragment {
     private GridLayoutManager mLayoutManager;
 
     @Override
-    protected View initView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.fragment_advertisement, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_advertisement;
     }
 
     @Override
@@ -29,7 +27,8 @@ public class AdvertisementFragment extends BaseFragment {
 
     @Override
     protected void initComponents() {
-        mLayoutManager = new GridLayoutManager(getContext(), getColumnNumberByOrientation());
+        int spanCount = getOrientation().equals(PORTRAIT) ? 2 : 3;
+        mLayoutManager = new GridLayoutManager(getContext(), spanCount);
         mAdvertisementRecyclerView.initParams(mLayoutManager, 8);
 
         //TODO Dummy data generator, remove it
@@ -38,10 +37,6 @@ public class AdvertisementFragment extends BaseFragment {
             advertisementItem.setTitle("Title for advertisement " + i);
             mAdvertisementRecyclerView.addItem(advertisementItem);
         }
-    }
-
-    private int getColumnNumberByOrientation() {
-        return getOrientation().equals(PORTRAIT) ? 2 : 3;
     }
 
 }

@@ -1,8 +1,6 @@
 package com.sell.it.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -26,8 +24,8 @@ public class RegistrationFragment extends BaseFragment {
     private DatabaseReference mDatabase;
 
     @Override
-    protected View initView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.fragment_registration, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_registration;
     }
 
     @Override
@@ -61,14 +59,14 @@ public class RegistrationFragment extends BaseFragment {
         mRegisterButton.setOnClickListener(v -> registerUser());
     }
 
-    private void registerUser(){
+    private void registerUser() {
         String email = mEmailField.getText().toString().trim();
         String password = mPasswordField.getText().toString().trim();
         String firstName = mFirstNameField.getText().toString().trim();
         String lastName = mLastNameField.getText().toString().trim();
         String username = mUsernameField.getText().toString().trim();
 
-        User user = new User(email,firstName,lastName,username,password);
+        User user = new User(email, firstName, lastName, username, password);
         DatabaseManager.createUser(user);
 
     }

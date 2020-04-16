@@ -20,7 +20,7 @@ import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 public abstract class BaseFragment extends Fragment {
 
     public final String TAG = this.getClass().getCanonicalName();
-    protected Context mContext;
+    Context mContext;
 
     public BaseFragment() {
     }
@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = initView(inflater, container);
+        View fragmentView = inflater.inflate(getLayoutId(), container, false);
         mContext = fragmentView.getContext();
         findView(fragmentView);
         initComponents();
@@ -41,7 +41,7 @@ public abstract class BaseFragment extends Fragment {
         return fragmentView;
     }
 
-    protected abstract View initView(LayoutInflater inflater, ViewGroup container);
+    protected abstract int getLayoutId();
 
     protected abstract void findView(View view);
 
@@ -60,7 +60,7 @@ public abstract class BaseFragment extends Fragment {
     public void onEvent(Event event) {
     }
 
-    protected String getOrientation() {
+    String getOrientation() {
         return getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE ? LANDSCAPE : PORTRAIT;
     }

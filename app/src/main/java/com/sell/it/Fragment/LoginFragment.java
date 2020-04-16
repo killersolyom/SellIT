@@ -1,8 +1,6 @@
 package com.sell.it.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,8 +20,8 @@ public class LoginFragment extends BaseFragment {
     private TextView mGuestUserText;
 
     @Override
-    protected View initView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_login;
     }
 
     @Override
