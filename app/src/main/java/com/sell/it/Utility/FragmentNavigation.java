@@ -114,11 +114,17 @@ public class FragmentNavigation {
                 .orElse(null));
     }
 
+    private static void offerEventForTopFragment(Event event) {
+        mFragmentManager
+                .getFragments()
+                .stream()
+                .filter(it -> it instanceof BaseFragment && it.isVisible())
+                .findFirst()
+                .ifPresent(it -> ((BaseFragment) it).onEvent(event));
+    }
+
     public static void dispatchEvent(Event event) {
-        BaseFragment fragment = getTopFragment();
-        if(fragment != null){
-            fragment.onEvent(event);
-        }
+        offerEventForTopFragment(event);
     }
 
     private static void popBackStack() {

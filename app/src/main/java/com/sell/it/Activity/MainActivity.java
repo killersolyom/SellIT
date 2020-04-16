@@ -17,7 +17,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.sell.it.Communication.ActivityCallbackInterface;
-import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.FragmentNavigation;
 import com.sell.it.Utility.LanguageManager;
@@ -27,9 +26,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.sell.it.Model.Constant.Values.DrawerControlAction.CLOSE_ACTION;
 import static com.sell.it.Model.Constant.Values.DrawerControlAction.DISABLE_ACTION;
 import static com.sell.it.Model.Constant.Values.DrawerControlAction.ENABLE_ACTION;
-import static com.sell.it.Model.Constant.Values.Event.SCREEN_ORIENTATION;
-import static com.sell.it.Model.Constant.Values.Orientation.LANDSCAPE;
-import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ActivityCallbackInterface {
@@ -39,8 +35,8 @@ public class MainActivity extends AppCompatActivity
     private ImageView mDrawerHeaderImage;
     private NavigationView mNavigationView;
     private static final String FIRST_START_KEY = "FirstStart";
-    public static final String LANGUAGE_CHANGED_KEY = "languageChangeEvent";
-    public static final String INTENT_FILTER_KEY = "applicationIntentFilter";
+    public static final String LANGUAGE_CHANGED_KEY = "LanguageChangeEvent";
+    public static final String INTENT_FILTER_KEY = "ApplicationIntentFilter";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,13 +93,6 @@ public class MainActivity extends AppCompatActivity
     public Context createConfigurationContext(Configuration overrideConfiguration) {
         return super.createConfigurationContext(
                 LanguageManager.loadLanguageIntoConfig(overrideConfiguration));
-    }
-
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        FragmentNavigation.dispatchEvent(new Event(SCREEN_ORIENTATION,
-                newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? LANDSCAPE : PORTRAIT));
     }
 
     @Override

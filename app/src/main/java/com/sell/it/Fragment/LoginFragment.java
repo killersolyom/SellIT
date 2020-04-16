@@ -44,12 +44,12 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void loadImages() {
-        Glide.with(mFragmentView).load(R.drawable.app_logo_png).into(mApplicationLogo);
+        Glide.with(mContext).load(R.drawable.app_logo_png).into(mApplicationLogo);
     }
 
     @Override
     protected void clearImages() {
-        Glide.with(mFragmentView).clear(mApplicationLogo);
+        Glide.with(mContext).clear(mApplicationLogo);
     }
 
 }

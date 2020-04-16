@@ -1,5 +1,6 @@
 package com.sell.it.Fragment;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 public abstract class BaseFragment extends Fragment {
 
     public final String TAG = this.getClass().getCanonicalName();
-    protected View mFragmentView;
+    protected Context mContext;
 
     public BaseFragment() {
     }
@@ -31,14 +32,13 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mFragmentView == null) {
-            mFragmentView = initView(inflater, container);
-            findView(mFragmentView);
-            initComponents();
-            initListeners();
-            mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
-        }
-        return mFragmentView;
+        View fragmentView = initView(inflater, container);
+        mContext = fragmentView.getContext();
+        findView(fragmentView);
+        initComponents();
+        initListeners();
+        fragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
+        return fragmentView;
     }
 
     protected abstract View initView(LayoutInflater inflater, ViewGroup container);
@@ -68,17 +68,13 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (mFragmentView != null) {
-            clearImages();
-        }
+        clearImages();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (mFragmentView != null) {
-            loadImages();
-        }
+        loadImages();
     }
 
 }
