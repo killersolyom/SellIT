@@ -24,7 +24,8 @@ public class SettingsFragment extends BaseFragment {
 
     @Override
     protected void initComponents() {
-        languageSelectorButton.setOnClickListener(v -> new LanguageSelectDialog().showDialog(mContext));
+        new LanguageSelectDialog();
+        languageSelectorButton.setOnClickListener(v -> LanguageSelectDialog.showDialog(mContext));
     }
 
 }
