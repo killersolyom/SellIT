@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDrawerLayoutEvent(String event) {
+    public void onDrawerLayoutEvent(int event) {
         switch (event) {
             case CLOSE_ACTION:
                 mDrawerLayout.closeDrawers();

@@ -24,13 +24,12 @@ public class Values {
     }
 
     public static class DrawerControlAction {
-        public static final String CLOSE_ACTION = "CLOSE";
-        public static final String ENABLE_ACTION = "ENABLE";
-        public static final String DISABLE_ACTION = "DISABLE";
+        public static final int CLOSE_ACTION = 0;
+        public static final int ENABLE_ACTION = 1;
+        public static final int DISABLE_ACTION = 2;
     }
 
     public static class Event {
-        public static final String SCREEN_ORIENTATION = "ORIENTATION";
     }
 
     public static class Orientation {

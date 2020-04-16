@@ -1,6 +1,6 @@
 package com.sell.it.Communication;
 
 public interface ActivityCallbackInterface {
-    void onDrawerLayoutEvent(String event);
+    void onDrawerLayoutEvent(int event);
     boolean isDrawerOpen();
 }
