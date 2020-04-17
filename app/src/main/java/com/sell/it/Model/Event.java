@@ -1,20 +1,42 @@
 package com.sell.it.Model;
 
+import android.os.Bundle;
+
 public class Event {
 
-    private String mEventType;
-    private String mEventMessage;
+    private int mEventType;
+    private int mEventAction;
+    private Bundle mExtras;
 
-    public Event(String mEventType, String mEventMessage) {
+    public static final int FIREBASE = 0;
+    public static final int CONTROL = 1;
+    public static final int DRAWER_MENU = 2;
+
+
+    public Event(int mEventType, int mEventMessage) {
         this.mEventType = mEventType;
-        this.mEventMessage = mEventMessage;
+        this.mEventAction = mEventMessage;
     }
 
-    public String getEventType() {
+    public Event(int mEventType, int mEventMessage, Bundle mBundle) {
+        this.mEventType = mEventType;
+        this.mEventAction = mEventMessage;
+        this.mExtras = mBundle;
+    }
+
+    public Bundle getExtras() {
+        return mExtras;
+    }
+
+    public boolean hasExtras() {
+        return mExtras != null && !mExtras.isEmpty();
+    }
+
+    public int getEventType() {
         return mEventType;
     }
 
-    public String getEvent() {
-        return mEventMessage;
+    public int getAction() {
+        return mEventAction;
     }
 }

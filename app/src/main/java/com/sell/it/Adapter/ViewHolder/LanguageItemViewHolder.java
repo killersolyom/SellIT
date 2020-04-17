@@ -1,6 +1,5 @@
 package com.sell.it.Adapter.ViewHolder;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,12 +9,13 @@ import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.sell.it.Dialog.ConfirmDialog;
 import com.sell.it.Dialog.LanguageSelectDialog;
+import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.LanguageItem;
 import com.sell.it.R;
 import com.sell.it.Utility.DataManager;
+import com.sell.it.Utility.EventDispatcher;
 
-import static com.sell.it.Activity.MainActivity.INTENT_FILTER_KEY;
-import static com.sell.it.Activity.MainActivity.LANGUAGE_CHANGED_KEY;
+import static com.sell.it.Model.Constant.Values.EventAction.LANGUAGE_CHANGE_ACTION;
 
 public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
 
@@ -59,7 +59,7 @@ public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
     }
 
     private void sendRestartAppRequest() {
-        context.sendBroadcast(new Intent(INTENT_FILTER_KEY).putExtra(LANGUAGE_CHANGED_KEY, true));
+        EventDispatcher.offerEvent(new Event(Event.CONTROL, LANGUAGE_CHANGE_ACTION));
     }
 
 }
