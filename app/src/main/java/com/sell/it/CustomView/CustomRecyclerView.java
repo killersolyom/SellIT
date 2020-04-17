@@ -62,4 +62,11 @@ public class CustomRecyclerView extends RecyclerView implements RecyclerViewInte
         mItemList.clear();
     }
 
+    public ArrayList<BaseItem> getItemList() {
+        return mItemList;
+    }
+
+    public boolean isEmpty() {
+        return mItemList.isEmpty();
+    }
 }

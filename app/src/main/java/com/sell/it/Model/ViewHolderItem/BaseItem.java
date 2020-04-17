@@ -1,6 +1,8 @@
 package com.sell.it.Model.ViewHolderItem;
 
-public abstract class BaseItem {
+import java.io.Serializable;
+
+public abstract class BaseItem implements Serializable {
 
     public abstract int getItemType();
 

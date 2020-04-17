@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.sell.it.Activity.MainActivity;
-import com.sell.it.Communication.ActivityCallbackInterface;
+import com.sell.it.Communication.DrawerInterface;
 import com.sell.it.Fragment.AdvertisementFragment;
 import com.sell.it.Fragment.BaseFragment;
 import com.sell.it.Fragment.LoginFragment;
@@ -14,19 +14,19 @@ import com.sell.it.Fragment.SettingsFragment;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
 
-import static com.sell.it.Model.Constant.Values.DrawerControlAction.CLOSE_ACTION;
-import static com.sell.it.Model.Constant.Values.DrawerControlAction.DISABLE_ACTION;
-import static com.sell.it.Model.Constant.Values.DrawerControlAction.ENABLE_ACTION;
+import static com.sell.it.Model.Constant.Values.EventAction.CLOSE_DRAWER_ACTION;
+import static com.sell.it.Model.Constant.Values.EventAction.DISABLE_DRAWER_ACTION;
+import static com.sell.it.Model.Constant.Values.EventAction.ENABLE_DRAWER_ACTION;
 
 public class FragmentNavigation {
 
     private static long mLastBackPressTime;
     private static final long mExitTimeLimit = 350;
     private static FragmentManager mFragmentManager;
-    private static ActivityCallbackInterface mMainInterface;
+    private static DrawerInterface mMainInterface;
     private static FragmentManager.OnBackStackChangedListener mBackStackChangedListener;
 
-    static void initComponents(MainActivity activity, ActivityCallbackInterface mainInterface) {
+    static void initComponents(MainActivity activity, DrawerInterface mainInterface) {
         if (shouldInit()) {
             mFragmentManager = activity.getSupportFragmentManager();
             mBackStackChangedListener = FragmentNavigation::handleBackStackChangeEvent;
@@ -96,13 +96,13 @@ public class FragmentNavigation {
     }
 
     private static void handleBackStackChangeEvent() {
-        BaseFragment topFragment = getTopFragment();
-        mMainInterface.onDrawerLayoutEvent(
-                shouldEnableDrawerLayout(topFragment) ? ENABLE_ACTION : DISABLE_ACTION);
+        EventDispatcher.offerEvent(new Event(Event.DRAWER_MENU, generateDrawerLayoutControl()));
     }
 
-    private static boolean shouldEnableDrawerLayout(BaseFragment fragment) {
-        return fragment instanceof AdvertisementFragment || fragment instanceof SettingsFragment;
+    private static int generateDrawerLayoutControl() {
+        BaseFragment fragment = getTopFragment();
+        return fragment instanceof AdvertisementFragment || fragment instanceof SettingsFragment
+                ? ENABLE_DRAWER_ACTION : DISABLE_DRAWER_ACTION;
     }
 
     private static BaseFragment getTopFragment() {
@@ -112,19 +112,6 @@ public class FragmentNavigation {
                 .filter(it -> it instanceof BaseFragment && it.isVisible())
                 .findFirst()
                 .orElse(null));
-    }
-
-    private static void offerEventForTopFragment(Event event) {
-        mFragmentManager
-                .getFragments()
-                .stream()
-                .filter(it -> it instanceof BaseFragment && it.isVisible())
-                .findFirst()
-                .ifPresent(it -> ((BaseFragment) it).onEvent(event));
-    }
-
-    public static void dispatchEvent(Event event) {
-        offerEventForTopFragment(event);
     }
 
     private static void popBackStack() {
@@ -143,13 +130,13 @@ public class FragmentNavigation {
                 exit();
                 break;
         }
-        mMainInterface.onDrawerLayoutEvent(CLOSE_ACTION);
+        EventDispatcher.offerEvent(new Event(Event.DRAWER_MENU, CLOSE_DRAWER_ACTION));
         return false;
     }
 
     public static void onBackPressed() {
         if (mMainInterface.isDrawerOpen()) {
-            mMainInterface.onDrawerLayoutEvent(CLOSE_ACTION);
+            EventDispatcher.offerEvent(new Event(Event.DRAWER_MENU, CLOSE_DRAWER_ACTION));
         } else if (isDoubleBackPressPerformed()) {
             if (shouldExit()) {
                 exit();

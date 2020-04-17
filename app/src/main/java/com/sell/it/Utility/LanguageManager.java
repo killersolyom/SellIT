@@ -20,7 +20,7 @@ public class LanguageManager {
         return context.createConfigurationContext(configuration);
     }
 
-    public static Configuration loadLanguageIntoConfig(Configuration overrideConfiguration){
+    public static Configuration loadLanguage(Configuration overrideConfiguration) {
         overrideConfiguration.setLocale(new Locale(DataManager.getLanguage()));
         return overrideConfiguration;
     }
