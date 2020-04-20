@@ -3,6 +3,7 @@ package com.sell.it.CustomView;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -12,11 +13,16 @@ public abstract class BaseCustomView<Item> extends ConstraintLayout {
 
     public BaseCustomView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        if (itemView == null) {
-            inflateView(context);
-            initView();
-            initializeComponents();
-        }
+        inflateView(context);
+        initView();
+        initializeComponents();
+    }
+
+    protected ViewGroup.LayoutParams getLayoutParams(View view) {
+        return view.getLayoutParams();
+    }
+
+    public void calculateOptimalSize(ViewGroup.LayoutParams itemParams) {
     }
 
     protected abstract void inflateView(Context context);

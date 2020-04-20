@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.sell.it.CustomView.AdvertisementViewItem;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
+import com.sell.it.Utility.FragmentNavigation;
 
 public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementItem> {
 
@@ -19,6 +20,7 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     @Override
     public void bindItem(BaseAdvertisementItem advertisementItem) {
         mAdvertisement.setOnClickListener(v -> onItemClicked(advertisementItem));
+        mAdvertisement.calculateOptimalSize(itemView.getLayoutParams());
         mAdvertisement.bindItem(advertisementItem);
     }
 
@@ -29,7 +31,7 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
 
     @Override
     protected void onItemClicked(BaseAdvertisementItem advertisementItem) {
-
+        FragmentNavigation.showDetailsFragment(advertisementItem);
     }
 
     @Override

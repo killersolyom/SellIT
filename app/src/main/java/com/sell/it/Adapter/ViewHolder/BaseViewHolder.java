@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class BaseViewHolder<GenericItem> extends RecyclerView.ViewHolder {
 
-    protected Context context;
+    protected View mItemView;
 
     BaseViewHolder(@NonNull View itemView) {
         super(itemView);
         findView(itemView);
-        context = itemView.getContext();
+    }
+
+    protected Context getContext() {
+        return mItemView.getContext();
     }
 
     protected void findView(View itemView) {

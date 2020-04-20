@@ -1,7 +1,6 @@
 package com.sell.it.Fragment;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +16,11 @@ import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.EventDispatcher;
 
-import static com.sell.it.Model.Constant.Values.Orientation.LANDSCAPE;
-import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
-
 public abstract class BaseFragment extends Fragment implements EventListener {
 
     public final String TAG = this.getClass().getCanonicalName();
     Context mContext;
+    private View mFragmentView;
 
     public BaseFragment() {
     }
@@ -34,14 +31,18 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(getLayoutId(), container, false);
-        mContext = fragmentView.getContext();
-        findView(fragmentView);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+        if (mFragmentView == null) {
+            mFragmentView = inflater.inflate(getLayoutId(), container, false);
+        }
+        mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
+        mContext = mFragmentView.getContext();
+        findView(mFragmentView);
         initComponents();
         initListeners();
-        fragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
-        return fragmentView;
+        getArgumentsFromBundle(getArguments());
+
+        return mFragmentView;
     }
 
     protected abstract int getLayoutId();
@@ -54,6 +55,9 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     protected void initListeners() {
     }
 
+    protected void getArgumentsFromBundle(Bundle bundle) {
+    }
+
     protected void loadImages() {
     }
 
@@ -64,11 +68,6 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     }
 
     protected void restoreItems(Bundle bundle) {
-    }
-
-    int getOrientation() {
-        return getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE ? LANDSCAPE : PORTRAIT;
     }
 
     @Override
@@ -85,9 +84,7 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     @Override
     public void onViewStateRestored(@Nullable Bundle bundle) {
         super.onViewStateRestored(bundle);
-        if (bundle != null && !bundle.isEmpty()) {
-            restoreItems(bundle);
-        }
+        restoreItems(bundle);
     }
 
     @Override

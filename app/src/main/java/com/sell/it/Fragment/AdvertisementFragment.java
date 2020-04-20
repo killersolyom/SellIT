@@ -9,6 +9,7 @@ import com.sell.it.CustomView.CustomRecyclerView;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
+import com.sell.it.Utility.DisplayUtils;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -34,10 +35,17 @@ public class AdvertisementFragment extends BaseFragment {
 
     @Override
     protected void initComponents() {
-        int spanCount = getOrientation() == PORTRAIT ? 2 : 3;
+        int spanCount = DisplayUtils.getOrientation() == PORTRAIT ? 2 : 3;
         mLayoutManager = new GridLayoutManager(getContext(), spanCount);
-        mAdvertisementRecyclerView.initParams(mLayoutManager, 8);
+        mAdvertisementRecyclerView.initParams(mLayoutManager, spanCount, 4 * spanCount);
+    }
 
+    @Override
+    protected void initListeners() {
+        addItems();
+    }
+
+    private void addItems() {
         //TODO Dummy data generator, remove it
         if (mAdvertisementRecyclerView.isEmpty()) {
             for (int i = 0; i < 100; i++) {

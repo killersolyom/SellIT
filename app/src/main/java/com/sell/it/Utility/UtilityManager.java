@@ -7,6 +7,7 @@ public class UtilityManager {
 
     public static void initUtilities(MainActivity activity, DrawerInterface mainInterface) {
         FragmentNavigation.initComponents(activity,mainInterface);
+        DisplayUtils.initialize(activity);
         DataManager.initialize(activity.getApplicationContext());
         DatabaseManager.initialize(activity.getApplicationContext());
     }

@@ -30,7 +30,7 @@ public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
     @Override
     public void bindItem(LanguageItem languageItem) {
         mLanguageName.setText(languageItem.getLanguageName());
-        Glide.with(context).load(languageItem.getLanguageImage()).into(mLanguageImage);
+        Glide.with(getContext()).load(languageItem.getLanguageImage()).into(mLanguageImage);
         mItemLayout.setOnClickListener(v -> onItemClicked(languageItem));
     }
 
@@ -39,8 +39,8 @@ public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
         DataManager.saveLanguage(languageItem.getLanguageKey());
         LanguageSelectDialog.dismissDialog();
         ConfirmDialog.showDialog(
-                context,
-                context.getResources().getString(R.string.restart_needed),
+                getContext(),
+                getContext().getResources().getString(R.string.restart_needed),
                 this::sendRestartAppRequest,
                 ConfirmDialog::dismissDialog);
     }
@@ -55,7 +55,7 @@ public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
     @Override
     public void unBindItem() {
         mLanguageName.setText(null);
-        Glide.with(context).clear(mLanguageImage);
+        Glide.with(getContext()).clear(mLanguageImage);
     }
 
     private void sendRestartAppRequest() {

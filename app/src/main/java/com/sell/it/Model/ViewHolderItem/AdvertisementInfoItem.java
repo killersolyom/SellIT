@@ -5,13 +5,19 @@ import com.sell.it.Model.Constant.Values;
 public class AdvertisementInfoItem extends BaseDefaultItem {
 
     private String mInfo;
+    private float mTextSize;
 
-    public AdvertisementInfoItem(String info) {
+    public AdvertisementInfoItem(String info, float textSize) {
         mInfo = info;
+        mTextSize = textSize;
     }
 
     public String getInfo() {
         return mInfo;
+    }
+
+    public float getTextSize() {
+        return mTextSize;
     }
 
     public void setInfo(String info) {

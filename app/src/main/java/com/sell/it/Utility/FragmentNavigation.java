@@ -8,10 +8,12 @@ import com.sell.it.Activity.MainActivity;
 import com.sell.it.Communication.DrawerInterface;
 import com.sell.it.Fragment.AdvertisementFragment;
 import com.sell.it.Fragment.BaseFragment;
+import com.sell.it.Fragment.DetailsFragment;
 import com.sell.it.Fragment.LoginFragment;
 import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
 import com.sell.it.Model.Event;
+import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
 
 import static com.sell.it.Model.Constant.Values.EventAction.CLOSE_DRAWER_ACTION;
@@ -55,6 +57,10 @@ public class FragmentNavigation {
 
     public static void showRegistrationFragment() {
         showFragment(new RegistrationFragment());
+    }
+
+    public static void showDetailsFragment(BaseAdvertisementItem item) {
+        showFragment(DetailsFragment.newInstance(item));
     }
 
     private static void showFragment(BaseFragment fragment) {
@@ -101,7 +107,8 @@ public class FragmentNavigation {
 
     private static int generateDrawerLayoutControl() {
         BaseFragment fragment = getTopFragment();
-        return fragment instanceof AdvertisementFragment || fragment instanceof SettingsFragment
+        return fragment instanceof AdvertisementFragment || fragment instanceof SettingsFragment ||
+                fragment instanceof DetailsFragment
                 ? ENABLE_DRAWER_ACTION : DISABLE_DRAWER_ACTION;
     }
 

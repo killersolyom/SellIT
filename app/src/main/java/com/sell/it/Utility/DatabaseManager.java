@@ -1,6 +1,5 @@
 package com.sell.it.Utility;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -10,7 +9,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.sell.it.Model.User;
 
 import java.util.Objects;
-import java.util.concurrent.Executor;
 
 public class DatabaseManager {
     private static final String USER_KEY = "users";
@@ -21,7 +19,7 @@ public class DatabaseManager {
     private static Context mContext;
     private static String TAG = "DATABASEMANAGER";
 
-    public static void initialize(Context context) {
+    static void initialize(Context context) {
         mContext = context;
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();

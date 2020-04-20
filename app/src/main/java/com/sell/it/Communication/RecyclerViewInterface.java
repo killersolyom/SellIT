@@ -8,4 +8,6 @@ public interface RecyclerViewInterface {
     int getViewType(int position);
 
     int getItemCount();
+
+    int getSpanCount();
 }

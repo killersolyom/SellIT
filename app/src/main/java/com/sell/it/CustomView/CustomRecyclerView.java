@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class CustomRecyclerView extends RecyclerView implements RecyclerViewInterface {
 
     private ItemAdapter mItemAdapter;
+    private int mSpanCount;
     private ArrayList<BaseItem> mItemList = new ArrayList<>();
 
     public CustomRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -38,12 +40,24 @@ public class CustomRecyclerView extends RecyclerView implements RecyclerViewInte
         return mItemList.size();
     }
 
-    public void initParams(LayoutManager layoutManager, int cacheSize) {
-        initParams(layoutManager);
+    @Override
+    public int getSpanCount() {
+        return mSpanCount;
+    }
+
+    public void notifyDataSetChanged() {
+        mItemAdapter.notifyDataSetChanged();
+    }
+
+    public void initParams(GridLayoutManager layoutManager, int spanCount, int cacheSize) {
+        mSpanCount = spanCount;
+        setAdapter(mItemAdapter);
+        setLayoutManager(layoutManager);
         setItemViewCacheSize(cacheSize);
     }
 
     public void initParams(LayoutManager layoutManager) {
+        mSpanCount = 1;
         setAdapter(mItemAdapter);
         setLayoutManager(layoutManager);
     }
@@ -51,6 +65,7 @@ public class CustomRecyclerView extends RecyclerView implements RecyclerViewInte
     public void addItemList(ArrayList<BaseItem> itemList) {
         mItemList.clear();
         mItemList.addAll(itemList);
+        mItemAdapter.notifyDataSetChanged();
     }
 
     public void addItem(BaseItem item) {

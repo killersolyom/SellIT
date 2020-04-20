@@ -19,7 +19,7 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return LayoutSelector.getLayoutForItem(parent, viewType);
+        return LayoutSelector.getLayoutForItem(parent, viewType, mRecyclerInterface.getSpanCount());
     }
 
     @Override

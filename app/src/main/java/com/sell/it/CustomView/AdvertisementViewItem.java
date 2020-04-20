@@ -3,6 +3,7 @@ package com.sell.it.CustomView;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,12 +18,14 @@ import com.sell.it.R;
 
 import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.sell.it.Utility.DisplayUtils.convertPixelToSp;
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
     private TextView mAdvertisementTitle;
     private ImageView mAdvertisementImage;
     private CustomRecyclerView mInfoRecyclerView;
+    private float mTitleTextSize, mInfoItemTextSize;
 
     public AdvertisementViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -45,6 +48,20 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         mInfoRecyclerView.initParams(new LinearLayoutManager(getContext(), HORIZONTAL, false));
     }
 
+    public void calculateOptimalSize(ViewGroup.LayoutParams itemParams) {
+        ViewGroup.LayoutParams infoParams = getLayoutParams(mInfoRecyclerView);
+        ViewGroup.LayoutParams titleParams = getLayoutParams(mAdvertisementTitle);
+
+        infoParams.height = (int) (itemParams.height * 0.14);//14%
+        titleParams.height = (int) (itemParams.height * 0.13);//13%
+
+        mInfoRecyclerView.setLayoutParams(infoParams);
+        mAdvertisementTitle.setLayoutParams(titleParams);
+
+        mTitleTextSize = convertPixelToSp(titleParams.height * 0.9f);
+        mInfoItemTextSize = convertPixelToSp(infoParams.height * 0.9f);
+    }
+
     public void bindItem(BaseAdvertisementItem advertisementItem) {
         setTitle(advertisementItem.getTitle());
         loadImage(advertisementItem.getFirstImage());
@@ -57,10 +74,11 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     }
 
     private void setTitle(String title) {
+        mAdvertisementTitle.setTextSize(mTitleTextSize);
         mAdvertisementTitle.setText(title);
         //TODO Dummy data generator, remove it
         for (int i = 0; i < 5; i++) {
-            mInfoRecyclerView.addItem(new AdvertisementInfoItem("Data " + i));
+            mInfoRecyclerView.addItem(new AdvertisementInfoItem("Data " + i, mInfoItemTextSize));
             mInfoRecyclerView.addItem(new TextSeparatorItem());
         }
     }
