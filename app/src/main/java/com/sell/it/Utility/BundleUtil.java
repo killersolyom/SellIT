@@ -2,6 +2,8 @@ package com.sell.it.Utility;
 
 import android.os.Bundle;
 
+import java.io.Serializable;
+
 public class BundleUtil {
 
     public static boolean isExist(Bundle bundle) {
@@ -18,6 +20,12 @@ public class BundleUtil {
             return item != null && type.equals(item.getClass());
         }
         return false;
+    }
+
+    public static Bundle createBundle(String key, Serializable item) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(key, item);
+        return bundle;
     }
 
     public static <Type> Type castItem(Bundle bundle, String key, Class<Type> type) {

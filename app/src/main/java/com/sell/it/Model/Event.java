@@ -11,6 +11,7 @@ public class Event {
     public static final int FIREBASE = 0;
     public static final int CONTROL = 1;
     public static final int DRAWER_MENU = 2;
+    public static final int TRANSACTION = 3;
 
 
     public Event(int mEventType, int mEventMessage) {

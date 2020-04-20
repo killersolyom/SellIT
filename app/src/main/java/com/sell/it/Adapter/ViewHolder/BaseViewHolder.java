@@ -13,6 +13,7 @@ public abstract class BaseViewHolder<GenericItem> extends RecyclerView.ViewHolde
     BaseViewHolder(@NonNull View itemView) {
         super(itemView);
         findView(itemView);
+        mItemView = itemView;
     }
 
     protected Context getContext() {

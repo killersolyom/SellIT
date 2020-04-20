@@ -27,24 +27,20 @@
         app:layout_constraintStart_toStartOf="@id/item_background"
         app:layout_constraintTop_toTopOf="@id/item_background" />
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/advertisement_title"
         android:layout_width="match_parent"
-        android:layout_height="18dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/advertisement_item_margin"
         android:layout_marginEnd="@dimen/advertisement_item_margin"
         android:background="@drawable/header_gradient"
-        android:ellipsize="end"
-        android:gravity="top"
-        android:paddingStart="3dp"
+        android:paddingStart="1dp"
         android:paddingEnd="0dp"
-        android:textAlignment="gravity"
-        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="@id/advertisement_image"
         app:layout_constraintStart_toStartOf="@id/advertisement_image"
         app:layout_constraintTop_toTopOf="@id/advertisement_image" />
 
-    <com.sell.it.CustomView.CustomRecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/advertisement_extra_info_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

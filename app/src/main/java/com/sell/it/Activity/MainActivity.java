@@ -18,6 +18,7 @@ import com.sell.it.Communication.DrawerInterface;
 import com.sell.it.Communication.EventListener;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
+import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.EventDispatcher;
 import com.sell.it.Utility.FragmentNavigation;
 import com.sell.it.Utility.LanguageManager;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
     private void handleIntentEvents(Intent intent) {
         if (!intent.getBooleanExtra(FIRST_START_KEY, false)) {
             FragmentNavigation.showLoginFragment();
+            DataCacheUtil.clearItems();
             intent.putExtra(FIRST_START_KEY, true);
         }
     }

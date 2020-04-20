@@ -1,27 +1,29 @@
 package com.sell.it.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.sell.it.CustomView.CustomRecyclerView;
+import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
+import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.DisplayUtils;
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
 public class AdvertisementFragment extends BaseFragment {
 
-    private static final String SAVE_ARRAY_ITEMS_KEY = "SaveArrayItems";
-
-    private CustomRecyclerView mAdvertisementRecyclerView;
+    private RecyclerView mAdvertisementRecyclerView;
     private GridLayoutManager mLayoutManager;
+    private ItemAdapter mItemAdapter = new ItemAdapter();
 
     @Override
     protected int getLayoutId() {
@@ -36,36 +38,39 @@ public class AdvertisementFragment extends BaseFragment {
     @Override
     protected void initComponents() {
         int spanCount = DisplayUtils.getOrientation() == PORTRAIT ? 2 : 3;
+        mItemAdapter.setSpanCount(spanCount);
         mLayoutManager = new GridLayoutManager(getContext(), spanCount);
-        mAdvertisementRecyclerView.initParams(mLayoutManager, spanCount, 4 * spanCount);
-    }
-
-    @Override
-    protected void initListeners() {
-        addItems();
+        mAdvertisementRecyclerView.setItemViewCacheSize(4 * spanCount);
+        mAdvertisementRecyclerView.setLayoutManager(mLayoutManager);
+        mAdvertisementRecyclerView.setAdapter(mItemAdapter);
     }
 
     private void addItems() {
         //TODO Dummy data generator, remove it
-        if (mAdvertisementRecyclerView.isEmpty()) {
+        if (mItemAdapter.isEmpty()) {
+            Log.d("3ss", "addItems");
             for (int i = 0; i < 100; i++) {
                 BaseAdvertisementItem advertisementItem = new BaseAdvertisementItem();
-                advertisementItem.setTitle("Title for advertisement " + ThreadLocalRandom.current().nextInt(100));
-                mAdvertisementRecyclerView.addItem(advertisementItem);
+                int random = new Random().nextInt(100);
+                advertisementItem.setTitle("Title for advertisement " + random);
+                mItemAdapter.addItem(advertisementItem);
             }
+            saveItems();
         }
     }
 
     @Override
-    protected void restoreItems(Bundle bundle) {
-        if (BundleUtil.canCast(bundle, SAVE_ARRAY_ITEMS_KEY, ArrayList.class)) {
-            mAdvertisementRecyclerView.addItemList(
-                    BundleUtil.castItem(bundle, SAVE_ARRAY_ITEMS_KEY, ArrayList.class));
+    protected void restoreItems() {
+        Bundle bundle = DataCacheUtil.getItem(TAG);
+        if (mItemAdapter.isEmpty() && BundleUtil.canCast(bundle, TAG, ArrayList.class)) {
+            mItemAdapter.addItemList(BundleUtil.castItem(bundle, TAG, ArrayList.class));
+        } else {
+            addItems();
         }
     }
 
     @Override
-    protected void saveItems(Bundle bundle) {
-        bundle.putSerializable(SAVE_ARRAY_ITEMS_KEY, mAdvertisementRecyclerView.getItemList());
+    protected void saveItems() {
+        DataCacheUtil.addItem(TAG, BundleUtil.createBundle(TAG, mItemAdapter.getItemList()));
     }
 }

@@ -9,28 +9,28 @@ import com.sell.it.R;
 
 public class ConfirmDialog {
 
-    private static Dialog dialog;
+    private static Dialog mDialog;
 
     public static void showDialog(Context context, String confirmText, Runnable yesOption, Runnable noOption) {
         initDialog(context, confirmText, yesOption, noOption);
-        dialog.show();
+        mDialog.show();
     }
 
     public static void dismissDialog() {
-        if (dialog != null) {
-            dialog.dismiss();
-            dialog = null;
+        if (mDialog != null) {
+            mDialog.dismiss();
+            mDialog = null;
         }
     }
 
     private static void initDialog(Context context, String confirmText, Runnable yesOption, Runnable noOption) {
-        dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.confirm_dialog_layout);
-        TextView confirmTextView = dialog.findViewById(R.id.confirm_text);
-        TextView yesText = dialog.findViewById(R.id.yes_text);
-        TextView noText = dialog.findViewById(R.id.no_text);
+        mDialog = new Dialog(context);
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialog.setCancelable(false);
+        mDialog.setContentView(R.layout.confirm_dialog_layout);
+        TextView confirmTextView = mDialog.findViewById(R.id.confirm_text);
+        TextView yesText = mDialog.findViewById(R.id.yes_text);
+        TextView noText = mDialog.findViewById(R.id.no_text);
 
         confirmTextView.setText(confirmText);
         yesText.setOnClickListener(v -> yesOption.run());

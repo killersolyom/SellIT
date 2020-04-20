@@ -12,15 +12,29 @@ public class EventDispatcher {
 
     public static void offerEvent(Event event) {
         if (event != null && !mListenerList.isEmpty()) {
-            dispatchEvent(event);
+            dispatchEvent(event, false);
         }
     }
 
-    private static void dispatchEvent(Event event) {
+    public static void offerEvent(Event event, boolean ignoreConsume) {
+        if (event != null && !mListenerList.isEmpty()) {
+            dispatchEvent(event, ignoreConsume);
+        }
+    }
+
+    private static void dispatchEvent(Event event, boolean ignoreConsume) {
+        boolean shouldClear = false;
         for (EventListener it : mListenerList) {
-            if (it != null && it.onEvent(event)) {
-                break;
+            if (it != null) {
+                if (it.onEvent(event) && !ignoreConsume) {
+                    break;
+                }
+            } else {
+                shouldClear = true;
             }
+        }
+        if (shouldClear) {
+            clearListeners();
         }
     }
 
@@ -28,12 +42,10 @@ public class EventDispatcher {
         if (!mListenerList.contains(eventListener)) {
             mListenerList.add(eventListener);
         }
-        clearListeners();
     }
 
     public static void unSubscribe(EventListener eventListener) {
         mListenerList.remove(eventListener);
-        clearListeners();
     }
 
     private static void clearListeners() {

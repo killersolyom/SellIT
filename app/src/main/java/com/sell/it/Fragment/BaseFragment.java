@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -34,14 +33,13 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         if (mFragmentView == null) {
             mFragmentView = inflater.inflate(getLayoutId(), container, false);
+            mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
+            mContext = mFragmentView.getContext();
+            findView(mFragmentView);
+            initComponents();
+            initListeners();
+            getArgumentsFromBundle(getArguments());
         }
-        mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
-        mContext = mFragmentView.getContext();
-        findView(mFragmentView);
-        initComponents();
-        initListeners();
-        getArgumentsFromBundle(getArguments());
-
         return mFragmentView;
     }
 
@@ -64,10 +62,10 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     protected void clearImages() {
     }
 
-    protected void saveItems(Bundle bundle) {
+    protected void saveItems() {
     }
 
-    protected void restoreItems(Bundle bundle) {
+    protected void restoreItems() {
     }
 
     @Override
@@ -76,21 +74,12 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle bundle) {
-        super.onSaveInstanceState(bundle);
-        saveItems(bundle);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle bundle) {
-        super.onViewStateRestored(bundle);
-        restoreItems(bundle);
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         EventDispatcher.unSubscribe(this);
+        if (isAdded()) {
+            saveItems();
+        }
         clearImages();
     }
 
@@ -99,6 +88,9 @@ public abstract class BaseFragment extends Fragment implements EventListener {
         super.onResume();
         EventDispatcher.subscribe(this);
         loadImages();
+        if (isAdded()) {
+            restoreItems();
+        }
     }
 
 }
