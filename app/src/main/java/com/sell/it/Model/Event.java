@@ -2,6 +2,8 @@ package com.sell.it.Model;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+
 public class Event {
 
     private int mEventType;
@@ -11,8 +13,6 @@ public class Event {
     public static final int FIREBASE = 0;
     public static final int CONTROL = 1;
     public static final int DRAWER_MENU = 2;
-    public static final int TRANSACTION = 3;
-
 
     public Event(int mEventType, int mEventMessage) {
         this.mEventType = mEventType;
@@ -39,5 +39,14 @@ public class Event {
 
     public int getAction() {
         return mEventAction;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj instanceof Event) {
+            Event cmp = (Event) obj;
+            return mEventType == cmp.mEventType && this.mEventAction == cmp.mEventAction && mExtras == cmp.mExtras;
+        }
+        return false;
     }
 }
