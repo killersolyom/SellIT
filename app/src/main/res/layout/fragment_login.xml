@@ -109,4 +109,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_have_account" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/remember_me_check_box"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="@dimen/default_button_margin"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guest_user_text" />
+
+    <TextView
+        android:id="@+id/remember_me_text"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/remember_me"
+        android:layout_marginEnd="@dimen/default_button_margin"
+        app:layout_constraintStart_toEndOf="@id/remember_me_check_box"
+        app:layout_constraintTop_toBottomOf="@id/guest_user_text" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

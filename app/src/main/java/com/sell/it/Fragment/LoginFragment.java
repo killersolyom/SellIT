@@ -6,8 +6,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatCheckBox;
+
 import com.bumptech.glide.Glide;
 import com.sell.it.R;
+import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.FragmentNavigation;
 
 public class LoginFragment extends BaseFragment {
@@ -18,6 +21,7 @@ public class LoginFragment extends BaseFragment {
     private ImageView mApplicationLogo;
     private TextView mSignUpText;
     private TextView mGuestUserText;
+    private AppCompatCheckBox mRememberMe;
 
     @Override
     protected int getLayoutId() {
@@ -32,12 +36,19 @@ public class LoginFragment extends BaseFragment {
         mApplicationLogo = view.findViewById(R.id.app_logo_image);
         mSignUpText = view.findViewById(R.id.text_have_account);
         mGuestUserText = view.findViewById(R.id.guest_user_text);
+        mRememberMe = view.findViewById(R.id.remember_me_check_box);
+    }
+
+    @Override
+    protected void initComponents() {
+        mRememberMe.setChecked(DataManager.getRememberMeStatus());
     }
 
     @Override
     protected void initListeners() {
         mSignUpText.setOnClickListener(v -> FragmentNavigation.showRegistrationFragment());
         mGuestUserText.setOnClickListener(v -> FragmentNavigation.showAdvertisementFragment());
+        mRememberMe.setOnCheckedChangeListener((buttonView, isChecked) -> DataManager.saveRememberMeStatus(isChecked));
     }
 
     @Override

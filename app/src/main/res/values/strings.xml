@@ -16,6 +16,7 @@
     <string name="language">Language</string>
     <string name="english_language">English</string>
     <string name="hungarian_language">Magyar</string>
+    <string name="remember_me">Remember me</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="column_number">Column number</string>
