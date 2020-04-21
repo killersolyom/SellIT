@@ -55,7 +55,7 @@ public class LoginFragment extends BaseAuthenticationFragment {
 
     @Override
     protected void initComponents() {
-        
+
     }
 
     private void loginUser(){
