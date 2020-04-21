@@ -13,13 +13,15 @@ import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.EventDispatcher;
 
+import java.util.Arrays;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class TransactionDialog extends BaseDialogFragment implements EventListener {
 
-    private Event mListenEvent;
+    private Event[] mListenEvent;
 
-    public TransactionDialog(Event listenEvent) {
+    public TransactionDialog(Event... listenEvent) {
         mListenEvent = listenEvent;
     }
 
@@ -36,12 +38,13 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
 
     @Override
     protected void initView(View view) {
+        setCancelable(false);
         EventDispatcher.subscribe(this);
     }
 
     @Override
     public boolean onEvent(Event event) {
-        if (event.equals(mListenEvent)) {
+        if (Arrays.asList(mListenEvent).contains(event)) {
             dismissDialog();
             return true;
         }

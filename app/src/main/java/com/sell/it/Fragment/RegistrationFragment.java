@@ -7,11 +7,13 @@ import android.widget.EditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
 import com.sell.it.R;
 import com.sell.it.Utility.DatabaseManager;
+import com.sell.it.Utility.FragmentNavigation;
 
-public class RegistrationFragment extends BaseFragment {
+public class RegistrationFragment extends BaseAuthenticationFragment {
 
     private EditText mEmailField;
     private EditText mFirstNameField;
@@ -60,6 +62,7 @@ public class RegistrationFragment extends BaseFragment {
     }
 
     private void registerUser() {
+        FragmentNavigation.showTransactionDialog(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_FAIL), new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_SUCCESS));
         String email = mEmailField.getText().toString().trim();
         String password = mPasswordField.getText().toString().trim();
         String firstName = mFirstNameField.getText().toString().trim();
@@ -68,7 +71,6 @@ public class RegistrationFragment extends BaseFragment {
 
         User user = new User(email, firstName, lastName, username, password);
         DatabaseManager.createUser(user);
-
     }
 
 }
