@@ -7,6 +7,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.User;
 
 public class DataManager {
+    private static final String REMEMBER_ME_KEY = "remember_me_key";
     private static final String PORTRAIT_KEY = "PORTRAIT_key";
     private static final String LANDSCAPE_KEY = "LANDSCAPE_key";
     private static final String LANGUAGE_KEY = "Alpha_key";
@@ -56,8 +57,16 @@ public class DataManager {
         mPreference.edit().putInt(key, value).apply();
     }
 
+    private static void writeBooleanData(boolean value, String key) {
+        mPreference.edit().putBoolean(key, value).apply();
+    }
+
     private static int readIntData(String key, int defaultValue) {
         return mPreference.getInt(key, defaultValue);
+    }
+
+    private static boolean readBooleanData(String key) {
+        return mPreference.getBoolean(key, false);
     }
 
     public static void saveLanguage(String language) {
@@ -109,4 +118,13 @@ public class DataManager {
     public static void savePortraitColumnNumber(int value) {
         writeIntData(value, PORTRAIT_KEY);
     }
+
+    public static boolean getRememberMeStatus() {
+        return readBooleanData(REMEMBER_ME_KEY);
+    }
+
+    public static void saveRememberMeStatus(boolean value) {
+        writeBooleanData(value, REMEMBER_ME_KEY);
+    }
+
 }
