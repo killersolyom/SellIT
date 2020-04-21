@@ -71,5 +71,4 @@ public class LoginFragment extends BaseAuthenticationFragment {
         String password = mPasswordField.getText().toString().trim();
         DatabaseManager.loginUser(username,password);
     }
-
 }
