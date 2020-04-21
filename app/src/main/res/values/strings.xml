@@ -18,5 +18,8 @@
     <string name="hungarian_language">Magyar</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="column_number">Column number</string>
+    <string name="portrait_column">Portrait column number</string>
+    <string name="landscape_column">Landscape column number</string>
     <string name="restart_needed">In order to change the application language, it needs to be restarted. Do you agree? </string>
 </resources>

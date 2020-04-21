@@ -1,8 +1,7 @@
 package com.sell.it.Dialog;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.view.Window;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,34 +11,29 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.ViewHolderItem.LanguageItem;
 import com.sell.it.R;
 
-public class LanguageSelectDialog {
+public class LanguageSelectDialog extends BaseDialogFragment {
 
-    private static Dialog mDialog;
+    private RecyclerView mLanguageRecyclerView;
 
-    public static void showDialog(Context context) {
-        initDialog(context);
-        mDialog.show();
+    @Override
+    protected int getLayoutView() {
+        return R.layout.language_selector_dialog_layout;
     }
 
-    public static void dismissDialog() {
-        if (mDialog != null) {
-            mDialog.dismiss();
-            mDialog = null;
-        }
+    @Override
+    protected void initView(View view) {
+        mLanguageRecyclerView = view.findViewById(R.id.language_recycler);
     }
 
-    private static void initDialog(Context context) {
-        mDialog = new Dialog(context);
-        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mDialog.setCancelable(true);
-        mDialog.setContentView(R.layout.language_selector_dialog_layout);
-        RecyclerView languageRecyclerView = mDialog.findViewById(R.id.language_recycler);
-        languageRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        languageRecyclerView.setAdapter(getLanguageAdapter(context));
-    }
-
-    private static ItemAdapter getLanguageAdapter(Context context) {
+    @Override
+    protected void initComponents(Context context) {
+        mLanguageRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         ItemAdapter adapter = new ItemAdapter();
+        mLanguageRecyclerView.setAdapter(adapter);
+        addLanguageItems(adapter, context);
+    }
+
+    private void addLanguageItems(ItemAdapter adapter, Context context) {
         adapter.addItem(
                 new LanguageItem(Values.Language.LANGUAGE_KEY_ENGLISH,
                         context.getString(R.string.english_language),
@@ -49,7 +43,6 @@ public class LanguageSelectDialog {
                 new LanguageItem(Values.Language.LANGUAGE_KEY_HUNGARY,
                         context.getString(R.string.hungarian_language),
                         R.drawable.hun_image));
-        return adapter;
     }
 
 }

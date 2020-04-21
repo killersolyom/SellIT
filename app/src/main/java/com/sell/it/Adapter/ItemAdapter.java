@@ -19,8 +19,9 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mSpanCount = 1;
     }
 
-    public ItemAdapter(int spanCount) {
+    public ItemAdapter(int spanCount, ArrayList<BaseItem> itemList) {
         mSpanCount = spanCount;
+        addItemList(itemList);
     }
 
     @NonNull

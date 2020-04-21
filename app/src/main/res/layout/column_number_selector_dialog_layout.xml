@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/portrait_text"
+        android:layout_width="125dp"
+        android:layout_height="35dp"
+        android:maxLines="1"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/portrait_column"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SeekBar
+        android:id="@+id/portrait_chooser"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        app:layout_constraintEnd_toEndOf="@id/portrait_number_text"
+        app:layout_constraintStart_toEndOf="@id/portrait_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/portrait_number_text"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:paddingStart="2dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/portrait_chooser"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/landscape_text"
+        android:layout_width="125dp"
+        android:layout_height="35dp"
+        android:maxLines="1"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/landscape_column"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/portrait_text" />
+
+    <SeekBar
+        android:id="@+id/landscape_chooser"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/landscape_number_text"
+        app:layout_constraintStart_toEndOf="@id/landscape_text" />
+
+    <TextView
+        android:id="@+id/landscape_number_text"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:paddingStart="2dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/landscape_chooser"
+        app:layout_constraintTop_toBottomOf="@id/portrait_number_text" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

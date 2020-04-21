@@ -7,13 +7,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
-import com.sell.it.Dialog.ConfirmDialog;
 import com.sell.it.Dialog.LanguageSelectDialog;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.LanguageItem;
 import com.sell.it.R;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.EventDispatcher;
+import com.sell.it.Utility.FragmentNavigation;
 
 import static com.sell.it.Model.Constant.Values.EventAction.LANGUAGE_CHANGE_ACTION;
 
@@ -37,12 +37,8 @@ public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
     @Override
     protected void onItemClicked(LanguageItem languageItem) {
         DataManager.saveLanguage(languageItem.getLanguageKey());
-        LanguageSelectDialog.dismissDialog();
-        ConfirmDialog.showDialog(
-                getContext(),
-                getContext().getResources().getString(R.string.restart_needed),
-                this::sendRestartAppRequest,
-                ConfirmDialog::dismissDialog);
+        FragmentNavigation.dismissDialogByTAG(LanguageSelectDialog.class.getCanonicalName());
+        FragmentNavigation.showConfirmDialog(R.string.restart_needed, this::sendRestartAppRequest);
     }
 
     @Override

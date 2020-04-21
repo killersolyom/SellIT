@@ -1,11 +1,17 @@
 package com.sell.it.Utility;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.sell.it.Activity.MainActivity;
 import com.sell.it.Communication.DrawerInterface;
+import com.sell.it.Dialog.BaseDialogFragment;
+import com.sell.it.Dialog.ColumnNumberSelectDialog;
+import com.sell.it.Dialog.ConfirmDialog;
+import com.sell.it.Dialog.LanguageSelectDialog;
+import com.sell.it.Dialog.TransactionDialog;
 import com.sell.it.Fragment.AdvertisementFragment;
 import com.sell.it.Fragment.BaseFragment;
 import com.sell.it.Fragment.DetailsFragment;
@@ -43,6 +49,22 @@ public class FragmentNavigation {
                 mBackStackChangedListener == null || mFragmentManager.isDestroyed();
     }
 
+    public static void showColumnNumberSelectorDialog() {
+        showDialogFragment(new ColumnNumberSelectDialog());
+    }
+
+    public static void showLanguageSelectorDialog() {
+        showDialogFragment(new LanguageSelectDialog());
+    }
+
+    public static void showConfirmDialog(int titleId, Runnable yesOption) {
+        showDialogFragment(new ConfirmDialog(titleId, yesOption));
+    }
+
+    public static void showTransactionDialog(Event listenEvent) {
+        showDialogFragment(new TransactionDialog(listenEvent));
+    }
+
     public static void showLoginFragment() {
         showFragment(new LoginFragment());
     }
@@ -61,6 +83,18 @@ public class FragmentNavigation {
 
     public static void showDetailsFragment(BaseAdvertisementItem item) {
         showFragment(DetailsFragment.newInstance(item));
+    }
+
+    private static void showDialogFragment(BaseDialogFragment dialogFragment) {
+        dismissDialogByTAG(dialogFragment.getClass().getCanonicalName());
+        dialogFragment.show(mFragmentManager, dialogFragment.getClass().getCanonicalName());
+    }
+
+    public static void dismissDialogByTAG(String tag) {
+        Fragment dialogFragment = mFragmentManager.findFragmentByTag(tag);
+        if (dialogFragment instanceof BaseDialogFragment) {
+            ((DialogFragment) dialogFragment).dismiss();
+        }
     }
 
     private static void showFragment(BaseFragment fragment) {

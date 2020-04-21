@@ -10,7 +10,9 @@ public class DataCacheUtil {
     private static Map<String, Bundle> mCacheMap = new HashMap<>();
 
     public static void addItem(String key, Bundle item) {
-        mCacheMap.put(key, item);
+        if (item != null) {
+            mCacheMap.put(key, item);
+        }
     }
 
     public static Bundle getItem(String key) {

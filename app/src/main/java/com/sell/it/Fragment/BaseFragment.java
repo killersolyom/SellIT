@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.sell.it.Communication.EventListener;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
+import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.EventDispatcher;
 
 public abstract class BaseFragment extends Fragment implements EventListener {
@@ -36,10 +37,10 @@ public abstract class BaseFragment extends Fragment implements EventListener {
             mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
             mContext = mFragmentView.getContext();
             findView(mFragmentView);
-            initComponents();
             initListeners();
             getArgumentsFromBundle(getArguments());
         }
+        initComponents();
         return mFragmentView;
     }
 
@@ -62,10 +63,11 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     protected void clearImages() {
     }
 
-    protected void saveItems() {
+    protected Bundle saveItems() {
+        return null;
     }
 
-    protected void restoreItems() {
+    protected void restoreItems(Bundle bundle) {
     }
 
     @Override
@@ -77,9 +79,7 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     public void onPause() {
         super.onPause();
         EventDispatcher.unSubscribe(this);
-        if (isAdded()) {
-            saveItems();
-        }
+        DataCacheUtil.addItem(TAG, saveItems());
         clearImages();
     }
 
@@ -87,10 +87,8 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     public void onResume() {
         super.onResume();
         EventDispatcher.subscribe(this);
+        restoreItems(DataCacheUtil.getItem(TAG));
         loadImages();
-        if (isAdded()) {
-            restoreItems();
-        }
     }
 
 }

@@ -1,61 +1,56 @@
 package com.sell.it.Dialog;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.view.KeyEvent;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
 
 import com.sell.it.Communication.EventListener;
+import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.EventDispatcher;
 
-import static com.sell.it.Model.Event.TRANSACTION;
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-public class TransactionDialog {
+public class TransactionDialog extends BaseDialogFragment implements EventListener {
 
-    private static Dialog mDialog = null;
+    private Event mListenEvent;
 
-    private static EventListener eventListener = event -> {
-        switch (event.getEventType()) {
-            case TRANSACTION:
-                return true;
+    public TransactionDialog(Event listenEvent) {
+        mListenEvent = listenEvent;
+    }
+
+    @Override
+    protected int getLayoutView() {
+        return R.layout.transaction_dialog_layout;
+    }
+
+    @Override
+    protected void loadDialogSettings(Window dialogWindow) {
+        dialogWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogWindow.setLayout(MATCH_PARENT, MATCH_PARENT);
+    }
+
+    @Override
+    protected void initView(View view) {
+        EventDispatcher.subscribe(this);
+    }
+
+    @Override
+    public boolean onEvent(Event event) {
+        if (event.equals(mListenEvent)) {
+            dismissDialog();
+            return true;
         }
         return false;
-    };
-
-    public static void showDialog(Context context) {
-        initDialog(context);
-        mDialog.show();
     }
 
-    public static void dismissDialog() {
-        if (mDialog != null) {
-            mDialog.setOnKeyListener(null);
-            mDialog.dismiss();
-            mDialog = null;
-            EventDispatcher.unSubscribe(eventListener);
-        }
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        EventDispatcher.unSubscribe(this);
     }
-
-    private static void initDialog(Context context) {
-        mDialog = new Dialog(context);
-        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mDialog.setCancelable(false);
-        mDialog.setContentView(R.layout.transaction_dialog_layout);
-        if (mDialog.getWindow() != null) {
-            mDialog.getWindow().setBackgroundDrawableResource(R.color.colorTransparentOverlay);
-            mDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.MATCH_PARENT);
-        }
-        EventDispatcher.subscribe(eventListener);
-
-        mDialog.setOnKeyListener((arg0, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                dismissDialog();
-            }
-            return true;
-        });
-    }
-
 }
