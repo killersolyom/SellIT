@@ -25,10 +25,6 @@ import com.sell.it.Utility.LanguageManager;
 import com.sell.it.Utility.UtilityManager;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static com.sell.it.Model.Constant.Values.EventAction.CLOSE_DRAWER_ACTION;
-import static com.sell.it.Model.Constant.Values.EventAction.DISABLE_DRAWER_ACTION;
-import static com.sell.it.Model.Constant.Values.EventAction.ENABLE_DRAWER_ACTION;
-import static com.sell.it.Model.Constant.Values.EventAction.LANGUAGE_CHANGE_ACTION;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, DrawerInterface, EventListener {
@@ -114,21 +110,21 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onEvent(Event event) {
         switch (event.getEventType()) {
-            case Event.DRAWER_MENU:
+            case Event.TYPE_DRAWER_MENU:
                 switch (event.getAction()) {
-                    case CLOSE_DRAWER_ACTION:
+                    case Event.ACTION_CLOSE_DRAWER:
                         mDrawerLayout.closeDrawers();
                         return true;
-                    case ENABLE_DRAWER_ACTION:
+                    case Event.ACTION_ENABLE_DRAWER:
                         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                         return true;
-                    case DISABLE_DRAWER_ACTION:
+                    case Event.ACTION_DISABLE_DRAWER:
                         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                         return true;
                 }
-            case Event.CONTROL:
+            case Event.TYPE_CONTROL:
                 switch (event.getAction()) {
-                    case LANGUAGE_CHANGE_ACTION:
+                    case Event.ACTION_LANGUAGE_CHANGE:
                         restart();
                         return true;
                 }

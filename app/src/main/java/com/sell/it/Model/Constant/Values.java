@@ -23,13 +23,6 @@ public class Values {
         public static final String PASSWORD = "pass";
     }
 
-    public static class EventAction {
-        public static final int CLOSE_DRAWER_ACTION = 0;
-        public static final int ENABLE_DRAWER_ACTION = 1;
-        public static final int DISABLE_DRAWER_ACTION = 2;
-        public static final int LANGUAGE_CHANGE_ACTION = 3;
-    }
-
     public static class Orientation {
         public static final int PORTRAIT = 0;
         public static final int LANDSCAPE = 1;

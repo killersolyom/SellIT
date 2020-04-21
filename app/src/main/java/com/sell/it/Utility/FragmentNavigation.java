@@ -22,10 +22,6 @@ import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
 
-import static com.sell.it.Model.Constant.Values.EventAction.CLOSE_DRAWER_ACTION;
-import static com.sell.it.Model.Constant.Values.EventAction.DISABLE_DRAWER_ACTION;
-import static com.sell.it.Model.Constant.Values.EventAction.ENABLE_DRAWER_ACTION;
-
 public class FragmentNavigation {
 
     private static long mLastBackPressTime;
@@ -61,7 +57,7 @@ public class FragmentNavigation {
         showDialogFragment(new ConfirmDialog(titleId, yesOption));
     }
 
-    public static void showTransactionDialog(Event listenEvent) {
+    public static void showTransactionDialog(Event... listenEvent) {
         showDialogFragment(new TransactionDialog(listenEvent));
     }
 
@@ -136,14 +132,14 @@ public class FragmentNavigation {
     }
 
     private static void handleBackStackChangeEvent() {
-        EventDispatcher.offerEvent(new Event(Event.DRAWER_MENU, generateDrawerLayoutControl()));
+        EventDispatcher.offerEvent(new Event(Event.TYPE_DRAWER_MENU, generateDrawerLayoutControl()));
     }
 
     private static int generateDrawerLayoutControl() {
         BaseFragment fragment = getTopFragment();
         return fragment instanceof AdvertisementFragment || fragment instanceof SettingsFragment ||
                 fragment instanceof DetailsFragment
-                ? ENABLE_DRAWER_ACTION : DISABLE_DRAWER_ACTION;
+                ? Event.ACTION_ENABLE_DRAWER : Event.ACTION_DISABLE_DRAWER;
     }
 
     private static BaseFragment getTopFragment() {
@@ -171,13 +167,13 @@ public class FragmentNavigation {
                 exit();
                 break;
         }
-        EventDispatcher.offerEvent(new Event(Event.DRAWER_MENU, CLOSE_DRAWER_ACTION));
+        EventDispatcher.offerEvent(new Event(Event.TYPE_DRAWER_MENU, Event.ACTION_CLOSE_DRAWER));
         return false;
     }
 
     public static void onBackPressed() {
         if (mMainInterface.isDrawerOpen()) {
-            EventDispatcher.offerEvent(new Event(Event.DRAWER_MENU, CLOSE_DRAWER_ACTION));
+            EventDispatcher.offerEvent(new Event(Event.TYPE_DRAWER_MENU, Event.ACTION_CLOSE_DRAWER));
         } else if (isDoubleBackPressPerformed()) {
             if (shouldExit()) {
                 exit();

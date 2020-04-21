@@ -15,8 +15,6 @@ import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.EventDispatcher;
 import com.sell.it.Utility.FragmentNavigation;
 
-import static com.sell.it.Model.Constant.Values.EventAction.LANGUAGE_CHANGE_ACTION;
-
 public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
 
     private ImageView mLanguageImage;
@@ -55,7 +53,7 @@ public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
     }
 
     private void sendRestartAppRequest() {
-        EventDispatcher.offerEvent(new Event(Event.CONTROL, LANGUAGE_CHANGE_ACTION));
+        EventDispatcher.offerEvent(new Event(Event.TYPE_CONTROL, Event.ACTION_LANGUAGE_CHANGE));
     }
 
 }

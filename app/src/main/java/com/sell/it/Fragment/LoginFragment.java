@@ -7,12 +7,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.sell.it.Model.Event;
 import com.sell.it.R;
+import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.FragmentNavigation;
 
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseAuthenticationFragment {
 
-    private EditText mUsernameField;
+    private EditText mEmailAddressField;
     private EditText mPasswordField;
     private Button mLoginButton;
     private ImageView mApplicationLogo;
@@ -26,7 +28,7 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void findView(View view) {
-        mUsernameField = view.findViewById(R.id.user_name_field);
+        mEmailAddressField = view.findViewById(R.id.email_address_field);
         mPasswordField = view.findViewById(R.id.user_password_field);
         mLoginButton = view.findViewById(R.id.login_button);
         mApplicationLogo = view.findViewById(R.id.app_logo_image);
@@ -38,6 +40,7 @@ public class LoginFragment extends BaseFragment {
     protected void initListeners() {
         mSignUpText.setOnClickListener(v -> FragmentNavigation.showRegistrationFragment());
         mGuestUserText.setOnClickListener(v -> FragmentNavigation.showAdvertisementFragment());
+        mLoginButton.setOnClickListener(v-> loginUser());
     }
 
     @Override
@@ -48,6 +51,18 @@ public class LoginFragment extends BaseFragment {
     @Override
     protected void clearImages() {
         Glide.with(mContext).clear(mApplicationLogo);
+    }
+
+    @Override
+    protected void initComponents() {
+        
+    }
+
+    private void loginUser(){
+        FragmentNavigation.showTransactionDialog(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_FAIL), new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_SUCCESS));
+        String username = mEmailAddressField.getText().toString().trim();
+        String password = mPasswordField.getText().toString().trim();
+        DatabaseManager.loginUser(username,password);
     }
 
 }
