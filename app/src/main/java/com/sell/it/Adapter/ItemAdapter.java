@@ -12,16 +12,15 @@ import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private final ArrayList<BaseItem> mItemList = new ArrayList<>();
+    private ArrayList<BaseItem> mItemList = new ArrayList<>();
     private int mSpanCount;
 
     public ItemAdapter() {
         mSpanCount = 1;
     }
 
-    public ItemAdapter(int spanCount, ArrayList<BaseItem> itemList) {
+    public ItemAdapter(int spanCount) {
         mSpanCount = spanCount;
-        addItemList(itemList);
     }
 
     @NonNull
@@ -56,9 +55,7 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public void addItemList(ArrayList<BaseItem> itemList) {
-        mItemList.clear();
-        mItemList.addAll(itemList);
-        notifyDataSetChanged();
+        mItemList = itemList;
     }
 
     public void addItem(BaseItem item) {

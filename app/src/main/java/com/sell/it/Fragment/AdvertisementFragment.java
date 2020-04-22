@@ -38,13 +38,15 @@ public class AdvertisementFragment extends BaseFragment {
     @Override
     protected void initComponents() {
         mLayoutManager = new GridLayoutManager(getContext(), getSpanCount());
-    }
-
-    private void initRecyclerView(ArrayList<BaseItem> itemList) {
-        mItemAdapter = new ItemAdapter(getSpanCount(), itemList);
+        mItemAdapter = new ItemAdapter(getSpanCount());
+        mAdvertisementRecyclerView.setAdapter(mItemAdapter);
         mAdvertisementRecyclerView.setLayoutManager(mLayoutManager);
         mAdvertisementRecyclerView.setItemViewCacheSize(4 * getSpanCount());
-        mAdvertisementRecyclerView.setAdapter(mItemAdapter);
+    }
+
+    private void loadItems(ArrayList<BaseItem> itemList) {
+        mItemAdapter.setSpanCount(getSpanCount());
+        mItemAdapter.addItemList(itemList);
         saveItems();
     }
 
@@ -54,19 +56,18 @@ public class AdvertisementFragment extends BaseFragment {
     }
 
     private void addItems() {
-        ArrayList<BaseItem> itemArrayList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             BaseAdvertisementItem advertisementItem = new BaseAdvertisementItem();
             advertisementItem.setTitle("Title for advertisement " + new Random().nextInt(100));
-            itemArrayList.add(advertisementItem);
+            mItemAdapter.addItem(advertisementItem);
         }
-        initRecyclerView(itemArrayList);
+        saveItems();
     }
 
     @Override
     protected void restoreItems(Bundle bundle) {
         if (BundleUtil.canCast(bundle, TAG, ArrayList.class)) {
-            initRecyclerView(BundleUtil.castItem(bundle, TAG, ArrayList.class));
+            loadItems(BundleUtil.castItem(bundle, TAG, ArrayList.class));
         } else {
             addItems();
         }
