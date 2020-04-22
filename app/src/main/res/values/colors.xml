@@ -12,6 +12,7 @@
     <color name="colorOverlay">#CC090808</color>
     <color name="colorTransparentBlack">#A8030303</color>
     <color name="colorTransparentOverlay">#40030303</color>
+    <color name="colorTransparent">#00030303</color>
     <color name="colorTransparentEditText">#BAFFFFFF</color>
     <color name="advertisementTitleBackground">#66070707</color>
     <color name="advertisementInfoBackground">#A6070707</color>
