@@ -9,6 +9,7 @@ public class Event {
     private int mEventType;
     private int mEventAction;
     private Bundle mExtras;
+    private boolean mIsConsumed;
 
     public static final int TYPE_FIREBASE = 0;
     public static final int TYPE_CONTROL = 1;
@@ -27,12 +28,14 @@ public class Event {
     public Event(int mEventType, int mEventAction) {
         this.mEventType = mEventType;
         this.mEventAction = mEventAction;
+        this.mIsConsumed = false;
     }
 
     public Event(int mEventType, int mEventMessage, Bundle mBundle) {
         this.mEventType = mEventType;
         this.mEventAction = mEventMessage;
         this.mExtras = mBundle;
+        this.mIsConsumed = false;
     }
 
     public Bundle getExtras() {
@@ -51,11 +54,23 @@ public class Event {
         return mEventAction;
     }
 
+    public boolean isConsumed() {
+        return mIsConsumed;
+    }
+
+    public void consume() {
+        mIsConsumed = true;
+    }
+
+    public Event clone() {
+        return new Event(mEventType, mEventAction, mExtras);
+    }
+
     @Override
     public boolean equals(@Nullable Object obj) {
         if (obj instanceof Event) {
             Event cmp = (Event) obj;
-            return mEventType == cmp.mEventType && this.mEventAction == cmp.mEventAction && mExtras == cmp.mExtras;
+            return mEventType == cmp.mEventType && this.mEventAction == cmp.mEventAction;
         }
         return false;
     }

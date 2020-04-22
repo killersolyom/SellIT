@@ -9,16 +9,29 @@ import java.util.Objects;
 public class EventDispatcher {
 
     private static ArrayList<EventListener> mListenerList = new ArrayList<>();
+    private static ArrayList<Event> mEventList = new ArrayList<>();
 
     public static void offerEvent(Event event) {
-        if (event != null && !mListenerList.isEmpty()) {
-            dispatchEvent(event, false);
-        }
+        offerEvent(event, false);
     }
 
     public static void offerEvent(Event event, boolean ignoreConsume) {
         if (event != null && !mListenerList.isEmpty()) {
-            dispatchEvent(event, ignoreConsume);
+            mEventList.add(0, event);
+            dispatchEvent(mEventList.get(0), ignoreConsume);
+            if (!event.isConsumed()) {
+                mEventList.add(event.clone());
+            }
+            mEventList.removeIf(Event::isConsumed);
+        }
+    }
+
+    public static void sendUnconsumedEvents() {
+        if (!mEventList.isEmpty()) {
+            for (Event event : mEventList) {
+                dispatchEvent(event, true);
+            }
+            mEventList.removeIf(Event::isConsumed);
         }
     }
 
@@ -26,8 +39,11 @@ public class EventDispatcher {
         boolean shouldClear = false;
         for (EventListener it : mListenerList) {
             if (it != null) {
-                if (it.onEvent(event) && !ignoreConsume) {
-                    break;
+                if (it.onEvent(event)) {
+                    event.consume();
+                    if (!ignoreConsume) {
+                        break;
+                    }
                 }
             } else {
                 shouldClear = true;
