@@ -89,6 +89,7 @@ public abstract class BaseFragment extends Fragment implements EventListener {
         EventDispatcher.subscribe(this);
         restoreItems(DataCacheUtil.getItem(TAG));
         loadImages();
+        EventDispatcher.sendUnconsumedEvents();
     }
 
 }

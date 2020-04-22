@@ -17,12 +17,10 @@ public class EventDispatcher {
 
     public static void offerEvent(Event event, boolean ignoreConsume) {
         if (event != null && !mListenerList.isEmpty()) {
-            mEventList.add(0, event);
-            dispatchEvent(mEventList.get(0), ignoreConsume);
+            dispatchEvent(event, ignoreConsume);
             if (!event.isConsumed()) {
                 mEventList.add(event.clone());
             }
-            mEventList.removeIf(Event::isConsumed);
         }
     }
 
@@ -37,7 +35,7 @@ public class EventDispatcher {
 
     private static void dispatchEvent(Event event, boolean ignoreConsume) {
         boolean shouldClear = false;
-        for (EventListener it : mListenerList) {
+        for (EventListener it : ((ArrayList<EventListener>) mListenerList.clone())) {
             if (it != null) {
                 if (it.onEvent(event)) {
                     event.consume();
