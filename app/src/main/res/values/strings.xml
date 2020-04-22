@@ -2,6 +2,8 @@
     <string name="app_name">SellIT</string>
     <string name="menu_home">Home</string>
     <string name="menu_settings">Setting</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_create">Create Advertisement</string>
     <string name="menu_exit">Exit</string>
     <string name="login_text">Sign in</string>
     <string name="register_text">Sign up</string>
@@ -16,7 +18,11 @@
     <string name="language">Language</string>
     <string name="english_language">English</string>
     <string name="hungarian_language">Magyar</string>
+    <string name="remember_me">Remember me</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="column_number">Column number</string>
+    <string name="portrait_column">Portrait column number</string>
+    <string name="landscape_column">Landscape column number</string>
     <string name="restart_needed">In order to change the application language, it needs to be restarted. Do you agree? </string>
 </resources>

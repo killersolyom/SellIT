@@ -3,8 +3,8 @@ package com.sell.it.CustomView;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,13 +19,16 @@ import com.sell.it.R;
 
 import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static com.sell.it.Utility.DisplayUtils.convertPixelToSp;
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
-    private ImageView mAdvertisementImage;
-    private TextView mAdvertisementTitle;
-    private RecyclerView mAdvertisementInfoView;
     private ItemAdapter mInfoAdapter;
+    private ItemAdapter mTitleAdapter;
+    private ImageView mAdvertisementImage;
+    private RecyclerView mInfoRecyclerView;
+    private RecyclerView mAdvertisementTitleView;
+    private float mTitleTextSize, mInfoItemTextSize;
 
     public AdvertisementViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,29 +40,52 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     }
 
     @Override
-    protected void initializeComponents() {
+    protected void initView() {
         mAdvertisementImage = findViewById(R.id.advertisement_image);
-        mAdvertisementTitle = findViewById(R.id.advertisement_title);
-        mAdvertisementInfoView = findViewById(R.id.advertisement_extra_info_view);
-        mAdvertisementInfoView.setLayoutManager(new LinearLayoutManager(getContext(), HORIZONTAL, false));
+        mAdvertisementTitleView = findViewById(R.id.advertisement_title);
+        mInfoRecyclerView = findViewById(R.id.advertisement_extra_info_view);
+    }
+
+    @Override
+    protected void initializeComponents() {
         mInfoAdapter = new ItemAdapter();
-        mAdvertisementInfoView.setAdapter(mInfoAdapter);
+        mTitleAdapter = new ItemAdapter();
+        mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), HORIZONTAL, false));
+        mAdvertisementTitleView.setLayoutManager(new LinearLayoutManager(getContext(), HORIZONTAL, false));
+        mInfoRecyclerView.setAdapter(mInfoAdapter);
+        mAdvertisementTitleView.setAdapter(mTitleAdapter);
+    }
+
+    public void calculateOptimalSize(ViewGroup.LayoutParams itemParams) {
+        ViewGroup.LayoutParams infoParams = getLayoutParams(mInfoRecyclerView);
+        ViewGroup.LayoutParams titleParams = getLayoutParams(mAdvertisementTitleView);
+
+        infoParams.height = (int) (itemParams.height * 0.14);//14%
+        titleParams.height = (int) (itemParams.height * 0.13);//13%
+
+        mInfoRecyclerView.setLayoutParams(infoParams);
+        mAdvertisementTitleView.setLayoutParams(titleParams);
+
+        mTitleTextSize = convertPixelToSp(titleParams.height * 0.9f);
+        mInfoItemTextSize = convertPixelToSp(infoParams.height * 0.9f);
     }
 
     public void bindItem(BaseAdvertisementItem advertisementItem) {
+        setTitle(advertisementItem.getTitle());
+        loadImage(advertisementItem.getFirstImage());
     }
 
     public void unbind() {
         Glide.with(getContext()).clear(mAdvertisementImage);
-        mAdvertisementTitle.setText(null);
+        mTitleAdapter.clearItems();
         mInfoAdapter.clearItems();
     }
 
-    public void setTitle(String title) {
-        mAdvertisementTitle.setText(title);
+    private void setTitle(String title) {
+        mTitleAdapter.addItem(new AdvertisementInfoItem(title, mTitleTextSize));
         //TODO Dummy data generator, remove it
         for (int i = 0; i < 5; i++) {
-            mInfoAdapter.addItem(new AdvertisementInfoItem("Data " + i));
+            mInfoAdapter.addItem(new AdvertisementInfoItem("Data " + i, mInfoItemTextSize));
             mInfoAdapter.addItem(new TextSeparatorItem());
         }
     }
@@ -71,8 +97,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
                 .placeholder(R.drawable.placeholder_image)
                 .error(R.drawable.placeholder_error_image)
                 .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(mAdvertisementImage);
     }
 

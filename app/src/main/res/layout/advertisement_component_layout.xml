@@ -5,9 +5,10 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/item_background"
         android:layout_width="match_parent"
-        android:layout_height="121dp"
-        android:background="@drawable/advertisement_item_background"
+        android:layout_height="match_parent"
+        android:background="@drawable/advertisement_background_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,41 +17,38 @@
     <ImageView
         android:id="@+id/advertisement_image"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="match_parent"
+        android:layout_margin="1dp"
         android:layout_marginStart="@dimen/advertisement_item_margin"
         android:layout_marginEnd="@dimen/advertisement_item_margin"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/item_background"
+        app:layout_constraintEnd_toEndOf="@id/item_background"
+        app:layout_constraintStart_toStartOf="@id/item_background"
+        app:layout_constraintTop_toTopOf="@id/item_background" />
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/advertisement_title"
         android:layout_width="match_parent"
-        android:layout_height="18dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/advertisement_item_margin"
         android:layout_marginEnd="@dimen/advertisement_item_margin"
         android:background="@drawable/header_gradient"
-        android:ellipsize="end"
-        android:gravity="center|start"
-        android:paddingStart="3dp"
+        android:paddingStart="1dp"
         android:paddingEnd="0dp"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/advertisement_image"
+        app:layout_constraintStart_toStartOf="@id/advertisement_image"
         app:layout_constraintTop_toTopOf="@id/advertisement_image" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/advertisement_extra_info_view"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/advertisement_item_margin"
         android:layout_marginEnd="@dimen/advertisement_item_margin"
-        android:layout_marginBottom="@dimen/advertisement_item_margin"
         android:background="@drawable/footer_gradient"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/advertisement_image"
+        app:layout_constraintEnd_toEndOf="@id/advertisement_image"
+        app:layout_constraintStart_toStartOf="@id/advertisement_image" />
 
 </merge>

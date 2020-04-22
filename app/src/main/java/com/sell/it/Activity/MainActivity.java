@@ -1,11 +1,8 @@
 package com.sell.it.Activity;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -17,34 +14,33 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-import com.sell.it.Communication.ActivityCallbackInterface;
+import com.sell.it.Communication.DrawerInterface;
+import com.sell.it.Communication.EventListener;
+import com.sell.it.Model.Event;
 import com.sell.it.R;
-import com.sell.it.Utility.DataManager;
+import com.sell.it.Utility.DataCacheUtil;
+import com.sell.it.Utility.EventDispatcher;
 import com.sell.it.Utility.FragmentNavigation;
+import com.sell.it.Utility.LanguageManager;
 import com.sell.it.Utility.UtilityManager;
-
-import java.util.Locale;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ActivityCallbackInterface {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, DrawerInterface, EventListener {
 
     private DrawerLayout mDrawerLayout;
-    private BroadcastReceiver mReceiver;
     private ImageView mDrawerHeaderImage;
     private NavigationView mNavigationView;
     private static final String FIRST_START_KEY = "FirstStart";
-    public static final String LANGUAGE_CHANGED_KEY = "languageChangeEvent";
-    public static final String INTENT_FILTER_KEY = "applicationIntentFilter";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        EventDispatcher.subscribe(this);
         UtilityManager.initUtilities(this, this);
         initView();
-        initReceiver();
         handleIntentEvents(getIntent());
     }
 
@@ -54,91 +50,85 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerHeaderImage = (mNavigationView.getHeaderView(0)).findViewById(R.id.drawer_menu_image);
     }
 
-    private void initReceiver() {
-        mReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                handleIntentEvents(intent);
-            }
-        };
-    }
-
     private void handleIntentEvents(Intent intent) {
-        if (intent.getBooleanExtra(LANGUAGE_CHANGED_KEY, false)) {
-            restart();
-        } else if (!intent.getBooleanExtra(FIRST_START_KEY, false)) {
+        if (!intent.getBooleanExtra(FIRST_START_KEY, false)) {
             FragmentNavigation.showLoginFragment();
+            DataCacheUtil.clearItems();
             intent.putExtra(FIRST_START_KEY, true);
         }
     }
 
     private void restart() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(FIRST_START_KEY, false);
-        startActivity(intent);
+        startActivity(new Intent(this, MainActivity.class)
+                .addFlags(FLAG_ACTIVITY_NEW_TASK)
+                .putExtra(FIRST_START_KEY, false));
         finish();
         Runtime.getRuntime().exit(0);
     }
 
-    private void loadPreferredLanguage() {
-        Resources res = getResources();
-        Locale locale = new Locale(DataManager.getLanguage());
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.setLocale(locale);
-        res.updateConfiguration(config, res.getDisplayMetrics());
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        FragmentNavigation.handleNavigationItem(menuItem, mDrawerLayout);
-        return false;
+        return FragmentNavigation.onDrawerItemSelected(menuItem.getItemId());
     }
 
     @Override
     protected void attachBaseContext(Context context) {
-        super.attachBaseContext(context);
-        DataManager.initialize(context);
-        loadPreferredLanguage();
+        super.attachBaseContext(LanguageManager.loadPreferredLanguage(context));
+    }
+
+    @Override
+    public Context createConfigurationContext(Configuration overrideConfiguration) {
+        return super.createConfigurationContext(LanguageManager.loadLanguage(overrideConfiguration));
     }
 
     @Override
     public void onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout.closeDrawers();
-        } else {
-            FragmentNavigation.onBackPressed();
-        }
+        FragmentNavigation.onBackPressed();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        EventDispatcher.subscribe(this);
         mNavigationView.setNavigationItemSelectedListener(this);
-        registerReceiver(mReceiver, new IntentFilter(INTENT_FILTER_KEY));
         Glide.with(getApplicationContext()).load(R.drawable.app_logo_png).into(mDrawerHeaderImage);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        EventDispatcher.unSubscribe(this);
+        mNavigationView.setNavigationItemSelectedListener(null);
         Glide.with(getApplicationContext()).clear(mDrawerHeaderImage);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(mReceiver);
+    public boolean isDrawerOpen() {
+        return mDrawerLayout.isDrawerOpen(GravityCompat.START);
     }
 
     @Override
-    public void enableDrawerLayout() {
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-    }
-
-    @Override
-    public void disableDrawerLayout() {
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    public boolean onEvent(Event event) {
+        switch (event.getEventType()) {
+            case Event.TYPE_DRAWER_MENU:
+                switch (event.getAction()) {
+                    case Event.ACTION_CLOSE_DRAWER:
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    case Event.ACTION_ENABLE_DRAWER:
+                        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                        return true;
+                    case Event.ACTION_DISABLE_DRAWER:
+                        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                        return true;
+                }
+            case Event.TYPE_CONTROL:
+                switch (event.getAction()) {
+                    case Event.ACTION_LANGUAGE_CHANGE:
+                        restart();
+                        return true;
+                }
+        }
+        return false;
     }
 }

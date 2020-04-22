@@ -1,30 +1,33 @@
 package com.sell.it.Fragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.sell.it.Dialog.LanguageSelectDialog;
 import com.sell.it.R;
+import com.sell.it.Utility.FragmentNavigation;
 
 public class SettingsFragment extends BaseFragment {
 
     private Button languageSelectorButton;
+    private Button columnSelectorButton;
 
     @Override
-    protected View initView(LayoutInflater inflater, ViewGroup container) {
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_settings;
     }
 
     @Override
     protected void findView(View view) {
         languageSelectorButton = view.findViewById(R.id.language_selector_button);
+        columnSelectorButton = view.findViewById(R.id.column_selecting_button);
     }
 
     @Override
     protected void initComponents() {
-        languageSelectorButton.setOnClickListener(v -> new LanguageSelectDialog().showDialog(mFragmentView.getContext()));
+        new LanguageSelectDialog();
+        languageSelectorButton.setOnClickListener(v -> FragmentNavigation.showLanguageSelectorDialog());
+        columnSelectorButton.setOnClickListener(v -> FragmentNavigation.showColumnNumberSelectorDialog());
     }
 
 }

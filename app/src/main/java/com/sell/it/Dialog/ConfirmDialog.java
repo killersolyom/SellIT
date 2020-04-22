@@ -1,41 +1,46 @@
 package com.sell.it.Dialog;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.view.Window;
+import android.view.View;
 import android.widget.TextView;
 
 import com.sell.it.R;
 
-public class ConfirmDialog {
+public class ConfirmDialog extends BaseDialogFragment {
 
-    private static Dialog dialog;
+    private TextView mConfirmTextView;
+    private TextView mYesText;
+    private TextView mNoText;
+    private Runnable mYesOption;
+    private int mConfirmText;
 
-    public static void showDialog(Context context, String confirmText, Runnable yesOption, Runnable noOption) {
-        initDialog(context, confirmText, yesOption, noOption);
-        dialog.show();
+    public ConfirmDialog(int confirmTextId, Runnable yesOption) {
+        mYesOption = yesOption;
+        mConfirmText = confirmTextId;
     }
 
-    public static void dismissDialog() {
-        if (dialog != null) {
-            dialog.dismiss();
-            dialog = null;
-        }
+    @Override
+    protected int getLayoutView() {
+        return R.layout.confirm_dialog_layout;
     }
 
-    private static void initDialog(Context context, String confirmText, Runnable yesOption, Runnable noOption) {
-        dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.confirm_dialog_layout);
-        TextView confirmTextView = dialog.findViewById(R.id.confirm_text);
-        TextView yesText = dialog.findViewById(R.id.yes_text);
-        TextView noText = dialog.findViewById(R.id.no_text);
-
-        confirmTextView.setText(confirmText);
-        yesText.setOnClickListener(v -> yesOption.run());
-        noText.setOnClickListener(v -> noOption.run());
+    @Override
+    protected void initView(View view) {
+        mConfirmTextView = view.findViewById(R.id.confirm_text);
+        mYesText = view.findViewById(R.id.yes_text);
+        mNoText = view.findViewById(R.id.no_text);
     }
 
+    @Override
+    protected void initComponents(Context context) {
+        mConfirmTextView.setText(mConfirmText);
+        mYesText.setOnClickListener(v -> onConditionAccepted());
+        mNoText.setOnClickListener(v -> dismissDialog());
+    }
+
+    private void onConditionAccepted() {
+        mYesOption.run();
+        dismissDialog();
+    }
 
 }

@@ -7,8 +7,7 @@ import androidx.annotation.NonNull;
 import com.sell.it.CustomView.AdvertisementViewItem;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.R;
-
-import java.util.concurrent.ThreadLocalRandom;
+import com.sell.it.Utility.FragmentNavigation;
 
 public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementItem> {
 
@@ -21,25 +20,23 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     @Override
     public void bindItem(BaseAdvertisementItem advertisementItem) {
         mAdvertisement.setOnClickListener(v -> onItemClicked(advertisementItem));
-        mAdvertisement.setTitle(advertisementItem.getTitle());
-        int random = (int) (100 * ThreadLocalRandom.current().nextDouble(2, 10));
-        mAdvertisement.loadImage("https://picsum.photos/" + random);
+        mAdvertisement.calculateOptimalSize(itemView.getLayoutParams());
         mAdvertisement.bindItem(advertisementItem);
-    }
-
-    @Override
-    protected void onItemClicked(BaseAdvertisementItem advertisementItem) {
-
-    }
-
-    @Override
-    protected void findView(View itemView) {
-        mAdvertisement = itemView.findViewById(R.id.advertisement_item);
     }
 
     @Override
     public void unBindItem() {
         mAdvertisement.unbind();
+    }
+
+    @Override
+    protected void onItemClicked(BaseAdvertisementItem advertisementItem) {
+        FragmentNavigation.showDetailsFragment(advertisementItem);
+    }
+
+    @Override
+    protected void findView(View itemView) {
+        mAdvertisement = itemView.findViewById(R.id.advertisement_item);
     }
 
 }

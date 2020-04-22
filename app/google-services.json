@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "442297790911-k8uf57h8h6tms8f6hqm1fbr0381vo0s5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sell.it",
+            "certificate_hash": "ea8f380d7e3a6d43e8580d90048d8b65cbdc9eaf"
+          }
+        },
+        {
           "client_id": "442297790911-aeo09183ma1eslheuaa9m41embba92pq.apps.googleusercontent.com",
           "client_type": 3
         }

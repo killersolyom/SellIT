@@ -13,11 +13,20 @@ import java.util.ArrayList;
 public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     private ArrayList<BaseItem> mItemList = new ArrayList<>();
+    private int mSpanCount;
+
+    public ItemAdapter() {
+        mSpanCount = 1;
+    }
+
+    public ItemAdapter(int spanCount) {
+        mSpanCount = spanCount;
+    }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return LayoutSelector.getLayoutForItem(parent, viewType);
+        return LayoutSelector.getLayoutForItem(parent, viewType, mSpanCount);
     }
 
     @Override
@@ -41,23 +50,28 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return mItemList.size();
     }
 
-    public void addItem(BaseItem item) {
-        mItemList.add(item);
-        notifyItemInserted(mItemList.indexOf(item));
+    public void setSpanCount(int spanCount) {
+        mSpanCount = spanCount;
     }
 
     public void addItemList(ArrayList<BaseItem> itemList) {
-        mItemList.clear();
-        mItemList.addAll(itemList);
+        mItemList = itemList;
+    }
+
+    public void addItem(BaseItem item) {
+        mItemList.add(item);
+        notifyItemInserted(mItemList.indexOf(item));
     }
 
     public void clearItems() {
         mItemList.clear();
     }
 
+    public boolean isEmpty() {
+        return mItemList.isEmpty();
+    }
+
+    public ArrayList<BaseItem> getItemList() {
+        return mItemList;
+    }
 }
-
-
-
-
-

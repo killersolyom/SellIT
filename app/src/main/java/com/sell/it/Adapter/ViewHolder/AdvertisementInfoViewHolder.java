@@ -17,8 +17,9 @@ public class AdvertisementInfoViewHolder extends BaseViewHolder<AdvertisementInf
     }
 
     @Override
-    public void bindItem(AdvertisementInfoItem advertisementItem) {
-        mInfoTextView.setText(advertisementItem.getInfo());
+    public void bindItem(AdvertisementInfoItem infoItem) {
+        mInfoTextView.setTextSize(infoItem.getTextSize());
+        mInfoTextView.setText(infoItem.getInfo());
     }
 
     @Override
