@@ -2,6 +2,7 @@ package com.sell.it.Fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DisplayUtils;
+import com.sell.it.Utility.FragmentNavigation;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +24,7 @@ import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 public class AdvertisementFragment extends BaseFragment {
 
     private RecyclerView mAdvertisementRecyclerView;
+    private ImageView mAddAdvertisementView;
     private GridLayoutManager mLayoutManager;
     private ItemAdapter mItemAdapter;
 
@@ -33,6 +36,7 @@ public class AdvertisementFragment extends BaseFragment {
     @Override
     protected void findView(View view) {
         mAdvertisementRecyclerView = view.findViewById(R.id.advertisement_recycler_view);
+        mAddAdvertisementView = view.findViewById(R.id.add_advertisement);
     }
 
     @Override
@@ -42,6 +46,11 @@ public class AdvertisementFragment extends BaseFragment {
         mAdvertisementRecyclerView.setAdapter(mItemAdapter);
         mAdvertisementRecyclerView.setLayoutManager(mLayoutManager);
         mAdvertisementRecyclerView.setItemViewCacheSize(4 * getSpanCount());
+    }
+
+    @Override
+    protected void initListeners() {
+        mAddAdvertisementView.setOnClickListener(v -> FragmentNavigation.showAddAdvertisementFragment());
     }
 
     private void loadItems(ArrayList<BaseItem> itemList) {

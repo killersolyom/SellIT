@@ -10,6 +10,7 @@ public class Event {
     private int mEventAction;
     private Bundle mExtras;
     private boolean mIsConsumed;
+    private int mCloneNumber;
 
     public static final int TYPE_FIREBASE = 0;
     public static final int TYPE_CONTROL = 1;
@@ -29,6 +30,7 @@ public class Event {
         this.mEventType = mEventType;
         this.mEventAction = mEventAction;
         this.mIsConsumed = false;
+        this.mCloneNumber = 0;
     }
 
     public Event(int mEventType, int mEventMessage, Bundle mBundle) {
@@ -36,6 +38,15 @@ public class Event {
         this.mEventAction = mEventMessage;
         this.mExtras = mBundle;
         this.mIsConsumed = false;
+        this.mCloneNumber = 0;
+    }
+
+    public Event(int mEventType, int mEventMessage, Bundle mBundle, int cloneNumber) {
+        this.mEventType = mEventType;
+        this.mEventAction = mEventMessage;
+        this.mExtras = mBundle;
+        this.mIsConsumed = false;
+        this.mCloneNumber = cloneNumber;
     }
 
     public Bundle getExtras() {
@@ -55,7 +66,7 @@ public class Event {
     }
 
     public boolean isConsumed() {
-        return mIsConsumed;
+        return mIsConsumed || mCloneNumber > 5;
     }
 
     public void consume() {
@@ -63,7 +74,7 @@ public class Event {
     }
 
     public Event clone() {
-        return new Event(mEventType, mEventAction, mExtras);
+        return new Event(mEventType, mEventAction, mExtras, mCloneNumber + 1);
     }
 
     @Override
@@ -74,4 +85,5 @@ public class Event {
         }
         return false;
     }
+
 }

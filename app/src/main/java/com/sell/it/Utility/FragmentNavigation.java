@@ -12,10 +12,12 @@ import com.sell.it.Dialog.ColumnNumberSelectDialog;
 import com.sell.it.Dialog.ConfirmDialog;
 import com.sell.it.Dialog.LanguageSelectDialog;
 import com.sell.it.Dialog.TransactionDialog;
+import com.sell.it.Fragment.AddAdvertisementFragment;
 import com.sell.it.Fragment.AdvertisementFragment;
 import com.sell.it.Fragment.BaseFragment;
 import com.sell.it.Fragment.DetailsFragment;
 import com.sell.it.Fragment.LoginFragment;
+import com.sell.it.Fragment.ProfileFragment;
 import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
 import com.sell.it.Model.Event;
@@ -75,6 +77,14 @@ public class FragmentNavigation {
 
     public static void showRegistrationFragment() {
         showFragment(new RegistrationFragment());
+    }
+
+    public static void showAddAdvertisementFragment() {
+        showFragment(new AddAdvertisementFragment());
+    }
+
+    public static void showProfileFragment() {
+        showFragment(new ProfileFragment());
     }
 
     public static void showDetailsFragment(BaseAdvertisementItem item) {
@@ -137,9 +147,9 @@ public class FragmentNavigation {
 
     private static int generateDrawerLayoutControl() {
         BaseFragment fragment = getTopFragment();
-        return fragment instanceof AdvertisementFragment || fragment instanceof SettingsFragment ||
-                fragment instanceof DetailsFragment
-                ? Event.ACTION_ENABLE_DRAWER : Event.ACTION_DISABLE_DRAWER;
+        return (fragment == null || fragment instanceof LoginFragment
+                || fragment instanceof RegistrationFragment) ?
+                Event.ACTION_DISABLE_DRAWER : Event.ACTION_ENABLE_DRAWER;
     }
 
     private static BaseFragment getTopFragment() {
@@ -159,6 +169,12 @@ public class FragmentNavigation {
         switch (menuItemId) {
             case R.id.home:
                 showAdvertisementFragment();
+                break;
+            case R.id.profile:
+                showProfileFragment();
+                break;
+            case R.id.advertisement:
+                showAddAdvertisementFragment();
                 break;
             case R.id.nav_settings:
                 showSettingsFragment();
