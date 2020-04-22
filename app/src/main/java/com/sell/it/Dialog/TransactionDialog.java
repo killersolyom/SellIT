@@ -22,13 +22,24 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
 
     private static Event[] mListenEvent;
     private final int mTimeoutTime = 10000;
-    private Handler mTimeoutHandler = new Handler();
+    private static final Handler mTimeoutHandler = new Handler();
 
     public TransactionDialog() {
     }
 
     public TransactionDialog(Event... listenEvent) {
         mListenEvent = listenEvent;
+    }
+
+    private void startTimeoutHandler() {
+        if (!mTimeoutHandler.hasMessages(0)) {
+            mTimeoutHandler.removeCallbacksAndMessages(null);
+            mTimeoutHandler.postDelayed(() -> {
+                dismissDialog();
+                //TODO show notification
+            }, mTimeoutTime);
+            mTimeoutHandler.sendEmptyMessage(0);
+        }
     }
 
     @Override
@@ -46,17 +57,14 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
     protected void initView(View view) {
         setCancelable(false);
         EventDispatcher.subscribe(this);
-        mTimeoutHandler.removeCallbacksAndMessages(null);
-        mTimeoutHandler.postDelayed(() -> {
-            dismissDialog();
-            //TODO show notification
-        }, mTimeoutTime);
+        startTimeoutHandler();
     }
 
     @Override
     public boolean onEvent(Event event) {
         if (Arrays.asList(mListenEvent).contains(event)) {
-            //TODO clear the array!
+            //TODO clear mListenEvent array!
+            mTimeoutHandler.removeCallbacksAndMessages(null);
             dismissDialog();
             return true;
         }
@@ -66,7 +74,6 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
         super.onDismiss(dialog);
-        mTimeoutHandler.removeCallbacksAndMessages(null);
         EventDispatcher.unSubscribe(this);
     }
 }
