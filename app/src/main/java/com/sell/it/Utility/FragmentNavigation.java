@@ -3,7 +3,6 @@ package com.sell.it.Utility;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.sell.it.Activity.MainActivity;
 import com.sell.it.Communication.DrawerInterface;
@@ -104,25 +103,15 @@ public class FragmentNavigation {
     }
 
     private static void showFragment(BaseFragment fragment) {
-        BaseFragment fragmentFromBackStack =
-                castToBaseFragment(mFragmentManager.findFragmentByTag(fragment.TAG));
-        boolean isInBackStack = fragmentFromBackStack != null;
-
-        beforeFragmentLoaded(isInBackStack ? fragmentFromBackStack : fragment, isInBackStack);
-
-        if (isInBackStack) {
-            createTransaction().show(fragmentFromBackStack);
-        } else {
-            createTransaction().replace(R.id.fragment_container, fragment, fragment.TAG)
+        beforeFragmentLoaded(fragment);
+        if (!fragment.compare(getTopFragment())) {
+            mFragmentManager.beginTransaction().setCustomAnimations(
+                    R.anim.enter_from_right, R.anim.exit_to_left,
+                    R.anim.enter_from_left, R.anim.exit_to_right)
+                    .replace(R.id.fragment_container, fragment, fragment.TAG)
                     .addToBackStack(fragment.TAG)
                     .commit();
         }
-    }
-
-    private static FragmentTransaction createTransaction() {
-        return mFragmentManager.beginTransaction().setCustomAnimations(
-                R.anim.enter_from_right, R.anim.exit_to_left,
-                R.anim.enter_from_left, R.anim.exit_to_right);
     }
 
     private static BaseFragment castToBaseFragment(Fragment fragment) {
@@ -135,7 +124,10 @@ public class FragmentNavigation {
         }
     }
 
-    private static void beforeFragmentLoaded(BaseFragment fragment, boolean isInBackStack) {
+    private static void beforeFragmentLoaded(BaseFragment fragment) {
+        boolean isInBackStack =
+                castToBaseFragment(mFragmentManager.findFragmentByTag(fragment.TAG)) != null;
+
         if (fragment instanceof AdvertisementFragment) {
             clearBackStack(!isInBackStack);
         }

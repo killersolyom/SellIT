@@ -1,8 +1,14 @@
 package com.sell.it.Utility;
 
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class TextUtils {
+
+    private static final int mOffset = 13759;
+    private static final int mOffsetLength = String.valueOf(mOffset).length();
+    private static final int mMaxBound = 8999, mMinBound = 1000;
+    private static final int mBoundLength = String.valueOf(mMaxBound).length();
 
     public static boolean isEmpty(String value) {
         return value != null && value.isEmpty();
@@ -27,22 +33,31 @@ public class TextUtils {
     }
 
     public static String encrypt(String plainText) {
-        byte[] textBytes = revertString(plainText).getBytes();
-        for (int i = 0; i < textBytes.length; ++i) {
-            textBytes[i] = (textBytes[i] == Byte.MAX_VALUE) ? textBytes[i] : ++textBytes[i];
+        StringBuilder returnValue = new StringBuilder();
+        for (byte it : reverseString(plainText).getBytes()) {
+            returnValue.append(new Random().nextInt(mMaxBound) + mMinBound).append(it + mOffset);
         }
-        return new String(textBytes);
+        return returnValue.append(new Random().nextInt(mMaxBound) + mMinBound).toString();
     }
 
     public static String decrypt(String encryptedText) {
-        byte[] textBytes = revertString(encryptedText).getBytes();
-        for (int i = 0; i < textBytes.length; ++i) {
-            textBytes[i] = (textBytes[i] == Byte.MIN_VALUE) ? textBytes[i] : --textBytes[i];
+        byte[] bytes = new byte[(encryptedText.length() - mBoundLength) / (mOffsetLength + mBoundLength)];
+        for (int i = mBoundLength; i < encryptedText.length(); i += (mOffsetLength + mBoundLength)) {
+            String sequence = encryptedText.substring(i, i + mOffsetLength);
+            if (containsOnlyNumbers(sequence)) {
+                bytes[i / (mOffsetLength + mBoundLength)] = (byte) (Integer.parseInt(sequence) - mOffset);
+            } else {
+                return encryptedText;
+            }
         }
-        return new String(textBytes);
+        return reverseString(new String(bytes));
     }
 
-    public static String revertString(String text) {
+    public static boolean containsOnlyNumbers(String text) {
+        return text.matches("[0-9]+");
+    }
+
+    public static String reverseString(String text) {
         return new StringBuilder().append(text).reverse().toString();
     }
 

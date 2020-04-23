@@ -92,4 +92,8 @@ public abstract class BaseFragment extends Fragment implements EventListener {
         EventDispatcher.sendUnconsumedEvents();
     }
 
+    public boolean compare(BaseFragment fragment) {
+        return fragment != null && this.getClass().equals(fragment.getClass());
+    }
+
 }
