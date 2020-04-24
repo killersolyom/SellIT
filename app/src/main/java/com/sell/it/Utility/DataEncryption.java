@@ -14,6 +14,7 @@ class DataEncryption {
 
     private static final String[] mReplaceArray1 = {
             "a", "b", "c", "d", "e",
+            "€", "⌂", "ô", "æ", "ï",
             "f", "g", "h", "i", "j",
             "╚", "╔", "╩", "╦", "╠",
             "k", "l", "m", "n", "o",
@@ -30,8 +31,11 @@ class DataEncryption {
             "♣", "♠", "•", "◘", "◙",
             "²", "▬", "∟", "▼", "»",
             "♀", "♪", "♫", "☼", "►",
-            "{", "}", ":", ";"};
+            "‼", "¶", "▲", "µ", "½",
+            "{", "}", ":", ";", "ç"};
     private static final String[] mReplaceArray2 = {
+            "01", "02", "03", "04", "05",
+            "06", "07", "08", "09", "10",
             "11", "12", "13", "14", "15",
             "16", "17", "18", "19", "20",
             "21", "22", "23", "24", "25",
@@ -49,7 +53,7 @@ class DataEncryption {
             "81", "82", "83", "84", "85",
             "86", "87", "88", "89", "90",
             "91", "92", "93", "94", "95",
-            "96", "97", "98", "99"};
+            "96", "97", "98", "99", "101"};
 
     public static String encrypt(String plainText) {
         StringBuilder returnValue = new StringBuilder();
