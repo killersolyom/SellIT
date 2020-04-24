@@ -16,6 +16,7 @@
     <color name="colorTransparentEditText">#BAFFFFFF</color>
     <color name="advertisementTitleBackground">#66070707</color>
     <color name="advertisementInfoBackground">#A6070707</color>
+    <color name="advertisementBackground">#C1BFBF</color>
     <color name="fragmentBackground">#E4161616</color>
 
 </resources>

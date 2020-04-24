@@ -95,7 +95,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
                 .load(imagePath)
                 .transition(withCrossFade(500))
                 .placeholder(R.drawable.placeholder_image)
-                .error(R.drawable.placeholder_error_image)
+                .error(R.drawable.error_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(mAdvertisementImage);
