@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.RequestListener;
 import com.sell.it.Model.ViewHolderItem.AdvertisementInfoItem;
@@ -28,6 +30,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
 
     private Handler mReloadHandler;
     private float mItemTextSize;
+    private int mItemRadius = 0;
     private ItemAdapter mInfoAdapter;
     private ImageView mAdvertisementImage;
     private RecyclerView mInfoRecyclerView;
@@ -51,6 +54,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
 
     @Override
     protected void initializeComponents() {
+        setHovered(true);
         mReloadHandler = new Handler();
         mInfoAdapter = new ItemAdapter();
         mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), HORIZONTAL, false));
@@ -58,6 +62,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     }
 
     private void calculateOptimalSize(ViewGroup.LayoutParams itemParams) {
+        mItemRadius = getResources().getDimensionPixelOffset(R.dimen.advertisement_item_radius) + 1;
         mItemTextSize = DisplayUtils.convertPixelToSp((itemParams.height * 0.12f));//12%
         mAdvertisementTitleView.setTextSize(mItemTextSize);
     }
@@ -87,8 +92,8 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
                 .transition(withCrossFade(500))
                 .placeholder(R.drawable.placeholder_image)
                 .error(R.drawable.error_image)
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .transform(new CenterCrop(), new RoundedCorners(mItemRadius))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .listener(new RequestListener() {
                     @Override
                     public void onLoadFailed() {

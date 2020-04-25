@@ -10,8 +10,12 @@
         android:id="@+id/item_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/advertisement_background" />
-
+        android:background="@drawable/advertisement_background"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/advertisement_image"
@@ -27,12 +31,13 @@
         android:id="@+id/advertisement_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/advertisement_item_margin"
         android:background="@drawable/header_gradient"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
-        android:paddingStart="2dp"
-        android:paddingEnd="0dp"
+        android:paddingStart="3dp"
+        android:paddingEnd="2dp"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="@id/item_background"
         app:layout_constraintStart_toStartOf="@id/item_background"
@@ -42,6 +47,7 @@
         android:id="@+id/advertisement_extra_info_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/advertisement_item_margin"
         android:background="@drawable/footer_gradient"
         android:paddingStart="3dp"
         android:paddingEnd="3dp"
@@ -57,5 +63,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
 </merge>
