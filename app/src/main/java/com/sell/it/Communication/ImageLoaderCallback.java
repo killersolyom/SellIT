@@ -2,7 +2,7 @@ package com.sell.it.Communication;
 
 public interface ImageLoaderCallback {
 
-    void onLoadFailed(String image);
+    void onLoadFailed();
 
     void onLoadSuccess();
 

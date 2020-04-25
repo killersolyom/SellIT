@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sell.it.Adapter.ItemAdapter;
-import com.sell.it.Communication.ImageLoaderCallback;
 import com.sell.it.Communication.RequestListener;
 import com.sell.it.Model.ViewHolderItem.AdvertisementInfoItem;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
@@ -33,18 +32,6 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     private RecyclerView mInfoRecyclerView;
     private RecyclerView mAdvertisementTitleView;
     private float mTitleTextSize, mInfoItemTextSize;
-
-    private ImageLoaderCallback imageLoaderCallback = new ImageLoaderCallback() {
-        @Override
-        public void onLoadFailed(String imagePath) {
-            mReloadHandler.postDelayed(() -> loadImage(imagePath), 7500);
-        }
-
-        @Override
-        public void onLoadSuccess() {
-            mReloadHandler.removeCallbacksAndMessages(null);
-        }
-    };
 
     public AdvertisementViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -117,7 +104,12 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
                 .error(R.drawable.error_image)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .listener(new RequestListener(imageLoaderCallback, imagePath))
+                .listener(new RequestListener() {
+                    @Override
+                    public void onLoadFailed() {
+                        mReloadHandler.postDelayed(() -> loadImage(imagePath), 7500);
+                    }
+                })
                 .into(mAdvertisementImage);
     }
 
