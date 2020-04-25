@@ -12,4 +12,8 @@ public class TextSeparatorViewHolder extends BaseViewHolder<TextSeparatorItem> {
         super(itemView);
     }
 
+    @Override
+    public void bindItem(TextSeparatorItem textSeparatorItem) {
+        itemView.getLayoutParams().height = textSeparatorItem.getSeparatorHeight();
+    }
 }

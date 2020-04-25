@@ -20,10 +20,6 @@ public class AdvertisementInfoItem extends BaseDefaultItem {
         return mTextSize;
     }
 
-    public void setInfo(String info) {
-        this.mInfo = info;
-    }
-
     @Override
     public int getItemType() {
         return Values.ItemType.ADVERTISEMENT_INFO_TYPE;

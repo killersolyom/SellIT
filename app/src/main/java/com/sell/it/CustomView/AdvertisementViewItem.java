@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,20 +19,19 @@ import com.sell.it.Model.ViewHolderItem.AdvertisementInfoItem;
 import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.TextSeparatorItem;
 import com.sell.it.R;
+import com.sell.it.Utility.DisplayUtils;
 
 import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
-import static com.sell.it.Utility.DisplayUtils.convertPixelToSp;
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
     private Handler mReloadHandler;
+    private float mItemTextSize;
     private ItemAdapter mInfoAdapter;
-    private ItemAdapter mTitleAdapter;
     private ImageView mAdvertisementImage;
     private RecyclerView mInfoRecyclerView;
-    private RecyclerView mAdvertisementTitleView;
-    private float mTitleTextSize, mInfoItemTextSize;
+    private TextView mAdvertisementTitleView;
 
     public AdvertisementViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -53,50 +53,35 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     protected void initializeComponents() {
         mReloadHandler = new Handler();
         mInfoAdapter = new ItemAdapter();
-        mTitleAdapter = new ItemAdapter();
         mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), HORIZONTAL, false));
-        mAdvertisementTitleView.setLayoutManager(new LinearLayoutManager(getContext(), HORIZONTAL, false));
         mInfoRecyclerView.setAdapter(mInfoAdapter);
-        mAdvertisementTitleView.setAdapter(mTitleAdapter);
     }
 
-    public void calculateOptimalSize(ViewGroup.LayoutParams itemParams) {
-        ViewGroup.LayoutParams infoParams = getLayoutParams(mInfoRecyclerView);
-        ViewGroup.LayoutParams titleParams = getLayoutParams(mAdvertisementTitleView);
-
-        infoParams.height = (int) (itemParams.height * 0.14);//14%
-        titleParams.height = (int) (itemParams.height * 0.13);//13%
-
-        mInfoRecyclerView.setLayoutParams(infoParams);
-        mAdvertisementTitleView.setLayoutParams(titleParams);
-
-        mTitleTextSize = convertPixelToSp(titleParams.height * 0.9f);
-        mInfoItemTextSize = convertPixelToSp(infoParams.height * 0.9f);
+    private void calculateOptimalSize(ViewGroup.LayoutParams itemParams) {
+        mItemTextSize = DisplayUtils.convertPixelToSp((itemParams.height * 0.12f));//12%
+        mAdvertisementTitleView.setTextSize(mItemTextSize);
     }
 
-    public void bindItem(BaseAdvertisementItem advertisementItem) {
+    public void bindItem(BaseAdvertisementItem advertisementItem, ViewGroup.LayoutParams layoutParams) {
         mReloadHandler.removeCallbacksAndMessages(null);
+        calculateOptimalSize(layoutParams);
         setTitle(advertisementItem.getTitle());
         loadImage(advertisementItem.getFirstImage());
+        fillInfoView(advertisementItem);
     }
 
     public void unbind() {
         mReloadHandler.removeCallbacksAndMessages(null);
         Glide.with(getContext()).clear(mAdvertisementImage);
-        mTitleAdapter.clearItems();
+        mAdvertisementTitleView.setText(null);
         mInfoAdapter.clearItems();
     }
 
     private void setTitle(String title) {
-        mTitleAdapter.addItem(new AdvertisementInfoItem(title, mTitleTextSize));
-        //TODO Dummy data generator, remove it
-        for (int i = 0; i < 5; i++) {
-            mInfoAdapter.addItem(new AdvertisementInfoItem("Data " + i, mInfoItemTextSize));
-            mInfoAdapter.addItem(new TextSeparatorItem());
-        }
+        mAdvertisementTitleView.setText(title);
     }
 
-    public void loadImage(String imagePath) {
+    private void loadImage(String imagePath) {
         Glide.with(getContext())
                 .load(imagePath)
                 .transition(withCrossFade(500))
@@ -111,6 +96,14 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
                     }
                 })
                 .into(mAdvertisementImage);
+    }
+
+    private void fillInfoView(BaseAdvertisementItem advertisementItem) {
+        //TODO Dummy data generator, replace it
+        for (int i = 0; i < 5; i++) {
+            mInfoAdapter.addItem(new AdvertisementInfoItem("Data " + i, mItemTextSize));
+            mInfoAdapter.addItem(new TextSeparatorItem((int) (mItemTextSize * 3.8)));
+        }
     }
 
 }
