@@ -4,10 +4,8 @@ import com.sell.it.Model.Constant.Values;
 
 public class TextSeparatorItem extends BaseDefaultItem {
 
-    private int mSeparatorHeight;
 
-    public TextSeparatorItem(int separatorHeight) {
-        mSeparatorHeight = separatorHeight;
+    public TextSeparatorItem() {
     }
 
     @Override
@@ -15,7 +13,4 @@ public class TextSeparatorItem extends BaseDefaultItem {
         return Values.ItemType.SEPARATOR_ITEM_TYPE;
     }
 
-    public int getSeparatorHeight() {
-        return mSeparatorHeight;
-    }
 }

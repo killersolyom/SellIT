@@ -34,7 +34,7 @@
         android:layout_margin="@dimen/advertisement_item_margin"
         android:background="@drawable/header_gradient"
         android:ellipsize="end"
-        android:gravity="center"
+        android:gravity="start"
         android:maxLines="1"
         android:paddingStart="3dp"
         android:paddingEnd="2dp"

@@ -6,7 +6,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.target.Target;
 
-public abstract class RequestListener implements com.bumptech.glide.request.RequestListener, ImageLoaderCallback {
+public abstract class RequestListener implements com.bumptech.glide.request.RequestListener {
 
     public RequestListener() {
     }
@@ -23,7 +23,9 @@ public abstract class RequestListener implements com.bumptech.glide.request.Requ
         return false;
     }
 
-    @Override
+    public void onLoadFailed() {
+    }
+
     public void onLoadSuccess() {
     }
 }

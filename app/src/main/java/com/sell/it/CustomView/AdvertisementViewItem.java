@@ -63,8 +63,9 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
 
     private void calculateOptimalSize(ViewGroup.LayoutParams itemParams) {
         mItemRadius = getResources().getDimensionPixelOffset(R.dimen.advertisement_item_radius) + 1;
-        mItemTextSize = DisplayUtils.convertPixelToSp((itemParams.height * 0.12f));//12%
+        mItemTextSize = DisplayUtils.convertPixelToSp((itemParams.height * 0.10f));//10%
         mAdvertisementTitleView.setTextSize(mItemTextSize);
+        mInfoRecyclerView.getLayoutParams().height = (int) (mItemTextSize * 4.2);
     }
 
     public void bindItem(BaseAdvertisementItem advertisementItem, ViewGroup.LayoutParams layoutParams) {
@@ -107,7 +108,9 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         //TODO Dummy data generator, replace it
         for (int i = 0; i < 5; i++) {
             mInfoAdapter.addItem(new AdvertisementInfoItem("Data " + i, mItemTextSize));
-            mInfoAdapter.addItem(new TextSeparatorItem((int) (mItemTextSize * 3.8)));
+            if (i + 1 != 5) {
+                mInfoAdapter.addItem(new TextSeparatorItem());
+            }
         }
     }
 
