@@ -8,6 +8,7 @@ import com.sell.it.Adapter.ViewHolder.AdvertisementInfoViewHolder;
 import com.sell.it.Adapter.ViewHolder.AdvertisementViewHolder;
 import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
 import com.sell.it.Adapter.ViewHolder.DefaultViewHolder;
+import com.sell.it.Adapter.ViewHolder.ImageViewHolder;
 import com.sell.it.Adapter.ViewHolder.LanguageItemViewHolder;
 import com.sell.it.Adapter.ViewHolder.TextSeparatorViewHolder;
 import com.sell.it.Model.Constant.Values;
@@ -32,6 +33,9 @@ class LayoutSelector {
             case Values.ItemType.LANGUAGE_ITEM_TYPE:
                 itemView = inflateView(parent, R.layout.recyclerview_language_component);
                 return new LanguageItemViewHolder(itemView);
+            case Values.ItemType.IMAGE_ITEM_TYPE:
+                itemView = inflateView(parent, R.layout.recyclerview_image_component);
+                return new ImageViewHolder(itemView);
             default:
                 itemView = inflateView(parent, R.layout.default_viewholder);
                 return new DefaultViewHolder(itemView);

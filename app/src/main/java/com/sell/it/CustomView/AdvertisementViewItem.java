@@ -72,7 +72,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         mReloadHandler.removeCallbacksAndMessages(null);
         calculateOptimalSize(layoutParams);
         setTitle(advertisementItem.getTitle());
-        loadImage(advertisementItem.getFirstImage());
+        loadImage(advertisementItem.getFirstImage().getImagePath());
         fillInfoView(advertisementItem);
     }
 

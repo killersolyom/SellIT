@@ -8,6 +8,7 @@ public class Values {
         public static final int ADVERTISEMENT_INFO_TYPE = 2;
         public static final int SEPARATOR_ITEM_TYPE = 3;
         public static final int LANGUAGE_ITEM_TYPE = 4;
+        public static final int IMAGE_ITEM_TYPE = 5;
     }
 
     public static class Language {

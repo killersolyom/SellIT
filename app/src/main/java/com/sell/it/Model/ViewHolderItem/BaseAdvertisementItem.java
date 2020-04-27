@@ -8,23 +8,29 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BaseAdvertisementItem extends BaseDefaultItem {
 
     private String mTitle;
-    private ArrayList<String> mImageList;
+    private ArrayList<BaseItem> mImageList;
 
     public BaseAdvertisementItem() {
         mImageList = new ArrayList<>();
-        int random = (int) (100 * ThreadLocalRandom.current().nextDouble(2, 10));
-        mImageList.add("https://picsum.photos/" + random);
+        mImageList.add(new ImageItem("https://picsum.photos/" + getRandom()));
+        mImageList.add(new ImageItem("https://picsum.photos/" + getRandom()));
+        mImageList.add(new ImageItem("https://picsum.photos/" + getRandom()));
+    }
+
+    private int getRandom() {
+        //TODO remove this method
+        return (int) (100 * ThreadLocalRandom.current().nextDouble(2, 10));
     }
 
     public String getTitle() {
         return mTitle;
     }
 
-    public String getFirstImage() {
-        return mImageList.isEmpty() ? null : mImageList.get(0);
+    public ImageItem getFirstImage() {
+        return mImageList.isEmpty() ? null : (ImageItem) mImageList.get(0);
     }
 
-    public ArrayList<String> getImageList() {
+    public ArrayList<BaseItem> getImageList() {
         return mImageList;
     }
 
