@@ -14,13 +14,14 @@ import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.EventDispatcher;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class TransactionDialog extends BaseDialogFragment implements EventListener {
 
-    private static Event[] mListenEvent;
+    private static ArrayList<Event> mListenEvent;
     private final int mTimeoutTime = 10000;
     private static final Handler mTimeoutHandler = new Handler();
 
@@ -28,7 +29,7 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
     }
 
     public TransactionDialog(Event... listenEvent) {
-        mListenEvent = listenEvent;
+        mListenEvent = new ArrayList<>(Arrays.asList(listenEvent));
     }
 
     private void startTimeoutHandler() {
@@ -63,7 +64,7 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
     @Override
     public boolean onEvent(Event event) {
         if (Arrays.asList(mListenEvent).contains(event)) {
-            //TODO clear mListenEvent array!
+            mListenEvent.clear();
             mTimeoutHandler.removeCallbacksAndMessages(null);
             dismissDialog();
             return true;
