@@ -21,6 +21,7 @@ public class Values {
         public static final String FIRST_NAME = "firstname";
         public static final String LAST_NAME = "lastname";
         public static final String PASSWORD = "pass";
+        public static final String USER_KEY = "User";
     }
 
     public static class Orientation {

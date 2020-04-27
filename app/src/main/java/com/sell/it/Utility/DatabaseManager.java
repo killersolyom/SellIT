@@ -1,6 +1,7 @@
 package com.sell.it.Utility;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -11,17 +12,17 @@ import com.sell.it.Model.User;
 
 import java.util.Objects;
 
+import static com.sell.it.Model.Constant.Values.User.USER_KEY;
+
 public class DatabaseManager {
-    private static final String USER_KEY = "users";
+    private static final String FIREBASE_USER_KEY = "users";
 
     private static FirebaseAuth mAuth;
     private static FirebaseDatabase mFirebaseDatabase;
     private static DatabaseReference mDatabase;
-    private static Context mContext;
     private static String TAG = "DATABASEMANAGER";
 
     static void initialize(Context context) {
-        mContext = context;
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabase = mFirebaseDatabase.getReference();
@@ -32,9 +33,11 @@ public class DatabaseManager {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "createUserWithEmail:success");
-                        mDatabase.child(USER_KEY).child(Objects.requireNonNull(mAuth.getUid()))
+                        mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid()))
                                 .setValue(user);
                         DataManager.saveUser(user);
+                        Bundle extraBundle = new Bundle();
+                        extraBundle.putSerializable(USER_KEY, user);
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_SUCCESS),true);
                     } else {
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_FAIL), true);
