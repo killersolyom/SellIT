@@ -37,7 +37,7 @@ public class DatabaseManager {
                         DataManager.saveUser(user);
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_SUCCESS),true);
                     } else {
-                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_FAIL));
+                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_FAIL), true);
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
                     }
                 });
@@ -50,7 +50,7 @@ public class DatabaseManager {
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_SUCCESS),true);
                     }
                     else{
-                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_FAIL));
+                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_FAIL),true);
                         Log.w(TAG, "loginUserWithEmail:failure", task.getException());
                     }
                 });
