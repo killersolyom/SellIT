@@ -88,6 +88,10 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     }
 
     private void loadImage(String imagePath) {
+        if (itemView == null) {
+            return;
+        }
+
         Glide.with(getContext())
                 .load(imagePath)
                 .transition(withCrossFade(500))
