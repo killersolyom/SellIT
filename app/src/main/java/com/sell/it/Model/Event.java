@@ -41,7 +41,7 @@ public class Event {
         this.mCloneNumber = 0;
     }
 
-    public Event(int mEventType, int mEventMessage, Bundle mBundle, int cloneNumber) {
+    private Event(int mEventType, int mEventMessage, Bundle mBundle, int cloneNumber) {
         this.mEventType = mEventType;
         this.mEventAction = mEventMessage;
         this.mExtras = mBundle;

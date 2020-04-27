@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.sell.it.Communication.DrawerInterface;
 import com.sell.it.Communication.EventListener;
+import com.sell.it.Communication.SnackbarCallback;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.DataCacheUtil;
@@ -27,7 +29,7 @@ import com.sell.it.Utility.UtilityManager;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DrawerInterface, EventListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DrawerInterface, EventListener, SnackbarCallback {
 
     private DrawerLayout mDrawerLayout;
     private ImageView mDrawerHeaderImage;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EventDispatcher.subscribe(this);
-        UtilityManager.initUtilities(this, this);
+        UtilityManager.initUtilities(this, this, this);
         initView();
         handleIntentEvents(getIntent());
     }
@@ -130,5 +132,10 @@ public class MainActivity extends AppCompatActivity
                 }
         }
         return false;
+    }
+
+    @Override
+    public View getView() {
+        return mDrawerLayout;
     }
 }

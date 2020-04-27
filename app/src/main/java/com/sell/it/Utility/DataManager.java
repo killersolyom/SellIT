@@ -95,12 +95,8 @@ public class DataManager {
         return new User(email, firstName, lastName, username, password);
     }
 
-    public static boolean isUserExist(User user) {
-        if (user.getEmailAddress().equals("email") || user.getPassword().equals("pass")) {
-            return false;
-        } else {
-            return false;
-        }
+    public static boolean isUserExist(String emailAddress, String password) {
+        return !emailAddress.equals("email") && !password.equals("pass");
     }
 
     public static int getLandscapeColumnNumber() {

@@ -63,7 +63,7 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
 
     @Override
     public boolean onEvent(Event event) {
-        if (Arrays.asList(mListenEvent).contains(event)) {
+        if (mListenEvent.contains(event)) {
             mListenEvent.clear();
             mTimeoutHandler.removeCallbacksAndMessages(null);
             dismissDialog();

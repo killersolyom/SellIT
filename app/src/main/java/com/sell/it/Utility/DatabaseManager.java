@@ -38,7 +38,7 @@ public class DatabaseManager {
                         DataManager.saveUser(user);
                         Bundle extraBundle = new Bundle();
                         extraBundle.putSerializable(USER_KEY, user);
-                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_SUCCESS),true);
+                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_SUCCESS,extraBundle),true);
                     } else {
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_FAIL), true);
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -50,7 +50,13 @@ public class DatabaseManager {
         mAuth.signInWithEmailAndPassword(emailAddress,password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_SUCCESS),true);
+                        if (DataManager.isUserExist(emailAddress, password)) {
+                            User loggedInUser =  DataManager.getUser();
+                            Bundle extraBundle = new Bundle();
+                            extraBundle.putSerializable(USER_KEY, loggedInUser);
+                            EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_SUCCESS,extraBundle),true);
+                        }
+
                     }
                     else{
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_FAIL),true);

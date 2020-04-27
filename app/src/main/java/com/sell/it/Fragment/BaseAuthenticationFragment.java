@@ -7,6 +7,7 @@ import com.sell.it.Model.User;
 import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.FragmentNavigation;
+import com.sell.it.Utility.SnackbarUtility;
 
 import static com.sell.it.Model.Constant.Values.User.USER_KEY;
 
@@ -27,7 +28,7 @@ public class BaseAuthenticationFragment extends BaseFragment {
             case Event.TYPE_FIREBASE: {
                 switch (event.getAction()) {
                     case Event.ACTION_LOGIN_FAIL:
-
+                        SnackbarUtility.showWithText("Login failed!");
                         return true;
                     case Event.ACTION_LOGIN_SUCCESS:
                     case Event.ACTION_REGISTRATION_SUCCESS:
@@ -35,11 +36,12 @@ public class BaseAuthenticationFragment extends BaseFragment {
                             User user = (User) event.getExtras().getSerializable(USER_KEY);
                             DataManager.saveUser(user);
                             FragmentNavigation.showAdvertisementFragment();
+                            SnackbarUtility.showWithText("Success!");
                         }
 
                         return true;
                     case Event.ACTION_REGISTRATION_FAIL:
-
+                        SnackbarUtility.showWithText("Registration failed!");
                         return true;
                 }
             }
