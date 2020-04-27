@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
+import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mItemList = itemList;
     }
 
-    public void addItem(BaseItem item) {
+    public void addItem(BaseDefaultItem item) {
         mItemList.add(item);
         notifyItemInserted(mItemList.indexOf(item));
     }
