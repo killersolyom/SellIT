@@ -82,7 +82,7 @@ public class DataManager {
         writeString(user.getFirstName(), FIRSTNAME_KEY);
         writeString(user.getLastName(), LASTNAME_KEY);
         writeString(user.getUsername(), USERNAME_KEY);
-        writeString(user.getPassword(), PASSWORD_KEY);
+        writeString(TextUtils.encrypt(user.getPassword()), PASSWORD_KEY);
     }
 
     public static User getUser() {
@@ -90,7 +90,7 @@ public class DataManager {
         String email = mPreference.getString(EMAIL_KEY, Values.User.EMAIL);
         String firstName = mPreference.getString(FIRSTNAME_KEY, Values.User.FIRST_NAME);
         String lastName = mPreference.getString(LASTNAME_KEY, Values.User.LAST_NAME);
-        String password = mPreference.getString(PASSWORD_KEY, Values.User.PASSWORD);
+        String password = TextUtils.decrypt(mPreference.getString(PASSWORD_KEY, Values.User.PASSWORD));
 
         return new User(email, firstName, lastName, username, password);
     }
