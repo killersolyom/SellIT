@@ -4,9 +4,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
 import com.sell.it.R;
@@ -21,9 +18,6 @@ public class RegistrationFragment extends BaseAuthenticationFragment {
     private EditText mUsernameField;
     private EditText mPasswordField;
     private Button mRegisterButton;
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mDatabase;
 
     @Override
     protected int getLayoutId() {
@@ -38,22 +32,6 @@ public class RegistrationFragment extends BaseAuthenticationFragment {
         mUsernameField = view.findViewById(R.id.user_name_field);
         mPasswordField = view.findViewById(R.id.user_password_field);
         mRegisterButton = view.findViewById(R.id.register_button);
-    }
-
-    @Override
-    protected void initComponents() {
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabase = mFirebaseDatabase.getReference();
-    }
-
-    @Override
-    protected void loadImages() {
-    }
-
-    @Override
-    protected void clearImages() {
-
     }
 
     @Override
