@@ -46,7 +46,8 @@ class LayoutSelector {
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         switch (viewType) {
             case Values.ItemType.BASE_ADVERTISEMENT_TYPE:
-                layoutParams.height = (int) (DisplayUtils.getScreenWidth() / 1.45) / spanCount;
+                float divider = spanCount == 1 ? 1.75f : 1.4f;
+                layoutParams.height = (int) (DisplayUtils.getScreenWidth() / divider) / spanCount;
                 view.setLayoutParams(layoutParams);
                 break;
         }
