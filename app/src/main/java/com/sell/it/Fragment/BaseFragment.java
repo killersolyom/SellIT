@@ -34,12 +34,12 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         if (mFragmentView == null) {
             mFragmentView = inflater.inflate(getLayoutId(), container, false);
-            mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
             mContext = mFragmentView.getContext();
             findView(mFragmentView);
             initListeners();
             getArgumentsFromBundle(getArguments());
         }
+        mFragmentView.setBackgroundColor(ContextCompat.getColor(mContext, getBackgroundColorId()));
         initComponents();
         return mFragmentView;
     }
@@ -52,6 +52,10 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     }
 
     protected void initListeners() {
+    }
+
+    protected int getBackgroundColorId() {
+        return R.color.fragmentBackground;
     }
 
     protected void getArgumentsFromBundle(Bundle bundle) {

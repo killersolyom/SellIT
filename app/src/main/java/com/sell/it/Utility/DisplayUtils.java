@@ -37,6 +37,10 @@ public class DisplayUtils {
         return pixel / mDisplayMetrics.scaledDensity;
     }
 
+    public static float convertSPToPixel(float sp) {
+        return sp * mDisplayMetrics.scaledDensity;
+    }
+
     public static float convertDPToPixel(float dp) {
         return dp * mDisplayMetrics.scaledDensity;
     }

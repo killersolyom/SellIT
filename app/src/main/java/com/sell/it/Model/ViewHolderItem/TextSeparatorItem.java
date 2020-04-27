@@ -4,6 +4,7 @@ import com.sell.it.Model.Constant.Values;
 
 public class TextSeparatorItem extends BaseDefaultItem {
 
+
     public TextSeparatorItem() {
     }
 
@@ -11,4 +12,5 @@ public class TextSeparatorItem extends BaseDefaultItem {
     public int getItemType() {
         return Values.ItemType.SEPARATOR_ITEM_TYPE;
     }
+
 }

@@ -34,8 +34,8 @@ public class ColumnNumberSelectDialog extends BaseDialogFragment {
 
     @Override
     protected void initComponents(Context context) {
-        mPortraitSeekBar.setMax(4);
-        mLandscapeSeekBar.setMax(8);
+        mPortraitSeekBar.setMax(2);
+        mLandscapeSeekBar.setMax(3);
 
         int landscape = DataManager.getLandscapeColumnNumber();
         int portrait = DataManager.getPortraitColumnNumber();

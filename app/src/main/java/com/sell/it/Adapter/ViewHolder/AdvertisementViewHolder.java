@@ -20,8 +20,7 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     @Override
     public void bindItem(BaseAdvertisementItem advertisementItem) {
         mAdvertisement.setOnClickListener(v -> onItemClicked(advertisementItem));
-        mAdvertisement.calculateOptimalSize(itemView.getLayoutParams());
-        mAdvertisement.bindItem(advertisementItem);
+        mAdvertisement.bindItem(advertisementItem, itemView.getLayoutParams());
     }
 
     @Override
