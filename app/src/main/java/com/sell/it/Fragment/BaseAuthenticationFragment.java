@@ -33,8 +33,8 @@ public class BaseAuthenticationFragment extends BaseFragment {
                     case Event.ACTION_LOGIN_SUCCESS:
                     case Event.ACTION_REGISTRATION_SUCCESS:
                         if (BundleUtil.canCast(event.getExtras(), USER_KEY, User.class)) {
-                            User user = (User) event.getExtras().getSerializable(USER_KEY);
-                            DataManager.saveUser(user);
+                            DataManager.saveUser(BundleUtil.castItem(event.getExtras(), USER_KEY, User.class));
+                            DataManager.saveLastAuthenticationTime();
                             FragmentNavigation.showAdvertisementFragment();
                             SnackbarUtility.showWithText("Success!");
                         }

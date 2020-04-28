@@ -7,6 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sell.it.R;
+import com.sell.it.Utility.DataCacheUtil;
+import com.sell.it.Utility.DataManager;
+import com.sell.it.Utility.FragmentNavigation;
 
 public class ProfileFragment extends BaseFragment {
 
@@ -31,4 +34,14 @@ public class ProfileFragment extends BaseFragment {
         mPhoneNumber = view.findViewById(R.id.phone_number);
         mLogoutButton = view.findViewById(R.id.log_out_button);
     }
+
+    @Override
+    protected void initListeners() {
+        mLogoutButton.setOnClickListener(v -> {
+            DataManager.clearLastAuthenticationTime();
+            DataCacheUtil.clearItems();
+            FragmentNavigation.showLoginFragment();
+        });
+    }
+
 }

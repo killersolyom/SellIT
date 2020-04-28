@@ -33,12 +33,10 @@ public class DatabaseManager {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "createUserWithEmail:success");
-                        mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid()))
-                                .setValue(user);
+                        mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid())).setValue(user);
                         DataManager.saveUser(user);
-                        Bundle extraBundle = new Bundle();
-                        extraBundle.putSerializable(USER_KEY, user);
-                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_SUCCESS,extraBundle),true);
+                        Bundle extraBundle = BundleUtil.createBundle(USER_KEY, user);
+                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_REGISTRATION_SUCCESS, extraBundle), true);
                     } else {
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_REGISTRATION_FAIL), true);
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -56,9 +54,7 @@ public class DatabaseManager {
                             extraBundle.putSerializable(USER_KEY, loggedInUser);
                             EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_SUCCESS,extraBundle),true);
                         }
-
-                    }
-                    else{
+                    } else {
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_FAIL),true);
                         Log.w(TAG, "loginUserWithEmail:failure", task.getException());
                     }

@@ -130,6 +130,8 @@ public class FragmentNavigation {
 
         if (fragment instanceof AdvertisementFragment) {
             clearBackStack(!isInBackStack);
+        } else if (fragment instanceof LoginFragment) {
+            clearBackStack(true);
         }
     }
 

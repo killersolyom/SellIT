@@ -8,6 +8,7 @@ import com.sell.it.Model.User;
 
 public class DataManager {
     private static final String REMEMBER_ME_KEY = "remember_me_key";
+    private static final String LAST_AUTHENTICATION_KEY = "last_Login_key";
     private static final String PORTRAIT_KEY = "PORTRAIT_key";
     private static final String LANDSCAPE_KEY = "LANDSCAPE_key";
     private static final String LANGUAGE_KEY = "Alpha_key";
@@ -25,6 +26,10 @@ public class DataManager {
         }
     }
 
+    private static void clearItem(String key) {
+        mPreference.edit().remove(key).apply();
+    }
+
     private static void writeLongData(long number, String key) {
         mPreference.edit().putLong(key, number).apply();
     }
@@ -39,6 +44,10 @@ public class DataManager {
 
     private static long readLongData(String key) {
         return mPreference.getLong(key, 0);
+    }
+
+    private static long readLongData(String key, long defaultValue) {
+        return mPreference.getLong(key, defaultValue);
     }
 
     public static void increaseListenCounter(String title) {
@@ -97,6 +106,18 @@ public class DataManager {
 
     public static boolean isUserExist(String emailAddress, String password) {
         return !emailAddress.equals("email") && !password.equals("pass");
+    }
+
+    public static void saveLastAuthenticationTime() {
+        writeLongData(System.currentTimeMillis(), LAST_AUTHENTICATION_KEY);
+    }
+
+    public static long getLastAuthenticationTime(long time) {
+        return readLongData(LAST_AUTHENTICATION_KEY, -1);
+    }
+
+    public static void clearLastAuthenticationTime() {
+        clearItem(LAST_AUTHENTICATION_KEY);
     }
 
     public static int getLandscapeColumnNumber() {
