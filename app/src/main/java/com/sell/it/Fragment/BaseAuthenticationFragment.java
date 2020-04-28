@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
+import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.FragmentNavigation;
@@ -28,7 +29,7 @@ public class BaseAuthenticationFragment extends BaseFragment {
             case Event.TYPE_FIREBASE: {
                 switch (event.getAction()) {
                     case Event.ACTION_LOGIN_FAIL:
-                        SnackbarUtility.showWithText("Login failed!");
+                        SnackbarUtility.showWithText(R.string.login_failed, true);
                         return true;
                     case Event.ACTION_LOGIN_SUCCESS:
                     case Event.ACTION_REGISTRATION_SUCCESS:
@@ -36,12 +37,12 @@ public class BaseAuthenticationFragment extends BaseFragment {
                             DataManager.saveUser(BundleUtil.castItem(event.getExtras(), USER_KEY, User.class));
                             DataManager.saveLastAuthenticationTime();
                             FragmentNavigation.showAdvertisementFragment();
-                            SnackbarUtility.showWithText("Success!");
+                            SnackbarUtility.showWithText(R.string.login_success, false);
                         }
 
                         return true;
                     case Event.ACTION_REGISTRATION_FAIL:
-                        SnackbarUtility.showWithText("Registration failed!");
+                        SnackbarUtility.showWithText(R.string.registration_failed, true);
                         return true;
                 }
             }

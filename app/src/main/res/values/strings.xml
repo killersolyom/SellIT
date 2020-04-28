@@ -27,4 +27,9 @@
     <string name="landscape_column">Landscape column number</string>
     <string name="restart_needed">In order to change the application language, it needs to be restarted. Do you agree? </string>
     <string name="log_out">Log out</string>
+    <string name="transaction_failed">Transaction failed!</string>
+    <string name="press_again">Press again to exit!</string>
+    <string name="login_failed">Login failed!</string>
+    <string name="login_success">Success!</string>
+    <string name="registration_failed">Registration failed!</string>
 </resources>

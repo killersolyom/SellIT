@@ -188,7 +188,7 @@ public class FragmentNavigation {
             if (shouldExit()) {
                 exit();
             } else {
-                //TODO press again notification
+                SnackbarUtility.showWithText(R.string.press_again, false);
             }
         } else if (shouldPop()) {
             popBackStack();

@@ -13,6 +13,7 @@ import com.sell.it.Communication.EventListener;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.EventDispatcher;
+import com.sell.it.Utility.SnackbarUtility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,9 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
             mTimeoutHandler.removeCallbacksAndMessages(null);
             mTimeoutHandler.postDelayed(() -> {
                 dismissDialog();
-                //TODO show notification
+                if (getContext() != null) {
+                    SnackbarUtility.showWithText(R.string.transaction_failed, true);
+                }
             }, mTimeoutTime);
             mTimeoutHandler.sendEmptyMessage(0);
         }

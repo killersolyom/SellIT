@@ -28,4 +28,9 @@
     <string name="landscape_column">Fekvő oszlop szám</string>
     <string name="restart_needed">A nyelvváltáshoz újra kell índítani az alkalmazást. Engedélyezi ezt?</string>
     <string name="log_out">Kijelentkezés</string>
+    <string name="transaction_failed">Sikertelen művelet</string>
+    <string name="press_again">Kilépéshez nyomja meg újra!</string>
+    <string name="login_failed">Sikertelen bejelentkezés!</string>
+    <string name="login_success">Sikeres bejelentkezés!</string>
+    <string name="registration_failed">Sikertelen regisztráció!</string>
 </resources>

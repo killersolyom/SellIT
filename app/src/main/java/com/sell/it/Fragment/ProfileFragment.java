@@ -39,6 +39,7 @@ public class ProfileFragment extends BaseFragment {
     protected void initListeners() {
         mLogoutButton.setOnClickListener(v -> {
             DataManager.clearLastAuthenticationTime();
+            DataManager.saveRememberMeStatus(false);
             DataCacheUtil.clearItems();
             FragmentNavigation.showLoginFragment();
         });
