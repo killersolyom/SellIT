@@ -19,11 +19,11 @@ public class TextUtils {
     }
 
     public static boolean isValidName(String name) {
-        return !isEmpty(name) && name.matches(".*\\d.*");
+        return !isEmpty(name);
     }
 
     public static boolean isValidUserName(String username) {
-        return !isEmpty(username) && username.contains(" ");
+        return !isEmpty(username);
     }
 
     public static String encrypt(String plainText) {

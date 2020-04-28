@@ -104,16 +104,29 @@ public class DataManager {
         return new User(email, firstName, lastName, username, password);
     }
 
+    public static String getEmailAddress() {
+        return readStringData(EMAIL_KEY);
+    }
+
+    public static String getPassword() {
+        return readStringData(PASSWORD_KEY);
+    }
+
     public static boolean isUserExist(String emailAddress, String password) {
         return !emailAddress.equals("email") && !password.equals("pass");
+    }
+
+    public static boolean isUserExist() {
+        return TextUtils.isValidEmailAddress(readStringData(EMAIL_KEY)) &&
+                TextUtils.isValidPassword(readStringData(PASSWORD_KEY));
     }
 
     public static void saveLastAuthenticationTime() {
         writeLongData(System.currentTimeMillis(), LAST_AUTHENTICATION_KEY);
     }
 
-    public static long getLastAuthenticationTime(long time) {
-        return readLongData(LAST_AUTHENTICATION_KEY, -1);
+    public static long getLastAuthenticationTime() {
+        return readLongData(LAST_AUTHENTICATION_KEY, 0);
     }
 
     public static void clearLastAuthenticationTime() {

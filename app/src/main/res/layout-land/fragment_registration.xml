@@ -23,28 +23,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.sell.it.CustomView.AuthenticationEditText
         android:id="@+id/user_email_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/item_rounded_background"
         android:hint="@string/user_email"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_title_text" />
 
-    <EditText
+    <com.sell.it.CustomView.AuthenticationEditText
         android:id="@+id/user_first_name_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
-        android:background="@drawable/item_rounded_background"
         android:hint="@string/user_last_name"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
@@ -52,28 +50,26 @@
         app:layout_constraintStart_toEndOf="@id/user_email_field"
         app:layout_constraintTop_toBottomOf="@id/app_title_text" />
 
-    <EditText
+    <com.sell.it.CustomView.AuthenticationEditText
         android:id="@+id/user_last_name_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/item_rounded_background"
         android:hint="@string/user_first_name"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_email_field" />
 
-    <EditText
+    <com.sell.it.CustomView.AuthenticationEditText
         android:id="@+id/user_name_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="60dp"
-        android:background="@drawable/item_rounded_background"
         android:hint="@string/user_name"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
@@ -81,14 +77,13 @@
         app:layout_constraintStart_toEndOf="@id/user_password_field"
         app:layout_constraintTop_toBottomOf="@+id/user_first_name_field" />
 
-    <EditText
+    <com.sell.it.CustomView.AuthenticationEditText
         android:id="@+id/user_password_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
-        android:background="@drawable/item_rounded_background"
         android:hint="@string/password"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"

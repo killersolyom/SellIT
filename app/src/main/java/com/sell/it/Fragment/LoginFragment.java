@@ -14,6 +14,7 @@ import com.sell.it.R;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.FragmentNavigation;
+import com.sell.it.Utility.TextUtils;
 
 public class LoginFragment extends BaseAuthenticationFragment {
 
@@ -43,7 +44,23 @@ public class LoginFragment extends BaseAuthenticationFragment {
 
     @Override
     protected void initComponents() {
-        mRememberMe.setChecked(DataManager.getRememberMeStatus());
+        boolean rememberMe = DataManager.getRememberMeStatus();
+        mRememberMe.setChecked(rememberMe);
+        mEmailAddressField.setText(DataManager.getEmailAddress());
+        mPasswordField.setText(TextUtils.decrypt(DataManager.getPassword()));
+        if (rememberMe && DataManager.isUserExist()) {
+            long time = DataManager.getLastAuthenticationTime() - System.currentTimeMillis();
+            if (time > 0 && time < 1800000) {//30 min
+                FragmentNavigation.showAddAdvertisementFragment();
+            } else {
+                FragmentNavigation.showTransactionDialog(
+                        new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS),
+                        new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL));
+
+                DatabaseManager.loginUser(DataManager.getEmailAddress(),
+                        TextUtils.decrypt(DataManager.getPassword()));
+            }
+        }
     }
 
     @Override
@@ -51,7 +68,7 @@ public class LoginFragment extends BaseAuthenticationFragment {
         mSignUpText.setOnClickListener(v -> FragmentNavigation.showRegistrationFragment());
         mGuestUserText.setOnClickListener(v -> FragmentNavigation.showAdvertisementFragment());
         mRememberMe.setOnCheckedChangeListener((buttonView, isChecked) -> DataManager.saveRememberMeStatus(isChecked));
-        mLoginButton.setOnClickListener(v-> loginUser());
+        mLoginButton.setOnClickListener(v -> loginUser());
     }
 
     @Override
@@ -64,11 +81,11 @@ public class LoginFragment extends BaseAuthenticationFragment {
         Glide.with(mContext).clear(mApplicationLogo);
     }
 
-
-    private void loginUser(){
-        FragmentNavigation.showTransactionDialog(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_FAIL), new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_SUCCESS));
+    private void loginUser() {
+        FragmentNavigation.showTransactionDialog(new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL), new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS));
         String username = mEmailAddressField.getText().toString().trim();
         String password = mPasswordField.getText().toString().trim();
-        DatabaseManager.loginUser(username,password);
+        DatabaseManager.loginUser(username, password);
     }
+    
 }
