@@ -49,7 +49,7 @@ public class DetailsFragment extends BaseFragment {
         mInfoAdapter = new ItemAdapter();
 
         mImageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
-                DisplayUtils.getOrientation() == PORTRAIT ? HORIZONTAL : HORIZONTAL, false));
+                DisplayUtils.getOrientation() == PORTRAIT ? HORIZONTAL : VERTICAL, false));
 
         mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 DisplayUtils.getOrientation() == PORTRAIT ? HORIZONTAL : VERTICAL, false));
