@@ -11,12 +11,12 @@ public class DataManager {
     private static final String LAST_AUTHENTICATION_KEY = "last_Login_key";
     private static final String PORTRAIT_KEY = "PORTRAIT_key";
     private static final String LANDSCAPE_KEY = "LANDSCAPE_key";
-    private static final String LANGUAGE_KEY = "Alpha_key";
-    private static final String EMAIL_KEY = "Alpha_key";
-    private static final String FIRSTNAME_KEY = "Alpha_key";
-    private static final String LASTNAME_KEY = "Alpha_key";
-    private static final String USERNAME_KEY = "Alpha_key";
-    private static final String PASSWORD_KEY = "Alpha_key";
+    private static final String LANGUAGE_KEY = "language_key";
+    private static final String EMAIL_KEY = "email_key";
+    private static final String FIRSTNAME_KEY = "firstname_key";
+    private static final String LASTNAME_KEY = "lastname_key";
+    private static final String USERNAME_KEY = "username_key";
+    private static final String PASSWORD_KEY = "password_key";
 
     private static SharedPreferences mPreference;
 
