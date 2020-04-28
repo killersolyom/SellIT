@@ -46,19 +46,22 @@ public class LoginFragment extends BaseAuthenticationFragment {
     protected void initComponents() {
         boolean rememberMe = DataManager.getRememberMeStatus();
         mRememberMe.setChecked(rememberMe);
-        mEmailAddressField.setText(DataManager.getEmailAddress());
-        mPasswordField.setText(TextUtils.decrypt(DataManager.getPassword()));
-        if (rememberMe && DataManager.isUserExist()) {
-            long time = DataManager.getLastAuthenticationTime() - System.currentTimeMillis();
-            if (time > 0 && time < 1800000) {//30 min
-                FragmentNavigation.showAddAdvertisementFragment();
-            } else {
-                FragmentNavigation.showTransactionDialog(
-                        new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS),
-                        new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL));
+        if (DataManager.isUserExist()) {
+            mEmailAddressField.setText(DataManager.getEmailAddress());
+            mPasswordField.setText(TextUtils.decrypt(DataManager.getPassword()));
+            
+            if (rememberMe) {
+                long time = DataManager.getLastAuthenticationTime() - System.currentTimeMillis();
+                if (time > 0 && time < 1800000) {//30 min
+                    FragmentNavigation.showAddAdvertisementFragment();
+                } else {
+                    FragmentNavigation.showTransactionDialog(
+                            new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS),
+                            new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL));
 
-                DatabaseManager.loginUser(DataManager.getEmailAddress(),
-                        TextUtils.decrypt(DataManager.getPassword()));
+                    DatabaseManager.loginUser(DataManager.getEmailAddress(),
+                            TextUtils.decrypt(DataManager.getPassword()));
+                }
             }
         }
     }
@@ -87,5 +90,5 @@ public class LoginFragment extends BaseAuthenticationFragment {
         String password = mPasswordField.getText().toString().trim();
         DatabaseManager.loginUser(username, password);
     }
-    
+
 }

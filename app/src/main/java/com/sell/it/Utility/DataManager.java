@@ -112,10 +112,6 @@ public class DataManager {
         return readStringData(PASSWORD_KEY);
     }
 
-    public static boolean isUserExist(String emailAddress, String password) {
-        return !emailAddress.equals("email") && !password.equals("pass");
-    }
-
     public static boolean isUserExist() {
         return TextUtils.isValidEmailAddress(readStringData(EMAIL_KEY)) &&
                 TextUtils.isValidPassword(readStringData(PASSWORD_KEY));
