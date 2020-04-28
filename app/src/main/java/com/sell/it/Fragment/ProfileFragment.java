@@ -1,6 +1,7 @@
 package com.sell.it.Fragment;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ public class ProfileFragment extends BaseFragment {
     private TextView mLastName;
     private TextView mEmailAddress;
     private EditText mPhoneNumber;
+    private Button mLogoutButton;
 
     @Override
     protected int getLayoutId() {
@@ -27,5 +29,6 @@ public class ProfileFragment extends BaseFragment {
         mLastName = view.findViewById(R.id.last_name);
         mEmailAddress = view.findViewById(R.id.email_address);
         mPhoneNumber = view.findViewById(R.id.phone_number);
+        mLogoutButton = view.findViewById(R.id.log_out_button);
     }
 }

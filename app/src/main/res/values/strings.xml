@@ -26,4 +26,5 @@
     <string name="portrait_column">Portrait column number</string>
     <string name="landscape_column">Landscape column number</string>
     <string name="restart_needed">In order to change the application language, it needs to be restarted. Do you agree? </string>
+    <string name="log_out">Log out</string>
 </resources>

@@ -27,4 +27,5 @@
     <string name="portrait_column">Álló oszlop szám</string>
     <string name="landscape_column">Fekvő oszlop szám</string>
     <string name="restart_needed">A nyelvváltáshoz újra kell índítani az alkalmazást. Engedélyezi ezt?</string>
+    <string name="log_out">Kijelentkezés</string>
 </resources>
