@@ -17,6 +17,7 @@ public class DataManager {
     private static final String LASTNAME_KEY = "lastname_key";
     private static final String USERNAME_KEY = "username_key";
     private static final String PASSWORD_KEY = "password_key";
+    private static final String PHONE_KEY = "phone_key";
 
     private static SharedPreferences mPreference;
 
@@ -102,6 +103,14 @@ public class DataManager {
         String password = TextUtils.decrypt(mPreference.getString(PASSWORD_KEY, Values.User.PASSWORD));
 
         return new User(email, firstName, lastName, username, password);
+    }
+
+    public static void savePhoneNumber(String phoneNumber){
+        writeString(phoneNumber,PHONE_KEY);
+    }
+
+    public static String getPhoneNumber(){
+        return mPreference.getString(PHONE_KEY,Values.User.PHONE_NUMBER_KEY);
     }
 
     public static String getEmailAddress() {

@@ -6,6 +6,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.sell.it.Model.Constant.Values;
+import com.sell.it.Model.User;
 import com.sell.it.R;
 import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.DataManager;
@@ -42,6 +44,25 @@ public class ProfileFragment extends BaseFragment {
             DataCacheUtil.clearItems();
             FragmentNavigation.showLoginFragment();
         });
+    }
+
+    @Override
+    protected void initComponents() {
+        User loggedInUser = DataManager.getUser();
+        mFirstName.setText(loggedInUser.getFirstName());
+        mLastName.setText(loggedInUser.getLastName());
+        mEmailAddress.setText(loggedInUser.getEmailAddress());
+        if(!DataManager.getPhoneNumber().equals(Values.User.PHONE_NUMBER_KEY)){
+            mPhoneNumber.setText(DataManager.getPhoneNumber());
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mPhoneNumber.getText().length() <= 11){
+            DataManager.savePhoneNumber(mPhoneNumber.getText().toString());
+        }
     }
 
 }
