@@ -96,6 +96,10 @@ public class FragmentNavigation {
     }
 
     public static void dismissDialogByTAG(String tag) {
+        if (mFragmentManager.isStateSaved()) {
+            return;
+        }
+
         Fragment dialogFragment = mFragmentManager.findFragmentByTag(tag);
         if (dialogFragment instanceof BaseDialogFragment) {
             ((DialogFragment) dialogFragment).dismiss();
@@ -188,7 +192,7 @@ public class FragmentNavigation {
             if (shouldExit()) {
                 exit();
             } else {
-                SnackbarUtility.showWithText(R.string.press_again, false);
+                SnackBarUtility.showWithText(R.string.press_again, false);
             }
         } else if (shouldPop()) {
             popBackStack();

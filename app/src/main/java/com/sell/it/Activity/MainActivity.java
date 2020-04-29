@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.sell.it.Communication.DrawerInterface;
 import com.sell.it.Communication.EventListener;
-import com.sell.it.Communication.SnackbarCallback;
+import com.sell.it.Communication.SnackBarCallback;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.DataCacheUtil;
@@ -28,8 +28,8 @@ import com.sell.it.Utility.UtilityManager;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, DrawerInterface, EventListener, SnackbarCallback {
+public class MainActivity extends AppCompatActivity implements DrawerInterface, EventListener,
+        NavigationView.OnNavigationItemSelectedListener, SnackBarCallback {
 
     private DrawerLayout mDrawerLayout;
     private ImageView mDrawerHeaderImage;
@@ -137,5 +137,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public View getView() {
         return mDrawerLayout;
+    }
+
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
     }
 }
