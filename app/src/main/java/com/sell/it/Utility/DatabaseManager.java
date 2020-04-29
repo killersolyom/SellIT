@@ -7,7 +7,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,9 +52,8 @@ public class DatabaseManager {
     public static void loginUser(String emailAddress, String password) {
         mAuth.signInWithEmailAndPassword(emailAddress, password)
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser currentUser = mAuth.getCurrentUser();
-                        getUserFromDatabase(currentUser.getUid());
+                    if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
+                        getUserFromDatabase(mAuth.getCurrentUser().getUid());
                     } else {
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL), true);
                         Log.w(TAG, "loginUserWithEmail:failure", task.getException());
