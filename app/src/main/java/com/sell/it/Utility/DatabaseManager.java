@@ -1,6 +1,5 @@
 package com.sell.it.Utility;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -27,7 +26,7 @@ public class DatabaseManager {
     private static DatabaseReference mDatabase;
     private static String TAG = "DATABASEMANAGER";
 
-    static void initialize(Context context) {
+    static void initialize() {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabase = mFirebaseDatabase.getReference();
@@ -39,7 +38,6 @@ public class DatabaseManager {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "createUserWithEmail:success");
                         mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid())).setValue(user);
-                        DataManager.saveUser(user);
                         Bundle extraBundle = BundleUtil.createBundle(USER_KEY, user);
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_REGISTRATION_SUCCESS, extraBundle), true);
                     } else {
@@ -61,19 +59,15 @@ public class DatabaseManager {
                 });
     }
 
+    public static void logOut() {
+        mAuth.signOut();
+    }
+
     private static void getUserFromDatabase(String uId){
-        mDatabase.child(FIREBASE_USER_KEY).child(uId).addValueEventListener(new ValueEventListener() {
+        mDatabase.child(FIREBASE_USER_KEY).child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String email = dataSnapshot.child("emailAddress").getValue().toString();
-                String firstName = dataSnapshot.child("firstName").getValue().toString();
-                String lastName = dataSnapshot.child("lastName").getValue().toString();
-                String username = dataSnapshot.child("username").getValue().toString();
-                String password = dataSnapshot.child("password").getValue().toString();
-
-                User loggedInUser = new User(email, firstName, lastName, username, password);
-                Bundle extraBundle = new Bundle();
-                extraBundle.putSerializable(USER_KEY, loggedInUser);
+                Bundle extraBundle = BundleUtil.createBundle(USER_KEY, new User(dataSnapshot));
                 EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS, extraBundle), true);
             }
 

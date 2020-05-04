@@ -15,9 +15,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-import com.sell.it.Communication.DrawerInterface;
 import com.sell.it.Communication.EventListener;
-import com.sell.it.Communication.SnackBarCallback;
+import com.sell.it.Communication.MainInterface;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.DataCacheUtil;
@@ -28,8 +27,8 @@ import com.sell.it.Utility.UtilityManager;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class MainActivity extends AppCompatActivity implements DrawerInterface, EventListener,
-        NavigationView.OnNavigationItemSelectedListener, SnackBarCallback {
+public class MainActivity extends AppCompatActivity implements EventListener, MainInterface,
+        NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
     private ImageView mDrawerHeaderImage;
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements DrawerInterface, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EventDispatcher.subscribe(this);
-        UtilityManager.initUtilities(this, this, this);
+        UtilityManager.initUtilities(this, this);
         initView();
         handleIntentEvents(getIntent());
     }

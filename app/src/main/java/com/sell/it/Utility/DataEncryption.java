@@ -11,6 +11,7 @@ class DataEncryption {
     private static final int mOffsetLength = String.valueOf(mOffset).length();
     private static final int mMaxBound = 8999, mMinBound = 1000;
     private static final int mBoundLength = String.valueOf(mMaxBound).length();
+    private static final int minLength = mOffsetLength + mBoundLength + mOffsetLength;
 
     private static final String[] mReplaceArray1 = {
             "a", "b", "c", "d", "e",
@@ -66,18 +67,21 @@ class DataEncryption {
     }
 
     public static String decrypt(String encryptedText) {
-        String decodedText = replace(encryptedText, mReplaceArray1, mReplaceArray2).substring(mBoundLength);
-        decodedText = decodedText.substring(0, decodedText.length() - mBoundLength);
-        byte[] bytes = new byte[(decodedText.length() / (mOffsetLength + mBoundLength)) + 1];
-        for (int i = 0; i < decodedText.length(); i += (mOffsetLength + mBoundLength)) {
-            String sequence = decodedText.substring(i, i + mOffsetLength);
-            if (containsOnlyNumbers(sequence)) {
-                bytes[i / (mOffsetLength + mBoundLength)] = (byte) (Integer.parseInt(sequence) - mOffset);
-            } else {
-                return decodedText;
+        if (!TextUtils.isEmpty(encryptedText) && encryptedText.length() >= minLength) {
+            String decodedText = replace(encryptedText, mReplaceArray1, mReplaceArray2).substring(mBoundLength);
+            decodedText = decodedText.substring(0, decodedText.length() - mBoundLength);
+            byte[] bytes = new byte[(decodedText.length() / (mOffsetLength + mBoundLength)) + 1];
+            for (int i = 0; i < decodedText.length(); i += (mOffsetLength + mBoundLength)) {
+                String sequence = decodedText.substring(i, i + mOffsetLength);
+                if (containsOnlyNumbers(sequence)) {
+                    bytes[i / (mOffsetLength + mBoundLength)] = (byte) (Integer.parseInt(sequence) - mOffset);
+                } else {
+                    return decodedText;
+                }
             }
+            return reverseString(new String(bytes));
         }
-        return reverseString(new String(bytes));
+        return encryptedText;
     }
 
     private static String replace(String original, String[] replaceItem, String[] replaceTo) {

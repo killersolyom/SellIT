@@ -43,24 +43,8 @@ public class DataManager {
         return mPreference.getString(key, "");
     }
 
-    private static long readLongData(String key) {
-        return mPreference.getLong(key, 0);
-    }
-
     private static long readLongData(String key, long defaultValue) {
         return mPreference.getLong(key, defaultValue);
-    }
-
-    public static void increaseListenCounter(String title) {
-        writeLongData(readLongData(title) + 1, title);
-    }
-
-    public static long getListenCounter(String title) {
-        return readLongData(title);
-    }
-
-    public static void resetCounter(String title) {
-        mPreference.edit().remove(title).apply();
     }
 
     private static void writeIntData(int value, String key) {
@@ -96,13 +80,8 @@ public class DataManager {
     }
 
     public static User getUser() {
-        String username = mPreference.getString(USERNAME_KEY, Values.User.USERNAME);
-        String email = mPreference.getString(EMAIL_KEY, Values.User.EMAIL);
-        String firstName = mPreference.getString(FIRSTNAME_KEY, Values.User.FIRST_NAME);
-        String lastName = mPreference.getString(LASTNAME_KEY, Values.User.LAST_NAME);
-        String password = TextUtils.decrypt(mPreference.getString(PASSWORD_KEY, Values.User.PASSWORD));
-
-        return new User(email, firstName, lastName, username, password);
+        String password = TextUtils.decrypt(getPassword());
+        return new User(getEmailAddress(), getFirstName(), getLastName(), getUserName(), password);
     }
 
     public static void savePhoneNumber(String phoneNumber){
@@ -110,7 +89,19 @@ public class DataManager {
     }
 
     public static String getPhoneNumber(){
-        return mPreference.getString(PHONE_KEY,Values.User.PHONE_NUMBER_KEY);
+        return readStringData(PHONE_KEY);
+    }
+
+    public static String getUserName() {
+        return readStringData(USERNAME_KEY);
+    }
+
+    public static String getFirstName() {
+        return readStringData(FIRSTNAME_KEY);
+    }
+
+    public static String getLastName() {
+        return readStringData(LASTNAME_KEY);
     }
 
     public static String getEmailAddress() {
@@ -134,7 +125,14 @@ public class DataManager {
         return readLongData(LAST_AUTHENTICATION_KEY, 0);
     }
 
-    public static void clearLastAuthenticationTime() {
+    public static void clearUserData() {
+        clearItem(EMAIL_KEY);
+        clearItem(USERNAME_KEY);
+        clearItem(FIRSTNAME_KEY);
+        clearItem(LASTNAME_KEY);
+        clearItem(PASSWORD_KEY);
+        clearItem(REMEMBER_ME_KEY);
+        clearItem(PHONE_KEY);
         clearItem(LAST_AUTHENTICATION_KEY);
     }
 

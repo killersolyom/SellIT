@@ -13,7 +13,6 @@ import com.sell.it.Communication.EventListener;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.EventDispatcher;
-import com.sell.it.Utility.SnackBarUtility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +22,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 public class TransactionDialog extends BaseDialogFragment implements EventListener {
 
     private static ArrayList<Event> mListenEvent;
-    private final int mTimeoutTime = 5000;
+    private final int mTimeoutTime = 7500;
     private static final Handler mTimeoutHandler = new Handler();
 
     public TransactionDialog() {
@@ -36,12 +35,7 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
     private void startTimeoutHandler() {
         if (!mTimeoutHandler.hasMessages(0)) {
             mTimeoutHandler.removeCallbacksAndMessages(null);
-            mTimeoutHandler.postDelayed(() -> {
-                dismissDialog();
-                if (getContext() != null) {
-                    SnackBarUtility.showWithText(R.string.transaction_failed, true);
-                }
-            }, mTimeoutTime);
+            mTimeoutHandler.postDelayed(this::dismissDialog, mTimeoutTime);
             mTimeoutHandler.sendEmptyMessage(0);
         }
     }

@@ -26,10 +26,13 @@ public class BaseAuthenticationFragment extends BaseFragment {
     @Override
     public boolean onEvent(Event event) {
         switch (event.getEventType()) {
-            case Event.TYPE_FIREBASE: {
+            case Event.TYPE_FIREBASE:
                 switch (event.getAction()) {
                     case Event.ACTION_LOGIN_FAIL:
                         SnackBarUtility.showWithText(R.string.login_failed, true);
+                        return true;
+                    case Event.ACTION_REGISTRATION_FAIL:
+                        SnackBarUtility.showWithText(R.string.registration_failed, true);
                         return true;
                     case Event.ACTION_LOGIN_SUCCESS:
                     case Event.ACTION_REGISTRATION_SUCCESS:
@@ -39,14 +42,10 @@ public class BaseAuthenticationFragment extends BaseFragment {
                             FragmentNavigation.showAdvertisementFragment();
                             SnackBarUtility.showWithText(R.string.login_success, false);
                         }
-
-                        return true;
-                    case Event.ACTION_REGISTRATION_FAIL:
-                        SnackBarUtility.showWithText(R.string.registration_failed, true);
                         return true;
                 }
-            }
         }
         return false;
     }
+
 }

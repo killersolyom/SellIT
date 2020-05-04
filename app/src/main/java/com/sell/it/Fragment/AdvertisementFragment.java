@@ -34,11 +34,6 @@ public class AdvertisementFragment extends BaseFragment {
     }
 
     @Override
-    protected int getBackgroundColorId() {
-        return R.color.colorTransparentWhite;
-    }
-
-    @Override
     protected void findView(View view) {
         mAdvertisementRecyclerView = view.findViewById(R.id.advertisement_recycler_view);
         mAddAdvertisementView = view.findViewById(R.id.add_advertisement);

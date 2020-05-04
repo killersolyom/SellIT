@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.sell.it.Activity.MainActivity;
-import com.sell.it.Communication.DrawerInterface;
+import com.sell.it.Communication.MainInterface;
 import com.sell.it.Dialog.BaseDialogFragment;
 import com.sell.it.Dialog.ColumnNumberSelectDialog;
 import com.sell.it.Dialog.ConfirmDialog;
@@ -28,10 +28,10 @@ public class FragmentNavigation {
     private static long mLastBackPressTime;
     private static final long mExitTimeLimit = 350;
     private static FragmentManager mFragmentManager;
-    private static DrawerInterface mMainInterface;
+    private static MainInterface mMainInterface;
     private static FragmentManager.OnBackStackChangedListener mBackStackChangedListener;
 
-    static void initComponents(MainActivity activity, DrawerInterface mainInterface) {
+    static void initComponents(MainActivity activity, MainInterface mainInterface) {
         if (shouldInit()) {
             mFragmentManager = activity.getSupportFragmentManager();
             mBackStackChangedListener = FragmentNavigation::handleBackStackChangeEvent;

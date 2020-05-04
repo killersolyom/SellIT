@@ -6,11 +6,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.User;
 import com.sell.it.R;
 import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.DataManager;
+import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.FragmentNavigation;
 
 public class ProfileFragment extends BaseFragment {
@@ -40,9 +40,9 @@ public class ProfileFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         mLogoutButton.setOnClickListener(v -> {
-            DataManager.clearLastAuthenticationTime();
-            DataManager.saveRememberMeStatus(false);
+            DataManager.clearUserData();
             DataCacheUtil.clearItems();
+            DatabaseManager.logOut();
             FragmentNavigation.showLoginFragment();
         });
     }
@@ -53,9 +53,7 @@ public class ProfileFragment extends BaseFragment {
         mFirstName.setText(loggedInUser.getFirstName());
         mLastName.setText(loggedInUser.getLastName());
         mEmailAddress.setText(loggedInUser.getEmailAddress());
-        if(!DataManager.getPhoneNumber().equals(Values.User.PHONE_NUMBER_KEY)){
-            mPhoneNumber.setText(DataManager.getPhoneNumber());
-        }
+        mPhoneNumber.setText(DataManager.getPhoneNumber());
     }
 
     @Override

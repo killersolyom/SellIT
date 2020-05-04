@@ -2,6 +2,7 @@ package com.sell.it.Fragment;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ public class DetailsFragment extends BaseFragment {
     private final static String ADVERTISEMENT_ITEM_KEY = "Advertisement";
     private RecyclerView mImageRecyclerView;
     private RecyclerView mInfoRecyclerView;
+    private TextView mTitleView;
     private ItemAdapter mImageAdapter;
     private ItemAdapter mInfoAdapter;
 
@@ -41,6 +43,7 @@ public class DetailsFragment extends BaseFragment {
     protected void findView(View view) {
         mImageRecyclerView = view.findViewById(R.id.images_recycler_view);
         mInfoRecyclerView = view.findViewById(R.id.info_recycler_view);
+        mTitleView = view.findViewById(R.id.advertisement_title);
     }
 
     @Override
@@ -63,6 +66,8 @@ public class DetailsFragment extends BaseFragment {
         if (BundleUtil.hasValueAt(bundle, ADVERTISEMENT_ITEM_KEY)) {
             BaseAdvertisementItem advertisement =
                     BundleUtil.castItem(bundle, ADVERTISEMENT_ITEM_KEY, BaseAdvertisementItem.class);
+            mTitleView.setText(advertisement.getTitle());
+
             mImageAdapter.addItemList(advertisement.getImageList());
             //mInfoAdapter.addItemList();
 
