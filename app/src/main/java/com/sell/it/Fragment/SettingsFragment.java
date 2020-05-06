@@ -7,7 +7,7 @@ import com.sell.it.Dialog.LanguageSelectDialog;
 import com.sell.it.R;
 import com.sell.it.Utility.FragmentNavigation;
 
-public class SettingsFragment extends BaseFragment {
+public class SettingsFragment extends BaseVerificationFragment {
 
     private Button languageSelectorButton;
     private Button columnSelectorButton;
