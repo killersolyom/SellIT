@@ -1,7 +1,6 @@
 package com.sell.it.Utility;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -24,7 +23,6 @@ public class DatabaseManager {
     private static FirebaseAuth mAuth;
     private static FirebaseDatabase mFirebaseDatabase;
     private static DatabaseReference mDatabase;
-    private static String TAG = "DATABASEMANAGER";
 
     static void initialize() {
         mAuth = FirebaseAuth.getInstance();
@@ -36,13 +34,11 @@ public class DatabaseManager {
         mAuth.createUserWithEmailAndPassword(user.getEmailAddress(), user.getPassword())
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Log.d(TAG, "createUserWithEmail:success");
                         mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid())).setValue(user);
                         Bundle extraBundle = BundleUtil.createBundle(USER_KEY, user);
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_REGISTRATION_SUCCESS, extraBundle), true);
                     } else {
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_REGISTRATION_FAIL), true);
-                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
                     }
                 });
     }
@@ -54,7 +50,17 @@ public class DatabaseManager {
                         getUserFromDatabase(mAuth.getCurrentUser().getUid());
                     } else {
                         EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL), true);
-                        Log.w(TAG, "loginUserWithEmail:failure", task.getException());
+                    }
+                });
+    }
+
+    public static void verifyUser(String emailAddress, String password) {
+        mAuth.signInWithEmailAndPassword(emailAddress, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && mAuth.getCurrentUser() != null) {
+                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_SUCCESS), true);
+                    } else {
+                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_FAIL), true);
                     }
                 });
     }
