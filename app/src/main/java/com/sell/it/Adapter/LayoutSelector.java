@@ -18,27 +18,21 @@ import com.sell.it.Utility.DisplayUtils;
 class LayoutSelector {
 
     static BaseViewHolder getLayoutForItem(ViewGroup parent, int viewType, int spanCount) {
-        View itemView;
         switch (viewType) {
             case Values.ItemType.BASE_ADVERTISEMENT_TYPE:
-                itemView = inflateView(parent, R.layout.recyclerview_advertisement_component);
+                View itemView = inflateView(parent, R.layout.recyclerview_advertisement_component);
                 calculateOptimalSize(itemView, viewType, spanCount);
                 return new AdvertisementViewHolder(itemView);
             case Values.ItemType.ADVERTISEMENT_INFO_TYPE:
-                itemView = inflateView(parent, R.layout.recyclerview_advertisement_info_component);
-                return new AdvertisementInfoViewHolder(itemView);
+                return new AdvertisementInfoViewHolder(inflateView(parent, R.layout.recyclerview_advertisement_info_component));
             case Values.ItemType.SEPARATOR_ITEM_TYPE:
-                itemView = inflateView(parent, R.layout.recyclerview_separator_component);
-                return new TextSeparatorViewHolder(itemView);
+                return new TextSeparatorViewHolder(itemView = inflateView(parent, R.layout.recyclerview_separator_component));
             case Values.ItemType.LANGUAGE_ITEM_TYPE:
-                itemView = inflateView(parent, R.layout.recyclerview_language_component);
-                return new LanguageItemViewHolder(itemView);
+                return new LanguageItemViewHolder(inflateView(parent, R.layout.recyclerview_language_component));
             case Values.ItemType.IMAGE_ITEM_TYPE:
-                itemView = inflateView(parent, R.layout.recyclerview_image_component);
-                return new ImageViewHolder(itemView);
+                return new ImageViewHolder(inflateView(parent, R.layout.recyclerview_image_component));
             default:
-                itemView = inflateView(parent, R.layout.default_viewholder);
-                return new DefaultViewHolder(itemView);
+                return new DefaultViewHolder(inflateView(parent, R.layout.default_viewholder));
         }
     }
 

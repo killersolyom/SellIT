@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
-import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
@@ -21,7 +21,7 @@ import java.util.Random;
 
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
-public class AdvertisementFragment extends BaseFragment {
+public class AdvertisementFragment extends BaseVerificationFragment {
 
     private RecyclerView mAdvertisementRecyclerView;
     private ImageView mAddAdvertisementView;

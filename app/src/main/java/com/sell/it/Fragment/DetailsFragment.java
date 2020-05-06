@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
-import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DisplayUtils;
@@ -17,7 +17,7 @@ import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
 import static androidx.recyclerview.widget.LinearLayoutManager.VERTICAL;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
-public class DetailsFragment extends BaseFragment {
+public class DetailsFragment extends BaseVerificationFragment {
 
     private final static String ADVERTISEMENT_ITEM_KEY = "Advertisement";
     private RecyclerView mImageRecyclerView;

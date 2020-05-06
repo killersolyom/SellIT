@@ -13,7 +13,7 @@ import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.FragmentNavigation;
 
-public class ProfileFragment extends BaseFragment {
+public class ProfileFragment extends BaseVerificationFragment {
 
     private ImageView mProfilePicture;
     private TextView mFirstName;
@@ -43,6 +43,7 @@ public class ProfileFragment extends BaseFragment {
             DataManager.clearUserData();
             DataCacheUtil.clearItems();
             DatabaseManager.logOut();
+            mPhoneNumber.setText("");
             FragmentNavigation.showLoginFragment();
         });
     }

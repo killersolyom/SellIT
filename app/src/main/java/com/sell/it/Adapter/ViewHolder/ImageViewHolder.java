@@ -19,7 +19,7 @@ public class ImageViewHolder extends BaseViewHolder<ImageItem> {
 
     @Override
     public void bindItem(ImageItem imageItem) {
-        Glide.with(getContext()).load(imageItem.getImagePath()).centerCrop().into(mImage);
+        Glide.with(getContext()).load(imageItem.getImagePath()).fitCenter().into(mImage);
     }
 
     @Override
