@@ -2,13 +2,21 @@ package com.sell.it.Model.Constant;
 
 public class Values {
 
-    public static class ItemType {
-        public static final int BASE_ADVERTISEMENT_TYPE = 0;
+    public static class ViewType {
+        public static final int ADVERTISEMENT_TYPE = 0;
         public static final int BASE_DEFAULT_TYPE = 1;
         public static final int ADVERTISEMENT_INFO_TYPE = 2;
         public static final int SEPARATOR_ITEM_TYPE = 3;
         public static final int LANGUAGE_ITEM_TYPE = 4;
         public static final int IMAGE_ITEM_TYPE = 5;
+    }
+
+    public static class ItemType {
+        public static final String MOBILE_PHONE_TYPE = "MOBILE_PHONE_TYPE";
+        public static final String AUTOMOBILE_TYPE = "AUTOMOBILE_TYPE";
+        public static final String LAPTOP_TYPE = "LAPTOP_TYPE";
+        public static final String CAMERA_TYPE = "CAMERA_TYPE";
+        public static final String OTHERS_TYPE = "CAMERA_TYPE";
     }
 
     public static class Language {

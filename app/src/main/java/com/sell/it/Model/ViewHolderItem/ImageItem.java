@@ -18,7 +18,7 @@ public class ImageItem extends BaseDefaultItem {
     }
 
     @Override
-    public int getItemType() {
-        return Values.ItemType.IMAGE_ITEM_TYPE;
+    public int getViewType() {
+        return Values.ViewType.IMAGE_ITEM_TYPE;
     }
 }

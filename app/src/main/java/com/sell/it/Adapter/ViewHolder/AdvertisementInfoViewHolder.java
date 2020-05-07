@@ -5,7 +5,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.sell.it.Model.ViewHolderItem.AdvertisementInfoItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.AdvertisementInfoItem;
 import com.sell.it.R;
 
 public class AdvertisementInfoViewHolder extends BaseViewHolder<AdvertisementInfoItem> {

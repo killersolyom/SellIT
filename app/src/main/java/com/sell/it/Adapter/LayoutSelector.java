@@ -19,17 +19,17 @@ class LayoutSelector {
 
     static BaseViewHolder getLayoutForItem(ViewGroup parent, int viewType, int spanCount) {
         switch (viewType) {
-            case Values.ItemType.BASE_ADVERTISEMENT_TYPE:
+            case Values.ViewType.ADVERTISEMENT_TYPE:
                 View itemView = inflateView(parent, R.layout.recyclerview_advertisement_component);
                 calculateOptimalSize(itemView, viewType, spanCount);
                 return new AdvertisementViewHolder(itemView);
-            case Values.ItemType.ADVERTISEMENT_INFO_TYPE:
+            case Values.ViewType.ADVERTISEMENT_INFO_TYPE:
                 return new AdvertisementInfoViewHolder(inflateView(parent, R.layout.recyclerview_advertisement_info_component));
-            case Values.ItemType.SEPARATOR_ITEM_TYPE:
-                return new TextSeparatorViewHolder(itemView = inflateView(parent, R.layout.recyclerview_separator_component));
-            case Values.ItemType.LANGUAGE_ITEM_TYPE:
+            case Values.ViewType.SEPARATOR_ITEM_TYPE:
+                return new TextSeparatorViewHolder(inflateView(parent, R.layout.recyclerview_separator_component));
+            case Values.ViewType.LANGUAGE_ITEM_TYPE:
                 return new LanguageItemViewHolder(inflateView(parent, R.layout.recyclerview_language_component));
-            case Values.ItemType.IMAGE_ITEM_TYPE:
+            case Values.ViewType.IMAGE_ITEM_TYPE:
                 return new ImageViewHolder(inflateView(parent, R.layout.recyclerview_image_component));
             default:
                 return new DefaultViewHolder(inflateView(parent, R.layout.default_viewholder));
@@ -43,7 +43,7 @@ class LayoutSelector {
     private static void calculateOptimalSize(View view, int viewType, int spanCount) {
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         switch (viewType) {
-            case Values.ItemType.BASE_ADVERTISEMENT_TYPE:
+            case Values.ViewType.ADVERTISEMENT_TYPE:
                 float divider = spanCount == 1 ? 1.75f : 1.4f;
                 layoutParams.height = (int) (DisplayUtils.getScreenWidth() / divider) / spanCount;
                 view.setLayoutParams(layoutParams);

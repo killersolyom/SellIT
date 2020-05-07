@@ -17,7 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.RequestListener;
-import com.sell.it.Model.ViewHolderItem.AdvertisementInfoItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.AdvertisementInfoItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.TextSeparatorItem;
 import com.sell.it.R;
