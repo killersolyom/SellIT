@@ -22,7 +22,8 @@ public abstract class BaseCustomView<Item> extends ConstraintLayout {
 
     protected abstract void initView();
 
-    protected abstract void initializeComponents();
+    protected void initializeComponents() {
+    }
 
     public void bindItem(Item item, ViewGroup.LayoutParams layoutParams) {
     }
