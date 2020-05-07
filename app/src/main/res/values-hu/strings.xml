@@ -33,4 +33,30 @@
     <string name="login_failed">Sikertelen bejelentkezés!</string>
     <string name="login_success">Sikeres bejelentkezés!</string>
     <string name="registration_failed">Sikertelen regisztráció!</string>
+    <string name="advertisement_title">Cím</string>
+    <string name="advertisement_description">Leírás</string>
+    <string name="advertisement_price">Price</string>
+    <string name="advertisement_manufacturer">Gyártó</string>
+    <string name="advertisement_owner">Eeladó</string>
+    <string name="advertisement_megapixel">Megapixel</string>
+    <string name="advertisement_battery_size">Akkumulátor</string>
+    <string name="advertisement_screen_size">Kijelző méret</string>
+    <string name="advertisement_cpu">Processzor</string>
+    <string name="advertisement_memory">Memória</string>
+    <string name="advertisement_storage">Tárhely</string>
+    <string name="advertisement_usb_type">Usb típus</string>
+    <string name="advertisement_model">Model</string>
+    <string name="advertisement_jack">Jack aljzat</string>
+    <string name="advertisement_primary_camera">Elsődleges kamera</string>
+    <string name="advertisement_secondary_camera">Másodlagos kamera</string>
+    <string name="advertisement_usb_number">USB portok száma</string>
+    <string name="advertisement_dvd_rom">DVD ROM</string>
+    <string name="advertisement_horse_power">Lóerő</string>
+    <string name="advertisement_color">Szín</string>
+    <string name="advertisement_production_year">Gyártási év</string>
+    <string name="advertisement_engine_type">Motor típus</string>
+    <string name="advertisement_engine_size">Motor méret</string>
+    <string name="advertisement_tire_size">Kerék méret</string>
+    <string name="advertisement_door_number">Ajtók száma</string>
+
 </resources>

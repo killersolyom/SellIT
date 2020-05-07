@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.sell.it.Model.Constant.Values;
+import com.sell.it.R;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,10 @@ public abstract class BaseAdvertisementItem extends DefaultAdvertisementItem {
 
     @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
-        return null;
+        ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
+        addToListIfExist(descriptionList, R.string.advertisement_owner, mOwner);
+        addToListIfExist(descriptionList, R.string.advertisement_manufacturer, mManufacturer);
+        return descriptionList;
     }
 
 }

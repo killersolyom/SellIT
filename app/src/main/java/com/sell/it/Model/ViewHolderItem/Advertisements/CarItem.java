@@ -3,24 +3,25 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.sell.it.Model.Constant.Values;
+import com.sell.it.R;
 
 import java.util.ArrayList;
 
 public class CarItem extends BaseAdvertisementItem {
 
-    private String mHorsePower;
     private String mColor;
-    private int mYearOfProduction;
     private String mEngineType;
-    private float mEngineSize;
     private String mTireSize;
+    private float mEngineSize;
+    private float mHorsePower;
+    private int mYearOfProduction;
     private int mDoorNumber;
 
-    public String getHorsePower() {
+    public float getHorsePower() {
         return mHorsePower;
     }
 
-    public void setHorsePower(String mHorsePower) {
+    public void setHorsePower(float mHorsePower) {
         this.mHorsePower = mHorsePower;
     }
 
@@ -79,7 +80,15 @@ public class CarItem extends BaseAdvertisementItem {
 
     @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
-        return null;
+        ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
+        addToListIfExist(descriptionList, R.string.advertisement_horse_power, String.valueOf(mHorsePower));
+        addToListIfExist(descriptionList, R.string.advertisement_color, mColor);
+        addToListIfExist(descriptionList, R.string.advertisement_production_year, intValueToDescriptionString(mYearOfProduction));
+        addToListIfExist(descriptionList, R.string.advertisement_engine_type, mEngineType);
+        addToListIfExist(descriptionList, R.string.advertisement_engine_size, floatValueToDescriptionString(mEngineSize));
+        addToListIfExist(descriptionList, R.string.advertisement_tire_size, mTireSize);
+        addToListIfExist(descriptionList, R.string.advertisement_door_number, intValueToDescriptionString(mDoorNumber));
+        return descriptionList;
     }
 
 }

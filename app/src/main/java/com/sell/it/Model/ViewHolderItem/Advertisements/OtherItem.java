@@ -15,7 +15,7 @@ public class OtherItem extends DefaultAdvertisementItem {
 
     @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
-        return null;
+        return super.getDescriptionList();
     }
 
 }

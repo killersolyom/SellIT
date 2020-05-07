@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.sell.it.Model.Constant.Values;
+import com.sell.it.R;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,12 @@ public class LaptopItem extends BaseComputeUnitItem {
 
     @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
-        return null;
+        ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
+        addToListIfExist(descriptionList, R.string.advertisement_usb_number, intValueToDescriptionString(mNumberOfUsbPorts));
+        if (mHasDvdRom) {
+            descriptionList.add(new Pair<>(R.string.advertisement_storage, " "));
+        }
+        return descriptionList;
     }
 
 }

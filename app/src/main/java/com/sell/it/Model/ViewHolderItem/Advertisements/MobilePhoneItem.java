@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.sell.it.Model.Constant.Values;
+import com.sell.it.R;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,15 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
 
     @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
-        return null;
+        ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
+        addToListIfExist(descriptionList, R.string.advertisement_usb_type, mUsbType);
+        addToListIfExist(descriptionList, R.string.advertisement_model, mModel);
+        addToListIfExist(descriptionList, R.string.advertisement_primary_camera, floatValueToDescriptionString(mPrimaryCamera));
+        addToListIfExist(descriptionList, R.string.advertisement_secondary_camera, floatValueToDescriptionString(mSecondaryCamera));
+        if (mHasJack) {
+            descriptionList.add(new Pair<>(R.string.advertisement_jack, ""));
+        }
+        return descriptionList;
     }
 
 }

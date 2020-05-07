@@ -5,6 +5,8 @@ import android.util.Pair;
 import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.Model.ViewHolderItem.ImageItem;
+import com.sell.it.R;
+import com.sell.it.Utility.TextUtils;
 
 import java.util.ArrayList;
 
@@ -59,7 +61,25 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     public abstract String getItemType();
 
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
-        return new ArrayList<Pair<Integer, String>>();
+        ArrayList<Pair<Integer, String>> descriptionList = new ArrayList<>();
+        addToListIfExist(descriptionList, R.string.advertisement_title, mTitle);
+        addToListIfExist(descriptionList, R.string.advertisement_description, mDescription);
+        addToListIfExist(descriptionList, R.string.advertisement_price, floatValueToDescriptionString(mPrice));
+        return descriptionList;
+    }
+
+    protected void addToListIfExist(ArrayList<Pair<Integer, String>> list, int textId, String item) {
+        if (!TextUtils.isEmpty(item)) {
+            list.add(new Pair<>(textId, item));
+        }
+    }
+
+    protected String floatValueToDescriptionString(float value) {
+        return value == 0 ? "" : String.valueOf(value);
+    }
+
+    protected String intValueToDescriptionString(int value) {
+        return value == 0 ? "" : String.valueOf(value);
     }
 
 }

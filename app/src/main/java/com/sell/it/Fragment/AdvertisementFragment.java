@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
-import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.R;
@@ -70,11 +69,9 @@ public class AdvertisementFragment extends BaseVerificationFragment {
         for (int i = 0; i < 25; i++) {
             BaseAdvertisementItem advertisementItem1 = new MobilePhoneItem();
             advertisementItem1.setTitle("Title for advertisement " + new Random().nextInt(100));
+            advertisementItem1.setPrice(new Random().nextInt(1000));
+            advertisementItem1.setManufacturer("Asus");
             mItemAdapter.addItem(advertisementItem1);
-
-            BaseAdvertisementItem advertisementItem2 = new LaptopItem();
-            advertisementItem2.setTitle("Title for advertisement " + new Random().nextInt(100));
-            mItemAdapter.addItem(advertisementItem2);
         }
         saveItems();
     }

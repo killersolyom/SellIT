@@ -1,6 +1,8 @@
 package com.sell.it.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.TextView;
 
@@ -70,6 +72,10 @@ public class DetailsFragment extends BaseVerificationFragment {
 
             mImageAdapter.addItemList(advertisement.getImageList());
             //mInfoAdapter.addItemList();
+
+            for (Pair<Integer, String> it : advertisement.getDescriptionList()) {
+                Log.d("3ss", getContext().getString(it.first) + " " + it.second);
+            }
 
         }
     }
