@@ -33,6 +33,7 @@
     <string name="login_failed">Sikertelen bejelentkezés!</string>
     <string name="login_success">Sikeres bejelentkezés!</string>
     <string name="registration_failed">Sikertelen regisztráció!</string>
+    <string name="invalid_id">Érvénytelen azonosító!</string>
     <string name="advertisement_title">Cím</string>
     <string name="advertisement_description">Leírás</string>
     <string name="advertisement_price">Price</string>

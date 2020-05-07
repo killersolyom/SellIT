@@ -32,6 +32,7 @@
     <string name="login_failed">Login failed!</string>
     <string name="login_success">Success!</string>
     <string name="registration_failed">Registration failed!</string>
+    <string name="invalid_id">Invalid identifier!</string>
     <string name="advertisement_title">Title</string>
     <string name="advertisement_description">Description</string>
     <string name="advertisement_price">Price</string>
@@ -57,5 +58,4 @@
     <string name="advertisement_engine_size">Engine size</string>
     <string name="advertisement_tire_size">Tire size</string>
     <string name="advertisement_door_number">Door number</string>
-
 </resources>
