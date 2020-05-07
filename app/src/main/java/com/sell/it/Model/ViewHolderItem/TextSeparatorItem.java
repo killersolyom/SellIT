@@ -9,8 +9,8 @@ public class TextSeparatorItem extends BaseDefaultItem {
     }
 
     @Override
-    public int getItemType() {
-        return Values.ItemType.SEPARATOR_ITEM_TYPE;
+    public int getViewType() {
+        return Values.ViewType.SEPARATOR_ITEM_TYPE;
     }
 
 }

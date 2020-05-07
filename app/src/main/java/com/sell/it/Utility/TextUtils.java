@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class TextUtils {
 
     public static boolean isEmpty(String value) {
-        return value != null && value.isEmpty();
+        return value == null || value.isEmpty();
     }
 
     public static boolean isValidEmailAddress(String address) {

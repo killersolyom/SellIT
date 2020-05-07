@@ -8,7 +8,7 @@ public class BaseDefaultItem extends BaseItem {
     }
 
     @Override
-    public int getItemType() {
-        return Values.ItemType.BASE_DEFAULT_TYPE;
+    public int getViewType() {
+        return Values.ViewType.BASE_DEFAULT_TYPE;
     }
 }

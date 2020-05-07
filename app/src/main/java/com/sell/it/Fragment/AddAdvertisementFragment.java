@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.sell.it.R;
 
-public class AddAdvertisementFragment extends BaseAuthenticationFragment {
+public class AddAdvertisementFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_add_advertisement;

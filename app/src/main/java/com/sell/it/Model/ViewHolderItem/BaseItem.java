@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public abstract class BaseItem implements Serializable {
 
-    public abstract int getItemType();
+    public abstract int getViewType();
 
 }
