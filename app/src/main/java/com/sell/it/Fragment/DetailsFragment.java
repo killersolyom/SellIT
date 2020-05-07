@@ -74,7 +74,7 @@ public class DetailsFragment extends BaseVerificationFragment {
             //mInfoAdapter.addItemList();
 
             for (Pair<Integer, String> it : advertisement.getDescriptionList()) {
-                Log.d("3ss", getContext().getString(it.first) + " " + it.second);
+                Log.d(TAG, mContext.getString(it.first) + " " + it.second);
             }
 
         }
