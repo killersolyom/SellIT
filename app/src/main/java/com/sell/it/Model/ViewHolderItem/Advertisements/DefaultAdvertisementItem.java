@@ -60,6 +60,8 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
 
     public abstract String getItemType();
 
+    public abstract String getCategoryType();
+
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
         ArrayList<Pair<Integer, String>> descriptionList = new ArrayList<>();
         addToListIfExist(descriptionList, R.string.advertisement_title, mTitle);

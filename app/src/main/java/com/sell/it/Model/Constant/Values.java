@@ -19,6 +19,12 @@ public class Values {
         public static final String OTHERS_TYPE = "CAMERA_TYPE";
     }
 
+    public static class CategoryType {
+        public static final String VEHICLE_TYPE = "VEHICLE_TYPE";
+        public static final String ELECTRONIC_TYPE = "VEHICLE_TYPE";
+        public static final String OTHER_TYPE = "OTHER_TYPE";
+    }
+
     public static class Language {
         public static final String LANGUAGE_KEY_ENGLISH = "en";
         public static final String LANGUAGE_KEY_HUNGARY = "hu";

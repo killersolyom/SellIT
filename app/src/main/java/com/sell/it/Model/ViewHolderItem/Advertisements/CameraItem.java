@@ -25,6 +25,11 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
     }
 
     @Override
+    public String getCategoryType() {
+        return Values.CategoryType.ELECTRONIC_TYPE;
+    }
+
+    @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
         ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
         addToListIfExist(descriptionList, R.string.advertisement_megapixel, intValueToDescriptionString(mMegaPixels));

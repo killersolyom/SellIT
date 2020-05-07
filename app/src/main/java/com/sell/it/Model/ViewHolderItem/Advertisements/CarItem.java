@@ -79,6 +79,11 @@ public class CarItem extends BaseAdvertisementItem {
     }
 
     @Override
+    public String getCategoryType() {
+        return Values.CategoryType.VEHICLE_TYPE;
+    }
+
+    @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
         ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
         addToListIfExist(descriptionList, R.string.advertisement_horse_power, String.valueOf(mHorsePower));

@@ -57,7 +57,12 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
 
     @Override
     public String getItemType() {
-        return Values.ItemType.AUTOMOBILE_TYPE;
+        return Values.ItemType.MOBILE_PHONE_TYPE;
+    }
+
+    @Override
+    public String getCategoryType() {
+        return Values.CategoryType.ELECTRONIC_TYPE;
     }
 
     @Override

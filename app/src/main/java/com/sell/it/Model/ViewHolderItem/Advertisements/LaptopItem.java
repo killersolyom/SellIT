@@ -7,7 +7,7 @@ import com.sell.it.R;
 
 import java.util.ArrayList;
 
-public class LaptopItem extends BaseComputeUnitItem {
+public abstract class LaptopItem extends BaseComputeUnitItem {
 
     private int mNumberOfUsbPorts;
     private boolean mHasDvdRom;
