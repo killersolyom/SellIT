@@ -32,4 +32,5 @@
     <string name="login_failed">Login failed!</string>
     <string name="login_success">Success!</string>
     <string name="registration_failed">Registration failed!</string>
+    <string name="invalid_id">Invalid identifier!</string>
 </resources>
