@@ -6,11 +6,22 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class LaptopItem extends BaseComputeUnitItem {
 
+    public final static String USB_PORT_KEY = "USB_PORT_KEY";
+    public final static String DVD_KEY = "DVD_KEY";
+
     private int mNumberOfUsbPorts;
     private boolean mHasDvdRom;
+
+    public LaptopItem() {
+    }
+
+    public LaptopItem(Map<String, Object> mItemData) {
+        initItems(mItemData);
+    }
 
     public int getNumberOfUsbPorts() {
         return mNumberOfUsbPorts;
@@ -26,6 +37,13 @@ public abstract class LaptopItem extends BaseComputeUnitItem {
 
     public void setDvdRom(boolean mHasDvdRom) {
         this.mHasDvdRom = mHasDvdRom;
+    }
+
+    @Override
+    protected void initItems(Map<String, Object> items) {
+        super.initItems(items);
+        mNumberOfUsbPorts = getIntValue(items.get(USB_PORT_KEY));
+        mHasDvdRom = getBooleanValue(items.get(DVD_KEY));
     }
 
     @Override

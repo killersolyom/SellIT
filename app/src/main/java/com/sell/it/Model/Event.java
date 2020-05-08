@@ -26,7 +26,8 @@ public class Event {
     public static final int ACTION_LOGIN_FAIL = 7;
     public static final int ACTION_VERIFICATION_FAIL = 8;
     public static final int ACTION_VERIFICATION_SUCCESS = 9;
-
+    public static final int ACTION_LOCK_ORIENTATION = 10;
+    public static final int ACTION_UNLOCK_ORIENTATION = 11;
 
 
     public Event(int mEventType, int mEventAction) {

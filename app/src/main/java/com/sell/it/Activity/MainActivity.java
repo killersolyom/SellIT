@@ -2,6 +2,7 @@ package com.sell.it.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -127,6 +128,12 @@ public class MainActivity extends AppCompatActivity implements EventListener, Ma
                 switch (event.getAction()) {
                     case Event.ACTION_LANGUAGE_CHANGE:
                         restart();
+                        return true;
+                    case Event.ACTION_LOCK_ORIENTATION:
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+                        return true;
+                    case Event.ACTION_UNLOCK_ORIENTATION:
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                         return true;
                 }
         }

@@ -91,6 +91,7 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     public void onResume() {
         super.onResume();
         EventDispatcher.subscribe(this);
+        EventDispatcher.offerEvent(new Event(Event.TYPE_CONTROL, Event.ACTION_UNLOCK_ORIENTATION));
         restoreItems(DataCacheUtil.getItem(TAG));
         loadImages();
         EventDispatcher.sendUnconsumedEvents();

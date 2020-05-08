@@ -8,5 +8,8 @@ public interface ValueListener {
     default void writeValue(String value) {
     }
 
+    default void writeValue(Boolean value) {
+    }
+
     void registerCallback(InputCallbackInterface callback);
 }

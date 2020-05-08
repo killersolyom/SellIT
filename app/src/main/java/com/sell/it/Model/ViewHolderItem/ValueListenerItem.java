@@ -35,7 +35,7 @@ public class ValueListenerItem extends BaseDefaultItem {
 
     @Override
     public int getViewType() {
-        return Values.ViewType.VALUE_LISTENER_ITEM_TYPE;
+        return Values.ViewType.DATA_INPUT_ITEM_TYPE;
     }
 
 }

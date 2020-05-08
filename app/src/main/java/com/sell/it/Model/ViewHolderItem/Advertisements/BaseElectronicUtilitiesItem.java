@@ -5,8 +5,12 @@ import android.util.Pair;
 import com.sell.it.R;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class BaseElectronicUtilitiesItem extends BaseAdvertisementItem {
+
+    public final static String BATTERY_KEY = "BATTERY_KEY";
+    public final static String SCREEN_KEY = "SCREEN_KEY";
 
     private int mBatterySize;
     private float mScreenSize;
@@ -25,6 +29,13 @@ public abstract class BaseElectronicUtilitiesItem extends BaseAdvertisementItem 
 
     public void setScreenSize(float mScreenSize) {
         this.mScreenSize = mScreenSize;
+    }
+
+    @Override
+    protected void initItems(Map<String, Object> items) {
+        super.initItems(items);
+        mBatterySize = getIntValue(items.get(BATTERY_KEY));
+        mScreenSize = getFloatValue(items.get(SCREEN_KEY));
     }
 
     @Override

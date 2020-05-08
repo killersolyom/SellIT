@@ -6,10 +6,20 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class CameraItem extends BaseElectronicUtilitiesItem {
 
+    public final static String MEGA_PIXEL_KEY = "MEGA_PIXEL_KEY";
+
     private int mMegaPixels;
+
+    public CameraItem() {
+    }
+
+    public CameraItem(Map<String, Object> mItemData) {
+        initItems(mItemData);
+    }
 
     public int getMegaPixels() {
         return mMegaPixels;
@@ -27,6 +37,12 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
     @Override
     public String getCategoryType() {
         return Values.CategoryType.ELECTRONIC_TYPE;
+    }
+
+    @Override
+    protected void initItems(Map<String, Object> items) {
+        super.initItems(items);
+        mMegaPixels = getIntValue(items.get(MEGA_PIXEL_KEY));
     }
 
     @Override

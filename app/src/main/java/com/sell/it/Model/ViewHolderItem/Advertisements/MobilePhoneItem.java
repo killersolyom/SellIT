@@ -6,14 +6,28 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MobilePhoneItem extends BaseComputeUnitItem {
+
+    public final static String JACK_KEY = "JACK_KEY";
+    public final static String USB_KEY = "USB_KEY";
+    public final static String MODEL_KEY = "MODEL_KEY";
+    public final static String PRIMARY_CAMERA_KEY = "PRIMARY_CAMERA_KEY";
+    public final static String SECONDARY_CAMERA_KEY = "SECONDARY_CAMERA_KEY";
 
     private boolean mHasJack;
     private String mUsbType;
     private String mModel;
     private float mPrimaryCamera;
     private float mSecondaryCamera;
+
+    public MobilePhoneItem() {
+    }
+
+    public MobilePhoneItem(Map<String, Object> mItemData) {
+        initItems(mItemData);
+    }
 
     public boolean hasJack() {
         return mHasJack;
@@ -63,6 +77,16 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
     @Override
     public String getCategoryType() {
         return Values.CategoryType.ELECTRONIC_TYPE;
+    }
+
+    @Override
+    protected void initItems(Map<String, Object> items) {
+        super.initItems(items);
+        mUsbType = getStringValue(items.get(USB_KEY));
+        mHasJack = getBooleanValue(items.get(JACK_KEY));
+        mModel = getStringValue(items.get(MODEL_KEY));
+        mPrimaryCamera = getFloatValue(items.get(PRIMARY_CAMERA_KEY));
+        mSecondaryCamera = getFloatValue(items.get(SECONDARY_CAMERA_KEY));
     }
 
     @Override

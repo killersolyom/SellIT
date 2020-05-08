@@ -5,8 +5,16 @@ import android.util.Pair;
 import com.sell.it.Model.Constant.Values;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class OtherItem extends DefaultAdvertisementItem {
+
+    public OtherItem() {
+    }
+
+    public OtherItem(Map<String, Object> mItemData) {
+        initItems(mItemData);
+    }
 
     @Override
     public String getItemType() {

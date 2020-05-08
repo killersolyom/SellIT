@@ -2,8 +2,11 @@ package com.sell.it.Communication;
 
 public interface InputCallbackInterface {
 
-    boolean isReady();
+    default boolean isReady() {
+        return true;
+    }
 
-    void showStatus(boolean isError);
+    default void showStatus(boolean isError) {
+    }
 
 }

@@ -9,8 +9,13 @@ import com.sell.it.R;
 import com.sell.it.Utility.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
+
+    public static final String PRICE_KEY = "PRICE_KEY";
+    public static final String TITLE_KEY = "TITLE_KEY";
+    public static final String DESCRIPTION_KEY = "DESCRIPTION_KEY";
 
     private String mId;
     private float mPrice;
@@ -74,6 +79,28 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         if (!TextUtils.isEmpty(item)) {
             list.add(new Pair<>(textId, item));
         }
+    }
+
+    protected void initItems(Map<String, Object> items) {
+        mPrice = getFloatValue(items.get(PRICE_KEY));
+        mTitle = getStringValue(items.get(TITLE_KEY));
+        mDescription = getStringValue(items.get(DESCRIPTION_KEY));
+    }
+
+    protected boolean getBooleanValue(Object item) {
+        return (item instanceof Boolean) ? (Boolean) item : false;
+    }
+
+    protected String getStringValue(Object item) {
+        return (item instanceof String) ? (String) item : "";
+    }
+
+    protected float getFloatValue(Object item) {
+        return (item instanceof Float) ? (Float) item : 0;
+    }
+
+    protected int getIntValue(Object item) {
+        return (item instanceof Float) ? ((Float) item).intValue() : 0;
     }
 
     protected String floatValueToDescriptionString(float value) {
