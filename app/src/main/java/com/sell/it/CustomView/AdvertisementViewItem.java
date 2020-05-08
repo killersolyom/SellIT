@@ -92,7 +92,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
             return;
         }
 
-        Glide.with(getContext())
+        Glide.with(getContext().getApplicationContext())
                 .load(imagePath)
                 .transition(withCrossFade(500))
                 .placeholder(R.drawable.placeholder_image)

@@ -5,11 +5,11 @@ import android.util.AttributeSet;
 
 import com.sell.it.R;
 
-public class AuthenticationEditText extends androidx.appcompat.widget.AppCompatEditText {
+public class VerificationEditText extends androidx.appcompat.widget.AppCompatEditText {
 
     private boolean mError;
 
-    public AuthenticationEditText(Context context, AttributeSet attrs) {
+    public VerificationEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         setBackground(getContext().getDrawable(R.drawable.item_rounded_background));
     }

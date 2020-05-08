@@ -8,11 +8,13 @@ public class ValueListenerItem extends BaseDefaultItem {
     private ValueListener mValueListener;
     private int mInputType;
     private String mTitle;
+    private boolean mIsNecessary;
 
-    public ValueListenerItem(ValueListener valueListener, String title, int inputType) {
+    public ValueListenerItem(ValueListener valueListener, String title, int inputType, boolean isNecessary) {
         this.mValueListener = valueListener;
         this.mInputType = inputType;
         this.mTitle = title;
+        this.mIsNecessary = isNecessary;
     }
 
     public int getInputType() {
@@ -27,15 +29,13 @@ public class ValueListenerItem extends BaseDefaultItem {
         return mValueListener;
     }
 
+    public boolean isNecessary() {
+        return mIsNecessary;
+    }
+
     @Override
     public int getViewType() {
         return Values.ViewType.VALUE_LISTENER_ITEM_TYPE;
-    }
-
-    public static class InputTypes {
-        public static final int INT = 0;
-        public static final int DECIMAL = 1;
-        public static final int STRING = 2;
     }
 
 }

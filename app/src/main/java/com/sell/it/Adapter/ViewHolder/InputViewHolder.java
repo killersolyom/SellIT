@@ -22,10 +22,6 @@ public class InputViewHolder extends BaseViewHolder<ValueListenerItem> {
     }
 
     @Override
-    public void unBindItem() {
-    }
-
-    @Override
     protected void findView(View itemView) {
         mInputViewItem = itemView.findViewById(R.id.input_view);
     }

@@ -31,5 +31,6 @@ public abstract class BaseCustomView<Item> extends ConstraintLayout {
     public void bindItem(Item item) {
     }
 
-    public abstract void unbind();
+    public void unbind() {
+    }
 }

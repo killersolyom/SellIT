@@ -1,21 +1,30 @@
 package com.sell.it.CustomView;
 
 import android.content.Context;
-import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.widget.EditText;
 import android.widget.TextView;
 
+import com.sell.it.Communication.InputCallbackInterface;
 import com.sell.it.Communication.ValueListener;
 import com.sell.it.Model.ViewHolderItem.ValueListenerItem;
 import com.sell.it.R;
+import com.sell.it.Utility.TextUtils;
 
-public class InputViewItem extends BaseCustomView<ValueListenerItem> {
+import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
+import static android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+import static android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+
+public class InputViewItem extends BaseCustomView<ValueListenerItem> implements InputCallbackInterface {
+
+    public final static int TEXT_INPUT_TYPE = 1 + (TYPE_TEXT_FLAG_CAP_SENTENCES | TYPE_TEXT_FLAG_MULTI_LINE);
+    public final static int NUMBER_INPUT_TYPE = TYPE_NUMBER_FLAG_DECIMAL;
 
     private TextView mTitle;
-    private EditText mInputField;
+    private VerificationEditText mInputField;
     private ValueListener mValueListener;
+    private boolean mIsNecessary;
 
     public InputViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,27 +43,20 @@ public class InputViewItem extends BaseCustomView<ValueListenerItem> {
 
     public void bindItem(ValueListenerItem listener) {
         mValueListener = listener.getListener();
-        setInputType(listener.getInputType());
+        mInputField.setInputType(listener.getInputType());
+        Log.d("3ss", "Good 147457 " + " Actual " + mInputField.getInputType());
+        mIsNecessary = listener.isNecessary();
         mTitle.setText(listener.getTitle());
+        mValueListener.registerCallback(this);
     }
 
-    private void setInputType(int type) {
-        switch (type) {
-            case ValueListenerItem.InputTypes.DECIMAL:
-                mInputField.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                break;
-            case ValueListenerItem.InputTypes.INT:
-                mInputField.setInputType(InputType.TYPE_CLASS_NUMBER);
-                break;
-            case ValueListenerItem.InputTypes.STRING:
-                mInputField.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                break;
-        }
+    @Override
+    public boolean isReady() {
+        return !mIsNecessary || !TextUtils.isEmpty(mInputField.getItemText()) && mIsNecessary;
     }
 
-    public void unbind() {
-        mInputField.setText("");
-        mTitle.setText("");
+    @Override
+    public void showStatus(boolean isError) {
+        mInputField.updateItem(isError);
     }
-
 }

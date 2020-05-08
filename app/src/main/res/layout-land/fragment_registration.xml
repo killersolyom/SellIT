@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.sell.it.CustomView.AuthenticationEditText
+    <com.sell.it.CustomView.VerificationEditText
         android:id="@+id/user_email_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_title_text" />
 
-    <com.sell.it.CustomView.AuthenticationEditText
+    <com.sell.it.CustomView.VerificationEditText
         android:id="@+id/user_first_name_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
@@ -50,7 +50,7 @@
         app:layout_constraintStart_toEndOf="@id/user_email_field"
         app:layout_constraintTop_toBottomOf="@id/app_title_text" />
 
-    <com.sell.it.CustomView.AuthenticationEditText
+    <com.sell.it.CustomView.VerificationEditText
         android:id="@+id/user_last_name_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_email_field" />
 
-    <com.sell.it.CustomView.AuthenticationEditText
+    <com.sell.it.CustomView.VerificationEditText
         android:id="@+id/user_name_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"
@@ -77,7 +77,7 @@
         app:layout_constraintStart_toEndOf="@id/user_password_field"
         app:layout_constraintTop_toBottomOf="@+id/user_first_name_field" />
 
-    <com.sell.it.CustomView.AuthenticationEditText
+    <com.sell.it.CustomView.VerificationEditText
         android:id="@+id/user_password_field"
         android:layout_width="250dp"
         android:layout_height="@dimen/default_item_height"

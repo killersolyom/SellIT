@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.sell.it.CustomView.AuthenticationEditText;
+import com.sell.it.CustomView.VerificationEditText;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
 import com.sell.it.R;
@@ -15,11 +15,11 @@ import com.sell.it.Utility.TextUtils;
 
 public class RegistrationFragment extends BaseAuthenticationFragment {
 
-    private AuthenticationEditText mEmailField;
-    private AuthenticationEditText mFirstNameField;
-    private AuthenticationEditText mLastNameField;
-    private AuthenticationEditText mUsernameField;
-    private AuthenticationEditText mPasswordField;
+    private VerificationEditText mEmailField;
+    private VerificationEditText mFirstNameField;
+    private VerificationEditText mLastNameField;
+    private VerificationEditText mUsernameField;
+    private VerificationEditText mPasswordField;
     private Button mRegisterButton;
 
     @Override
