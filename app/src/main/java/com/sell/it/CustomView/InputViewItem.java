@@ -2,7 +2,6 @@ package com.sell.it.CustomView;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
@@ -12,14 +11,16 @@ import com.sell.it.Model.ViewHolderItem.ValueListenerItem;
 import com.sell.it.R;
 import com.sell.it.Utility.TextUtils;
 
+import static android.text.InputType.TYPE_CLASS_NUMBER;
+import static android.text.InputType.TYPE_CLASS_TEXT;
 import static android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 import static android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
 import static android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE;
 
 public class InputViewItem extends BaseCustomView<ValueListenerItem> implements InputCallbackInterface {
 
-    public final static int TEXT_INPUT_TYPE = 1 + (TYPE_TEXT_FLAG_CAP_SENTENCES | TYPE_TEXT_FLAG_MULTI_LINE);
-    public final static int NUMBER_INPUT_TYPE = TYPE_NUMBER_FLAG_DECIMAL;
+    public final static int TEXT_INPUT_TYPE = TYPE_TEXT_FLAG_CAP_SENTENCES | TYPE_CLASS_TEXT | TYPE_TEXT_FLAG_MULTI_LINE;
+    public final static int NUMBER_INPUT_TYPE = TYPE_CLASS_NUMBER | TYPE_NUMBER_FLAG_DECIMAL;
 
     private TextView mTitle;
     private VerificationEditText mInputField;
@@ -44,7 +45,6 @@ public class InputViewItem extends BaseCustomView<ValueListenerItem> implements 
     public void bindItem(ValueListenerItem listener) {
         mValueListener = listener.getListener();
         mInputField.setInputType(listener.getInputType());
-        Log.d("3ss", "Good 147457 " + " Actual " + mInputField.getInputType());
         mIsNecessary = listener.isNecessary();
         mTitle.setText(listener.getTitle());
         mValueListener.registerCallback(this);

@@ -46,7 +46,8 @@ public class AddAdvertisementFragment extends BaseFragment {
         mDataInputView.setAdapter(mItemAdapter);
 
         for (int i = 0; i < 5; i++) {
-            addTextValueSetter("" + i, "title " + i, true);
+            addNumberValueSetter("" + i, "Number  " + i, true);
+            addTextValueSetter("" + i, "Text  " + i, true);
         }
     }
 
