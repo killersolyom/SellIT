@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
@@ -50,7 +50,7 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
     protected void initializeComponents() {
         mItems = new ArrayList<>();
         mItemAdapter = new ItemAdapter();
-        mImageRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 5));
+        mImageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         mImageRecyclerView.setAdapter(mItemAdapter);
         mAddImage.setOnClickListener(v -> EventDispatcher.offerEvent(new Event(Event.TYPE_CONTROL, Event.ACTION_PICK_IMAGE)));
     }
