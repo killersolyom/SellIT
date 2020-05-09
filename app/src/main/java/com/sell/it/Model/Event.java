@@ -15,6 +15,7 @@ public class Event {
     public static final int TYPE_FIREBASE = 0;
     public static final int TYPE_CONTROL = 1;
     public static final int TYPE_DRAWER_MENU = 2;
+    public static final int TYPE_IMAGE_PICKER = 3;
 
     public static final int ACTION_CLOSE_DRAWER = 0;
     public static final int ACTION_ENABLE_DRAWER = 1;
@@ -28,6 +29,8 @@ public class Event {
     public static final int ACTION_VERIFICATION_SUCCESS = 9;
     public static final int ACTION_LOCK_ORIENTATION = 10;
     public static final int ACTION_UNLOCK_ORIENTATION = 11;
+    public static final int ACTION_PICK_IMAGE = 12;
+    public static final int ACTION_ADD_IMAGE = 13;
 
 
     public Event(int mEventType, int mEventAction) {

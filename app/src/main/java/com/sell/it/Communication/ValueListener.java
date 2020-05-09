@@ -1,5 +1,7 @@
 package com.sell.it.Communication;
 
+import java.util.ArrayList;
+
 public interface ValueListener {
 
     default void writeValue(Float value) {
@@ -9,6 +11,9 @@ public interface ValueListener {
     }
 
     default void writeValue(Boolean value) {
+    }
+
+    default void writeValue(ArrayList<String> valueList) {
     }
 
     void registerCallback(InputCallbackInterface callback);

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp">
+
+    <ImageView
+        android:id="@+id/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/item_rounded_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/image_chooser"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingStart="45dp"
+        android:paddingTop="25dp"
+        android:paddingEnd="45dp"
+        android:paddingBottom="25dp"
+        app:layout_constraintBottom_toBottomOf="@id/item_background"
+        app:layout_constraintEnd_toEndOf="@id/item_background"
+        app:layout_constraintStart_toStartOf="@id/item_background"
+        app:layout_constraintTop_toTopOf="@id/item_background" />
+
+    <ImageView
+        android:id="@+id/add_image_view"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="45dp"
+        android:background="@drawable/add_advertisement_image"
+        app:layout_constraintEnd_toEndOf="@id/image_chooser"
+        app:layout_constraintTop_toTopOf="@id/image_chooser" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,26 +4,26 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.sell.it.CustomView.BooleanInputViewItem;
+import com.sell.it.CustomView.NumberInputViewItem;
 import com.sell.it.Model.ViewHolderItem.BaseValueInputItem;
 import com.sell.it.R;
 
-public class BooleanInputViewHolder extends BaseViewHolder<BaseValueInputItem> {
+public class NumberInputViewHolder extends BaseViewHolder<BaseValueInputItem> {
 
-    private BooleanInputViewItem mInputViewItem;
+    private NumberInputViewItem mInputView;
 
-    public BooleanInputViewHolder(@NonNull View itemView) {
+    public NumberInputViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
     @Override
     public void bindItem(BaseValueInputItem baseValueInputItem) {
-        mInputViewItem.bindItem(baseValueInputItem);
+        mInputView.bindItem(baseValueInputItem);
     }
 
     @Override
     protected void findView(View itemView) {
-        mInputViewItem = itemView.findViewById(R.id.boolean_input_view);
+        mInputView = itemView.findViewById(R.id.input_view);
     }
 
 }

@@ -20,6 +20,7 @@ import com.sell.it.Communication.EventListener;
 import com.sell.it.Communication.MainInterface;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
+import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.EventDispatcher;
 import com.sell.it.Utility.FragmentNavigation;
@@ -27,6 +28,7 @@ import com.sell.it.Utility.LanguageManager;
 import com.sell.it.Utility.UtilityManager;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.sell.it.Model.Constant.Values.SELECT_PICTURE;
 
 public class MainActivity extends AppCompatActivity implements EventListener, MainInterface,
         NavigationView.OnNavigationItemSelectedListener {
@@ -135,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements EventListener, Ma
                     case Event.ACTION_UNLOCK_ORIENTATION:
                         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
                         return true;
+                    case Event.ACTION_PICK_IMAGE:
+                        Intent intent = new Intent().setType("image/*").setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, SELECT_PICTURE), 1);
+                        return true;
                 }
         }
         return false;
@@ -149,4 +155,15 @@ public class MainActivity extends AppCompatActivity implements EventListener, Ma
     public Context getContext() {
         return getApplicationContext();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && data != null && data.getData() != null) {
+            Event event = new Event(Event.TYPE_IMAGE_PICKER, Event.ACTION_ADD_IMAGE,
+                    BundleUtil.createBundle(SELECT_PICTURE, data.getData().toString()));
+            EventDispatcher.offerEvent(event);
+        }
+    }
+
 }

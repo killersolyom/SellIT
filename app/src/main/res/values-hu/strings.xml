@@ -23,6 +23,7 @@
     <string name="remember_me">Jegyezzen meg</string>
     <string name="yes">Igen</string>
     <string name="no">Nem</string>
+    <string name="save_item">Elmentés</string>
     <string name="column_number">Oszlopok száma</string>
     <string name="portrait_column">Álló oszlop szám</string>
     <string name="landscape_column">Fekvő oszlop szám</string>

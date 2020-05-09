@@ -8,7 +8,7 @@ import com.sell.it.R;
 import java.util.ArrayList;
 import java.util.Map;
 
-public abstract class LaptopItem extends BaseComputeUnitItem {
+public class LaptopItem extends BaseComputeUnitItem {
 
     public final static String USB_PORT_KEY = "USB_PORT_KEY";
     public final static String DVD_KEY = "DVD_KEY";
@@ -49,6 +49,11 @@ public abstract class LaptopItem extends BaseComputeUnitItem {
     @Override
     public String getItemType() {
         return Values.ItemType.LAPTOP_TYPE;
+    }
+
+    @Override
+    public String getCategoryType() {
+        return Values.CategoryType.ELECTRONIC_TYPE;
     }
 
     @Override

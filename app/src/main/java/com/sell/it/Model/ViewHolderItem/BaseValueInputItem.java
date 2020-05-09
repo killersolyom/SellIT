@@ -1,24 +1,17 @@
 package com.sell.it.Model.ViewHolderItem;
 
 import com.sell.it.Communication.ValueListener;
-import com.sell.it.Model.Constant.Values;
 
-public class ValueListenerItem extends BaseDefaultItem {
+public abstract class BaseValueInputItem extends BaseDefaultItem {
 
     private ValueListener mValueListener;
-    private int mInputType;
     private String mTitle;
     private boolean mIsNecessary;
 
-    public ValueListenerItem(ValueListener valueListener, String title, int inputType, boolean isNecessary) {
+    public BaseValueInputItem(ValueListener valueListener, String title, boolean isNecessary) {
         this.mValueListener = valueListener;
-        this.mInputType = inputType;
         this.mTitle = title;
         this.mIsNecessary = isNecessary;
-    }
-
-    public int getInputType() {
-        return mInputType;
     }
 
     public String getTitle() {
@@ -31,11 +24,6 @@ public class ValueListenerItem extends BaseDefaultItem {
 
     public boolean isNecessary() {
         return mIsNecessary;
-    }
-
-    @Override
-    public int getViewType() {
-        return Values.ViewType.DATA_INPUT_ITEM_TYPE;
     }
 
 }

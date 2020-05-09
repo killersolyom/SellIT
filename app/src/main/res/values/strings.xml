@@ -22,6 +22,7 @@
     <string name="remember_me">Remember me</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="save_item">Save</string>
     <string name="column_number">Column number</string>
     <string name="portrait_column">Portrait column number</string>
     <string name="landscape_column">Landscape column number</string>

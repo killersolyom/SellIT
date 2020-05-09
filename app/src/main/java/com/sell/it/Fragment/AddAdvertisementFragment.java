@@ -1,6 +1,8 @@
 package com.sell.it.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -12,11 +14,15 @@ import com.sell.it.Communication.ValueListener;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.OtherItem;
 import com.sell.it.Model.ViewHolderItem.BooleanValueListenerItem;
-import com.sell.it.Model.ViewHolderItem.ValueListenerItem;
+import com.sell.it.Model.ViewHolderItem.ButtonInputItem;
+import com.sell.it.Model.ViewHolderItem.ImageChooserInputItem;
+import com.sell.it.Model.ViewHolderItem.NumberInputItem;
+import com.sell.it.Model.ViewHolderItem.TextInputItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DisplayUtils;
@@ -27,8 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.sell.it.CustomView.InputViewItem.NUMBER_INPUT_TYPE;
-import static com.sell.it.CustomView.InputViewItem.TEXT_INPUT_TYPE;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseComputeUnitItem.CPU_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseComputeUnitItem.MEMORY_KEY;
@@ -59,10 +63,12 @@ public class AddAdvertisementFragment extends BaseFragment {
     public final static String ITEM_KEY = "ITEM_CLASS_KEY";
     public final static String ITEM_CATEGORY_KEY = "ITEM_CATEGORY_KEY";
 
+    private DefaultAdvertisementItem mUploadItem;
     private RecyclerView mDataInputView;
     private ItemAdapter mItemAdapter;
     private ArrayList<InputCallbackInterface> mItemCallbackList;
     private Map<String, Object> mItemData;
+    private Class<?> mItemType;
 
     @Override
     protected int getLayoutId() {
@@ -86,32 +92,86 @@ public class AddAdvertisementFragment extends BaseFragment {
     @Override
     protected void getArgumentsFromBundle(Bundle bundle) {
         if (BundleUtil.hasValueAt(bundle, ITEM_KEY) && mItemAdapter.isEmpty()) {
-            addDataInputFields(Objects.requireNonNull(bundle.get(ITEM_KEY)).getClass());
+            mItemType = Objects.requireNonNull(bundle.get(ITEM_KEY)).getClass();
+            addDataInputFields(mItemType);
         }
+        mItemType = MobilePhoneItem.class;
         addDataInputFields(MobilePhoneItem.class);
+    }
+
+    private void onSaveItem() {
+        boolean canSaveItem = mItemType != null;
+
+        for (InputCallbackInterface it : mItemCallbackList) {
+            boolean isItemReady = it.isReady();
+            it.showStatus(!isItemReady);
+
+            if (!isItemReady) {
+                canSaveItem = false;
+            } else {
+                it.writeValue();
+            }
+
+        }
+
+        if (canSaveItem) {
+            createItem();
+            for (Pair<Integer, String> it : mUploadItem.getDescriptionList()) {
+                Log.d("3ss", getString(it.first) + " " + it.second);
+            }
+        }
+
+    }
+
+    private void createItem() {
+        if (mItemType == OtherItem.class) {
+            mUploadItem = new OtherItem(mItemData);
+        } else if (mItemType == MobilePhoneItem.class) {
+            mUploadItem = new MobilePhoneItem(mItemData);
+        } else if (mItemType == CarItem.class) {
+            mUploadItem = new CarItem(mItemData);
+        } else if (mItemType == CameraItem.class) {
+            mUploadItem = new CameraItem(mItemData);
+        } else if (mItemType == LaptopItem.class) {
+            mUploadItem = new LaptopItem(mItemData);
+        }
     }
 
     private void addDataInputFields(Class<?> type) {
         if (type == OtherItem.class) {
             addDefaultFields();
+            addImageChooserField();
+            addButtonField();
         } else if (type == MobilePhoneItem.class) {
             addDefaultFields();
             addElectronicFields();
             addComputeUnitsFields();
             addMobilePhoneFields();
+            addImageChooserField();
+            addButtonField();
         } else if (type == CarItem.class) {
             addDefaultFields();
             addCarFields();
+            addImageChooserField();
+            addButtonField();
         } else if (type == CameraItem.class) {
             addDefaultFields();
             addElectronicFields();
             addCameraFields();
+            addImageChooserField();
+            addButtonField();
         } else if (type == LaptopItem.class) {
             addDefaultFields();
             addElectronicFields();
             addComputeUnitsFields();
             addLaptopFields();
+            addImageChooserField();
+            addButtonField();
         }
+    }
+
+    private void addButtonField() {
+        addButtonField(getString(R.string.save_item), this::onSaveItem);
     }
 
     private void addDefaultFields() {
@@ -121,14 +181,14 @@ public class AddAdvertisementFragment extends BaseFragment {
     }
 
     private void addElectronicFields() {
-        addTextValueSetter(BATTERY_KEY, mContext.getString(R.string.advertisement_battery_size), false);
-        addTextValueSetter(SCREEN_KEY, mContext.getString(R.string.advertisement_screen_size), false);
+        addNumberValueSetter(BATTERY_KEY, mContext.getString(R.string.advertisement_battery_size), false);
+        addNumberValueSetter(SCREEN_KEY, mContext.getString(R.string.advertisement_screen_size), false);
     }
 
     private void addComputeUnitsFields() {
         addTextValueSetter(CPU_KEY, mContext.getString(R.string.advertisement_cpu), false);
-        addTextValueSetter(MEMORY_KEY, mContext.getString(R.string.advertisement_memory), false);
-        addTextValueSetter(STORAGE_KEY, mContext.getString(R.string.advertisement_storage), false);
+        addNumberValueSetter(MEMORY_KEY, mContext.getString(R.string.advertisement_memory), false);
+        addNumberValueSetter(STORAGE_KEY, mContext.getString(R.string.advertisement_storage), false);
     }
 
     private void addCarFields() {
@@ -150,16 +210,16 @@ public class AddAdvertisementFragment extends BaseFragment {
         addTextValueSetter(MODEL_KEY, mContext.getString(R.string.advertisement_model), false);
         addNumberValueSetter(PRIMARY_CAMERA_KEY, mContext.getString(R.string.advertisement_primary_camera), false);
         addNumberValueSetter(SECONDARY_CAMERA_KEY, mContext.getString(R.string.advertisement_secondary_camera), false);
-        addBooleanValueSetter(JACK_KEY, mContext.getString(R.string.advertisement_jack), false);
+        addBooleanValueSetter(JACK_KEY, mContext.getString(R.string.advertisement_jack));
     }
 
     private void addLaptopFields() {
         addNumberValueSetter(USB_PORT_KEY, mContext.getString(R.string.advertisement_usb_number), false);
-        addBooleanValueSetter(DVD_KEY, mContext.getString(R.string.advertisement_dvd_rom), false);
+        addBooleanValueSetter(DVD_KEY, mContext.getString(R.string.advertisement_dvd_rom));
     }
 
     private void addTextValueSetter(String key, String title, boolean isNecessary) {
-        mItemAdapter.addItem(new ValueListenerItem(new ValueListener() {
+        mItemAdapter.addItem(new TextInputItem(new ValueListener() {
             @Override
             public void writeValue(String value) {
                 mItemData.put(key, value);
@@ -169,11 +229,11 @@ public class AddAdvertisementFragment extends BaseFragment {
             public void registerCallback(InputCallbackInterface callback) {
                 mItemCallbackList.add(callback);
             }
-        }, title, TEXT_INPUT_TYPE, isNecessary));
+        }, title, isNecessary));
     }
 
     private void addNumberValueSetter(String key, String title, boolean isNecessary) {
-        mItemAdapter.addItem(new ValueListenerItem(new ValueListener() {
+        mItemAdapter.addItem(new NumberInputItem(new ValueListener() {
             @Override
             public void writeValue(Float value) {
                 mItemData.put(key, value);
@@ -183,10 +243,10 @@ public class AddAdvertisementFragment extends BaseFragment {
             public void registerCallback(InputCallbackInterface callback) {
                 mItemCallbackList.add(callback);
             }
-        }, title, NUMBER_INPUT_TYPE, isNecessary));
+        }, title, isNecessary));
     }
 
-    private void addBooleanValueSetter(String key, String title, boolean isNecessary) {
+    private void addBooleanValueSetter(String key, String title) {
         mItemAdapter.addItem(new BooleanValueListenerItem(new ValueListener() {
             @Override
             public void writeValue(Boolean value) {
@@ -198,6 +258,24 @@ public class AddAdvertisementFragment extends BaseFragment {
                 mItemCallbackList.add(callback);
             }
         }, title));
+    }
+
+    private void addButtonField(String title, Runnable runnable) {
+        mItemAdapter.addItem(new ButtonInputItem(title, runnable));
+    }
+
+    private void addImageChooserField() {
+        mItemAdapter.addItem(new ImageChooserInputItem(new ValueListener() {
+            @Override
+            public void writeValue(ArrayList<String> valueList) {
+
+            }
+
+            @Override
+            public void registerCallback(InputCallbackInterface callback) {
+                mItemCallbackList.add(callback);
+            }
+        }));
     }
 
     private int getSpanCount() {

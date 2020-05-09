@@ -6,16 +6,13 @@ import android.view.LayoutInflater;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.sell.it.Communication.InputCallbackInterface;
-import com.sell.it.Communication.ValueListener;
-import com.sell.it.Model.ViewHolderItem.ValueListenerItem;
+import com.sell.it.Model.ViewHolderItem.BaseValueInputItem;
 import com.sell.it.R;
 
-public class BooleanInputViewItem extends BaseCustomView<ValueListenerItem> implements InputCallbackInterface {
+public class BooleanInputViewItem extends BaseInputViewItem {
 
-    private TextView mTitle;
     private CheckBox mCheckBoxField;
-    private ValueListener mValueListener;
+    private TextView mTitle;
 
     public BooleanInputViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -32,10 +29,10 @@ public class BooleanInputViewItem extends BaseCustomView<ValueListenerItem> impl
         mCheckBoxField = findViewById(R.id.checkbox_item);
     }
 
-    public void bindItem(ValueListenerItem listener) {
-        mValueListener = listener.getListener();
+    @Override
+    public void bindItem(BaseValueInputItem listener) {
+        super.bindItem(listener);
         mTitle.setText(listener.getTitle());
-        mValueListener.registerCallback(this);
     }
 
 }

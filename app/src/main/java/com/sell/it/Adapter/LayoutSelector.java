@@ -8,10 +8,13 @@ import com.sell.it.Adapter.ViewHolder.AdvertisementInfoViewHolder;
 import com.sell.it.Adapter.ViewHolder.AdvertisementViewHolder;
 import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
 import com.sell.it.Adapter.ViewHolder.BooleanInputViewHolder;
+import com.sell.it.Adapter.ViewHolder.ButtonInputViewHolder;
 import com.sell.it.Adapter.ViewHolder.DefaultViewHolder;
+import com.sell.it.Adapter.ViewHolder.ImageChooserViewHolder;
 import com.sell.it.Adapter.ViewHolder.ImageViewHolder;
-import com.sell.it.Adapter.ViewHolder.InputViewHolder;
 import com.sell.it.Adapter.ViewHolder.LanguageItemViewHolder;
+import com.sell.it.Adapter.ViewHolder.NumberInputViewHolder;
+import com.sell.it.Adapter.ViewHolder.TextInputViewHolder;
 import com.sell.it.Adapter.ViewHolder.TextSeparatorViewHolder;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
@@ -33,10 +36,16 @@ class LayoutSelector {
                 return new LanguageItemViewHolder(inflateView(parent, R.layout.recyclerview_language_component));
             case Values.ViewType.IMAGE_ITEM_TYPE:
                 return new ImageViewHolder(inflateView(parent, R.layout.recyclerview_image_component));
-            case Values.ViewType.DATA_INPUT_ITEM_TYPE:
-                return new InputViewHolder(inflateView(parent, R.layout.recyclerview_value_input_component));
+            case Values.ViewType.TEXT_INPUT_ITEM_TYPE:
+                return new TextInputViewHolder(inflateView(parent, R.layout.recyclerview_text_input_component));
+            case Values.ViewType.NUMBER_INPUT_ITEM_TYPE:
+                return new NumberInputViewHolder(inflateView(parent, R.layout.recyclerview_number_input_component));
             case Values.ViewType.CHECK_BOX_ITEM_TYPE:
                 return new BooleanInputViewHolder(inflateView(parent, R.layout.recyclerview_boolean_input_component));
+            case Values.ViewType.BUTTON_ITEM_TYPE:
+                return new ButtonInputViewHolder(inflateView(parent, R.layout.recyclerview_button_input_component));
+            case Values.ViewType.IMAGE_CHOOSER_ITEM_TYPE:
+                return new ImageChooserViewHolder(inflateView(parent, R.layout.recyclerview_image_input_component));
             default:
                 return new DefaultViewHolder(inflateView(parent, R.layout.default_viewholder));
         }

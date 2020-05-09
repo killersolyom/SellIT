@@ -2,6 +2,8 @@ package com.sell.it.Model.Constant;
 
 public class Values {
 
+    public static final String SELECT_PICTURE = "SELECT_PICTURE";
+
     public static class ViewType {
         public static final int ADVERTISEMENT_TYPE = 0;
         public static final int BASE_DEFAULT_TYPE = 1;
@@ -9,8 +11,11 @@ public class Values {
         public static final int SEPARATOR_ITEM_TYPE = 3;
         public static final int LANGUAGE_ITEM_TYPE = 4;
         public static final int IMAGE_ITEM_TYPE = 5;
-        public static final int DATA_INPUT_ITEM_TYPE = 6;
-        public static final int CHECK_BOX_ITEM_TYPE = 7;
+        public static final int TEXT_INPUT_ITEM_TYPE = 6;
+        public static final int NUMBER_INPUT_ITEM_TYPE = 7;
+        public static final int CHECK_BOX_ITEM_TYPE = 8;
+        public static final int BUTTON_ITEM_TYPE = 9;
+        public static final int IMAGE_CHOOSER_ITEM_TYPE = 10;
     }
 
     public static class ItemType {
