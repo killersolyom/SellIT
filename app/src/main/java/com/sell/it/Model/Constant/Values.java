@@ -16,6 +16,7 @@ public class Values {
         public static final int CHECK_BOX_ITEM_TYPE = 8;
         public static final int BUTTON_ITEM_TYPE = 9;
         public static final int IMAGE_CHOOSER_ITEM_TYPE = 10;
+        public static final int MINI_IMAGE_ITEM_TYPE = 11;
     }
 
     public static class ItemType {

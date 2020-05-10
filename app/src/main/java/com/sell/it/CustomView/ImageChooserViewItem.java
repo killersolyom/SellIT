@@ -12,7 +12,7 @@ import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.EventListener;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.BaseValueInputItem;
-import com.sell.it.Model.ViewHolderItem.ImageItem;
+import com.sell.it.Model.ViewHolderItem.MiniImageItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.EventDispatcher;
@@ -74,11 +74,13 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
     @Override
     public boolean onEvent(Event event) {
         if (event.getEventType() == TYPE_IMAGE_PICKER && event.getAction() == ACTION_ADD_IMAGE) {
-            if (BundleUtil.canCast(event.getExtras(), SELECT_PICTURE, String.class) && mItems.size() < MAX_IMAGES) {
+            if (BundleUtil.canCast(event.getExtras(), SELECT_PICTURE, String.class)) {
                 String imagePath = BundleUtil.castItem(event.getExtras(), SELECT_PICTURE, String.class);
-                mItemAdapter.addItem(new ImageItem(imagePath));
-                mItems.add(imagePath);
-                return true;
+                if (mItems.size() < MAX_IMAGES && !mItems.contains(imagePath)) {
+                    mItemAdapter.addItem(new MiniImageItem(imagePath));
+                    mItems.add(imagePath);
+                    return true;
+                }
             }
         }
         return false;

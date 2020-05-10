@@ -13,6 +13,7 @@ import com.sell.it.Adapter.ViewHolder.DefaultViewHolder;
 import com.sell.it.Adapter.ViewHolder.ImageChooserViewHolder;
 import com.sell.it.Adapter.ViewHolder.ImageViewHolder;
 import com.sell.it.Adapter.ViewHolder.LanguageItemViewHolder;
+import com.sell.it.Adapter.ViewHolder.MiniImageViewHolder;
 import com.sell.it.Adapter.ViewHolder.NumberInputViewHolder;
 import com.sell.it.Adapter.ViewHolder.TextInputViewHolder;
 import com.sell.it.Adapter.ViewHolder.TextSeparatorViewHolder;
@@ -36,6 +37,8 @@ class LayoutSelector {
                 return new LanguageItemViewHolder(inflateView(parent, R.layout.recyclerview_language_component));
             case Values.ViewType.IMAGE_ITEM_TYPE:
                 return new ImageViewHolder(inflateView(parent, R.layout.recyclerview_image_component));
+            case Values.ViewType.MINI_IMAGE_ITEM_TYPE:
+                return new MiniImageViewHolder(inflateView(parent, R.layout.recyclerview_mini_image_component));
             case Values.ViewType.TEXT_INPUT_ITEM_TYPE:
                 return new TextInputViewHolder(inflateView(parent, R.layout.recyclerview_text_input_component));
             case Values.ViewType.NUMBER_INPUT_ITEM_TYPE:
