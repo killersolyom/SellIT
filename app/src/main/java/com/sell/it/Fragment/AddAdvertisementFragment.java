@@ -24,6 +24,8 @@ import com.sell.it.Model.ViewHolderItem.ImageChooserInputItem;
 import com.sell.it.Model.ViewHolderItem.NumberInputItem;
 import com.sell.it.Model.ViewHolderItem.TextInputItem;
 import com.sell.it.R;
+import com.sell.it.Utility.BundleUtil;
+import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.DisplayUtils;
 import com.sell.it.Utility.EventDispatcher;
 
@@ -31,6 +33,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.sell.it.Model.Constant.Values.ItemType.AUTOMOBILE_TYPE;
+import static com.sell.it.Model.Constant.Values.ItemType.CAMERA_TYPE;
+import static com.sell.it.Model.Constant.Values.ItemType.LAPTOP_TYPE;
+import static com.sell.it.Model.Constant.Values.ItemType.MOBILE_PHONE_TYPE;
+import static com.sell.it.Model.Constant.Values.ItemType.OTHERS_TYPE;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem.MANUFACTURER_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem.OWNER_KEY;
@@ -116,6 +123,7 @@ public class AddAdvertisementFragment extends BaseFragment {
 
         if (canSaveItem) {
             createItem();
+            uploadItem();
             for (Pair<Integer, String> it : mUploadItem.getDescriptionList()) {
                 Log.d("3ss", getString(it.first) + " " + it.second);
             }
@@ -134,6 +142,26 @@ public class AddAdvertisementFragment extends BaseFragment {
             mUploadItem = new CameraItem(mItemData);
         } else if (mItemType == LaptopItem.class) {
             mUploadItem = new LaptopItem(mItemData);
+        }
+    }
+
+    private void uploadItem(){
+        switch (mUploadItem.getItemType()) {
+            case OTHERS_TYPE:
+                DatabaseManager.addOtherItem((OtherItem) mUploadItem);
+                break;
+            case MOBILE_PHONE_TYPE:
+                DatabaseManager.addMobileItem((MobilePhoneItem) mUploadItem);
+                break;
+            case AUTOMOBILE_TYPE:
+                DatabaseManager.addCarItem((CarItem) mUploadItem);
+                break;
+            case CAMERA_TYPE:
+                DatabaseManager.addCameraItem((CameraItem) mUploadItem);
+                break;
+            case LAPTOP_TYPE:
+                DatabaseManager.addLaptopItem((LaptopItem) mUploadItem);
+                break;
         }
     }
 

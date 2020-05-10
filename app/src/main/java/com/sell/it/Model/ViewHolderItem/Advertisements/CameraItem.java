@@ -2,6 +2,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 
 import android.util.Pair;
 
+import com.google.firebase.database.Exclude;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
@@ -45,6 +46,7 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
         mMegaPixels = getIntValue(items.get(MEGA_PIXEL_KEY));
     }
 
+    @Exclude
     @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
         ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
