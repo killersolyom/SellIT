@@ -13,10 +13,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
-import com.sell.it.Model.ViewHolderItem.UploadAdvertisements.CameraUploadItem;
-import com.sell.it.Model.ViewHolderItem.UploadAdvertisements.CarUploadItem;
-import com.sell.it.Model.ViewHolderItem.UploadAdvertisements.LaptopUploadItem;
-import com.sell.it.Model.ViewHolderItem.UploadAdvertisements.MobilePhoneUploadItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.OtherItem;
 
 import java.util.Objects;
 
@@ -99,37 +100,71 @@ public class DatabaseManager {
         });
     }
 
-    public static void addCameraItem(CameraUploadItem cameraUploadItem){
+    public static void addCameraItem(CameraItem cameraItem){
         String key = mDatabase.push().getKey();
         //storageRef.child(key).child("adv"+i+".jpg").putFile(image).addOnSuccessListener(new OnSuccessListener...)
-        mDatabase.child(FIREBASE_ADS_KEY).child(Values.CategoryType.ELECTRONIC_TYPE)
-                .child(Objects.requireNonNull(key)).setValue(cameraUploadItem);
-        mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid()))
-                .child(FIREBASE_ADS_KEY).setValue(key);
+        mDatabase.child(FIREBASE_ADS_KEY)
+                .child(Values.CategoryType.ELECTRONIC_TYPE)
+                .child(Values.ItemType.CAMERA_TYPE)
+                .child(Objects.requireNonNull(key))
+                .setValue(cameraItem);
+        mDatabase.child(FIREBASE_USER_KEY)
+                .child(Objects.requireNonNull(mAuth.getUid()))
+                .child(FIREBASE_ADS_KEY)
+                .setValue(key);
     }
 
-    public static void addCarItem(CarUploadItem carUploadItem){
+    public static void addCarItem(CarItem carItem){
         String key = mDatabase.push().getKey();
-        mDatabase.child(FIREBASE_ADS_KEY).child(Values.CategoryType.VEHICLE_TYPE)
-                .child(Objects.requireNonNull(key)).setValue(carUploadItem);
-        mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid()))
-                .child(FIREBASE_ADS_KEY).setValue(key);
+        mDatabase.child(FIREBASE_ADS_KEY)
+                .child(Values.CategoryType.VEHICLE_TYPE)
+                .child(Values.ItemType.AUTOMOBILE_TYPE)
+                .child(Objects.requireNonNull(key))
+                .setValue(carItem);
+        mDatabase.child(FIREBASE_USER_KEY)
+                .child(Objects.requireNonNull(mAuth.getUid()))
+                .child(FIREBASE_ADS_KEY)
+                .setValue(key);
     }
 
-    public static void addLaptopItem(LaptopUploadItem laptopUploadItem){
+    public static void addLaptopItem(LaptopItem laptopItem){
         String key = mDatabase.push().getKey();
-        mDatabase.child(FIREBASE_ADS_KEY).child(Values.CategoryType.ELECTRONIC_TYPE)
-                .child(Objects.requireNonNull(key)).setValue(laptopUploadItem);
-        mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid()))
-                .child(FIREBASE_ADS_KEY).setValue(key);
+        mDatabase.child(FIREBASE_ADS_KEY)
+                .child(Values.CategoryType.ELECTRONIC_TYPE)
+                .child(Values.ItemType.LAPTOP_TYPE)
+                .child(Objects.requireNonNull(key))
+                .setValue(laptopItem);
+        mDatabase.child(FIREBASE_USER_KEY)
+                .child(Objects.requireNonNull(mAuth.getUid()))
+                .child(FIREBASE_ADS_KEY)
+                .setValue(key);
     }
 
-    public static void addMobileItem(MobilePhoneUploadItem mobilePhoneUploadItem){
+    public static void addMobileItem(MobilePhoneItem mobilePhoneItem){
         String key = mDatabase.push().getKey();
-        mDatabase.child(FIREBASE_ADS_KEY).child(Values.CategoryType.ELECTRONIC_TYPE)
-                .child(Objects.requireNonNull(key)).setValue(mobilePhoneUploadItem);
-        mDatabase.child(FIREBASE_USER_KEY).child(Objects.requireNonNull(mAuth.getUid()))
-                .child(FIREBASE_ADS_KEY).setValue(key);
+        mDatabase.child(FIREBASE_ADS_KEY)
+                .child(Values.CategoryType.ELECTRONIC_TYPE)
+                .child(Values.ItemType.MOBILE_PHONE_TYPE)
+                .child(Objects.requireNonNull(key))
+                .setValue(mobilePhoneItem);
+        mDatabase.child(FIREBASE_USER_KEY)
+                .child(Objects.requireNonNull(mAuth.getUid()))
+                .child(FIREBASE_ADS_KEY)
+                .child(key)
+                .setValue(key);
+    }
+
+    public static void addOtherItem(OtherItem otherItem){
+        String key = mDatabase.push().getKey();
+        mDatabase.child(FIREBASE_ADS_KEY)
+                .child(Values.CategoryType.OTHER_TYPE)
+                .child(Values.ItemType.OTHERS_TYPE)
+                .child(Objects.requireNonNull(key))
+                .setValue(otherItem);
+        mDatabase.child(FIREBASE_USER_KEY)
+                .child(Objects.requireNonNull(mAuth.getUid()))
+                .child(FIREBASE_ADS_KEY)
+                .setValue(key);
     }
 
 }

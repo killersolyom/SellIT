@@ -2,6 +2,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 
 import android.util.Pair;
 
+import com.google.firebase.database.Exclude;
 import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.Model.ViewHolderItem.ImageItem;
@@ -21,6 +22,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     private float mPrice;
     private String mTitle;
     private String mDescription;
+    @Exclude
     private ArrayList<BaseItem> mImageList = new ArrayList<>();
 
     public void setTitle(String mTitle) {
@@ -55,6 +57,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         this.mPrice = mPrice;
     }
 
+    @Exclude
     public ImageItem getFirstImage() {
         return mImageList.isEmpty() ? new ImageItem() : (ImageItem) mImageList.get(0);
     }
@@ -67,6 +70,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
 
     public abstract String getCategoryType();
 
+    @Exclude
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
         ArrayList<Pair<Integer, String>> descriptionList = new ArrayList<>();
         addToListIfExist(descriptionList, R.string.advertisement_title, mTitle);

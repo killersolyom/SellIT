@@ -2,6 +2,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 
 import android.util.Pair;
 
+import com.google.firebase.database.Exclude;
 import com.sell.it.R;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public abstract class BaseComputeUnitItem extends BaseElectronicUtilitiesItem {
         mStorage = getIntValue(items.get(STORAGE_KEY));
     }
 
+    @Exclude
     @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
         ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
