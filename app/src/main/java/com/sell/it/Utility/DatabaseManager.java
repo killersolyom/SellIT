@@ -147,6 +147,12 @@ public class DatabaseManager {
                 .child(Values.ItemType.MOBILE_PHONE_TYPE)
                 .child(Objects.requireNonNull(key))
                 .setValue(mobilePhoneItem);
+        mDatabase.child(FIREBASE_ADS_KEY)
+                .child(Values.CategoryType.ELECTRONIC_TYPE)
+                .child(Values.ItemType.MOBILE_PHONE_TYPE)
+                .child(key)
+                .child("withJack")
+                .setValue(mobilePhoneItem.hasJack());
         mDatabase.child(FIREBASE_USER_KEY)
                 .child(Objects.requireNonNull(mAuth.getUid()))
                 .child(FIREBASE_ADS_KEY)
