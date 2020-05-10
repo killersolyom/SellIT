@@ -283,7 +283,8 @@ public class AddAdvertisementFragment extends BaseFragment {
             @Override
             public String getValue() {
                 return mItemData.get(key) == null ? "" :
-                        mItemData.get(key) instanceof Float ? String.valueOf(mItemData.get(key)) : "";
+                        mItemData.get(key) instanceof Float ? String.valueOf(mItemData.get(key))
+                                .replace(".0", "") : "";
             }
 
             @Override
