@@ -24,12 +24,12 @@ public class Values {
         public static final String AUTOMOBILE_TYPE = "AUTOMOBILE_TYPE";
         public static final String LAPTOP_TYPE = "LAPTOP_TYPE";
         public static final String CAMERA_TYPE = "CAMERA_TYPE";
-        public static final String OTHERS_TYPE = "CAMERA_TYPE";
+        public static final String OTHERS_TYPE = "OTHERS_TYPE";
     }
 
     public static class CategoryType {
         public static final String VEHICLE_TYPE = "VEHICLE_TYPE";
-        public static final String ELECTRONIC_TYPE = "VEHICLE_TYPE";
+        public static final String ELECTRONIC_TYPE = "ELECTRONIC_TYPE";
         public static final String OTHER_TYPE = "OTHER_TYPE";
     }
 

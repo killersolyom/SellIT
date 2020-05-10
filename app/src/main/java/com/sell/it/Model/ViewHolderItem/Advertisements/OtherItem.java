@@ -2,6 +2,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 
 import android.util.Pair;
 
+import com.google.firebase.database.Exclude;
 import com.sell.it.Model.Constant.Values;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class OtherItem extends DefaultAdvertisementItem {
         return Values.CategoryType.OTHER_TYPE;
     }
 
+    @Exclude
     @Override
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
         return super.getDescriptionList();
