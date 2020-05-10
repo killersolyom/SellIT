@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public interface ValueListener {
 
+    default String getValue() {
+        return "";
+    }
+
     default void writeValue(Float value) {
     }
 

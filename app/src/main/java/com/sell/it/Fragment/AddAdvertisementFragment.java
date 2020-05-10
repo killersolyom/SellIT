@@ -262,6 +262,11 @@ public class AddAdvertisementFragment extends BaseFragment {
             }
 
             @Override
+            public String getValue() {
+                return mItemData.get(key) == null ? "" : (String) mItemData.get(key);
+            }
+
+            @Override
             public void registerCallback(InputCallbackInterface callback) {
                 mItemCallbackList.add(callback);
             }
@@ -273,6 +278,12 @@ public class AddAdvertisementFragment extends BaseFragment {
             @Override
             public void writeValue(Float value) {
                 mItemData.put(key, value);
+            }
+
+            @Override
+            public String getValue() {
+                return mItemData.get(key) == null ? "" :
+                        mItemData.get(key) instanceof Float ? String.valueOf(mItemData.get(key)) : "";
             }
 
             @Override

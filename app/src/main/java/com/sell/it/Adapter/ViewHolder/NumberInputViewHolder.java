@@ -22,6 +22,11 @@ public class NumberInputViewHolder extends BaseViewHolder<BaseValueInputItem> {
     }
 
     @Override
+    public void unBindItem() {
+        mInputView.unbind();
+    }
+
+    @Override
     protected void findView(View itemView) {
         mInputView = itemView.findViewById(R.id.input_view);
     }

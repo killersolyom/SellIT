@@ -33,6 +33,7 @@ public class TextInputViewItem extends BaseInputViewItem {
     public void bindItem(BaseValueInputItem listener) {
         super.bindItem(listener);
         mTitle.setText(listener.getTitle());
+        mInputField.setText(mValueListener.getValue());
     }
 
     @Override

@@ -22,4 +22,9 @@ public abstract class BaseInputViewItem extends BaseCustomView<BaseValueInputIte
         mValueListener.registerCallback(this);
     }
 
+    @Override
+    public void unbind() {
+        writeValue();
+    }
+
 }
