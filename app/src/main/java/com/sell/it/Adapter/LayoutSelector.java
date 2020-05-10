@@ -10,6 +10,7 @@ import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
 import com.sell.it.Adapter.ViewHolder.BooleanInputViewHolder;
 import com.sell.it.Adapter.ViewHolder.ButtonInputViewHolder;
 import com.sell.it.Adapter.ViewHolder.DefaultViewHolder;
+import com.sell.it.Adapter.ViewHolder.DropDownViewHolder;
 import com.sell.it.Adapter.ViewHolder.ImageChooserViewHolder;
 import com.sell.it.Adapter.ViewHolder.ImageViewHolder;
 import com.sell.it.Adapter.ViewHolder.LanguageItemViewHolder;
@@ -39,6 +40,8 @@ class LayoutSelector {
                 return new ImageViewHolder(inflateView(parent, R.layout.recyclerview_image_component));
             case Values.ViewType.MINI_IMAGE_ITEM_TYPE:
                 return new MiniImageViewHolder(inflateView(parent, R.layout.recyclerview_mini_image_component));
+            case Values.ViewType.DROP_DOWN_ITEM_TYPE:
+                return new DropDownViewHolder(inflateView(parent, R.layout.recyclerview_drop_down_component));
             case Values.ViewType.TEXT_INPUT_ITEM_TYPE:
                 return new TextInputViewHolder(inflateView(parent, R.layout.recyclerview_text_input_component));
             case Values.ViewType.NUMBER_INPUT_ITEM_TYPE:

@@ -1,6 +1,5 @@
 package com.sell.it.Fragment;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -20,20 +19,21 @@ import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.OtherItem;
 import com.sell.it.Model.ViewHolderItem.BooleanValueListenerItem;
 import com.sell.it.Model.ViewHolderItem.ButtonInputItem;
+import com.sell.it.Model.ViewHolderItem.DropDownItem;
 import com.sell.it.Model.ViewHolderItem.ImageChooserInputItem;
 import com.sell.it.Model.ViewHolderItem.NumberInputItem;
 import com.sell.it.Model.ViewHolderItem.TextInputItem;
 import com.sell.it.R;
-import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DisplayUtils;
 import com.sell.it.Utility.EventDispatcher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
+import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem.MANUFACTURER_KEY;
+import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem.OWNER_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseComputeUnitItem.CPU_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseComputeUnitItem.MEMORY_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseComputeUnitItem.STORAGE_KEY;
@@ -60,9 +60,7 @@ import static com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem.US
 
 public class AddAdvertisementFragment extends BaseFragment {
 
-    public final static String ITEM_KEY = "ITEM_CLASS_KEY";
-    public final static String ITEM_CATEGORY_KEY = "ITEM_CATEGORY_KEY";
-
+    private ArrayList<Pair<String, Class<?>>> mSelectableItems;
     private DefaultAdvertisementItem mUploadItem;
     private RecyclerView mDataInputView;
     private ItemAdapter mItemAdapter;
@@ -87,16 +85,18 @@ public class AddAdvertisementFragment extends BaseFragment {
         mItemData = new HashMap<>();
         mDataInputView.setLayoutManager(new GridLayoutManager(getContext(), getSpanCount()));
         mDataInputView.setAdapter(mItemAdapter);
+        iniSelectableItems();
+        addCategorySelectorField();
     }
 
-    @Override
-    protected void getArgumentsFromBundle(Bundle bundle) {
-        if (BundleUtil.hasValueAt(bundle, ITEM_KEY) && mItemAdapter.isEmpty()) {
-            mItemType = Objects.requireNonNull(bundle.get(ITEM_KEY)).getClass();
-            addDataInputFields(mItemType);
-        }
-        mItemType = MobilePhoneItem.class;
-        addDataInputFields(MobilePhoneItem.class);
+    private void iniSelectableItems() {
+        mSelectableItems = new ArrayList<>();
+        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_choose_item), String.class));
+        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_other_type), OtherItem.class));
+        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_mobile_type), MobilePhoneItem.class));
+        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_car_type), CarItem.class));
+        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_camera_type), CameraItem.class));
+        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_laptop_type), LaptopItem.class));
     }
 
     private void onSaveItem() {
@@ -144,6 +144,7 @@ public class AddAdvertisementFragment extends BaseFragment {
             addButtonField();
         } else if (type == MobilePhoneItem.class) {
             addDefaultFields();
+            addBaseAdvertisementFields();
             addElectronicFields();
             addComputeUnitsFields();
             addMobilePhoneFields();
@@ -151,17 +152,20 @@ public class AddAdvertisementFragment extends BaseFragment {
             addButtonField();
         } else if (type == CarItem.class) {
             addDefaultFields();
+            addBaseAdvertisementFields();
             addCarFields();
             addImageChooserField();
             addButtonField();
         } else if (type == CameraItem.class) {
             addDefaultFields();
+            addBaseAdvertisementFields();
             addElectronicFields();
             addCameraFields();
             addImageChooserField();
             addButtonField();
         } else if (type == LaptopItem.class) {
             addDefaultFields();
+            addBaseAdvertisementFields();
             addElectronicFields();
             addComputeUnitsFields();
             addLaptopFields();
@@ -178,6 +182,11 @@ public class AddAdvertisementFragment extends BaseFragment {
         addNumberValueSetter(PRICE_KEY, mContext.getString(R.string.advertisement_price), true);
         addTextValueSetter(TITLE_KEY, mContext.getString(R.string.advertisement_title), true);
         addTextValueSetter(DESCRIPTION_KEY, mContext.getString(R.string.advertisement_description), true);
+    }
+
+    private void addBaseAdvertisementFields() {
+        addTextValueSetter(MANUFACTURER_KEY, mContext.getString(R.string.advertisement_manufacturer), false);
+        addTextValueSetter(OWNER_KEY, mContext.getString(R.string.advertisement_owner), true);
     }
 
     private void addElectronicFields() {
@@ -276,6 +285,19 @@ public class AddAdvertisementFragment extends BaseFragment {
                 mItemCallbackList.add(callback);
             }
         }));
+    }
+
+    private void addCategorySelectorField() {
+        mItemAdapter.addItem(new DropDownItem(new ValueListener() {
+            @Override
+            public void writeValue(Class<?> itemClass) {
+                if (String.class != itemClass) {
+                    mItemType = itemClass;
+                    mItemAdapter.clearItems();
+                    addDataInputFields(itemClass);
+                }
+            }
+        }, getString(R.string.advertisement_select_category), mSelectableItems));
     }
 
     private int getSpanCount() {

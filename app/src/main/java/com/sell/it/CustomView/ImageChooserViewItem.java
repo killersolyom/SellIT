@@ -29,7 +29,6 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
     private RecyclerView mImageRecyclerView;
     private ItemAdapter mItemAdapter;
     private ArrayList<String> mItems;
-    private final int MAX_IMAGES = 5;
 
     public ImageChooserViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -76,11 +75,9 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
         if (event.getEventType() == TYPE_IMAGE_PICKER && event.getAction() == ACTION_ADD_IMAGE) {
             if (BundleUtil.canCast(event.getExtras(), SELECT_PICTURE, String.class)) {
                 String imagePath = BundleUtil.castItem(event.getExtras(), SELECT_PICTURE, String.class);
-                if (mItems.size() < MAX_IMAGES && !mItems.contains(imagePath)) {
-                    mItemAdapter.addItem(new MiniImageItem(imagePath));
-                    mItems.add(imagePath);
-                    return true;
-                }
+                mItemAdapter.addItem(new MiniImageItem(imagePath));
+                mItems.add(imagePath);
+                return true;
             }
         }
         return false;

@@ -39,7 +39,7 @@
     <string name="advertisement_description">Leírás</string>
     <string name="advertisement_price">Ár</string>
     <string name="advertisement_manufacturer">Gyártó</string>
-    <string name="advertisement_owner">Eeladó</string>
+    <string name="advertisement_owner">Eladó</string>
     <string name="advertisement_megapixel">Megapixel</string>
     <string name="advertisement_battery_size">Akkumulátor</string>
     <string name="advertisement_screen_size">Kijelző méret</string>
@@ -60,5 +60,12 @@
     <string name="advertisement_engine_size">Motor méret</string>
     <string name="advertisement_tire_size">Kerék méret</string>
     <string name="advertisement_door_number">Ajtók száma</string>
+    <string name="advertisement_select_category">Válasszon kategóriát</string>
+    <string name="advertisement_choose_item">Válasszon valamit </string>
+    <string name="advertisement_other_type">Egyebek</string>
+    <string name="advertisement_car_type">Autó</string>
+    <string name="advertisement_mobile_type">Mobil telefon</string>
+    <string name="advertisement_laptop_type">Laptop</string>
+    <string name="advertisement_camera_type">Kamera</string>
 
 </resources>

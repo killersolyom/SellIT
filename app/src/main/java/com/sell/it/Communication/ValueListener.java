@@ -13,8 +13,13 @@ public interface ValueListener {
     default void writeValue(Boolean value) {
     }
 
+    default void writeValue(Class<?> itemClass) {
+    }
+
     default void writeValue(ArrayList<String> valueList) {
     }
 
-    void registerCallback(InputCallbackInterface callback);
+    default void registerCallback(InputCallbackInterface callback) {
+
+    }
 }

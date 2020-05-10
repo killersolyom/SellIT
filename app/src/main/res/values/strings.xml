@@ -59,4 +59,12 @@
     <string name="advertisement_engine_size">Engine size</string>
     <string name="advertisement_tire_size">Tire size</string>
     <string name="advertisement_door_number">Door number</string>
+    <string name="advertisement_select_category">Select category</string>
+    <string name="advertisement_choose_item">Choose something</string>
+    <string name="advertisement_other_type">Others</string>
+    <string name="advertisement_car_type">Car</string>
+    <string name="advertisement_mobile_type">Mobile phone</string>
+    <string name="advertisement_laptop_type">Laptop</string>
+    <string name="advertisement_camera_type">Camera</string>
+
 </resources>

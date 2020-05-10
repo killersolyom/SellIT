@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ViewHolder.BaseViewHolder;
-import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 
 import java.util.ArrayList;
@@ -59,13 +58,14 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         mItemList = itemList;
     }
 
-    public void addItem(BaseDefaultItem item) {
+    public void addItem(BaseItem item) {
         mItemList.add(item);
         notifyItemInserted(mItemList.indexOf(item));
     }
 
     public void clearItems() {
         mItemList.clear();
+        notifyDataSetChanged();
     }
 
     public boolean isEmpty() {
@@ -74,5 +74,14 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public ArrayList<BaseItem> getItemList() {
         return mItemList;
+    }
+
+    public void removeFromIndex(int index) {
+        if (!(isEmpty() || mItemList.size() <= index)) {
+            for (int i = index; i < mItemList.size(); i++) {
+                mItemList.remove(i);
+            }
+        }
+
     }
 }

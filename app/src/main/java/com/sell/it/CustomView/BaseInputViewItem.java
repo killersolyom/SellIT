@@ -16,15 +16,10 @@ public abstract class BaseInputViewItem extends BaseCustomView<BaseValueInputIte
         super(context, attrs);
     }
 
-    public void bindItem(BaseValueInputItem listener) {
-        mValueListener = listener.getListener();
-        mIsNecessary = listener.isNecessary();
+    public void bindItem(BaseValueInputItem item) {
+        mValueListener = item.getListener();
+        mIsNecessary = item.isNecessary();
         mValueListener.registerCallback(this);
-    }
-
-    @Override
-    public boolean isNecessary() {
-        return mIsNecessary;
     }
 
 }

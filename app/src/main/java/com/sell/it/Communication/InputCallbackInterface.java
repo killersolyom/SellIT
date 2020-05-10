@@ -9,10 +9,6 @@ public interface InputCallbackInterface {
     default void showStatus(boolean isError) {
     }
 
-    default boolean isNecessary() {
-        return false;
-    }
-
     default void writeValue() {
     }
 
