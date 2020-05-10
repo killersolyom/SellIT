@@ -24,7 +24,6 @@ import com.sell.it.Model.ViewHolderItem.ImageChooserInputItem;
 import com.sell.it.Model.ViewHolderItem.NumberInputItem;
 import com.sell.it.Model.ViewHolderItem.TextInputItem;
 import com.sell.it.R;
-import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.DisplayUtils;
 import com.sell.it.Utility.EventDispatcher;
@@ -145,7 +144,7 @@ public class AddAdvertisementFragment extends BaseFragment {
         }
     }
 
-    private void uploadItem(){
+    private void uploadItem() {
         switch (mUploadItem.getItemType()) {
             case OTHERS_TYPE:
                 DatabaseManager.addOtherItem((OtherItem) mUploadItem);
