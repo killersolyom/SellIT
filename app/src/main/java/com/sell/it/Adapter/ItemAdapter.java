@@ -75,13 +75,5 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public ArrayList<BaseItem> getItemList() {
         return mItemList;
     }
-
-    public void removeFromIndex(int index) {
-        if (!(isEmpty() || mItemList.size() <= index)) {
-            for (int i = index; i < mItemList.size(); i++) {
-                mItemList.remove(i);
-            }
-        }
-
-    }
+    
 }

@@ -13,7 +13,7 @@ import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.FragmentNavigation;
 
-public class ProfileFragment extends BaseVerificationFragment {
+public class ProfileFragment extends BaseFragment {
 
     private ImageView mProfilePicture;
     private TextView mFirstName;

@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class CameraItem extends BaseElectronicUtilitiesItem {
 
-    public final static String MEGA_PIXEL_KEY = "MEGA_PIXEL_KEY";
+    public final static String MEGA_PIXEL_KEY = "MEGA_PIXEL";
 
     private int mMegaPixels;
 
@@ -22,10 +23,12 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
         initItems(mItemData);
     }
 
+    @PropertyName(MEGA_PIXEL_KEY)
     public int getMegaPixels() {
         return mMegaPixels;
     }
 
+    @PropertyName(MEGA_PIXEL_KEY)
     public void setMegaPixels(int mMegaPixels) {
         this.mMegaPixels = mMegaPixels;
     }

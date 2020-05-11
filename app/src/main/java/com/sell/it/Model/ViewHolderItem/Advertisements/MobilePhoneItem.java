@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
@@ -11,11 +12,11 @@ import java.util.Map;
 
 public class MobilePhoneItem extends BaseComputeUnitItem {
 
-    public final static String JACK_KEY = "JACK_KEY";
-    public final static String USB_KEY = "USB_KEY";
-    public final static String MODEL_KEY = "MODEL_KEY";
-    public final static String PRIMARY_CAMERA_KEY = "PRIMARY_CAMERA_KEY";
-    public final static String SECONDARY_CAMERA_KEY = "SECONDARY_CAMERA_KEY";
+    public final static String JACK_KEY = "AUDIO_JACK";
+    public final static String USB_KEY = "USB_TYPE";
+    public final static String MODEL_KEY = "MODEL_TYPE";
+    public final static String PRIMARY_CAMERA_KEY = "PRIMARY_CAMERA";
+    public final static String SECONDARY_CAMERA_KEY = "SECONDARY_CAMERA";
 
     private boolean jack;
     private String mUsbType;
@@ -30,42 +31,52 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
         initItems(mItemData);
     }
 
+    @PropertyName(USB_KEY)
     public String getUsbType() {
         return mUsbType;
     }
 
+    @PropertyName(USB_KEY)
     public void setUsbType(String mUsbType) {
         this.mUsbType = mUsbType;
     }
 
+    @PropertyName(MODEL_KEY)
     public String getModel() {
         return mModel;
     }
 
+    @PropertyName(MODEL_KEY)
     public void setModel(String mModel) {
         this.mModel = mModel;
     }
 
+    @PropertyName(PRIMARY_CAMERA_KEY)
     public float getPrimaryCamera() {
         return mPrimaryCamera;
     }
 
+    @PropertyName(PRIMARY_CAMERA_KEY)
     public void setPrimaryCamera(float mPrimaryCamera) {
         this.mPrimaryCamera = mPrimaryCamera;
     }
 
+    @PropertyName(SECONDARY_CAMERA_KEY)
     public float getSecondaryCamera() {
         return mSecondaryCamera;
     }
 
+    @PropertyName(SECONDARY_CAMERA_KEY)
     public void setSecondaryCamera(float mSecondaryCamera) {
         this.mSecondaryCamera = mSecondaryCamera;
     }
 
+    @PropertyName(JACK_KEY)
     public boolean isJack() {
         return jack;
     }
 
+    @PropertyName(JACK_KEY)
     public void setJack(boolean jack) {
         this.jack = jack;
     }

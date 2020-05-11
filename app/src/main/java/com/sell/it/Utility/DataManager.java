@@ -8,7 +8,6 @@ import com.sell.it.Model.User;
 
 public class DataManager {
     private static final String REMEMBER_ME_KEY = "remember_me_key";
-    private static final String LAST_AUTHENTICATION_KEY = "last_Login_key";
     private static final String PORTRAIT_KEY = "PORTRAIT_key";
     private static final String LANDSCAPE_KEY = "LANDSCAPE_key";
     private static final String LANGUAGE_KEY = "language_key";
@@ -117,14 +116,6 @@ public class DataManager {
                 TextUtils.isValidPassword(readStringData(PASSWORD_KEY));
     }
 
-    public static void saveLastAuthenticationTime() {
-        writeLongData(System.currentTimeMillis(), LAST_AUTHENTICATION_KEY);
-    }
-
-    public static long getLastAuthenticationTime() {
-        return readLongData(LAST_AUTHENTICATION_KEY, 0);
-    }
-
     public static void clearUserData() {
         clearItem(EMAIL_KEY);
         clearItem(USERNAME_KEY);
@@ -133,7 +124,6 @@ public class DataManager {
         clearItem(PASSWORD_KEY);
         clearItem(REMEMBER_ME_KEY);
         clearItem(PHONE_KEY);
-        clearItem(LAST_AUTHENTICATION_KEY);
     }
 
     public static int getLandscapeColumnNumber() {

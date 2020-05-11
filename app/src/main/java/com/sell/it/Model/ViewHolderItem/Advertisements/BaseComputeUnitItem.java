@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
 import com.sell.it.R;
 
 import java.util.ArrayList;
@@ -10,34 +11,40 @@ import java.util.Map;
 
 public abstract class BaseComputeUnitItem extends BaseElectronicUtilitiesItem {
 
-    public final static String CPU_KEY = "CPU_KEY";
-    public final static String MEMORY_KEY = "MEMORY_KEY";
-    public final static String STORAGE_KEY = "STORAGE_KEY";
+    public final static String CPU_KEY = "CPU";
+    public final static String MEMORY_KEY = "MEMORY_SIZE";
+    public final static String STORAGE_KEY = "STORAGE_SIZE";
 
     private String mCpu;
     private int mMemory;
     private int mStorage;
 
+    @PropertyName(CPU_KEY)
     public String getCpu() {
         return mCpu;
     }
 
+    @PropertyName(CPU_KEY)
     public void setCpu(String mCpu) {
         this.mCpu = mCpu;
     }
 
+    @PropertyName(MEMORY_KEY)
     public int getMemory() {
         return mMemory;
     }
 
+    @PropertyName(MEMORY_KEY)
     public void setMemory(int mMemory) {
         this.mMemory = mMemory;
     }
 
+    @PropertyName(STORAGE_KEY)
     public int getStorage() {
         return mStorage;
     }
 
+    @PropertyName(STORAGE_KEY)
     public void setStorage(int mStorage) {
         this.mStorage = mStorage;
     }

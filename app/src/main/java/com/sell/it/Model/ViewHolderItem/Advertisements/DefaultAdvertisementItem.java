@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
 import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.Model.ViewHolderItem.ImageItem;
@@ -14,10 +15,11 @@ import java.util.Map;
 
 public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
 
-    public static final String PRICE_KEY = "PRICE_KEY";
-    public static final String TITLE_KEY = "TITLE_KEY";
-    public static final String DESCRIPTION_KEY = "DESCRIPTION_KEY";
-    public static final String OWNER_KEY = "OWNER_KEY";
+    public static final String PRICE_KEY = "PRICE";
+    public static final String TITLE_KEY = "TITLE";
+    public static final String DESCRIPTION_KEY = "DESCRIPTION";
+    public static final String OWNER_KEY = "OWNER";
+    public static final String ID_KEY = "ID";
 
     private String mId;
     private float mPrice;
@@ -28,42 +30,52 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     @Exclude
     private ArrayList<BaseItem> mImageList = new ArrayList<>();
 
+    @PropertyName(TITLE_KEY)
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
 
+    @PropertyName(TITLE_KEY)
     public String getTitle() {
         return mTitle;
     }
 
+    @PropertyName(ID_KEY)
     public String getId() {
         return mId;
     }
 
+    @PropertyName(ID_KEY)
     public void setId(String mId) {
         this.mId = mId;
     }
 
+    @PropertyName(DESCRIPTION_KEY)
     public String getDescription() {
         return mDescription;
     }
 
+    @PropertyName(DESCRIPTION_KEY)
     public void setDescription(String mDescription) {
         this.mDescription = mDescription;
     }
 
+    @PropertyName(PRICE_KEY)
     public float getPrice() {
         return mPrice;
     }
 
+    @PropertyName(PRICE_KEY)
     public void setPrice(float mPrice) {
         this.mPrice = mPrice;
     }
 
+    @PropertyName(OWNER_KEY)
     public String getOwner() {
         return mOwner;
     }
 
+    @PropertyName(OWNER_KEY)
     public void setOwner(String mOwner) {
         this.mOwner = mOwner;
     }
@@ -79,6 +91,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
 
     public abstract String getItemType();
 
+    @Exclude
     public abstract String getCategoryType();
 
     @Exclude

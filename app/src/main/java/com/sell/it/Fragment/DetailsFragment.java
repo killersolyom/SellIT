@@ -19,7 +19,7 @@ import static androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL;
 import static androidx.recyclerview.widget.LinearLayoutManager.VERTICAL;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
-public class DetailsFragment extends BaseVerificationFragment {
+public class DetailsFragment extends BaseFragment {
 
     private final static String ADVERTISEMENT_ITEM_KEY = "Advertisement";
     private RecyclerView mImageRecyclerView;

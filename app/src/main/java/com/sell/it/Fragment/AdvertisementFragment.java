@@ -22,7 +22,7 @@ import java.util.Random;
 
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
-public class AdvertisementFragment extends BaseVerificationFragment {
+public class AdvertisementFragment extends BaseFragment {
 
     private RecyclerView mAdvertisementRecyclerView;
     private ImageView mAddAdvertisementView;

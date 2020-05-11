@@ -10,7 +10,7 @@ import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.FragmentNavigation;
 import com.sell.it.Utility.SnackBarUtility;
 
-import static com.sell.it.Model.Constant.Values.User.USER_KEY;
+import static com.sell.it.Utility.DatabaseManager.USER_KEY;
 
 public class BaseAuthenticationFragment extends BaseFragment {
     @Override
@@ -38,7 +38,6 @@ public class BaseAuthenticationFragment extends BaseFragment {
                     case Event.ACTION_REGISTRATION_SUCCESS:
                         if (BundleUtil.canCast(event.getExtras(), USER_KEY, User.class)) {
                             DataManager.saveUser(BundleUtil.castItem(event.getExtras(), USER_KEY, User.class));
-                            DataManager.saveLastAuthenticationTime();
                             FragmentNavigation.showAdvertisementFragment();
                             SnackBarUtility.showWithText(R.string.login_success, false);
                         }

@@ -12,4 +12,8 @@ public class UtilityManager {
         DatabaseManager.initialize();
         SnackBarUtility.initialize(mainInterface);
     }
+
+    public static void onPause() {
+        FragmentNavigation.onPause();
+    }
 }

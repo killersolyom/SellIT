@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
@@ -11,8 +12,8 @@ import java.util.Map;
 
 public class LaptopItem extends BaseComputeUnitItem {
 
-    public final static String USB_PORT_KEY = "USB_PORT_KEY";
-    public final static String DVD_KEY = "DVD_KEY";
+    public final static String USB_PORT_KEY = "USB_PORT_NUMBER";
+    public final static String DVD_KEY = "DVD_ROM";
 
     private int mNumberOfUsbPorts;
     private boolean dvdRom;
@@ -24,18 +25,22 @@ public class LaptopItem extends BaseComputeUnitItem {
         initItems(mItemData);
     }
 
+    @PropertyName(USB_PORT_KEY)
     public int getNumberOfUsbPorts() {
         return mNumberOfUsbPorts;
     }
 
+    @PropertyName(USB_PORT_KEY)
     public void setNumberOfUsbPorts(int mNumberOfUsbPorts) {
         this.mNumberOfUsbPorts = mNumberOfUsbPorts;
     }
 
+    @PropertyName(DVD_KEY)
     public boolean isDvdRom() {
         return dvdRom;
     }
 
+    @PropertyName(DVD_KEY)
     public void setDvdRom(boolean dvdRom) {
         this.dvdRom = dvdRom;
     }

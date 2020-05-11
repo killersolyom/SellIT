@@ -14,12 +14,13 @@ import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
 import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class DatabaseManager {
     private static final String FIREBASE_USER_KEY = "users";
     private static final String FIREBASE_ADS_KEY = "ads";
-    private static final String USER_KEY = "User";
+    public static final String USER_KEY = "User";
 
 
     private static FirebaseAuth mAuth;
@@ -94,8 +95,9 @@ public class DatabaseManager {
                 });
     }
 
-    public static void uploadAdvertisement(DefaultAdvertisementItem item) {
+    public static void uploadAdvertisement(DefaultAdvertisementItem item, ArrayList<String> imageList) {
         String key = mDatabase.push().getKey();
+        item.setId(key);
         mDatabase.child(FIREBASE_ADS_KEY)
                 .child(item.getCategoryType())
                 .child(item.getItemType())

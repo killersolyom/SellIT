@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
@@ -11,14 +12,16 @@ import java.util.Map;
 
 public abstract class BaseAdvertisementItem extends DefaultAdvertisementItem {
 
-    public static final String MANUFACTURER_KEY = "MANUFACTURER_KEY";
+    public static final String MANUFACTURER_KEY = "MANUFACTURER";
 
     private String mManufacturer;
 
+    @PropertyName(MANUFACTURER_KEY)
     public String getManufacturer() {
         return mManufacturer;
     }
 
+    @PropertyName(MANUFACTURER_KEY)
     public void setManufacturer(String mManufacturer) {
         this.mManufacturer = mManufacturer;
     }

@@ -49,17 +49,12 @@ public class LoginFragment extends BaseAuthenticationFragment {
         if (DataManager.isUserExist() && rememberMe) {
             mEmailAddressField.setText(DataManager.getEmailAddress());
             mPasswordField.setText(TextUtils.decrypt(DataManager.getPassword()));
-            long time = DataManager.getLastAuthenticationTime() - System.currentTimeMillis();
-            if (time > 0 && time < 1800000) {//30 min
-                FragmentNavigation.showAddAdvertisementFragment();
-            } else {
-                FragmentNavigation.showTransactionDialog(
-                        new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS),
-                        new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL));
+            FragmentNavigation.showTransactionDialog(
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS),
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL));
 
-                DatabaseManager.loginUser(DataManager.getEmailAddress(),
-                        TextUtils.decrypt(DataManager.getPassword()));
-            }
+            DatabaseManager.loginUser(DataManager.getEmailAddress(),
+                    TextUtils.decrypt(DataManager.getPassword()));
         }
     }
 

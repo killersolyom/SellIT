@@ -26,6 +26,7 @@ import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.DisplayUtils;
 import com.sell.it.Utility.EventDispatcher;
+import com.sell.it.Utility.FragmentNavigation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +65,7 @@ public class AddAdvertisementFragment extends BaseFragment {
     private RecyclerView mDataInputView;
     private ItemAdapter mItemAdapter;
     private ArrayList<InputCallbackInterface> mItemCallbackList;
+    private ArrayList<String> mImageList;
     private Map<String, Object> mItemData;
     private Class<?> mItemType;
 
@@ -104,32 +106,31 @@ public class AddAdvertisementFragment extends BaseFragment {
         for (InputCallbackInterface it : mItemCallbackList) {
             boolean isItemReady = it.isReady();
             it.showStatus(!isItemReady);
-
             if (!isItemReady) {
                 canSaveItem = false;
             } else {
                 it.writeValue();
             }
-
         }
 
         if (canSaveItem) {
             uploadItem();
+            FragmentNavigation.onBackPressed();
         }
 
     }
 
     private void uploadItem() {
         if (mItemType == OtherItem.class) {
-            DatabaseManager.uploadAdvertisement(new OtherItem(mItemData));
+            DatabaseManager.uploadAdvertisement(new OtherItem(mItemData), mImageList);
         } else if (mItemType == MobilePhoneItem.class) {
-            DatabaseManager.uploadAdvertisement(new MobilePhoneItem(mItemData));
+            DatabaseManager.uploadAdvertisement(new MobilePhoneItem(mItemData), mImageList);
         } else if (mItemType == CarItem.class) {
-            DatabaseManager.uploadAdvertisement(new CarItem(mItemData));
+            DatabaseManager.uploadAdvertisement(new CarItem(mItemData), mImageList);
         } else if (mItemType == CameraItem.class) {
-            DatabaseManager.uploadAdvertisement(new CameraItem(mItemData));
+            DatabaseManager.uploadAdvertisement(new CameraItem(mItemData), mImageList);
         } else if (mItemType == LaptopItem.class) {
-            DatabaseManager.uploadAdvertisement(new LaptopItem(mItemData));
+            DatabaseManager.uploadAdvertisement(new LaptopItem(mItemData), mImageList);
         }
     }
 
@@ -293,7 +294,7 @@ public class AddAdvertisementFragment extends BaseFragment {
         mItemAdapter.addItem(new ImageChooserInputItem(new ValueListener() {
             @Override
             public void writeValue(ArrayList<String> valueList) {
-
+                mImageList = valueList;
             }
 
             @Override

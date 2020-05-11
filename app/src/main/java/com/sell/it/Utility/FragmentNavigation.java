@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.sell.it.Activity.MainActivity;
+import com.sell.it.Communication.EventListener;
 import com.sell.it.Communication.MainInterface;
 import com.sell.it.Dialog.BaseDialogFragment;
 import com.sell.it.Dialog.ColumnNumberSelectDialog;
@@ -32,6 +33,7 @@ public class FragmentNavigation {
     private static FragmentManager.OnBackStackChangedListener mBackStackChangedListener;
 
     static void initComponents(MainActivity activity, MainInterface mainInterface) {
+        EventDispatcher.subscribe(mEventListener);
         if (shouldInit()) {
             mFragmentManager = activity.getSupportFragmentManager();
             mBackStackChangedListener = FragmentNavigation::handleBackStackChangeEvent;
@@ -79,7 +81,13 @@ public class FragmentNavigation {
     }
 
     public static void showAddAdvertisementFragment() {
-        showFragment(new AddAdvertisementFragment());
+        if (!(getTopFragment() instanceof AddAdvertisementFragment)) {
+            showTransactionDialog(
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_FAIL),
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_SUCCESS));
+            DatabaseManager.verifyUser(DataManager.getEmailAddress(),
+                    TextUtils.decrypt(DataManager.getPassword()));
+        }
     }
 
     public static void showProfileFragment() {
@@ -221,5 +229,26 @@ public class FragmentNavigation {
         clearBackStack(true);
         System.exit(0);
     }
+
+    static void onPause() {
+        EventDispatcher.unSubscribe(mEventListener);
+    }
+
+    private static EventListener mEventListener = event -> {
+        switch (event.getEventType()) {
+            case Event.TYPE_FIREBASE:
+                switch (event.getAction()) {
+                    case Event.ACTION_VERIFICATION_FAIL:
+                        SnackBarUtility.showWithText(R.string.invalid_id, true);
+                        showLoginFragment();
+                        return true;
+                    case Event.ACTION_VERIFICATION_SUCCESS:
+                        FragmentNavigation.showFragment(new AddAdvertisementFragment());
+                        return true;
+                }
+                return true;
+        }
+        return false;
+    };
 
 }
