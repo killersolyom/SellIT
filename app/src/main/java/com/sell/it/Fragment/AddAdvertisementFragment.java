@@ -1,6 +1,5 @@
 package com.sell.it.Fragment;
 
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 
@@ -13,7 +12,6 @@ import com.sell.it.Communication.ValueListener;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
-import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.OtherItem;
@@ -24,6 +22,7 @@ import com.sell.it.Model.ViewHolderItem.ImageChooserInputItem;
 import com.sell.it.Model.ViewHolderItem.NumberInputItem;
 import com.sell.it.Model.ViewHolderItem.TextInputItem;
 import com.sell.it.R;
+import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.DisplayUtils;
 import com.sell.it.Utility.EventDispatcher;
@@ -32,14 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.sell.it.Model.Constant.Values.ItemType.AUTOMOBILE_TYPE;
-import static com.sell.it.Model.Constant.Values.ItemType.CAMERA_TYPE;
-import static com.sell.it.Model.Constant.Values.ItemType.LAPTOP_TYPE;
-import static com.sell.it.Model.Constant.Values.ItemType.MOBILE_PHONE_TYPE;
-import static com.sell.it.Model.Constant.Values.ItemType.OTHERS_TYPE;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem.MANUFACTURER_KEY;
-import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem.OWNER_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseComputeUnitItem.CPU_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseComputeUnitItem.MEMORY_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseComputeUnitItem.STORAGE_KEY;
@@ -54,6 +47,7 @@ import static com.sell.it.Model.ViewHolderItem.Advertisements.CarItem.HORSE_POWE
 import static com.sell.it.Model.ViewHolderItem.Advertisements.CarItem.PRODUCTION_YEAR_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.CarItem.TIRE_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.DESCRIPTION_KEY;
+import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.OWNER_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.PRICE_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.TITLE_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem.DVD_KEY;
@@ -67,7 +61,6 @@ import static com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem.US
 public class AddAdvertisementFragment extends BaseFragment {
 
     private ArrayList<Pair<String, Class<?>>> mSelectableItems;
-    private DefaultAdvertisementItem mUploadItem;
     private RecyclerView mDataInputView;
     private ItemAdapter mItemAdapter;
     private ArrayList<InputCallbackInterface> mItemCallbackList;
@@ -121,55 +114,33 @@ public class AddAdvertisementFragment extends BaseFragment {
         }
 
         if (canSaveItem) {
-            createItem();
             uploadItem();
-            for (Pair<Integer, String> it : mUploadItem.getDescriptionList()) {
-                Log.d("3ss", getString(it.first) + " " + it.second);
-            }
         }
 
-    }
-
-    private void createItem() {
-        if (mItemType == OtherItem.class) {
-            mUploadItem = new OtherItem(mItemData);
-        } else if (mItemType == MobilePhoneItem.class) {
-            mUploadItem = new MobilePhoneItem(mItemData);
-        } else if (mItemType == CarItem.class) {
-            mUploadItem = new CarItem(mItemData);
-        } else if (mItemType == CameraItem.class) {
-            mUploadItem = new CameraItem(mItemData);
-        } else if (mItemType == LaptopItem.class) {
-            mUploadItem = new LaptopItem(mItemData);
-        }
     }
 
     private void uploadItem() {
-        switch (mUploadItem.getItemType()) {
-            case OTHERS_TYPE:
-                DatabaseManager.addOtherItem((OtherItem) mUploadItem);
-                break;
-            case MOBILE_PHONE_TYPE:
-                DatabaseManager.addMobileItem((MobilePhoneItem) mUploadItem);
-                break;
-            case AUTOMOBILE_TYPE:
-                DatabaseManager.addCarItem((CarItem) mUploadItem);
-                break;
-            case CAMERA_TYPE:
-                DatabaseManager.addCameraItem((CameraItem) mUploadItem);
-                break;
-            case LAPTOP_TYPE:
-                DatabaseManager.addLaptopItem((LaptopItem) mUploadItem);
-                break;
+        if (mItemType == OtherItem.class) {
+            DatabaseManager.uploadAdvertisement(new OtherItem(mItemData));
+        } else if (mItemType == MobilePhoneItem.class) {
+            DatabaseManager.uploadAdvertisement(new MobilePhoneItem(mItemData));
+        } else if (mItemType == CarItem.class) {
+            DatabaseManager.uploadAdvertisement(new CarItem(mItemData));
+        } else if (mItemType == CameraItem.class) {
+            DatabaseManager.uploadAdvertisement(new CameraItem(mItemData));
+        } else if (mItemType == LaptopItem.class) {
+            DatabaseManager.uploadAdvertisement(new LaptopItem(mItemData));
         }
     }
 
     private void addDataInputFields(Class<?> type) {
         if (type == OtherItem.class) {
+            initFields();
             addDefaultFields();
             addImageChooserField();
             addButtonField();
         } else if (type == MobilePhoneItem.class) {
+            initFields();
             addDefaultFields();
             addBaseAdvertisementFields();
             addElectronicFields();
@@ -178,12 +149,14 @@ public class AddAdvertisementFragment extends BaseFragment {
             addImageChooserField();
             addButtonField();
         } else if (type == CarItem.class) {
+            initFields();
             addDefaultFields();
             addBaseAdvertisementFields();
             addCarFields();
             addImageChooserField();
             addButtonField();
         } else if (type == CameraItem.class) {
+            initFields();
             addDefaultFields();
             addBaseAdvertisementFields();
             addElectronicFields();
@@ -191,6 +164,7 @@ public class AddAdvertisementFragment extends BaseFragment {
             addImageChooserField();
             addButtonField();
         } else if (type == LaptopItem.class) {
+            initFields();
             addDefaultFields();
             addBaseAdvertisementFields();
             addElectronicFields();
@@ -201,24 +175,30 @@ public class AddAdvertisementFragment extends BaseFragment {
         }
     }
 
+    private void initFields() {
+        mItemData.put(OWNER_KEY, DataManager.getFirstName() + " " + DataManager.getLastName());
+    }
+
     private void addButtonField() {
         addButtonField(getString(R.string.save_item), this::onSaveItem);
     }
 
-    private void addDefaultFields() {
-        addNumberValueSetter(PRICE_KEY, mContext.getString(R.string.advertisement_price), true);
-        addTextValueSetter(TITLE_KEY, mContext.getString(R.string.advertisement_title), true);
-        addTextValueSetter(DESCRIPTION_KEY, mContext.getString(R.string.advertisement_description), true);
-    }
-
     private void addBaseAdvertisementFields() {
         addTextValueSetter(MANUFACTURER_KEY, mContext.getString(R.string.advertisement_manufacturer), false);
-        addTextValueSetter(OWNER_KEY, mContext.getString(R.string.advertisement_owner), true);
+    }
+
+    private void addCameraFields() {
+        addNumberValueSetter(MEGA_PIXEL_KEY, mContext.getString(R.string.advertisement_megapixel), false);
     }
 
     private void addElectronicFields() {
         addNumberValueSetter(BATTERY_KEY, mContext.getString(R.string.advertisement_battery_size), false);
         addNumberValueSetter(SCREEN_KEY, mContext.getString(R.string.advertisement_screen_size), false);
+    }
+
+    private void addLaptopFields() {
+        addNumberValueSetter(USB_PORT_KEY, mContext.getString(R.string.advertisement_usb_number), false);
+        addBooleanValueSetter(DVD_KEY, mContext.getString(R.string.advertisement_dvd_rom));
     }
 
     private void addComputeUnitsFields() {
@@ -227,18 +207,11 @@ public class AddAdvertisementFragment extends BaseFragment {
         addNumberValueSetter(STORAGE_KEY, mContext.getString(R.string.advertisement_storage), false);
     }
 
-    private void addCarFields() {
-        addTextValueSetter(COLOR_KEY, mContext.getString(R.string.advertisement_color), false);
-        addTextValueSetter(ENGINE_TYPE_KEY, mContext.getString(R.string.advertisement_engine_type), false);
-        addTextValueSetter(TIRE_KEY, mContext.getString(R.string.advertisement_tire_size), false);
-        addNumberValueSetter(ENGINE_SIZE_KEY, mContext.getString(R.string.advertisement_engine_size), false);
-        addNumberValueSetter(HORSE_POWER_KEY, mContext.getString(R.string.advertisement_horse_power), false);
-        addNumberValueSetter(PRODUCTION_YEAR_KEY, mContext.getString(R.string.advertisement_production_year), false);
-        addNumberValueSetter(DOOR_NUMBER_KEY, mContext.getString(R.string.advertisement_door_number), false);
-    }
-
-    private void addCameraFields() {
-        addNumberValueSetter(MEGA_PIXEL_KEY, mContext.getString(R.string.advertisement_megapixel), false);
+    private void addDefaultFields() {
+        addNumberValueSetter(PRICE_KEY, mContext.getString(R.string.advertisement_price), true);
+        addTextValueSetter(TITLE_KEY, mContext.getString(R.string.advertisement_title), true);
+        addTextValueSetter(DESCRIPTION_KEY, mContext.getString(R.string.advertisement_description), true);
+        addTextValueSetter(OWNER_KEY, mContext.getString(R.string.advertisement_owner), true);
     }
 
     private void addMobilePhoneFields() {
@@ -249,9 +222,14 @@ public class AddAdvertisementFragment extends BaseFragment {
         addBooleanValueSetter(JACK_KEY, mContext.getString(R.string.advertisement_jack));
     }
 
-    private void addLaptopFields() {
-        addNumberValueSetter(USB_PORT_KEY, mContext.getString(R.string.advertisement_usb_number), false);
-        addBooleanValueSetter(DVD_KEY, mContext.getString(R.string.advertisement_dvd_rom));
+    private void addCarFields() {
+        addTextValueSetter(COLOR_KEY, mContext.getString(R.string.advertisement_color), false);
+        addTextValueSetter(ENGINE_TYPE_KEY, mContext.getString(R.string.advertisement_engine_type), false);
+        addTextValueSetter(TIRE_KEY, mContext.getString(R.string.advertisement_tire_size), false);
+        addNumberValueSetter(ENGINE_SIZE_KEY, mContext.getString(R.string.advertisement_engine_size), false);
+        addNumberValueSetter(HORSE_POWER_KEY, mContext.getString(R.string.advertisement_horse_power), false);
+        addNumberValueSetter(PRODUCTION_YEAR_KEY, mContext.getString(R.string.advertisement_production_year), false);
+        addNumberValueSetter(DOOR_NUMBER_KEY, mContext.getString(R.string.advertisement_door_number), false);
     }
 
     private void addTextValueSetter(String key, String title, boolean isNecessary) {
@@ -282,9 +260,8 @@ public class AddAdvertisementFragment extends BaseFragment {
 
             @Override
             public String getValue() {
-                return mItemData.get(key) == null ? "" :
-                        mItemData.get(key) instanceof Float ? String.valueOf(mItemData.get(key))
-                                .replace(".0", "") : "";
+                return mItemData.get(key) == null ? "" : mItemData.get(key) instanceof Float ?
+                        String.valueOf(mItemData.get(key)).replace(".0", "") : "";
             }
 
             @Override

@@ -39,16 +39,6 @@ public class Values {
         public static final String LANGUAGE_KEY_HUNGARY = "hu";
     }
 
-    public static class User {
-        public static final String USERNAME = "username";
-        public static final String EMAIL = "email";
-        public static final String FIRST_NAME = "firstname";
-        public static final String LAST_NAME = "lastname";
-        public static final String PASSWORD = "pass";
-        public static final String USER_KEY = "User";
-        public static final String PHONE_NUMBER_KEY = "phonenumber";
-    }
-
     public static class Orientation {
         public static final int PORTRAIT = 0;
         public static final int LANDSCAPE = 1;

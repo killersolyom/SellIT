@@ -10,22 +10,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
-import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
-import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
-import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
-import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
-import com.sell.it.Model.ViewHolderItem.Advertisements.OtherItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 
 import java.util.Objects;
-
-import static com.sell.it.Model.Constant.Values.User.USER_KEY;
 
 public class DatabaseManager {
     private static final String FIREBASE_USER_KEY = "users";
     private static final String FIREBASE_ADS_KEY = "ads";
+    private static final String USER_KEY = "User";
 
 
     private static FirebaseAuth mAuth;
@@ -83,90 +77,33 @@ public class DatabaseManager {
         mAuth.signOut();
     }
 
-    private static void getUserFromDatabase(String uId){
+    private static void getUserFromDatabase(String uId) {
         mDatabase.child(FIREBASE_USER_KEY).child(uId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Bundle extraBundle = BundleUtil.createBundle(USER_KEY, new User(dataSnapshot));
-                EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
-                        Event.ACTION_LOGIN_SUCCESS, extraBundle), true);
-            }
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Bundle extraBundle = BundleUtil.createBundle(USER_KEY, new User(dataSnapshot));
+                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
+                                Event.ACTION_LOGIN_SUCCESS, extraBundle), true);
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
-    public static void addCameraItem(CameraItem cameraItem){
+    public static void uploadAdvertisement(DefaultAdvertisementItem item) {
         String key = mDatabase.push().getKey();
-        //storageRef.child(key).child("adv"+i+".jpg").putFile(image).addOnSuccessListener(new OnSuccessListener...)
         mDatabase.child(FIREBASE_ADS_KEY)
-                .child(Values.CategoryType.ELECTRONIC_TYPE)
-                .child(Values.ItemType.CAMERA_TYPE)
+                .child(item.getCategoryType())
+                .child(item.getItemType())
                 .child(Objects.requireNonNull(key))
-                .setValue(cameraItem);
-        mDatabase.child(FIREBASE_USER_KEY)
-                .child(Objects.requireNonNull(mAuth.getUid()))
-                .child(FIREBASE_ADS_KEY)
-                .setValue(key);
+                .setValue(item).addOnSuccessListener(aVoid -> saveAdvertisementId(key));
     }
 
-    public static void addCarItem(CarItem carItem){
-        String key = mDatabase.push().getKey();
-        mDatabase.child(FIREBASE_ADS_KEY)
-                .child(Values.CategoryType.VEHICLE_TYPE)
-                .child(Values.ItemType.AUTOMOBILE_TYPE)
-                .child(Objects.requireNonNull(key))
-                .setValue(carItem);
-        mDatabase.child(FIREBASE_USER_KEY)
-                .child(Objects.requireNonNull(mAuth.getUid()))
-                .child(FIREBASE_ADS_KEY)
-                .setValue(key);
-    }
-
-    public static void addLaptopItem(LaptopItem laptopItem){
-        String key = mDatabase.push().getKey();
-        mDatabase.child(FIREBASE_ADS_KEY)
-                .child(Values.CategoryType.ELECTRONIC_TYPE)
-                .child(Values.ItemType.LAPTOP_TYPE)
-                .child(Objects.requireNonNull(key))
-                .setValue(laptopItem);
-        mDatabase.child(FIREBASE_USER_KEY)
-                .child(Objects.requireNonNull(mAuth.getUid()))
-                .child(FIREBASE_ADS_KEY)
-                .setValue(key);
-    }
-
-    public static void addMobileItem(MobilePhoneItem mobilePhoneItem){
-        String key = mDatabase.push().getKey();
-        mDatabase.child(FIREBASE_ADS_KEY)
-                .child(Values.CategoryType.ELECTRONIC_TYPE)
-                .child(Values.ItemType.MOBILE_PHONE_TYPE)
-                .child(Objects.requireNonNull(key))
-                .setValue(mobilePhoneItem);
-        mDatabase.child(FIREBASE_ADS_KEY)
-                .child(Values.CategoryType.ELECTRONIC_TYPE)
-                .child(Values.ItemType.MOBILE_PHONE_TYPE)
-                .child(key)
-                .child("withJack")
-                .setValue(mobilePhoneItem.hasJack());
-        mDatabase.child(FIREBASE_USER_KEY)
-                .child(Objects.requireNonNull(mAuth.getUid()))
-                .child(FIREBASE_ADS_KEY)
-                .child(key)
-                .setValue(key);
-    }
-
-    public static void addOtherItem(OtherItem otherItem){
-        String key = mDatabase.push().getKey();
-        mDatabase.child(FIREBASE_ADS_KEY)
-                .child(Values.CategoryType.OTHER_TYPE)
-                .child(Values.ItemType.OTHERS_TYPE)
-                .child(Objects.requireNonNull(key))
-                .setValue(otherItem);
+    private static void saveAdvertisementId(String key) {
         mDatabase.child(FIREBASE_USER_KEY)
                 .child(Objects.requireNonNull(mAuth.getUid()))
                 .child(FIREBASE_ADS_KEY)

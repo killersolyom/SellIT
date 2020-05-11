@@ -15,7 +15,7 @@ public class LaptopItem extends BaseComputeUnitItem {
     public final static String DVD_KEY = "DVD_KEY";
 
     private int mNumberOfUsbPorts;
-    private boolean mHasDvdRom;
+    private boolean dvdRom;
 
     public LaptopItem() {
     }
@@ -32,19 +32,19 @@ public class LaptopItem extends BaseComputeUnitItem {
         this.mNumberOfUsbPorts = mNumberOfUsbPorts;
     }
 
-    public boolean hasDvdRom() {
-        return mHasDvdRom;
+    public boolean isDvdRom() {
+        return dvdRom;
     }
 
-    public void setDvdRom(boolean mHasDvdRom) {
-        this.mHasDvdRom = mHasDvdRom;
+    public void setDvdRom(boolean dvdRom) {
+        this.dvdRom = dvdRom;
     }
 
     @Override
     protected void initItems(Map<String, Object> items) {
         super.initItems(items);
         mNumberOfUsbPorts = getIntValue(items.get(USB_PORT_KEY));
-        mHasDvdRom = getBooleanValue(items.get(DVD_KEY));
+        dvdRom = getBooleanValue(items.get(DVD_KEY));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class LaptopItem extends BaseComputeUnitItem {
     public ArrayList<Pair<Integer, String>> getDescriptionList() {
         ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
         addToListIfExist(descriptionList, R.string.advertisement_usb_number, intValueToDescriptionString(mNumberOfUsbPorts));
-        if (mHasDvdRom) {
+        if (dvdRom) {
             descriptionList.add(new Pair<>(R.string.advertisement_storage, " "));
         }
         return descriptionList;

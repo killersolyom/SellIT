@@ -17,7 +17,7 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
     public final static String PRIMARY_CAMERA_KEY = "PRIMARY_CAMERA_KEY";
     public final static String SECONDARY_CAMERA_KEY = "SECONDARY_CAMERA_KEY";
 
-    private boolean mHasJack;
+    private boolean jack;
     private String mUsbType;
     private String mModel;
     private float mPrimaryCamera;
@@ -28,14 +28,6 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
 
     public MobilePhoneItem(Map<String, Object> mItemData) {
         initItems(mItemData);
-    }
-
-    public boolean hasJack() {
-        return mHasJack;
-    }
-
-    public void setJack(boolean mHasJack) {
-        this.mHasJack = mHasJack;
     }
 
     public String getUsbType() {
@@ -70,11 +62,20 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
         this.mSecondaryCamera = mSecondaryCamera;
     }
 
+    public boolean isJack() {
+        return jack;
+    }
+
+    public void setJack(boolean jack) {
+        this.jack = jack;
+    }
+
     @Override
     public String getItemType() {
         return Values.ItemType.MOBILE_PHONE_TYPE;
     }
 
+    @Exclude
     @Override
     public String getCategoryType() {
         return Values.CategoryType.ELECTRONIC_TYPE;
@@ -84,7 +85,7 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
     protected void initItems(Map<String, Object> items) {
         super.initItems(items);
         mUsbType = getStringValue(items.get(USB_KEY));
-        mHasJack = getBooleanValue(items.get(JACK_KEY));
+        jack = getBooleanValue(items.get(JACK_KEY));
         mModel = getStringValue(items.get(MODEL_KEY));
         mPrimaryCamera = getFloatValue(items.get(PRIMARY_CAMERA_KEY));
         mSecondaryCamera = getFloatValue(items.get(SECONDARY_CAMERA_KEY));
@@ -98,7 +99,7 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
         addToListIfExist(descriptionList, R.string.advertisement_model, mModel);
         addToListIfExist(descriptionList, R.string.advertisement_primary_camera, floatValueToDescriptionString(mPrimaryCamera));
         addToListIfExist(descriptionList, R.string.advertisement_secondary_camera, floatValueToDescriptionString(mSecondaryCamera));
-        if (mHasJack) {
+        if (jack) {
             descriptionList.add(new Pair<>(R.string.advertisement_jack, ""));
         }
         return descriptionList;

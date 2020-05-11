@@ -17,11 +17,14 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     public static final String PRICE_KEY = "PRICE_KEY";
     public static final String TITLE_KEY = "TITLE_KEY";
     public static final String DESCRIPTION_KEY = "DESCRIPTION_KEY";
+    public static final String OWNER_KEY = "OWNER_KEY";
 
     private String mId;
     private float mPrice;
     private String mTitle;
+    private String mOwner;
     private String mDescription;
+
     @Exclude
     private ArrayList<BaseItem> mImageList = new ArrayList<>();
 
@@ -57,6 +60,14 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         this.mPrice = mPrice;
     }
 
+    public String getOwner() {
+        return mOwner;
+    }
+
+    public void setOwner(String mOwner) {
+        this.mOwner = mOwner;
+    }
+
     @Exclude
     public ImageItem getFirstImage() {
         return mImageList.isEmpty() ? new ImageItem() : (ImageItem) mImageList.get(0);
@@ -76,6 +87,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         addToListIfExist(descriptionList, R.string.advertisement_title, mTitle);
         addToListIfExist(descriptionList, R.string.advertisement_description, mDescription);
         addToListIfExist(descriptionList, R.string.advertisement_price, floatValueToDescriptionString(mPrice));
+        addToListIfExist(descriptionList, R.string.advertisement_owner, mOwner);
         return descriptionList;
     }
 
@@ -88,6 +100,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     protected void initItems(Map<String, Object> items) {
         mPrice = getFloatValue(items.get(PRICE_KEY));
         mTitle = getStringValue(items.get(TITLE_KEY));
+        mOwner = getStringValue(items.get(OWNER_KEY));
         mDescription = getStringValue(items.get(DESCRIPTION_KEY));
     }
 
