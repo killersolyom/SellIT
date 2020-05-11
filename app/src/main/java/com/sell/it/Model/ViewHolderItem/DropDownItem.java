@@ -1,7 +1,6 @@
 package com.sell.it.Model.ViewHolderItem;
 
-import android.util.Pair;
-
+import com.sell.it.Adapter.CustomPairItem;
 import com.sell.it.Communication.ValueListener;
 import com.sell.it.Model.Constant.Values;
 
@@ -9,14 +8,14 @@ import java.util.ArrayList;
 
 public class DropDownItem extends BaseValueInputItem {
 
-    ArrayList<Pair<String, Class<?>>> mItemList;
+    ArrayList<CustomPairItem<String, Class<?>>> mItemList;
 
-    public DropDownItem(ValueListener valueListener, String title, ArrayList<Pair<String, Class<?>>> items) {
+    public DropDownItem(ValueListener valueListener, String title, ArrayList<CustomPairItem<String, Class<?>>> items) {
         super(valueListener, title, false);
         mItemList = items;
     }
 
-    public ArrayList<Pair<String, Class<?>>> getItems() {
+    public ArrayList<CustomPairItem<String, Class<?>>> getItems() {
         return mItemList;
     }
 

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
+import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
@@ -26,6 +27,7 @@ public class AdvertisementFragment extends BaseFragment {
 
     private RecyclerView mAdvertisementRecyclerView;
     private ImageView mAddAdvertisementView;
+    private ImageView mCategorySelectorView;
     private GridLayoutManager mLayoutManager;
     private ItemAdapter mItemAdapter;
 
@@ -38,6 +40,7 @@ public class AdvertisementFragment extends BaseFragment {
     protected void findView(View view) {
         mAdvertisementRecyclerView = view.findViewById(R.id.advertisement_recycler_view);
         mAddAdvertisementView = view.findViewById(R.id.add_advertisement);
+        mCategorySelectorView = view.findViewById(R.id.select_category);
     }
 
     @Override
@@ -52,6 +55,7 @@ public class AdvertisementFragment extends BaseFragment {
     @Override
     protected void initListeners() {
         mAddAdvertisementView.setOnClickListener(v -> FragmentNavigation.showAddAdvertisementFragment());
+        mCategorySelectorView.setOnClickListener(v -> FragmentNavigation.showCategorySelectorDialog());
     }
 
     private void loadItems(ArrayList<BaseItem> itemList) {
@@ -65,7 +69,7 @@ public class AdvertisementFragment extends BaseFragment {
                 DataManager.getPortraitColumnNumber() : DataManager.getLandscapeColumnNumber();
     }
 
-    private void addItems() {
+    private void addPlaceHolderItems() {
         for (int i = 0; i < 25; i++) {
             BaseAdvertisementItem advertisementItem1 = new MobilePhoneItem();
             advertisementItem1.setTitle("Title for advertisement " + new Random().nextInt(100));
@@ -81,7 +85,7 @@ public class AdvertisementFragment extends BaseFragment {
         if (BundleUtil.canCast(bundle, TAG, ArrayList.class)) {
             loadItems(BundleUtil.castItem(bundle, TAG, ArrayList.class));
         } else {
-            addItems();
+            addPlaceHolderItems();
         }
     }
 
@@ -90,4 +94,9 @@ public class AdvertisementFragment extends BaseFragment {
         return BundleUtil.createBundle(TAG, mItemAdapter.getItemList());
     }
 
+    @Override
+    public boolean onEvent(Event event) {
+        return false;
+    }
+    
 }

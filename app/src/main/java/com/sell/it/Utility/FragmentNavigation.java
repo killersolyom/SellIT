@@ -8,6 +8,7 @@ import com.sell.it.Activity.MainActivity;
 import com.sell.it.Communication.EventListener;
 import com.sell.it.Communication.MainInterface;
 import com.sell.it.Dialog.BaseDialogFragment;
+import com.sell.it.Dialog.CategorySelectDialog;
 import com.sell.it.Dialog.ColumnNumberSelectDialog;
 import com.sell.it.Dialog.ConfirmDialog;
 import com.sell.it.Dialog.LanguageSelectDialog;
@@ -46,6 +47,10 @@ public class FragmentNavigation {
     private static boolean shouldInit() {
         return mFragmentManager == null || mMainInterface == null ||
                 mBackStackChangedListener == null || mFragmentManager.isDestroyed();
+    }
+
+    public static void showCategorySelectorDialog() {
+        showDialogFragment(new CategorySelectDialog());
     }
 
     public static void showColumnNumberSelectorDialog() {

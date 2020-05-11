@@ -18,6 +18,7 @@ public class Values {
         public static final int IMAGE_CHOOSER_ITEM_TYPE = 10;
         public static final int MINI_IMAGE_ITEM_TYPE = 11;
         public static final int DROP_DOWN_ITEM_TYPE = 12;
+        public static final int TEXT_ITEM_TYPE = 13;
     }
 
     public static class ItemType {

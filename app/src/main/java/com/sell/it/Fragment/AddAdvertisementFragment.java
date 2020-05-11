@@ -1,11 +1,11 @@
 package com.sell.it.Fragment;
 
-import android.util.Pair;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sell.it.Adapter.CustomPairItem;
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.InputCallbackInterface;
 import com.sell.it.Communication.ValueListener;
@@ -61,7 +61,7 @@ import static com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem.US
 
 public class AddAdvertisementFragment extends BaseFragment {
 
-    private ArrayList<Pair<String, Class<?>>> mSelectableItems;
+    private ArrayList<CustomPairItem<String, Class<?>>> mSelectableItems;
     private RecyclerView mDataInputView;
     private ItemAdapter mItemAdapter;
     private ArrayList<InputCallbackInterface> mItemCallbackList;
@@ -92,12 +92,12 @@ public class AddAdvertisementFragment extends BaseFragment {
 
     private void iniSelectableItems() {
         mSelectableItems = new ArrayList<>();
-        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_choose_item), String.class));
-        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_other_type), OtherItem.class));
-        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_mobile_type), MobilePhoneItem.class));
-        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_car_type), CarItem.class));
-        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_camera_type), CameraItem.class));
-        mSelectableItems.add(new Pair<>(getString(R.string.advertisement_laptop_type), LaptopItem.class));
+        mSelectableItems.add(new CustomPairItem<>(getString(R.string.advertisement_choose_item), String.class));
+        mSelectableItems.add(new CustomPairItem<>(getString(R.string.advertisement_other_type), OtherItem.class));
+        mSelectableItems.add(new CustomPairItem<>(getString(R.string.advertisement_mobile_type), MobilePhoneItem.class));
+        mSelectableItems.add(new CustomPairItem<>(getString(R.string.advertisement_car_type), CarItem.class));
+        mSelectableItems.add(new CustomPairItem<>(getString(R.string.advertisement_camera_type), CameraItem.class));
+        mSelectableItems.add(new CustomPairItem<>(getString(R.string.advertisement_laptop_type), LaptopItem.class));
     }
 
     private void onSaveItem() {

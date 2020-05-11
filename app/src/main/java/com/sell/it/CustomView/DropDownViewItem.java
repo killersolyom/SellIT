@@ -2,7 +2,6 @@ package com.sell.it.CustomView;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.sell.it.Adapter.CustomPairItem;
 import com.sell.it.Model.ViewHolderItem.DropDownItem;
 import com.sell.it.R;
 
@@ -19,8 +19,7 @@ public class DropDownViewItem extends BaseInputViewItem implements AdapterView.O
 
     private Spinner mSpinner;
     private TextView mTitle;
-    private ArrayList<String> mDisplayList;
-    private ArrayList<Class<?>> mClassList;
+    private ArrayList<CustomPairItem<String, Class<?>>> mPairItemList;
 
     public DropDownViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -40,26 +39,16 @@ public class DropDownViewItem extends BaseInputViewItem implements AdapterView.O
     public void bindItem(DropDownItem item) {
         mValueListener = item.getListener();
         mTitle.setText(item.getTitle());
-        initItemLists(item);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, mDisplayList);
+        mPairItemList = item.getItems();
+        ArrayAdapter<CustomPairItem<String, Class<?>>> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item, mPairItemList);
         mSpinner.setAdapter(adapter);
         mSpinner.setOnItemSelectedListener(this);
     }
 
-    private void initItemLists(DropDownItem item) {
-        mDisplayList = new ArrayList<>();
-        mClassList = new ArrayList<>();
-
-        for (Pair<String, Class<?>> it : item.getItems()) {
-            mDisplayList.add(it.first);
-            mClassList.add(it.second);
-        }
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        mValueListener.writeValue(mClassList.get(position));
+        mValueListener.writeValue((Class<?>) mPairItemList.get(position).second);
     }
 
     @Override

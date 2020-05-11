@@ -1,5 +1,6 @@
 package com.sell.it.Fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import com.bumptech.glide.Glide;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
+import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.FragmentNavigation;
@@ -49,12 +51,6 @@ public class LoginFragment extends BaseAuthenticationFragment {
         if (DataManager.isUserExist() && rememberMe) {
             mEmailAddressField.setText(DataManager.getEmailAddress());
             mPasswordField.setText(TextUtils.decrypt(DataManager.getPassword()));
-            FragmentNavigation.showTransactionDialog(
-                    new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS),
-                    new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL));
-
-            DatabaseManager.loginUser(DataManager.getEmailAddress(),
-                    TextUtils.decrypt(DataManager.getPassword()));
         }
     }
 
@@ -76,6 +72,17 @@ public class LoginFragment extends BaseAuthenticationFragment {
         Glide.with(mContext).clear(mApplicationLogo);
     }
 
+    private void autoLogin() {
+        if (DataManager.isUserExist() && DataManager.getRememberMeStatus()) {
+            FragmentNavigation.showTransactionDialog(
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS),
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL));
+
+            DatabaseManager.loginUser(DataManager.getEmailAddress(),
+                    TextUtils.decrypt(DataManager.getPassword()));
+        }
+    }
+
     private void loginUser() {
         FragmentNavigation.showTransactionDialog(new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL), new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS));
         String username = mEmailAddressField.getText().toString().trim();
@@ -83,4 +90,18 @@ public class LoginFragment extends BaseAuthenticationFragment {
         DatabaseManager.loginUser(username, password);
     }
 
+    @Override
+    protected void restoreItems(Bundle bundle) {
+        if (BundleUtil.canCast(bundle, TAG, Boolean.class)) {
+            if (BundleUtil.castItem(bundle, TAG, Boolean.class)) {
+                return;
+            }
+        }
+        autoLogin();
+    }
+
+    @Override
+    protected Bundle saveItems() {
+        return BundleUtil.createBundle(TAG, true);
+    }
 }

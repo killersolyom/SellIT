@@ -6,6 +6,7 @@ import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
+import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.FragmentNavigation;
 import com.sell.it.Utility.SnackBarUtility;
@@ -36,6 +37,7 @@ public class BaseAuthenticationFragment extends BaseFragment {
                         return true;
                     case Event.ACTION_LOGIN_SUCCESS:
                     case Event.ACTION_REGISTRATION_SUCCESS:
+                        DataCacheUtil.clearItems();
                         if (BundleUtil.canCast(event.getExtras(), USER_KEY, User.class)) {
                             DataManager.saveUser(BundleUtil.castItem(event.getExtras(), USER_KEY, User.class));
                             FragmentNavigation.showAdvertisementFragment();
