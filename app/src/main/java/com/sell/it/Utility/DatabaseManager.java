@@ -90,7 +90,8 @@ public class DatabaseManager {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
+                                Event.ACTION_LOGIN_FAIL), true);
                     }
                 });
     }

@@ -204,8 +204,6 @@ public class FragmentNavigation {
         } else if (isDoubleBackPressPerformed()) {
             if (shouldExit()) {
                 exit();
-            } else {
-                SnackBarUtility.showWithText(R.string.press_again, false);
             }
         } else if (shouldPop()) {
             popBackStack();
@@ -213,6 +211,7 @@ public class FragmentNavigation {
     }
 
     private static boolean isDoubleBackPressPerformed() {
+        SnackBarUtility.showWithText(R.string.press_again, false);
         long currentTime = System.currentTimeMillis();
         boolean isUnderTimeLimit = Math.abs(currentTime - mLastBackPressTime) <= mExitTimeLimit;
         mLastBackPressTime = currentTime;
