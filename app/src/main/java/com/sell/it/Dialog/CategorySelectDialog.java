@@ -16,6 +16,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.CustomPairItem;
 import com.sell.it.Model.ViewHolderItem.TextItem;
 import com.sell.it.R;
+import com.sell.it.Utility.DatabaseManager;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -84,9 +85,15 @@ public class CategorySelectDialog extends BaseDialogFragment {
     private void onItemClicked(Object item) {
         if (item instanceof String) {
             String selectedCategory = item.toString();
+            if(selectedCategory.equals(ALL_CATEGORY)){
+                DatabaseManager.getAllAdvertisements();
+            }else{
+                //fokategoria
+            }
             Log.d("3ss", "Whole category " + selectedCategory);
         } else if (item instanceof Pair) {
-            Pair<String, String> selectedItem = (Pair) item;
+            Pair selectedItem = (Pair) item;
+            //alkategoria
             Log.d("3ss", "Selected category " + selectedItem.first + " " + selectedItem.second);
         }
         dismissDialog();

@@ -8,6 +8,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CameraItem extends BaseElectronicUtilitiesItem {
@@ -16,7 +17,7 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
 
     private int mMegaPixels;
 
-    public CameraItem(Map<String, Object> mItemData) {
+    public CameraItem(HashMap<String, Object> mItemData) {
         initItems(mItemData);
     }
 
