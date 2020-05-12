@@ -37,7 +37,7 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
 
     @Override
     protected void inflateView(Context context) {
-        itemView = LayoutInflater.from(context).inflate(R.layout.image_chooser_component_layout, this);
+        itemView = LayoutInflater.from(context).inflate(R.layout.image_chooser_component_layout, this, true);
     }
 
     @Override

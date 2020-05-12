@@ -42,7 +42,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
 
     @Override
     protected void inflateView(Context context) {
-        itemView = LayoutInflater.from(context).inflate(R.layout.advertisement_component_layout, this);
+        itemView = LayoutInflater.from(context).inflate(R.layout.advertisement_component_layout, this, true);
     }
 
     @Override

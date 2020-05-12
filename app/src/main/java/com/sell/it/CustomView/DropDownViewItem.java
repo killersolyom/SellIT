@@ -27,7 +27,7 @@ public class DropDownViewItem extends BaseInputViewItem implements AdapterView.O
 
     @Override
     protected void inflateView(Context context) {
-        itemView = LayoutInflater.from(context).inflate(R.layout.drop_down_component_layout, this);
+        itemView = LayoutInflater.from(context).inflate(R.layout.drop_down_component_layout, this, true);
     }
 
     @Override

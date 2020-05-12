@@ -21,7 +21,7 @@ public class ButtonInputViewItem extends BaseInputViewItem {
 
     @Override
     protected void inflateView(Context context) {
-        itemView = LayoutInflater.from(context).inflate(R.layout.button_input_component_layout, this);
+        itemView = LayoutInflater.from(context).inflate(R.layout.button_input_component_layout, this, true);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class NumberInputViewItem extends BaseInputViewItem {
 
     @Override
     protected void inflateView(Context context) {
-        itemView = LayoutInflater.from(context).inflate(R.layout.number_input_component_layout, this);
+        itemView = LayoutInflater.from(context).inflate(R.layout.number_input_component_layout, this, true);
     }
 
     @Override
