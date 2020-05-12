@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="2dp"
     android:paddingEnd="2dp"
+    android:paddingBottom="2dp"
     android:gravity="center"
     android:textColor="@color/colorWhite">
 </TextView>
