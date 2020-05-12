@@ -38,6 +38,7 @@
         android:maxLines="1"
         android:paddingStart="3dp"
         android:paddingEnd="2dp"
+        android:paddingBottom="2dp"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="@id/item_background"
         app:layout_constraintStart_toStartOf="@id/item_background"

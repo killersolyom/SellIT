@@ -65,7 +65,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         mItemRadius = getResources().getDimensionPixelOffset(R.dimen.advertisement_item_radius) + 1;
         mItemTextSize = DisplayUtils.convertPixelToSp((itemParams.height * 0.10f));//10%
         mAdvertisementTitleView.setTextSize(mItemTextSize);
-        mInfoRecyclerView.getLayoutParams().height = (int) (mItemTextSize * 4.2);
+        mInfoRecyclerView.getLayoutParams().height = (int) (mItemTextSize * 4.5);
     }
 
     public void bindItem(BaseAdvertisementItem advertisementItem, ViewGroup.LayoutParams layoutParams) {
