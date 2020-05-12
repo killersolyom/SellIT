@@ -34,11 +34,13 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
     }
 
     @Override
+    @PropertyName(ITEM_KEY)
     public String getItemType() {
         return Values.ItemType.CAMERA_TYPE;
     }
 
     @Override
+    @Exclude
     public String getCategoryType() {
         return Values.CategoryType.ELECTRONIC_TYPE;
     }

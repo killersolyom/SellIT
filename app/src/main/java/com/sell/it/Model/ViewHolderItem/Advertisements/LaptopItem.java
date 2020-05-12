@@ -53,11 +53,13 @@ public class LaptopItem extends BaseComputeUnitItem {
     }
 
     @Override
+    @PropertyName(ITEM_KEY)
     public String getItemType() {
         return Values.ItemType.LAPTOP_TYPE;
     }
 
     @Override
+    @Exclude
     public String getCategoryType() {
         return Values.CategoryType.ELECTRONIC_TYPE;
     }

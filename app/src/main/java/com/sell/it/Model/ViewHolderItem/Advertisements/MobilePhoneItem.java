@@ -82,6 +82,7 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
     }
 
     @Override
+    @PropertyName(ITEM_KEY)
     public String getItemType() {
         return Values.ItemType.MOBILE_PHONE_TYPE;
     }

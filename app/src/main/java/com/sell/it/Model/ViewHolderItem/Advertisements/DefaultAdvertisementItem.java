@@ -20,6 +20,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     public static final String DESCRIPTION_KEY = "DESCRIPTION";
     public static final String OWNER_KEY = "OWNER";
     public static final String ID_KEY = "ID";
+    public static final String ITEM_KEY = "ITEM_TYPE";
 
     private String mId;
     private float mPrice;
@@ -89,6 +90,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         return mImageList;
     }
 
+    @PropertyName(ITEM_KEY)
     public abstract String getItemType();
 
     @Exclude

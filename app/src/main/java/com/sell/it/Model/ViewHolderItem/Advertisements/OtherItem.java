@@ -3,6 +3,7 @@ package com.sell.it.Model.ViewHolderItem.Advertisements;
 import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
 import com.sell.it.Model.Constant.Values;
 
 import java.util.ArrayList;
@@ -18,11 +19,13 @@ public class OtherItem extends DefaultAdvertisementItem {
     }
 
     @Override
+    @PropertyName(ITEM_KEY)
     public String getItemType() {
         return Values.ItemType.OTHERS_TYPE;
     }
 
     @Override
+    @Exclude
     public String getCategoryType() {
         return Values.CategoryType.OTHERS_TYPE;
     }

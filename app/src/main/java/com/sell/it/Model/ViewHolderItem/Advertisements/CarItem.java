@@ -105,6 +105,7 @@ public class CarItem extends BaseAdvertisementItem {
     }
 
     @Override
+    @PropertyName(ITEM_KEY)
     public String getItemType() {
         return Values.ItemType.AUTOMOBILE_TYPE;
     }
