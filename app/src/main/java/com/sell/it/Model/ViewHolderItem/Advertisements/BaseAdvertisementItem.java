@@ -21,11 +21,6 @@ public abstract class BaseAdvertisementItem extends DefaultAdvertisementItem {
         return mManufacturer;
     }
 
-    @PropertyName(MANUFACTURER_KEY)
-    public void setManufacturer(String mManufacturer) {
-        this.mManufacturer = mManufacturer;
-    }
-
     @Exclude
     @Override
     public int getViewType() {

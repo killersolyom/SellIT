@@ -32,11 +32,6 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     private ArrayList<BaseItem> mImageList = new ArrayList<>();
 
     @PropertyName(TITLE_KEY)
-    public void setTitle(String mTitle) {
-        this.mTitle = mTitle;
-    }
-
-    @PropertyName(TITLE_KEY)
     public String getTitle() {
         return mTitle;
     }
@@ -56,29 +51,14 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         return mDescription;
     }
 
-    @PropertyName(DESCRIPTION_KEY)
-    public void setDescription(String mDescription) {
-        this.mDescription = mDescription;
-    }
-
     @PropertyName(PRICE_KEY)
     public float getPrice() {
         return mPrice;
     }
 
-    @PropertyName(PRICE_KEY)
-    public void setPrice(float mPrice) {
-        this.mPrice = mPrice;
-    }
-
     @PropertyName(OWNER_KEY)
     public String getOwner() {
         return mOwner;
-    }
-
-    @PropertyName(OWNER_KEY)
-    public void setOwner(String mOwner) {
-        this.mOwner = mOwner;
     }
 
     @Exclude

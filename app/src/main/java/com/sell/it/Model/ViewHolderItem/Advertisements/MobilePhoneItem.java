@@ -36,19 +36,9 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
         return mUsbType;
     }
 
-    @PropertyName(USB_KEY)
-    public void setUsbType(String mUsbType) {
-        this.mUsbType = mUsbType;
-    }
-
     @PropertyName(MODEL_KEY)
     public String getModel() {
         return mModel;
-    }
-
-    @PropertyName(MODEL_KEY)
-    public void setModel(String mModel) {
-        this.mModel = mModel;
     }
 
     @PropertyName(PRIMARY_CAMERA_KEY)
@@ -56,19 +46,9 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
         return mPrimaryCamera;
     }
 
-    @PropertyName(PRIMARY_CAMERA_KEY)
-    public void setPrimaryCamera(float mPrimaryCamera) {
-        this.mPrimaryCamera = mPrimaryCamera;
-    }
-
     @PropertyName(SECONDARY_CAMERA_KEY)
     public float getSecondaryCamera() {
         return mSecondaryCamera;
-    }
-
-    @PropertyName(SECONDARY_CAMERA_KEY)
-    public void setSecondaryCamera(float mSecondaryCamera) {
-        this.mSecondaryCamera = mSecondaryCamera;
     }
 
     @PropertyName(JACK_KEY)
@@ -76,21 +56,10 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
         return jack;
     }
 
-    @PropertyName(JACK_KEY)
-    public void setJack(boolean jack) {
-        this.jack = jack;
-    }
-
     @Override
     @PropertyName(ITEM_KEY)
     public String getItemType() {
         return Values.ItemType.MOBILE_PHONE_TYPE;
-    }
-
-    @Exclude
-    @Override
-    public String getCategoryType() {
-        return Values.CategoryType.ELECTRONIC_TYPE;
     }
 
     @Override

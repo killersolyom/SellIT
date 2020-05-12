@@ -16,9 +16,6 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
 
     private int mMegaPixels;
 
-    public CameraItem() {
-    }
-
     public CameraItem(Map<String, Object> mItemData) {
         initItems(mItemData);
     }
@@ -28,21 +25,10 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
         return mMegaPixels;
     }
 
-    @PropertyName(MEGA_PIXEL_KEY)
-    public void setMegaPixels(int mMegaPixels) {
-        this.mMegaPixels = mMegaPixels;
-    }
-
     @Override
     @PropertyName(ITEM_KEY)
     public String getItemType() {
         return Values.ItemType.CAMERA_TYPE;
-    }
-
-    @Override
-    @Exclude
-    public String getCategoryType() {
-        return Values.CategoryType.ELECTRONIC_TYPE;
     }
 
     @Override

@@ -110,7 +110,8 @@ public class DatabaseManager {
         mDatabase.child(FIREBASE_USER_KEY)
                 .child(Objects.requireNonNull(mAuth.getUid()))
                 .child(FIREBASE_ADS_KEY)
-                .setValue(key);
+                .child(key)
+                .setValue("");
     }
 
 }

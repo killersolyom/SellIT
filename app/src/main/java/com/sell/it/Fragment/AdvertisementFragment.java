@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Model.Event;
-import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.R;
@@ -19,7 +18,6 @@ import com.sell.it.Utility.DisplayUtils;
 import com.sell.it.Utility.FragmentNavigation;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 
@@ -71,11 +69,7 @@ public class AdvertisementFragment extends BaseFragment {
 
     private void addPlaceHolderItems() {
         for (int i = 0; i < 25; i++) {
-            BaseAdvertisementItem advertisementItem1 = new MobilePhoneItem();
-            advertisementItem1.setTitle("Title for advertisement " + new Random().nextInt(100));
-            advertisementItem1.setPrice(new Random().nextInt(1000));
-            advertisementItem1.setManufacturer("Asus");
-            mItemAdapter.addItem(advertisementItem1);
+            mItemAdapter.addItem(new MobilePhoneItem());
         }
         saveItems();
     }

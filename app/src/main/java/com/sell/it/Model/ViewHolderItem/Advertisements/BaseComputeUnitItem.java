@@ -24,29 +24,14 @@ public abstract class BaseComputeUnitItem extends BaseElectronicUtilitiesItem {
         return mCpu;
     }
 
-    @PropertyName(CPU_KEY)
-    public void setCpu(String mCpu) {
-        this.mCpu = mCpu;
-    }
-
     @PropertyName(MEMORY_KEY)
     public int getMemory() {
         return mMemory;
     }
 
-    @PropertyName(MEMORY_KEY)
-    public void setMemory(int mMemory) {
-        this.mMemory = mMemory;
-    }
-
     @PropertyName(STORAGE_KEY)
     public int getStorage() {
         return mStorage;
-    }
-
-    @PropertyName(STORAGE_KEY)
-    public void setStorage(int mStorage) {
-        this.mStorage = mStorage;
     }
 
     @Override

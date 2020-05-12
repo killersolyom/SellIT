@@ -18,9 +18,6 @@ public class LaptopItem extends BaseComputeUnitItem {
     private int mNumberOfUsbPorts;
     private boolean dvdRom;
 
-    public LaptopItem() {
-    }
-
     public LaptopItem(Map<String, Object> mItemData) {
         initItems(mItemData);
     }
@@ -30,19 +27,9 @@ public class LaptopItem extends BaseComputeUnitItem {
         return mNumberOfUsbPorts;
     }
 
-    @PropertyName(USB_PORT_KEY)
-    public void setNumberOfUsbPorts(int mNumberOfUsbPorts) {
-        this.mNumberOfUsbPorts = mNumberOfUsbPorts;
-    }
-
     @PropertyName(DVD_KEY)
     public boolean isDvdRom() {
         return dvdRom;
-    }
-
-    @PropertyName(DVD_KEY)
-    public void setDvdRom(boolean dvdRom) {
-        this.dvdRom = dvdRom;
     }
 
     @Override
@@ -56,12 +43,6 @@ public class LaptopItem extends BaseComputeUnitItem {
     @PropertyName(ITEM_KEY)
     public String getItemType() {
         return Values.ItemType.LAPTOP_TYPE;
-    }
-
-    @Override
-    @Exclude
-    public String getCategoryType() {
-        return Values.CategoryType.ELECTRONIC_TYPE;
     }
 
     @Exclude

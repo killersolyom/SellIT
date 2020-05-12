@@ -4,6 +4,7 @@ import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
+import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
@@ -22,19 +23,15 @@ public abstract class BaseElectronicUtilitiesItem extends BaseAdvertisementItem 
         return mBatterySize;
     }
 
-    @PropertyName(BATTERY_KEY)
-    public void setBatterySize(int mBatterySize) {
-        this.mBatterySize = mBatterySize;
-    }
-
     @PropertyName(SCREEN_KEY)
     public float getScreenSize() {
         return mScreenSize;
     }
 
-    @PropertyName(SCREEN_KEY)
-    public void setScreenSize(float mScreenSize) {
-        this.mScreenSize = mScreenSize;
+    @Override
+    @Exclude
+    public String getCategoryType() {
+        return Values.CategoryType.ELECTRONIC_TYPE;
     }
 
     @Override
