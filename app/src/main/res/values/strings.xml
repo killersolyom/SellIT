@@ -68,6 +68,7 @@
     <string name="advertisement_camera_type">Camera</string>
     <string name="advertisement_vehicles">Vehicles</string>
     <string name="advertisement_electronics">Electronics</string>
+    <string name="advertisement_all">All category</string>
 
 
 </resources>

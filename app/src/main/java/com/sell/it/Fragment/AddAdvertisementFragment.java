@@ -6,11 +6,11 @@ import android.view.View;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sell.it.Adapter.CustomPairItem;
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.InputCallbackInterface;
 import com.sell.it.Communication.ValueListener;
 import com.sell.it.Model.ClassPackaging;
+import com.sell.it.Model.CustomPairItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;

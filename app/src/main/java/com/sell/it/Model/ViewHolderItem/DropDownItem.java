@@ -1,8 +1,8 @@
 package com.sell.it.Model.ViewHolderItem;
 
-import com.sell.it.Adapter.CustomPairItem;
 import com.sell.it.Communication.ValueListener;
 import com.sell.it.Model.Constant.Values;
+import com.sell.it.Model.CustomPairItem;
 
 import java.util.ArrayList;
 

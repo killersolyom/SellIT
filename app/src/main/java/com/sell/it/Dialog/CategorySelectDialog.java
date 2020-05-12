@@ -11,9 +11,9 @@ import android.view.Window;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sell.it.Adapter.CustomPairItem;
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Model.Constant.Values;
+import com.sell.it.Model.CustomPairItem;
 import com.sell.it.Model.ViewHolderItem.TextItem;
 import com.sell.it.R;
 
@@ -21,6 +21,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class CategorySelectDialog extends BaseDialogFragment {
 
+    private final String ALL_CATEGORY = "ALL";
     private RecyclerView mCategoryView;
 
     @Override
@@ -49,6 +50,9 @@ public class CategorySelectDialog extends BaseDialogFragment {
 
     private void addLanguageItems(ItemAdapter adapter) {
 
+        //All category
+        adapter.addItem(createTextItem(R.string.advertisement_all, ALL_CATEGORY, true));
+
         //Whole electronic category
         adapter.addItem(createTextItem(R.string.advertisement_electronics, Values.CategoryType.ELECTRONIC_TYPE, true));
 
@@ -66,7 +70,7 @@ public class CategorySelectDialog extends BaseDialogFragment {
         //Whole vehicle category
         adapter.addItem(createTextItem(R.string.advertisement_vehicles, Values.CategoryType.VEHICLE_TYPE, true));
         adapter.addItem(createTextItem((R.string.advertisement_car_type),
-                new Pair<>(Values.ItemType.AUTOMOBILE_TYPE, Values.CategoryType.ELECTRONIC_TYPE), false));
+                new Pair<>(Values.ItemType.AUTOMOBILE_TYPE, Values.CategoryType.VEHICLE_TYPE), false));
 
         //Whole others category
         adapter.addItem(createTextItem(R.string.advertisement_other_type,

@@ -1,4 +1,4 @@
-package com.sell.it.Adapter;
+package com.sell.it.Model;
 
 import android.util.Pair;
 

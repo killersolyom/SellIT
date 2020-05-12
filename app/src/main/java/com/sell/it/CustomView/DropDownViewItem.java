@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.sell.it.Adapter.CustomPairItem;
+import com.sell.it.Model.CustomPairItem;
 import com.sell.it.Model.ViewHolderItem.DropDownItem;
 import com.sell.it.R;
 
