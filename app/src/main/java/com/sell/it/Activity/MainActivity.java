@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements EventListener, Ma
     protected void onPause() {
         super.onPause();
         EventDispatcher.unSubscribe(this);
-        UtilityManager.onPause();
         mNavigationView.setNavigationItemSelectedListener(null);
         Glide.with(getApplicationContext()).clear(mDrawerHeaderImage);
     }

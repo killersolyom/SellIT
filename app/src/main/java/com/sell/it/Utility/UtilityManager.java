@@ -13,7 +13,4 @@ public class UtilityManager {
         SnackBarUtility.initialize(mainInterface);
     }
 
-    public static void onPause() {
-        FragmentNavigation.onPause();
-    }
 }

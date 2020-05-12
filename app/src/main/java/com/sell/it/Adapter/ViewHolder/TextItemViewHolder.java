@@ -5,10 +5,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.TextItem;
 import com.sell.it.R;
-import com.sell.it.Utility.EventDispatcher;
 
 public class TextItemViewHolder extends BaseViewHolder<TextItem> {
 
@@ -20,13 +18,13 @@ public class TextItemViewHolder extends BaseViewHolder<TextItem> {
 
     @Override
     public void bindItem(TextItem item) {
-        mItemTextView.setText(item.getPairItem().first.toString());
+        setItemText(item);
         mItemTextView.setOnClickListener(v -> onItemClicked(item));
     }
 
     @Override
     protected void onItemClicked(TextItem item) {
-        item.getListener().onClick(item.getPairItem().second.toString());
+        item.getListener().onClick(item.getPairItem().second);
     }
 
     @Override
@@ -34,8 +32,23 @@ public class TextItemViewHolder extends BaseViewHolder<TextItem> {
         mItemTextView = itemView.findViewById(R.id.text_view);
     }
 
-    private void sendRestartAppRequest() {
-        EventDispatcher.offerEvent(new Event(Event.TYPE_CONTROL, Event.ACTION_LANGUAGE_CHANGE));
+    private void setItemText(TextItem item) {
+        boolean isBigCategory = item.isBigCategory();
+
+        mItemTextView.setText(item.getPairItem().first.toString());
+
+        float size = getContext().getResources().getDimensionPixelOffset(isBigCategory ?
+                R.dimen.text_item_large_size : R.dimen.text_item_normal_size);
+        mItemTextView.setTextSize(size);
+
+        mItemTextView.setBackground(getContext().getDrawable(isBigCategory ?
+                R.drawable.text_item_large_foreground : R.drawable.text_item_normal_foreground));
+
+        if (isBigCategory) {
+            mItemTextView.setScaleX(1.15f);
+            mItemTextView.setScaleY(1.15f);
+        }
+
     }
 
 }

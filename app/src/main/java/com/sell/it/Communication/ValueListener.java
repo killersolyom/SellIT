@@ -4,8 +4,16 @@ import java.util.ArrayList;
 
 public interface ValueListener {
 
-    default String getValue() {
+    default String getStringValue() {
         return "";
+    }
+
+    default boolean getBooleanValue() {
+        return false;
+    }
+
+    default ArrayList<String> getItemList() {
+        return new ArrayList<>();
     }
 
     default void writeValue(Float value) {

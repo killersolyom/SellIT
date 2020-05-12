@@ -33,6 +33,7 @@ public class BooleanInputViewItem extends BaseInputViewItem {
     public void bindItem(BaseValueInputItem listener) {
         super.bindItem(listener);
         mTitle.setText(listener.getTitle());
+        mCheckBoxField.setChecked(mValueListener.getBooleanValue());
     }
 
     @Override

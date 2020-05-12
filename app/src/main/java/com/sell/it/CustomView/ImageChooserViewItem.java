@@ -12,6 +12,7 @@ import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.EventListener;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.BaseValueInputItem;
+import com.sell.it.Model.ViewHolderItem.ImageItem;
 import com.sell.it.Model.ViewHolderItem.MiniImageItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
@@ -63,6 +64,15 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
     public void bindItem(BaseValueInputItem listener) {
         super.bindItem(listener);
         EventDispatcher.subscribe(this);
+        mItems = mValueListener.getItemList();
+        addItemsToAdapter();
+    }
+
+    private void addItemsToAdapter() {
+        mItemAdapter.clearItems();
+        for (String it : mItems) {
+            mItemAdapter.addItem(new ImageItem(it));
+        }
     }
 
     @Override

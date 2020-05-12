@@ -66,5 +66,8 @@
     <string name="advertisement_mobile_type">Mobile phone</string>
     <string name="advertisement_laptop_type">Laptop</string>
     <string name="advertisement_camera_type">Camera</string>
+    <string name="advertisement_vehicles">Vehicles</string>
+    <string name="advertisement_electronics">Electronics</string>
+
 
 </resources>

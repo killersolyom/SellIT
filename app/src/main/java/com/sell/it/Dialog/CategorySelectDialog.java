@@ -3,6 +3,8 @@ package com.sell.it.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 
@@ -46,18 +48,43 @@ public class CategorySelectDialog extends BaseDialogFragment {
     }
 
     private void addLanguageItems(ItemAdapter adapter) {
-        adapter.addItem(createTextItem((R.string.advertisement_other_type), Values.ItemType.OTHERS_TYPE));
-        adapter.addItem(createTextItem((R.string.advertisement_camera_type), Values.ItemType.CAMERA_TYPE));
-        adapter.addItem(createTextItem((R.string.advertisement_car_type), Values.ItemType.AUTOMOBILE_TYPE));
-        adapter.addItem(createTextItem((R.string.advertisement_laptop_type), Values.ItemType.LAPTOP_TYPE));
-        adapter.addItem(createTextItem((R.string.advertisement_mobile_type), Values.ItemType.MOBILE_PHONE_TYPE));
+
+        //Whole electronic category
+        adapter.addItem(createTextItem(R.string.advertisement_electronics, Values.CategoryType.ELECTRONIC_TYPE, true));
+
+        //Camera Item
+        adapter.addItem(createTextItem((R.string.advertisement_camera_type),
+                new Pair<>(Values.ItemType.CAMERA_TYPE, Values.CategoryType.ELECTRONIC_TYPE), false));
+        //Laptop Item
+        adapter.addItem(createTextItem((R.string.advertisement_laptop_type),
+                new Pair<>(Values.ItemType.LAPTOP_TYPE, Values.CategoryType.ELECTRONIC_TYPE), false));
+
+        //Mobile Item
+        adapter.addItem(createTextItem((R.string.advertisement_mobile_type),
+                new Pair<>(Values.ItemType.MOBILE_PHONE_TYPE, Values.CategoryType.ELECTRONIC_TYPE), false));
+
+        //Whole vehicle category
+        adapter.addItem(createTextItem(R.string.advertisement_vehicles, Values.CategoryType.VEHICLE_TYPE, true));
+        adapter.addItem(createTextItem((R.string.advertisement_car_type),
+                new Pair<>(Values.ItemType.AUTOMOBILE_TYPE, Values.CategoryType.ELECTRONIC_TYPE), false));
+
+        //Whole others category
+        adapter.addItem(createTextItem(R.string.advertisement_other_type,
+                new Pair<>(Values.ItemType.OTHERS_TYPE, Values.CategoryType.OTHERS_TYPE), true));
     }
 
-    private TextItem createTextItem(int id, String value) {
-        return new TextItem(new CustomPairItem<>(getString(id), value), this::onItemClicked);
+    private TextItem createTextItem(int id, Object item, boolean isCategory) {
+        return new TextItem(new CustomPairItem<>(getString(id), item), this::onItemClicked, isCategory);
     }
 
-    private void onItemClicked(String value) {
+    private void onItemClicked(Object item) {
+        if (item instanceof String) {
+            String selectedCategory = item.toString();
+            Log.d("3ss", "Whole category " + selectedCategory);
+        } else if (item instanceof Pair) {
+            Pair<String, String> selectedItem = (Pair) item;
+            Log.d("3ss", "Selected category " + selectedItem.first + " " + selectedItem.second);
+        }
         dismissDialog();
     }
 

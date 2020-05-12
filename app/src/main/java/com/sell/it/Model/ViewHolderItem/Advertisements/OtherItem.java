@@ -24,7 +24,7 @@ public class OtherItem extends DefaultAdvertisementItem {
 
     @Override
     public String getCategoryType() {
-        return Values.CategoryType.OTHER_TYPE;
+        return Values.CategoryType.OTHERS_TYPE;
     }
 
     @Exclude

@@ -54,7 +54,7 @@ public class AdvertisementFragment extends BaseFragment {
 
     @Override
     protected void initListeners() {
-        mAddAdvertisementView.setOnClickListener(v -> FragmentNavigation.showAddAdvertisementFragment());
+        mAddAdvertisementView.setOnClickListener(v -> FragmentNavigation.verifyUser());
         mCategorySelectorView.setOnClickListener(v -> FragmentNavigation.showCategorySelectorDialog());
     }
 

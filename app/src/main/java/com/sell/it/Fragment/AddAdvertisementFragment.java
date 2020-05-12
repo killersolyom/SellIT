@@ -1,5 +1,6 @@
 package com.sell.it.Fragment;
 
+import android.os.Bundle;
 import android.view.View;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,7 +10,7 @@ import com.sell.it.Adapter.CustomPairItem;
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.InputCallbackInterface;
 import com.sell.it.Communication.ValueListener;
-import com.sell.it.Model.Event;
+import com.sell.it.Model.ClassPackaging;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
@@ -22,15 +23,14 @@ import com.sell.it.Model.ViewHolderItem.ImageChooserInputItem;
 import com.sell.it.Model.ViewHolderItem.NumberInputItem;
 import com.sell.it.Model.ViewHolderItem.TextInputItem;
 import com.sell.it.R;
+import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.DisplayUtils;
-import com.sell.it.Utility.EventDispatcher;
 import com.sell.it.Utility.FragmentNavigation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem.MANUFACTURER_KEY;
@@ -61,13 +61,17 @@ import static com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem.US
 
 public class AddAdvertisementFragment extends BaseFragment {
 
+    private final static String ITEM_DATA = "ITEM_DATA";
+    private final static String IMAGE_LIST = "IMAGE_LIST";
+    private final static String SELECTED_TYPE = "SELECTED_TYPE";
+
     private ArrayList<CustomPairItem<String, Class<?>>> mSelectableItems;
     private RecyclerView mDataInputView;
     private ItemAdapter mItemAdapter;
     private ArrayList<InputCallbackInterface> mItemCallbackList;
-    private ArrayList<String> mImageList;
-    private Map<String, Object> mItemData;
-    private Class<?> mItemType;
+    private ArrayList<String> mImageList = new ArrayList<>();
+    private HashMap<String, Object> mItemData = new HashMap<>();
+    private Class<?> mItemType = null;
 
     @Override
     protected int getLayoutId() {
@@ -83,11 +87,9 @@ public class AddAdvertisementFragment extends BaseFragment {
     protected void initComponents() {
         mItemCallbackList = new ArrayList<>();
         mItemAdapter = new ItemAdapter(getSpanCount());
-        mItemData = new HashMap<>();
         mDataInputView.setLayoutManager(new GridLayoutManager(getContext(), getSpanCount()));
         mDataInputView.setAdapter(mItemAdapter);
         iniSelectableItems();
-        addCategorySelectorField();
     }
 
     private void iniSelectableItems() {
@@ -241,7 +243,7 @@ public class AddAdvertisementFragment extends BaseFragment {
             }
 
             @Override
-            public String getValue() {
+            public String getStringValue() {
                 return mItemData.get(key) == null ? "" : (String) mItemData.get(key);
             }
 
@@ -260,7 +262,7 @@ public class AddAdvertisementFragment extends BaseFragment {
             }
 
             @Override
-            public String getValue() {
+            public String getStringValue() {
                 return mItemData.get(key) == null ? "" : mItemData.get(key) instanceof Float ?
                         String.valueOf(mItemData.get(key)).replace(".0", "") : "";
             }
@@ -277,6 +279,12 @@ public class AddAdvertisementFragment extends BaseFragment {
             @Override
             public void writeValue(Boolean value) {
                 mItemData.put(key, value);
+            }
+
+            @Override
+            public boolean getBooleanValue() {
+                Object item = mItemData.get(key);
+                return item instanceof Boolean && ((Boolean) item);
             }
 
             @Override
@@ -298,6 +306,11 @@ public class AddAdvertisementFragment extends BaseFragment {
             }
 
             @Override
+            public ArrayList<String> getItemList() {
+                return mImageList;
+            }
+
+            @Override
             public void registerCallback(InputCallbackInterface callback) {
                 mItemCallbackList.add(callback);
             }
@@ -309,6 +322,8 @@ public class AddAdvertisementFragment extends BaseFragment {
             @Override
             public void writeValue(Class<?> itemClass) {
                 if (String.class != itemClass) {
+                    mItemData.clear();
+                    mImageList.clear();
                     mItemType = itemClass;
                     mItemAdapter.clearItems();
                     addDataInputFields(itemClass);
@@ -322,8 +337,36 @@ public class AddAdvertisementFragment extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        EventDispatcher.offerEvent(new Event(Event.TYPE_CONTROL, Event.ACTION_LOCK_ORIENTATION));
+    protected void restoreItems(Bundle bundle) {
+        if (BundleUtil.canCast(bundle, SELECTED_TYPE, ClassPackaging.class)) {
+            mItemType = BundleUtil.castItem(bundle, SELECTED_TYPE, ClassPackaging.class).getItemClass();
+            mItemAdapter.clearItems();
+
+            if (BundleUtil.canCast(bundle, IMAGE_LIST, ArrayList.class)) {
+                mImageList = BundleUtil.castItem(bundle, IMAGE_LIST, ArrayList.class);
+            }
+
+            if (BundleUtil.canCast(bundle, ITEM_DATA, HashMap.class)) {
+                mItemData = BundleUtil.castItem(bundle, ITEM_DATA, HashMap.class);
+            }
+
+            mItemAdapter.clearItems();
+            addDataInputFields(mItemType);
+        } else {
+            addCategorySelectorField();
+        }
     }
+
+    @Override
+    protected Bundle saveItems() {
+        Bundle bundle = new Bundle();
+        if (mItemType != null) {
+            mItemCallbackList.forEach(InputCallbackInterface::writeValue);
+            bundle.putSerializable(IMAGE_LIST, mImageList);
+            bundle.putSerializable(ITEM_DATA, mItemData);
+            bundle.putSerializable(SELECTED_TYPE, new ClassPackaging(mItemType));
+        }
+        return bundle;
+    }
+
 }

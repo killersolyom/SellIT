@@ -85,16 +85,6 @@ public class FragmentNavigation {
         showFragment(new RegistrationFragment());
     }
 
-    public static void showAddAdvertisementFragment() {
-        if (!(getTopFragment() instanceof AddAdvertisementFragment)) {
-            showTransactionDialog(
-                    new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_FAIL),
-                    new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_SUCCESS));
-            DatabaseManager.verifyUser(DataManager.getEmailAddress(),
-                    TextUtils.decrypt(DataManager.getPassword()));
-        }
-    }
-
     public static void showProfileFragment() {
         showFragment(new ProfileFragment());
     }
@@ -185,7 +175,7 @@ public class FragmentNavigation {
                 showProfileFragment();
                 break;
             case R.id.advertisement:
-                showAddAdvertisementFragment();
+                verifyUser();
                 break;
             case R.id.nav_settings:
                 showSettingsFragment();
@@ -210,8 +200,17 @@ public class FragmentNavigation {
         }
     }
 
+    public static void verifyUser() {
+        if (!(getTopFragment() instanceof AddAdvertisementFragment)) {
+            showTransactionDialog(
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_FAIL),
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_SUCCESS));
+            DatabaseManager.verifyUser(DataManager.getEmailAddress(),
+                    TextUtils.decrypt(DataManager.getPassword()));
+        }
+    }
+
     private static boolean isDoubleBackPressPerformed() {
-        SnackBarUtility.showWithText(R.string.press_again, false);
         long currentTime = System.currentTimeMillis();
         boolean isUnderTimeLimit = Math.abs(currentTime - mLastBackPressTime) <= mExitTimeLimit;
         mLastBackPressTime = currentTime;
@@ -234,10 +233,6 @@ public class FragmentNavigation {
         System.exit(0);
     }
 
-    static void onPause() {
-        EventDispatcher.unSubscribe(mEventListener);
-    }
-
     private static EventListener mEventListener = event -> {
         switch (event.getEventType()) {
             case Event.TYPE_FIREBASE:
@@ -247,6 +242,7 @@ public class FragmentNavigation {
                         showLoginFragment();
                         return true;
                     case Event.ACTION_VERIFICATION_SUCCESS:
+                        DataCacheUtil.clearCache(AddAdvertisementFragment.class.getCanonicalName());
                         FragmentNavigation.showFragment(new AddAdvertisementFragment());
                         return true;
                 }
