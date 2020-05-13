@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,11 +17,13 @@ import com.sell.it.Communication.RequestListener;
 import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
 import com.sell.it.R;
 import com.sell.it.Utility.DisplayUtils;
+import com.sell.it.Utility.TextUtils;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem> {
 
+    private final String SEPARATOR = ": ";
     private Handler mReloadHandler;
     private float mItemTextSize;
     private int mItemRadius = 0;
@@ -59,20 +60,29 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         mInfoTextView.setTextSize(mItemTextSize);
     }
 
-    @SuppressLint("SetTextI18n")
     public void bindItem(BaseAdvertisementItem advertisementItem, ViewGroup.LayoutParams layoutParams) {
         mReloadHandler.removeCallbacksAndMessages(null);
         calculateOptimalSize(layoutParams);
         setTitle(advertisementItem.getTitle());
         loadImage(advertisementItem.getFirstImage().getImagePath());
-        Pair<Integer, String> pricePair = advertisementItem.getPriceInfoPair();
-        mInfoTextView.setText(getContext().getText(pricePair.first) + pricePair.second);
+        loadInfoItems(advertisementItem);
     }
 
+    @Override
     public void unbind() {
         mReloadHandler.removeCallbacksAndMessages(null);
         Glide.with(getContext()).clear(mAdvertisementImage);
         mAdvertisementTitleView.setText(null);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void loadInfoItems(BaseAdvertisementItem advertisementItem) {
+        float price = advertisementItem.getPrice();
+        String priceText = price == 0 ? getContext().getText(R.string.price_free).toString() : String.valueOf(price);
+        priceText = getContext().getText(R.string.advertisement_price) + SEPARATOR + priceText;
+        String phoneNumberText = advertisementItem.getPhoneNumber();
+        phoneNumberText = TextUtils.isEmpty(phoneNumberText) ? "" : ", " + phoneNumberText;
+        mInfoTextView.setText(priceText + phoneNumberText);
     }
 
     private void setTitle(String title) {

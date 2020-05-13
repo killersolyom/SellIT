@@ -49,6 +49,7 @@ import static com.sell.it.Model.ViewHolderItem.Advertisements.CarItem.PRODUCTION
 import static com.sell.it.Model.ViewHolderItem.Advertisements.CarItem.TIRE_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.DESCRIPTION_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.OWNER_KEY;
+import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.PHONE_NUMBER_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.PRICE_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.TITLE_KEY;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem.DVD_KEY;
@@ -180,6 +181,7 @@ public class AddAdvertisementFragment extends BaseFragment {
 
     private void initFields() {
         mItemData.put(OWNER_KEY, DataManager.getFirstName() + " " + DataManager.getLastName());
+        mItemData.put(PHONE_NUMBER_KEY, DataManager.getPhoneNumber());
     }
 
     private void addButtonField() {
@@ -215,6 +217,7 @@ public class AddAdvertisementFragment extends BaseFragment {
         addTextValueSetter(TITLE_KEY, mContext.getString(R.string.advertisement_title), true);
         addTextValueSetter(DESCRIPTION_KEY, mContext.getString(R.string.advertisement_description), true);
         addTextValueSetter(OWNER_KEY, mContext.getString(R.string.advertisement_owner), true);
+        addTextValueSetter(PHONE_NUMBER_KEY, mContext.getString(R.string.phone_number), true);
     }
 
     private void addMobilePhoneFields() {

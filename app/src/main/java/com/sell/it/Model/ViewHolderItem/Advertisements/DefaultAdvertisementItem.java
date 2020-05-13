@@ -21,12 +21,14 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     public static final String OWNER_KEY = "OWNER";
     public static final String ID_KEY = "ID";
     public static final String ITEM_KEY = "ITEM_TYPE";
+    public static final String PHONE_NUMBER_KEY = "PHONE_NUMBER";
 
     private String mId;
     private float mPrice;
     private String mTitle;
     private String mOwner;
     private String mDescription;
+    private String mPhoneNumber;
 
     @Exclude
     private ArrayList<BaseItem> mImageList = new ArrayList<>();
@@ -56,6 +58,11 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         return mPrice;
     }
 
+    @PropertyName(PHONE_NUMBER_KEY)
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
     @PropertyName(OWNER_KEY)
     public String getOwner() {
         return mOwner;
@@ -83,11 +90,8 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         addToListIfExist(descriptionList, R.string.advertisement_description, mDescription);
         addToListIfExist(descriptionList, R.string.advertisement_price, floatValueToDescriptionString(mPrice));
         addToListIfExist(descriptionList, R.string.advertisement_owner, mOwner);
+        addToListIfExist(descriptionList, R.string.phone_number, mPhoneNumber);
         return descriptionList;
-    }
-
-    public Pair<Integer, String> getPriceInfoPair() {
-        return new Pair<>(R.string.price_double_point, floatValueToDescriptionString(mPrice));
     }
 
     protected void addToListIfExist(ArrayList<Pair<Integer, String>> list, int textId, String item) {

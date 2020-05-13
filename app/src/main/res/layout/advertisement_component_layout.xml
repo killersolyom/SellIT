@@ -53,6 +53,7 @@
         android:paddingStart="3dp"
         android:paddingEnd="3dp"
         android:paddingBottom="3dp"
+        android:maxLines="2"
         app:layout_constraintBottom_toBottomOf="@id/item_background"
         app:layout_constraintEnd_toEndOf="@id/item_background"
         app:layout_constraintStart_toStartOf="@id/item_background" />
