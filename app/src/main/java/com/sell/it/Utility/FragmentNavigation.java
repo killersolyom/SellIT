@@ -248,7 +248,7 @@ public class FragmentNavigation {
                         FragmentNavigation.showFragment(new AddAdvertisementFragment());
                         return true;
                 }
-                return true;
+                return false;
         }
         return false;
     };

@@ -11,22 +11,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
-import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.ITEM_KEY;
-
 public class DatabaseManager {
     private static final String FIREBASE_USER_KEY = "users";
     private static final String FIREBASE_ADS_KEY = "ads";
     public static final String USER_KEY = "User";
+    public static final String ALL_ADVERTISEMENT_KEY = "ALL_ADVERTISEMENT_KEY";
 
 
     private static FirebaseAuth mAuth;
@@ -121,32 +118,15 @@ public class DatabaseManager {
     }
 
     public static void getAllAdvertisements() {
-        mDatabase.child(FIREBASE_ADS_KEY).addValueEventListener(new ValueEventListener() {
+        mDatabase.child(FIREBASE_ADS_KEY).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("TAG", "onDataChange:" + dataSnapshot.hasChild("ELECTRONIC_TYPE"));
-                HashMap<?, ?> ads = (HashMap) dataSnapshot.getValue();
-
-                //ads.entrySet().forEach(it -> Log.d("TAG", "onDataChange: " + it.getKey() + " " + it.getValue()));
-                ads.entrySet().forEach(it -> {
-                    HashMap<?, ?> tmp = (HashMap) it.getValue();
-                    tmp.entrySet().forEach(it2 -> {
-                        HashMap<?, ?> advertisementID = (HashMap) it2.getValue();
-                        advertisementID.entrySet().forEach(it3 -> {
-                            HashMap<String, Object> advertisement = (HashMap) it3.getValue();
-                            String itemType = Objects.requireNonNull(advertisement.get(ITEM_KEY)).toString();
-                            if (Values.ItemType.CAMERA_TYPE.equals(itemType)) {
-                                CameraItem cameraItem = new CameraItem(advertisement);
-                                cameraItem.getDescriptionList().forEach(it5 -> Log.d("TAG", "onDataChange: " + it5.first + " " + it5.second));
-                                //Log.d("TAG", "onDataChange: " + cameraItem.getItemType() + " " + cameraItem.getCategoryType());
-                            }
-
-                            //advertisement.entrySet().forEach(it4 -> {Log.d("TAG", "onDataChange: " + it4.getKey() + " " + it4.getValue());
-                        });
-                    });
-                });
-
-                //Log.d("TAG", "onDataChange: " + ads.entrySet().forEach(it -> ));
+                if (dataSnapshot.getValue() instanceof HashMap){
+                    HashMap<?, ?> ads = (HashMap) dataSnapshot.getValue();
+                    Bundle extraBundle = BundleUtil.createBundle(ALL_ADVERTISEMENT_KEY, ads);
+                    EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
+                            Event.ACTION_GET_ALL_ADVERTISEMENT, extraBundle));
+                }
             }
 
             @Override

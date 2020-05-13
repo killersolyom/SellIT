@@ -31,6 +31,7 @@ public class Event {
     public static final int ACTION_UNLOCK_ORIENTATION = 11;
     public static final int ACTION_PICK_IMAGE = 12;
     public static final int ACTION_ADD_IMAGE = 13;
+    public static final int ACTION_GET_ALL_ADVERTISEMENT = 14;
 
 
     public Event(int mEventType, int mEventAction) {
