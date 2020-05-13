@@ -70,5 +70,6 @@
     <string name="advertisement_vehicles">Járművek</string>
     <string name="advertisement_electronics">Elektronika</string>
     <string name="advertisement_all">Minden kategória</string>
+    <string name="price_double_point">Price :\u0020</string>
 
 </resources>

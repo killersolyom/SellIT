@@ -86,6 +86,10 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         return descriptionList;
     }
 
+    public Pair<Integer, String> getPriceInfoPair() {
+        return new Pair<>(R.string.price_double_point, floatValueToDescriptionString(mPrice));
+    }
+
     protected void addToListIfExist(ArrayList<Pair<Integer, String>> list, int textId, String item) {
         if (!TextUtils.isEmpty(item)) {
             list.add(new Pair<>(textId, item));
