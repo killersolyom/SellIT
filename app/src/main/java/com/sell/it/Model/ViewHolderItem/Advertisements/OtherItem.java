@@ -7,14 +7,14 @@ import com.google.firebase.database.PropertyName;
 import com.sell.it.Model.Constant.Values;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public class OtherItem extends DefaultAdvertisementItem {
 
     public OtherItem() {
     }
 
-    public OtherItem(Map<String, Object> mItemData) {
+    public OtherItem(HashMap<String, Object> mItemData) {
         initItems(mItemData);
     }
 

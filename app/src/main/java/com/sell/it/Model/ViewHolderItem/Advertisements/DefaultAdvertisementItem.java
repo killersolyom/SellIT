@@ -11,7 +11,7 @@ import com.sell.it.R;
 import com.sell.it.Utility.TextUtils;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
 
@@ -92,7 +92,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         }
     }
 
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         mPrice = getFloatValue(items.get(PRICE_KEY));
         mTitle = getStringValue(items.get(TITLE_KEY));
         mOwner = getStringValue(items.get(OWNER_KEY));
@@ -108,15 +108,17 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     }
 
     protected float getFloatValue(Object item) {
-        return (item instanceof Float) ? (Float) item : 0;
+        return (item instanceof Float) ? (Float) item :
+                item instanceof Long ? ((Long) item).floatValue() : 0;
     }
 
     protected int getIntValue(Object item) {
-        return (item instanceof Float) ? ((Float) item).intValue() : 0;
+        return item instanceof Float ? ((Float) item).intValue() :
+                item instanceof Long ? ((Long) item).intValue() : 0;
     }
 
     protected String floatValueToDescriptionString(float value) {
-        return value == 0 ? "" : String.valueOf(value);
+        return value == 0 ? "" : String.valueOf(value).replace(".0", "");
     }
 
     protected String intValueToDescriptionString(int value) {

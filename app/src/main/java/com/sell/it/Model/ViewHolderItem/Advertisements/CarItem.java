@@ -8,7 +8,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public class CarItem extends BaseVehicleType {
 
@@ -16,7 +16,7 @@ public class CarItem extends BaseVehicleType {
 
     private int mDoorNumber;
 
-    public CarItem(Map<String, Object> mItemData) {
+    public CarItem(HashMap<String, Object> mItemData) {
         initItems(mItemData);
     }
 
@@ -32,7 +32,7 @@ public class CarItem extends BaseVehicleType {
     }
 
     @Override
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         super.initItems(items);
         mDoorNumber = getIntValue(items.get(DOOR_NUMBER_KEY));
     }

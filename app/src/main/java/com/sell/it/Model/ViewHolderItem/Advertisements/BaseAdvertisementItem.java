@@ -8,7 +8,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public abstract class BaseAdvertisementItem extends DefaultAdvertisementItem {
 
@@ -28,7 +28,7 @@ public abstract class BaseAdvertisementItem extends DefaultAdvertisementItem {
     }
 
     @Override
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         super.initItems(items);
         mManufacturer = getStringValue(items.get(MANUFACTURER_KEY));
     }

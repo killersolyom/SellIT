@@ -8,7 +8,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public abstract class BaseVehicleType extends BaseAdvertisementItem {
 
@@ -29,7 +29,7 @@ public abstract class BaseVehicleType extends BaseAdvertisementItem {
     public BaseVehicleType() {
     }
 
-    public BaseVehicleType(Map<String, Object> mItemData) {
+    public BaseVehicleType(HashMap<String, Object> mItemData) {
         initItems(mItemData);
     }
 
@@ -70,7 +70,7 @@ public abstract class BaseVehicleType extends BaseAdvertisementItem {
     }
 
     @Override
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         super.initItems(items);
         mColor = getStringValue(items.get(COLOR_KEY));
         mEngineType = getStringValue(items.get(ENGINE_TYPE_KEY));

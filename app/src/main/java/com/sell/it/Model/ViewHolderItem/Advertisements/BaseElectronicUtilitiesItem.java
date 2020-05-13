@@ -8,7 +8,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public abstract class BaseElectronicUtilitiesItem extends BaseAdvertisementItem {
 
@@ -35,7 +35,7 @@ public abstract class BaseElectronicUtilitiesItem extends BaseAdvertisementItem 
     }
 
     @Override
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         super.initItems(items);
         mBatterySize = getIntValue(items.get(BATTERY_KEY));
         mScreenSize = getFloatValue(items.get(SCREEN_KEY));

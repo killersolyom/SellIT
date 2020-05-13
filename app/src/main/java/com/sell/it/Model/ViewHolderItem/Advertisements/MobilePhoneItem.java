@@ -8,7 +8,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public class MobilePhoneItem extends BaseComputeUnitItem {
 
@@ -27,7 +27,7 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
     public MobilePhoneItem() {
     }
 
-    public MobilePhoneItem(Map<String, Object> mItemData) {
+    public MobilePhoneItem(HashMap<String, Object> mItemData) {
         initItems(mItemData);
     }
 
@@ -63,7 +63,7 @@ public class MobilePhoneItem extends BaseComputeUnitItem {
     }
 
     @Override
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         super.initItems(items);
         mUsbType = getStringValue(items.get(USB_KEY));
         jack = getBooleanValue(items.get(JACK_KEY));

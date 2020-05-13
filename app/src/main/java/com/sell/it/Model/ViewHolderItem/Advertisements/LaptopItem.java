@@ -8,7 +8,7 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public class LaptopItem extends BaseComputeUnitItem {
 
@@ -18,7 +18,7 @@ public class LaptopItem extends BaseComputeUnitItem {
     private int mNumberOfUsbPorts;
     private boolean dvdRom;
 
-    public LaptopItem(Map<String, Object> mItemData) {
+    public LaptopItem(HashMap<String, Object> mItemData) {
         initItems(mItemData);
     }
 
@@ -33,7 +33,7 @@ public class LaptopItem extends BaseComputeUnitItem {
     }
 
     @Override
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         super.initItems(items);
         mNumberOfUsbPorts = getIntValue(items.get(USB_PORT_KEY));
         dvdRom = getBooleanValue(items.get(DVD_KEY));

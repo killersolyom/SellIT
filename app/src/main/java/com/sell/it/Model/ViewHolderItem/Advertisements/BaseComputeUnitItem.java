@@ -7,7 +7,7 @@ import com.google.firebase.database.PropertyName;
 import com.sell.it.R;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 
 public abstract class BaseComputeUnitItem extends BaseElectronicUtilitiesItem {
 
@@ -35,7 +35,7 @@ public abstract class BaseComputeUnitItem extends BaseElectronicUtilitiesItem {
     }
 
     @Override
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         super.initItems(items);
         mCpu = getStringValue(items.get(CPU_KEY));
         mMemory = getIntValue(items.get(MEMORY_KEY));

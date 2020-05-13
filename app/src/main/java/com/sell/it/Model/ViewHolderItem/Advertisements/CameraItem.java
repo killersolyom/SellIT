@@ -9,7 +9,6 @@ import com.sell.it.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class CameraItem extends BaseElectronicUtilitiesItem {
 
@@ -33,7 +32,7 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
     }
 
     @Override
-    protected void initItems(Map<String, Object> items) {
+    protected void initItems(HashMap<String, Object> items) {
         super.initItems(items);
         mMegaPixels = getIntValue(items.get(MEGA_PIXEL_KEY));
     }
