@@ -16,8 +16,6 @@ import com.sell.it.R;
 import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.EventDispatcher;
 
-import java.io.Serializable;
-
 public abstract class BaseFragment extends Fragment implements EventListener {
 
     public final String TAG = this.getClass().getCanonicalName();
@@ -78,12 +76,6 @@ public abstract class BaseFragment extends Fragment implements EventListener {
 
     protected Bundle getSavedItems() {
         return DataCacheUtil.getItem(TAG);
-    }
-
-    protected void saveItem(Serializable item, String key) {
-        Bundle bundle = getSavedItems();
-        bundle.putSerializable(key, item);
-        DataCacheUtil.addItem(TAG, bundle);
     }
 
     @Override
