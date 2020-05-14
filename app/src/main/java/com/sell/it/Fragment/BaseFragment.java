@@ -66,7 +66,7 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     protected void loadImages() {
     }
 
-    protected void clearImages() {
+    protected void removeCallbacks() {
     }
 
     protected Bundle saveItems() {
@@ -96,7 +96,7 @@ public abstract class BaseFragment extends Fragment implements EventListener {
         super.onPause();
         EventDispatcher.unSubscribe(this);
         DataCacheUtil.addItem(TAG, saveItems());
-        clearImages();
+        removeCallbacks();
     }
 
     @Override

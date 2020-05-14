@@ -5,7 +5,6 @@ import android.util.Pair;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
 import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
-import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.Model.ViewHolderItem.ImageItem;
 import com.sell.it.R;
 import com.sell.it.Utility.TextUtils;
@@ -31,7 +30,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     private String mPhoneNumber;
 
     @Exclude
-    private ArrayList<BaseItem> mImageList = new ArrayList<>();
+    private ArrayList<ImageItem> mImageList = new ArrayList<>();
 
     @PropertyName(TITLE_KEY)
     public String getTitle() {
@@ -58,6 +57,10 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         return mPrice;
     }
 
+    public String getPriceString() {
+        return String.valueOf(mPrice).replace(".0", "");
+    }
+
     @PropertyName(PHONE_NUMBER_KEY)
     public String getPhoneNumber() {
         return mPhoneNumber;
@@ -70,10 +73,10 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
 
     @Exclude
     public ImageItem getFirstImage() {
-        return mImageList.isEmpty() ? new ImageItem() : (ImageItem) mImageList.get(0);
+        return mImageList.isEmpty() ? new ImageItem() : mImageList.get(0);
     }
 
-    public ArrayList<BaseItem> getImageList() {
+    public ArrayList<ImageItem> getImageList() {
         return mImageList;
     }
 

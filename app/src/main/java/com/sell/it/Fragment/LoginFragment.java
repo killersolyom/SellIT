@@ -68,7 +68,7 @@ public class LoginFragment extends BaseAuthenticationFragment {
     }
 
     @Override
-    protected void clearImages() {
+    protected void removeCallbacks() {
         Glide.with(mContext).clear(mApplicationLogo);
     }
 

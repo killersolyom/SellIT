@@ -10,9 +10,9 @@ import com.sell.it.Model.ViewHolderItem.BaseItem;
 
 import java.util.ArrayList;
 
-public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class ItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter<BaseViewHolder> {
 
-    private ArrayList<BaseItem> mItemList = new ArrayList<>();
+    private ArrayList<Item> mItemList = new ArrayList<>();
     private int mSpanCount;
 
     public ItemAdapter() {
@@ -50,15 +50,11 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return mItemList.size();
     }
 
-    public void setSpanCount(int spanCount) {
-        mSpanCount = spanCount;
-    }
-
-    public void addItemList(ArrayList<BaseItem> itemList) {
+    public void addItemList(ArrayList<Item> itemList) {
         mItemList = itemList;
     }
 
-    public void addItem(BaseItem item) {
+    public void addItem(Item item) {
         mItemList.add(item);
         notifyItemInserted(mItemList.indexOf(item));
     }
@@ -72,7 +68,7 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return mItemList.isEmpty();
     }
 
-    public ArrayList<BaseItem> getItemList() {
+    public ArrayList<Item> getItemList() {
         return mItemList;
     }
     

@@ -18,6 +18,7 @@ import com.sell.it.Adapter.ViewHolder.MiniImageViewHolder;
 import com.sell.it.Adapter.ViewHolder.NumberInputViewHolder;
 import com.sell.it.Adapter.ViewHolder.TextInputViewHolder;
 import com.sell.it.Adapter.ViewHolder.TextItemViewHolder;
+import com.sell.it.Adapter.ViewHolder.TextPairItemViewHolder;
 import com.sell.it.Adapter.ViewHolder.TextSeparatorViewHolder;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
@@ -55,6 +56,8 @@ class LayoutSelector {
                 return new ImageChooserViewHolder(inflateView(parent, R.layout.recyclerview_image_input_component));
             case Values.ViewType.TEXT_ITEM_TYPE:
                 return new TextItemViewHolder(inflateView(parent, R.layout.recyclerview_text_item_component));
+            case Values.ViewType.TEXT_PAIR_ITEM_TYPE:
+                return new TextPairItemViewHolder(inflateView(parent, R.layout.recyclerview_text_pair_item_component));
             default:
                 return new DefaultViewHolder(inflateView(parent, R.layout.default_viewholder));
         }

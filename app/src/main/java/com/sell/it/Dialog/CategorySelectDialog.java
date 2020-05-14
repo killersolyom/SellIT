@@ -3,7 +3,6 @@ package com.sell.it.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.Window;
@@ -16,13 +15,14 @@ import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.CustomPairItem;
 import com.sell.it.Model.ViewHolderItem.TextItem;
 import com.sell.it.R;
+import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class CategorySelectDialog extends BaseDialogFragment {
 
-    private final String ALL_CATEGORY = "ALL";
+    public static final String ALL_CATEGORY = "ALL";
     private RecyclerView mCategoryView;
 
     @Override
@@ -44,7 +44,7 @@ public class CategorySelectDialog extends BaseDialogFragment {
     @Override
     protected void initComponents(Context context) {
         mCategoryView.setLayoutManager(new LinearLayoutManager(context));
-        ItemAdapter adapter = new ItemAdapter();
+        ItemAdapter<TextItem> adapter = new ItemAdapter();
         mCategoryView.setAdapter(adapter);
         addLanguageItems(adapter);
     }
@@ -85,16 +85,16 @@ public class CategorySelectDialog extends BaseDialogFragment {
     private void onItemClicked(Object item) {
         if (item instanceof String) {
             String selectedCategory = item.toString();
-            if(selectedCategory.equals(ALL_CATEGORY)){
+            if (selectedCategory.equals(ALL_CATEGORY)) {
                 DatabaseManager.getAllAdvertisements();
-            }else{
+            } else {
                 //fokategoria
             }
-            Log.d("3ss", "Whole category " + selectedCategory);
+            DataManager.saveLastSelectedCategory(selectedCategory, selectedCategory);
         } else if (item instanceof Pair) {
             Pair selectedItem = (Pair) item;
             //alkategoria
-            Log.d("3ss", "Selected category " + selectedItem.first + " " + selectedItem.second);
+            DataManager.saveLastSelectedCategory(selectedItem.first.toString(), selectedItem.second.toString());
         }
         dismissDialog();
     }

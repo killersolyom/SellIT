@@ -4,7 +4,7 @@ import com.sell.it.Model.Constant.Values;
 
 public class ImageItem extends BaseDefaultItem {
 
-    private String mImagePath = "";
+    protected String mImagePath = "";
 
     public ImageItem() {
     }
