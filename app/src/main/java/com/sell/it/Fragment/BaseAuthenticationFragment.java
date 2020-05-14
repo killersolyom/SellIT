@@ -1,7 +1,5 @@
 package com.sell.it.Fragment;
 
-import android.view.View;
-
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
 import com.sell.it.R;
@@ -13,16 +11,7 @@ import com.sell.it.Utility.SnackBarUtility;
 
 import static com.sell.it.Utility.DatabaseManager.USER_KEY;
 
-public class BaseAuthenticationFragment extends BaseFragment {
-    @Override
-    protected int getLayoutId() {
-        return 0;
-    }
-
-    @Override
-    protected void findView(View view) {
-
-    }
+public abstract class BaseAuthenticationFragment extends BaseFragment {
 
     @Override
     public boolean onEvent(Event event) {

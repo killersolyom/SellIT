@@ -77,11 +77,13 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
 
     @SuppressLint("SetTextI18n")
     private void loadInfoItems(BaseAdvertisementItem advertisementItem) {
-        float price = advertisementItem.getPrice();
-        String priceText = price == 0 ? getContext().getText(R.string.price_free).toString() : String.valueOf(price);
+        String priceText = advertisementItem.getPrice() == 0 ?
+                getContext().getText(R.string.price_free).toString() : advertisementItem.getPriceString();
         priceText = getContext().getText(R.string.advertisement_price) + SEPARATOR + priceText;
+
         String phoneNumberText = advertisementItem.getPhoneNumber();
         phoneNumberText = TextUtils.isEmpty(phoneNumberText) ? "" : ", " + phoneNumberText;
+
         mInfoTextView.setText(priceText + phoneNumberText);
     }
 

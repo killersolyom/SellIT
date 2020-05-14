@@ -16,6 +16,7 @@ import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.OtherItem;
+import com.sell.it.Model.ViewHolderItem.BaseValueInputItem;
 import com.sell.it.Model.ViewHolderItem.BooleanValueListenerItem;
 import com.sell.it.Model.ViewHolderItem.ButtonInputItem;
 import com.sell.it.Model.ViewHolderItem.DropDownItem;
@@ -68,7 +69,7 @@ public class AddAdvertisementFragment extends BaseFragment {
 
     private ArrayList<CustomPairItem<String, Class<?>>> mSelectableItems;
     private RecyclerView mDataInputView;
-    private ItemAdapter mItemAdapter;
+    private ItemAdapter<BaseValueInputItem> mItemAdapter;
     private ArrayList<InputCallbackInterface> mItemCallbackList;
     private ArrayList<String> mImageList = new ArrayList<>();
     private HashMap<String, Object> mItemData = new HashMap<>();

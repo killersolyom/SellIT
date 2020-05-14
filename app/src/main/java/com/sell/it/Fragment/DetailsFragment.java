@@ -1,8 +1,6 @@
 package com.sell.it.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.ImageItem;
+import com.sell.it.Model.ViewHolderItem.TextInfoPairItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DisplayUtils;
@@ -25,7 +25,8 @@ public class DetailsFragment extends BaseFragment {
     private RecyclerView mImageRecyclerView;
     private RecyclerView mInfoRecyclerView;
     private TextView mTitleView;
-    private ItemAdapter mImageAdapter;
+    public TextView mNoImagetext;
+    private ItemAdapter<ImageItem> mImageAdapter;
     private ItemAdapter mInfoAdapter;
 
     public static DetailsFragment newInstance(BaseAdvertisementItem item) {
@@ -46,6 +47,7 @@ public class DetailsFragment extends BaseFragment {
         mImageRecyclerView = view.findViewById(R.id.images_recycler_view);
         mInfoRecyclerView = view.findViewById(R.id.info_recycler_view);
         mTitleView = view.findViewById(R.id.advertisement_title);
+        mNoImagetext = view.findViewById(R.id.no_image_text);
     }
 
     @Override
@@ -56,8 +58,7 @@ public class DetailsFragment extends BaseFragment {
         mImageRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 DisplayUtils.getOrientation() == PORTRAIT ? HORIZONTAL : VERTICAL, false));
 
-        mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
-                DisplayUtils.getOrientation() == PORTRAIT ? HORIZONTAL : VERTICAL, false));
+        mInfoRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), VERTICAL, false));
 
         mImageRecyclerView.setAdapter(mImageAdapter);
         mInfoRecyclerView.setAdapter(mInfoAdapter);
@@ -68,15 +69,17 @@ public class DetailsFragment extends BaseFragment {
         if (BundleUtil.hasValueAt(bundle, ADVERTISEMENT_ITEM_KEY)) {
             BaseAdvertisementItem advertisement =
                     BundleUtil.castItem(bundle, ADVERTISEMENT_ITEM_KEY, BaseAdvertisementItem.class);
+
             mTitleView.setText(advertisement.getTitle());
 
-            mImageAdapter.addItemList(advertisement.getImageList());
-            //mInfoAdapter.addItemList();
-
-            for (Pair<Integer, String> it : advertisement.getDescriptionList()) {
-                Log.d(TAG, mContext.getString(it.first) + " " + it.second);
+            if (advertisement.getImageList().isEmpty()) {
+                mNoImagetext.setVisibility(View.VISIBLE);
+            } else {
+                mNoImagetext.setVisibility(View.GONE);
+                mImageAdapter.addItemList(advertisement.getImageList());
             }
 
+            advertisement.getDescriptionList().forEach(it -> mInfoAdapter.addItem(new TextInfoPairItem(it)));
         }
     }
 }

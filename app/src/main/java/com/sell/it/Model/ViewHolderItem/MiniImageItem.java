@@ -2,19 +2,10 @@ package com.sell.it.Model.ViewHolderItem;
 
 import com.sell.it.Model.Constant.Values;
 
-public class MiniImageItem extends BaseDefaultItem {
-
-    private String mImagePath = "";
-
-    public MiniImageItem() {
-    }
+public class MiniImageItem extends ImageItem {
 
     public MiniImageItem(String mImagePath) {
         this.mImagePath = mImagePath;
-    }
-
-    public String getImagePath() {
-        return mImagePath;
     }
 
     @Override

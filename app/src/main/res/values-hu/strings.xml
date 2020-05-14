@@ -71,5 +71,6 @@
     <string name="advertisement_electronics">Elektronika</string>
     <string name="advertisement_all">Minden kategória</string>
     <string name="price_free">Ingyenes</string>
+    <string name="advertisement_no_images">Nincs megjeleníthető kép!</string>
 
 </resources>

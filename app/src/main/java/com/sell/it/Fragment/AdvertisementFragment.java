@@ -6,19 +6,22 @@ import android.widget.ImageView;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.sell.it.Adapter.ItemAdapter;
+import com.sell.it.Dialog.CategorySelectDialog;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.MobilePhoneItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.OtherItem;
-import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DataManager;
+import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.DisplayUtils;
 import com.sell.it.Utility.FragmentNavigation;
 
@@ -38,7 +41,14 @@ public class AdvertisementFragment extends BaseFragment {
     private ImageView mAddAdvertisementView;
     private ImageView mCategorySelectorView;
     private GridLayoutManager mLayoutManager;
-    private ItemAdapter mItemAdapter;
+    private SwipeRefreshLayout mFragmentLayout;
+    private ItemAdapter<DefaultAdvertisementItem> mItemAdapter;
+    private Runnable mRefreshRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mFragmentLayout.setRefreshing(false);
+        }
+    };
 
     @Override
     protected int getLayoutId() {
@@ -50,6 +60,7 @@ public class AdvertisementFragment extends BaseFragment {
         mAdvertisementRecyclerView = view.findViewById(R.id.advertisement_recycler_view);
         mAddAdvertisementView = view.findViewById(R.id.add_advertisement);
         mCategorySelectorView = view.findViewById(R.id.select_category);
+        mFragmentLayout = view.findViewById(R.id.refresh_layout);
     }
 
     @Override
@@ -59,6 +70,7 @@ public class AdvertisementFragment extends BaseFragment {
         mAdvertisementRecyclerView.setAdapter(mItemAdapter);
         mAdvertisementRecyclerView.setLayoutManager(mLayoutManager);
         mAdvertisementRecyclerView.setItemViewCacheSize(4 * getSpanCount());
+        mFragmentLayout.setOnRefreshListener(this::onRefresh);
     }
 
     @Override
@@ -67,8 +79,7 @@ public class AdvertisementFragment extends BaseFragment {
         mCategorySelectorView.setOnClickListener(v -> FragmentNavigation.showCategorySelectorDialog());
     }
 
-    private void loadItems(ArrayList<BaseItem> itemList) {
-        mItemAdapter.setSpanCount(getSpanCount());
+    private void loadItems(ArrayList<DefaultAdvertisementItem> itemList) {
         mItemAdapter.addItemList(itemList);
         saveItems();
     }
@@ -83,12 +94,19 @@ public class AdvertisementFragment extends BaseFragment {
     protected void restoreItems(Bundle bundle) {
         if (BundleUtil.canCast(bundle, TAG, ArrayList.class)) {
             loadItems(BundleUtil.castItem(bundle, TAG, ArrayList.class));
+        } else {
+            DatabaseManager.getAllAdvertisements();
         }
     }
 
     @Override
     protected Bundle saveItems() {
         return BundleUtil.createBundle(TAG, mItemAdapter.getItemList());
+    }
+
+    @Override
+    protected void removeCallbacks() {
+        mFragmentLayout.removeCallbacks(mRefreshRunnable);
     }
 
     @Override
@@ -99,6 +117,7 @@ public class AdvertisementFragment extends BaseFragment {
                     case Event.ACTION_GET_ALL_ADVERTISEMENT:
                         if (BundleUtil.canCast(event.getExtras(), ALL_ADVERTISEMENT_KEY, HashMap.class)) {
                             mItemAdapter.clearItems();
+                            mFragmentLayout.setRefreshing(false);
                             loadAllAdvertisements(BundleUtil.castItem(event.getExtras(), ALL_ADVERTISEMENT_KEY, HashMap.class));
                         }
                         return true;
@@ -117,6 +136,21 @@ public class AdvertisementFragment extends BaseFragment {
                 }
         }
         return false;
+    }
+
+    private void onRefresh() {
+        mFragmentLayout.postDelayed(mRefreshRunnable, 2000);
+        String[] lastSelected = DataManager.getLastSelectedCategory();
+        if (lastSelected[0].equals(lastSelected[1])) {
+            if (lastSelected[0].equals(CategorySelectDialog.ALL_CATEGORY)) {
+                DatabaseManager.getAllAdvertisements();
+            } else {
+
+            }
+            mFragmentLayout.removeCallbacks(null);
+        } else {
+
+        }
     }
 
     private void loadAllAdvertisements(HashMap<?, ?> allItem) {

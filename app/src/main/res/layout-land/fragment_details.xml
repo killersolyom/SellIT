@@ -12,7 +12,23 @@
         app:layout_constraintEnd_toStartOf="@id/info_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.65" />
+        app:layout_constraintWidth_percent="0.5" />
+
+    <TextView
+        android:id="@+id/no_image_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="35dp"
+        android:text="@string/advertisement_no_images"
+        android:textColor="@color/colorWhite"
+        android:textSize="32sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/images_recycler_view"
+        app:layout_constraintEnd_toEndOf="@id/images_recycler_view"
+        app:layout_constraintStart_toStartOf="@id/images_recycler_view"
+        app:layout_constraintTop_toBottomOf="@id/advertisement_title"
+        app:layout_constraintWidth_percent="0.5" />
 
     <TextView
         android:id="@+id/advertisement_title"

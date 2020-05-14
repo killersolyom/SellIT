@@ -70,5 +70,6 @@
     <string name="advertisement_electronics">Electronics</string>
     <string name="advertisement_all">All category</string>
     <string name="price_free">Free</string>
+    <string name="advertisement_no_images">No image available!</string>
 
 </resources>

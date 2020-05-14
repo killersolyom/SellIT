@@ -12,7 +12,6 @@ import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.EventListener;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.BaseValueInputItem;
-import com.sell.it.Model.ViewHolderItem.ImageItem;
 import com.sell.it.Model.ViewHolderItem.MiniImageItem;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
@@ -28,7 +27,7 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
 
     private ImageView mAddImage;
     private RecyclerView mImageRecyclerView;
-    private ItemAdapter mItemAdapter;
+    private ItemAdapter<MiniImageItem> mItemAdapter;
     private ArrayList<String> mItems;
 
     public ImageChooserViewItem(Context context, AttributeSet attrs) {
@@ -71,7 +70,7 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
     private void addItemsToAdapter() {
         mItemAdapter.clearItems();
         for (String it : mItems) {
-            mItemAdapter.addItem(new ImageItem(it));
+            mItemAdapter.addItem(new MiniImageItem(it));
         }
     }
 

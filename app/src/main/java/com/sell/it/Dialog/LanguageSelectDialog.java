@@ -28,7 +28,7 @@ public class LanguageSelectDialog extends BaseDialogFragment {
     @Override
     protected void initComponents(Context context) {
         mLanguageRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        ItemAdapter adapter = new ItemAdapter();
+        ItemAdapter<LanguageItem> adapter = new ItemAdapter();
         mLanguageRecyclerView.setAdapter(adapter);
         addLanguageItems(adapter, context);
     }

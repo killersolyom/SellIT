@@ -16,8 +16,6 @@ import com.sell.it.R;
 import com.sell.it.Utility.DataCacheUtil;
 import com.sell.it.Utility.EventDispatcher;
 
-import java.io.Serializable;
-
 public abstract class BaseFragment extends Fragment implements EventListener {
 
     public final String TAG = this.getClass().getCanonicalName();
@@ -66,7 +64,7 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     protected void loadImages() {
     }
 
-    protected void clearImages() {
+    protected void removeCallbacks() {
     }
 
     protected Bundle saveItems() {
@@ -80,12 +78,6 @@ public abstract class BaseFragment extends Fragment implements EventListener {
         return DataCacheUtil.getItem(TAG);
     }
 
-    protected void saveItem(Serializable item, String key) {
-        Bundle bundle = getSavedItems();
-        bundle.putSerializable(key, item);
-        DataCacheUtil.addItem(TAG, bundle);
-    }
-
     @Override
     public boolean onEvent(Event event) {
         return false;
@@ -96,7 +88,7 @@ public abstract class BaseFragment extends Fragment implements EventListener {
         super.onPause();
         EventDispatcher.unSubscribe(this);
         DataCacheUtil.addItem(TAG, saveItems());
-        clearImages();
+        removeCallbacks();
     }
 
     @Override

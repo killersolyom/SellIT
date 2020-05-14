@@ -3,6 +3,7 @@ package com.sell.it.Utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.sell.it.Dialog.CategorySelectDialog;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.User;
 
@@ -17,6 +18,8 @@ public class DataManager {
     private static final String USERNAME_KEY = "username_key";
     private static final String PASSWORD_KEY = "password_key";
     private static final String PHONE_KEY = "phone_key";
+    public static final String LAST_SELECTED_CATEGORY_KEY = "LAST_SELECTED_CATEGORY_KEY";
+    public static final String LAST_SELECTED_SUB_CATEGORY_KEY = "LAST_SELECTED_SUB_CATEGORY_KEY";
 
     private static SharedPreferences mPreference;
 
@@ -40,6 +43,10 @@ public class DataManager {
 
     private static String readStringData(String key) {
         return mPreference.getString(key, "");
+    }
+
+    private static String readStringData(String key, String defaultValue) {
+        return mPreference.getString(key, defaultValue);
     }
 
     private static long readLongData(String key, long defaultValue) {
@@ -83,11 +90,11 @@ public class DataManager {
         return new User(getEmailAddress(), getFirstName(), getLastName(), getUserName(), password);
     }
 
-    public static void savePhoneNumber(String phoneNumber){
-        writeString(phoneNumber,PHONE_KEY);
+    public static void savePhoneNumber(String phoneNumber) {
+        writeString(phoneNumber, PHONE_KEY);
     }
 
-    public static String getPhoneNumber(){
+    public static String getPhoneNumber() {
         return readStringData(PHONE_KEY);
     }
 
@@ -148,6 +155,18 @@ public class DataManager {
 
     public static void saveRememberMeStatus(boolean value) {
         writeBooleanData(value, REMEMBER_ME_KEY);
+    }
+
+    public static void saveLastSelectedCategory(String subCategory, String category) {
+        writeString(category, LAST_SELECTED_CATEGORY_KEY);
+        writeString(subCategory, LAST_SELECTED_SUB_CATEGORY_KEY);
+    }
+
+    public static String[] getLastSelectedCategory() {
+        String[] category = new String[2];
+        category[0] = readStringData(LAST_SELECTED_SUB_CATEGORY_KEY, CategorySelectDialog.ALL_CATEGORY);
+        category[1] = readStringData(LAST_SELECTED_CATEGORY_KEY, CategorySelectDialog.ALL_CATEGORY);
+        return category;
     }
 
 }
