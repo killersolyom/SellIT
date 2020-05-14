@@ -89,7 +89,6 @@ public class AdvertisementFragment extends BaseFragment {
                 DataManager.getPortraitColumnNumber() : DataManager.getLandscapeColumnNumber();
     }
 
-
     @Override
     protected void restoreItems(Bundle bundle) {
         if (BundleUtil.canCast(bundle, TAG, ArrayList.class)) {
