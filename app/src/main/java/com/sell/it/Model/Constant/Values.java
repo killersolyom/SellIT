@@ -32,7 +32,7 @@ public class Values {
     public static class CategoryType {
         public static final String VEHICLE_TYPE = "VEHICLE_TYPE";
         public static final String ELECTRONIC_TYPE = "ELECTRONIC_TYPE";
-        public static final String OTHERS_TYPE = "OTHER_TYPE";
+        public static final String OTHERS_TYPE = "OTHERS_TYPE";
     }
 
     public static class Language {

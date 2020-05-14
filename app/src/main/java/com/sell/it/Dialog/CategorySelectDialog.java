@@ -88,12 +88,13 @@ public class CategorySelectDialog extends BaseDialogFragment {
             if(selectedCategory.equals(ALL_CATEGORY)){
                 DatabaseManager.getAllAdvertisements();
             }else{
-                //fokategoria
+                DatabaseManager.getCategoryAdvertisements(selectedCategory);
             }
             Log.d("3ss", "Whole category " + selectedCategory);
         } else if (item instanceof Pair) {
             Pair selectedItem = (Pair) item;
             //alkategoria
+            DatabaseManager.getSubCategoryAdvertisements(selectedItem.first.toString(), selectedItem.second.toString());
             Log.d("3ss", "Selected category " + selectedItem.first + " " + selectedItem.second);
         }
         dismissDialog();

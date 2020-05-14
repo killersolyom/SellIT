@@ -4,6 +4,7 @@ import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
+import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
 import com.sell.it.Model.ViewHolderItem.BaseItem;
 import com.sell.it.Model.ViewHolderItem.ImageItem;
@@ -92,6 +93,11 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         addToListIfExist(descriptionList, R.string.advertisement_owner, mOwner);
         addToListIfExist(descriptionList, R.string.phone_number, mPhoneNumber);
         return descriptionList;
+    }
+    @Exclude
+    @Override
+    public int getViewType() {
+        return Values.ViewType.ADVERTISEMENT_TYPE;
     }
 
     protected void addToListIfExist(ArrayList<Pair<Integer, String>> list, int textId, String item) {

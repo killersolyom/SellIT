@@ -32,6 +32,9 @@ public class Event {
     public static final int ACTION_PICK_IMAGE = 12;
     public static final int ACTION_ADD_IMAGE = 13;
     public static final int ACTION_GET_ALL_ADVERTISEMENT = 14;
+    public static final int ACTION_GET_CATEGORY_ADVERTISEMENT = 15;
+    public static final int ACTION_GET_ITEM_TYPE_ADVERTISEMENT = 16;
+
 
 
     public Event(int mEventType, int mEventAction) {

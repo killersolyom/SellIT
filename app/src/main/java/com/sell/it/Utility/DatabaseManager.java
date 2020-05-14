@@ -24,7 +24,8 @@ public class DatabaseManager {
     private static final String FIREBASE_ADS_KEY = "ads";
     public static final String USER_KEY = "User";
     public static final String ALL_ADVERTISEMENT_KEY = "ALL_ADVERTISEMENT_KEY";
-
+    public static final String CATEGORY_ADVERTISEMENT_KEY = "CATEGORY_ADVERTISEMENT_KEY";
+    public static final String ITEM_TYPE_ADVERTISEMENT_KEY = "ITEM_TYPE_ADVERTISEMENT_KEY";
 
     private static FirebaseAuth mAuth;
     private static FirebaseDatabase mFirebaseDatabase;
@@ -132,6 +133,44 @@ public class DatabaseManager {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("TAG", "onCancelled: " + databaseError.getDetails());
+            }
+        });
+    }
+
+    public static void getCategoryAdvertisements(String selectedCategory){
+        mDatabase.child(FIREBASE_ADS_KEY).child(selectedCategory).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() instanceof  HashMap){
+                    HashMap<?,?> categoryAds = (HashMap) dataSnapshot.getValue();
+                    Bundle extraBundle = BundleUtil.createBundle(CATEGORY_ADVERTISEMENT_KEY,categoryAds);
+                    EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
+                            Event.ACTION_GET_CATEGORY_ADVERTISEMENT, extraBundle));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public static void getSubCategoryAdvertisements(String selectedSubCategory, String selectedCategory){
+        mDatabase.child(FIREBASE_ADS_KEY).child(selectedCategory).child(selectedSubCategory).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() instanceof  HashMap){
+                    HashMap<?,?> subCategoryAds = (HashMap) dataSnapshot.getValue();
+                    Bundle extraBundle = BundleUtil.createBundle(ITEM_TYPE_ADVERTISEMENT_KEY,subCategoryAds);
+                    EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
+                            Event.ACTION_GET_ITEM_TYPE_ADVERTISEMENT, extraBundle));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }

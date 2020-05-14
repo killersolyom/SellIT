@@ -29,6 +29,8 @@ import java.util.Objects;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.ITEM_KEY;
 import static com.sell.it.Utility.DatabaseManager.ALL_ADVERTISEMENT_KEY;
+import static com.sell.it.Utility.DatabaseManager.CATEGORY_ADVERTISEMENT_KEY;
+import static com.sell.it.Utility.DatabaseManager.ITEM_TYPE_ADVERTISEMENT_KEY;
 
 public class AdvertisementFragment extends BaseFragment {
 
@@ -98,6 +100,18 @@ public class AdvertisementFragment extends BaseFragment {
                         if (BundleUtil.canCast(event.getExtras(), ALL_ADVERTISEMENT_KEY, HashMap.class)) {
                             mItemAdapter.clearItems();
                             loadAllAdvertisements(BundleUtil.castItem(event.getExtras(), ALL_ADVERTISEMENT_KEY, HashMap.class));
+                        }
+                        return true;
+                    case Event.ACTION_GET_CATEGORY_ADVERTISEMENT:
+                        if (BundleUtil.canCast(event.getExtras(), CATEGORY_ADVERTISEMENT_KEY,HashMap.class)){
+                            mItemAdapter.clearItems();
+                            loadCategoryAdvertisement(BundleUtil.castItem(event.getExtras(),CATEGORY_ADVERTISEMENT_KEY,HashMap.class));
+                        }
+                        return true;
+                    case Event.ACTION_GET_ITEM_TYPE_ADVERTISEMENT:
+                        if(BundleUtil.canCast(event.getExtras(),ITEM_TYPE_ADVERTISEMENT_KEY,HashMap.class)){
+                            mItemAdapter.clearItems();
+                            loadSubCategoryAdvertisement(BundleUtil.castItem(event.getExtras(),ITEM_TYPE_ADVERTISEMENT_KEY,HashMap.class));
                         }
                         return true;
                 }

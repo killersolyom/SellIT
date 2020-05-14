@@ -4,7 +4,6 @@ import android.util.Pair;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.PropertyName;
-import com.sell.it.Model.Constant.Values;
 import com.sell.it.R;
 
 import java.util.ArrayList;
@@ -19,12 +18,6 @@ public abstract class BaseAdvertisementItem extends DefaultAdvertisementItem {
     @PropertyName(MANUFACTURER_KEY)
     public String getManufacturer() {
         return mManufacturer;
-    }
-
-    @Exclude
-    @Override
-    public int getViewType() {
-        return Values.ViewType.ADVERTISEMENT_TYPE;
     }
 
     @Override
