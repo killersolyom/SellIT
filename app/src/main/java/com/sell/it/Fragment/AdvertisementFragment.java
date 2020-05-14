@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static com.sell.it.Model.Constant.Values.ItemType.OTHERS_TYPE;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
 import static com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem.ITEM_KEY;
 import static com.sell.it.Utility.DatabaseManager.ALL_ADVERTISEMENT_KEY;
@@ -123,12 +124,14 @@ public class AdvertisementFragment extends BaseFragment {
                     case Event.ACTION_GET_CATEGORY_ADVERTISEMENT:
                         if (BundleUtil.canCast(event.getExtras(), CATEGORY_ADVERTISEMENT_KEY,HashMap.class)){
                             mItemAdapter.clearItems();
+                            mFragmentLayout.setRefreshing(false);
                             loadCategoryAdvertisement(BundleUtil.castItem(event.getExtras(),CATEGORY_ADVERTISEMENT_KEY,HashMap.class));
                         }
                         return true;
                     case Event.ACTION_GET_ITEM_TYPE_ADVERTISEMENT:
                         if(BundleUtil.canCast(event.getExtras(),ITEM_TYPE_ADVERTISEMENT_KEY,HashMap.class)){
                             mItemAdapter.clearItems();
+                            mFragmentLayout.setRefreshing(false);
                             loadSubCategoryAdvertisement(BundleUtil.castItem(event.getExtras(),ITEM_TYPE_ADVERTISEMENT_KEY,HashMap.class));
                         }
                         return true;
@@ -144,11 +147,10 @@ public class AdvertisementFragment extends BaseFragment {
             if (lastSelected[0].equals(CategorySelectDialog.ALL_CATEGORY)) {
                 DatabaseManager.getAllAdvertisements();
             } else {
-
+                DatabaseManager.getCategoryAdvertisements(lastSelected[0]);
             }
-            mFragmentLayout.removeCallbacks(null);
         } else {
-
+            DatabaseManager.getSubCategoryAdvertisements(lastSelected[0], lastSelected[1]);
         }
     }
 
@@ -191,7 +193,7 @@ public class AdvertisementFragment extends BaseFragment {
             case Values.ItemType.MOBILE_PHONE_TYPE:
                 mItemAdapter.addItem(new MobilePhoneItem(advertisementItem));
                 break;
-            case Values.ItemType.OTHERS_TYPE:
+            case OTHERS_TYPE:
                 mItemAdapter.addItem(new OtherItem(advertisementItem));
                 break;
         }
