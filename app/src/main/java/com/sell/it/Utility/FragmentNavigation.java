@@ -22,7 +22,7 @@ import com.sell.it.Fragment.ProfileFragment;
 import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
 import com.sell.it.Model.Event;
-import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.R;
 
 public class FragmentNavigation {
@@ -89,7 +89,7 @@ public class FragmentNavigation {
         showFragment(new ProfileFragment());
     }
 
-    public static void showDetailsFragment(BaseAdvertisementItem item) {
+    public static void showDetailsFragment(DefaultAdvertisementItem item) {
         showFragment(DetailsFragment.newInstance(item));
     }
 

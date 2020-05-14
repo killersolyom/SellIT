@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.sell.it.Communication.RequestListener;
 import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.R;
 import com.sell.it.Utility.DisplayUtils;
 import com.sell.it.Utility.TextUtils;
@@ -60,7 +61,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
         mInfoTextView.setTextSize(mItemTextSize);
     }
 
-    public void bindItem(BaseAdvertisementItem advertisementItem, ViewGroup.LayoutParams layoutParams) {
+    public void bindItem(DefaultAdvertisementItem advertisementItem, ViewGroup.LayoutParams layoutParams) {
         mReloadHandler.removeCallbacksAndMessages(null);
         calculateOptimalSize(layoutParams);
         setTitle(advertisementItem.getTitle());
@@ -76,7 +77,7 @@ public class AdvertisementViewItem extends BaseCustomView<BaseAdvertisementItem>
     }
 
     @SuppressLint("SetTextI18n")
-    private void loadInfoItems(BaseAdvertisementItem advertisementItem) {
+    private void loadInfoItems(DefaultAdvertisementItem advertisementItem) {
         String priceText = advertisementItem.getPrice() == 0 ?
                 getContext().getText(R.string.price_free).toString() : advertisementItem.getPriceString();
         priceText = getContext().getText(R.string.advertisement_price) + SEPARATOR + priceText;

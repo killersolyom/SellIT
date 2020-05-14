@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.ImageItem;
 import com.sell.it.Model.ViewHolderItem.TextInfoPairItem;
 import com.sell.it.R;
@@ -29,7 +30,7 @@ public class DetailsFragment extends BaseFragment {
     private ItemAdapter<ImageItem> mImageAdapter;
     private ItemAdapter mInfoAdapter;
 
-    public static DetailsFragment newInstance(BaseAdvertisementItem item) {
+    public static DetailsFragment newInstance(DefaultAdvertisementItem item) {
         DetailsFragment fragment = new DetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(ADVERTISEMENT_ITEM_KEY, item);

@@ -5,11 +5,11 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import com.sell.it.CustomView.AdvertisementViewItem;
-import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.R;
 import com.sell.it.Utility.FragmentNavigation;
 
-public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementItem> {
+public class AdvertisementViewHolder extends BaseViewHolder<DefaultAdvertisementItem> {
 
     private AdvertisementViewItem mAdvertisement;
 
@@ -18,7 +18,7 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     }
 
     @Override
-    public void bindItem(BaseAdvertisementItem advertisementItem) {
+    public void bindItem(DefaultAdvertisementItem advertisementItem) {
         mAdvertisement.setOnClickListener(v -> onItemClicked(advertisementItem));
         mAdvertisement.bindItem(advertisementItem, itemView.getLayoutParams());
     }
@@ -29,7 +29,7 @@ public class AdvertisementViewHolder extends BaseViewHolder<BaseAdvertisementIte
     }
 
     @Override
-    protected void onItemClicked(BaseAdvertisementItem advertisementItem) {
+    protected void onItemClicked(DefaultAdvertisementItem advertisementItem) {
         FragmentNavigation.showDetailsFragment(advertisementItem);
     }
 
