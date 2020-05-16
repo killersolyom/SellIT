@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
-import com.sell.it.Model.ViewHolderItem.Advertisements.BaseAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.Model.ViewHolderItem.ImageItem;
 import com.sell.it.Model.ViewHolderItem.TextInfoPairItem;
@@ -68,8 +67,8 @@ public class DetailsFragment extends BaseFragment {
     @Override
     protected void getArgumentsFromBundle(Bundle bundle) {
         if (BundleUtil.hasValueAt(bundle, ADVERTISEMENT_ITEM_KEY)) {
-            BaseAdvertisementItem advertisement =
-                    BundleUtil.castItem(bundle, ADVERTISEMENT_ITEM_KEY, BaseAdvertisementItem.class);
+            DefaultAdvertisementItem advertisement =
+                    BundleUtil.castItem(bundle, ADVERTISEMENT_ITEM_KEY, DefaultAdvertisementItem.class);
 
             mTitleView.setText(advertisement.getTitle());
 
