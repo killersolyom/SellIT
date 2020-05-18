@@ -169,4 +169,8 @@ public class DataManager {
         return category;
     }
 
+    public static void clearLastSelectedItems() {
+        clearItem(LAST_SELECTED_SUB_CATEGORY_KEY);
+        clearItem(LAST_SELECTED_CATEGORY_KEY);
+    }
 }

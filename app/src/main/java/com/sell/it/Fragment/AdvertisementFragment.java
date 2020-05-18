@@ -95,7 +95,7 @@ public class AdvertisementFragment extends BaseFragment {
         if (BundleUtil.canCast(bundle, TAG, ArrayList.class)) {
             loadItems(BundleUtil.castItem(bundle, TAG, ArrayList.class));
         } else {
-            onRefresh();
+            DatabaseManager.getAllAdvertisements();
         }
     }
 

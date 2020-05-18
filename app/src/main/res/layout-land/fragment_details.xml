@@ -42,7 +42,7 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.65" />
+        app:layout_constraintWidth_percent="0.5" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/info_recycler_view"

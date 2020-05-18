@@ -1,6 +1,7 @@
 package com.sell.it.Adapter.ViewHolder;
 
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 
@@ -21,10 +22,12 @@ public class AdvertisementViewHolder extends BaseViewHolder<DefaultAdvertisement
     public void bindItem(DefaultAdvertisementItem advertisementItem) {
         mAdvertisement.setOnClickListener(v -> onItemClicked(advertisementItem));
         mAdvertisement.bindItem(advertisementItem, itemView.getLayoutParams());
+        mItemView.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in));
     }
 
     @Override
     public void unBindItem() {
+        mItemView.clearAnimation();
         mAdvertisement.unbind();
     }
 

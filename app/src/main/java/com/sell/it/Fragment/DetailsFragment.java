@@ -25,7 +25,7 @@ public class DetailsFragment extends BaseFragment {
     private RecyclerView mImageRecyclerView;
     private RecyclerView mInfoRecyclerView;
     private TextView mTitleView;
-    public TextView mNoImagetext;
+    public TextView mNoImageText;
     private ItemAdapter<ImageItem> mImageAdapter;
     private ItemAdapter mInfoAdapter;
 
@@ -47,7 +47,7 @@ public class DetailsFragment extends BaseFragment {
         mImageRecyclerView = view.findViewById(R.id.images_recycler_view);
         mInfoRecyclerView = view.findViewById(R.id.info_recycler_view);
         mTitleView = view.findViewById(R.id.advertisement_title);
-        mNoImagetext = view.findViewById(R.id.no_image_text);
+        mNoImageText = view.findViewById(R.id.no_image_text);
     }
 
     @Override
@@ -73,9 +73,9 @@ public class DetailsFragment extends BaseFragment {
             mTitleView.setText(advertisement.getTitle());
 
             if (advertisement.getImageList().isEmpty()) {
-                mNoImagetext.setVisibility(View.VISIBLE);
+                mNoImageText.setVisibility(View.VISIBLE);
             } else {
-                mNoImagetext.setVisibility(View.GONE);
+                mNoImageText.setVisibility(View.GONE);
                 mImageAdapter.addItemList(advertisement.getImageList());
             }
 
