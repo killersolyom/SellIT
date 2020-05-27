@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sell.it.Adapter.ItemAdapter;
 import com.sell.it.Communication.EventListener;
+import com.sell.it.Model.CustomUri;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.ViewHolderItem.BaseValueInputItem;
 import com.sell.it.Model.ViewHolderItem.MiniImageItem;
@@ -28,7 +29,7 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
     private ImageView mAddImage;
     private RecyclerView mImageRecyclerView;
     private ItemAdapter<MiniImageItem> mItemAdapter;
-    private ArrayList<String> mItems;
+    private ArrayList<CustomUri> mItems;
 
     public ImageChooserViewItem(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -69,8 +70,8 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
 
     private void addItemsToAdapter() {
         mItemAdapter.clearItems();
-        for (String it : mItems) {
-            mItemAdapter.addItem(new MiniImageItem(it));
+        for (CustomUri it : mItems) {
+            mItemAdapter.addItem(new MiniImageItem(it.getUri().toString()));
         }
     }
 
@@ -82,10 +83,10 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
     @Override
     public boolean onEvent(Event event) {
         if (event.getEventType() == TYPE_IMAGE_PICKER && event.getAction() == ACTION_ADD_IMAGE) {
-            if (BundleUtil.canCast(event.getExtras(), SELECT_PICTURE, String.class)) {
-                String imagePath = BundleUtil.castItem(event.getExtras(), SELECT_PICTURE, String.class);
-                mItemAdapter.addItem(new MiniImageItem(imagePath));
-                mItems.add(imagePath);
+            if (BundleUtil.canCast(event.getExtras(), SELECT_PICTURE, CustomUri.class)) {
+                CustomUri imageUri = BundleUtil.castItem(event.getExtras(), SELECT_PICTURE, CustomUri.class);
+                mItemAdapter.addItem(new MiniImageItem(imageUri.getUri().toString()));
+                mItems.add(imageUri);
                 return true;
             }
         }

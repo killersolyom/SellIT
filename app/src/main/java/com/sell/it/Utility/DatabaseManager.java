@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.sell.it.Model.CustomUri;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
 import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
@@ -100,7 +101,7 @@ public class DatabaseManager {
                 });
     }
 
-    public static void uploadAdvertisement(DefaultAdvertisementItem item, ArrayList<String> imageList) {
+    public static void uploadAdvertisement(DefaultAdvertisementItem item, ArrayList<CustomUri> imageList) {
         String key = mDatabase.push().getKey();
         item.setId(key);
         mDatabase.child(FIREBASE_ADS_KEY)

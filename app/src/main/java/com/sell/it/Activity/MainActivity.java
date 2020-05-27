@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.sell.it.Communication.EventListener;
 import com.sell.it.Communication.MainInterface;
+import com.sell.it.Model.CustomUri;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.BundleUtil;
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements EventListener, Ma
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data != null && data.getData() != null) {
             Event event = new Event(Event.TYPE_IMAGE_PICKER, Event.ACTION_ADD_IMAGE,
-                    BundleUtil.createBundle(SELECT_PICTURE, data.getData().toString()));
+                    BundleUtil.createBundle(SELECT_PICTURE, new CustomUri(data.getData())));
             EventDispatcher.offerEvent(event);
         }
     }

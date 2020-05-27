@@ -11,6 +11,7 @@ import com.sell.it.Communication.InputCallbackInterface;
 import com.sell.it.Communication.ValueListener;
 import com.sell.it.Model.ClassPackaging;
 import com.sell.it.Model.CustomPairItem;
+import com.sell.it.Model.CustomUri;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CameraItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.CarItem;
 import com.sell.it.Model.ViewHolderItem.Advertisements.LaptopItem;
@@ -71,7 +72,7 @@ public class AddAdvertisementFragment extends BaseFragment {
     private RecyclerView mDataInputView;
     private ItemAdapter<BaseValueInputItem> mItemAdapter;
     private ArrayList<InputCallbackInterface> mItemCallbackList;
-    private ArrayList<String> mImageList = new ArrayList<>();
+    private ArrayList<CustomUri> mImageList = new ArrayList<>();
     private HashMap<String, Object> mItemData = new HashMap<>();
     private Class<?> mItemType = null;
 
@@ -305,12 +306,12 @@ public class AddAdvertisementFragment extends BaseFragment {
     private void addImageChooserField() {
         mItemAdapter.addItem(new ImageChooserInputItem(new ValueListener() {
             @Override
-            public void writeValue(ArrayList<String> valueList) {
+            public void writeValue(ArrayList<CustomUri> valueList) {
                 mImageList = valueList;
             }
 
             @Override
-            public ArrayList<String> getItemList() {
+            public ArrayList<CustomUri> getItemList() {
                 return mImageList;
             }
 
