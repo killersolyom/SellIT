@@ -193,7 +193,6 @@ public class DatabaseManager {
     }
 
     private static void uploadPictures(int initial, ArrayList<CustomUri> valueList, String key){
-
         mStorageRef.child(key).child("adv" + initial + ".jpg").putFile(valueList.get(initial).getUri())
         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
