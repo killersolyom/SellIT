@@ -5,12 +5,17 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.sell.it.Model.CustomUri;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
@@ -31,11 +36,15 @@ public class DatabaseManager {
     private static FirebaseAuth mAuth;
     private static FirebaseDatabase mFirebaseDatabase;
     private static DatabaseReference mDatabase;
+    private static StorageReference mStorageRef;
+
+    private static ArrayList<String> imagePathList = new ArrayList<>();
 
     static void initialize() {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabase = mFirebaseDatabase.getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference("/images");
     }
 
     public static void createUser(User user) {
@@ -102,6 +111,7 @@ public class DatabaseManager {
     }
 
     public static void uploadAdvertisement(DefaultAdvertisementItem item, ArrayList<CustomUri> imageList) {
+        DatabaseManager.uploadPictureList(imageList);
         String key = mDatabase.push().getKey();
         item.setId(key);
         mDatabase.child(FIREBASE_ADS_KEY)
@@ -172,6 +182,34 @@ public class DatabaseManager {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+    }
+
+    public static void uploadPictureList(ArrayList<CustomUri> valueList){
+        String key = mDatabase.push().getKey();
+        uploadPictures(0,valueList,key);
+
+    }
+
+    private static void uploadPictures(int initial, ArrayList<CustomUri> valueList, String key){
+
+        mStorageRef.child(key).child("adv" + initial + ".jpg").putFile(valueList.get(initial).getUri())
+        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d("TAG", "onSuccess: " + Objects.requireNonNull(taskSnapshot.getUploadSessionUri()).getPath());
+                if(valueList.size()-1 != initial){
+                    uploadPictures(initial+1,valueList,key);
+                }
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if(valueList.size()-1 != initial){
+                    uploadPictures(initial+1,valueList,key);
+                }
             }
         });
     }
