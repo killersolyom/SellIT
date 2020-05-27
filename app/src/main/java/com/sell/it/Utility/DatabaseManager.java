@@ -193,11 +193,12 @@ public class DatabaseManager {
     }
 
     private static void uploadPictures(int initial, ArrayList<CustomUri> valueList, String key){
-        mStorageRef.child(key).child("adv" + initial + ".jpg").putFile(valueList.get(initial).getUri())
+        StorageReference filepath = mStorageRef.child(key).child("adv" + initial + ".jpg");
+        filepath.putFile(valueList.get(initial).getUri())
         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("TAG", "onSuccess: " + Objects.requireNonNull(taskSnapshot.getUploadSessionUri()).getPath());
+                Log.d("TAG", "onSuccess: " + filepath.getDownloadUrl());
                 if(valueList.size()-1 != initial){
                     uploadPictures(initial+1,valueList,key);
                 }
