@@ -357,6 +357,7 @@ public class AddAdvertisementFragment extends BaseFragment {
             mItemAdapter.clearItems();
             addDataInputFields(mItemType);
         } else {
+            mItemAdapter.clearItems();
             addCategorySelectorField();
         }
     }
