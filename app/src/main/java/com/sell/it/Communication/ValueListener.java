@@ -1,5 +1,7 @@
 package com.sell.it.Communication;
 
+import com.sell.it.Model.CustomUri;
+
 import java.util.ArrayList;
 
 public interface ValueListener {
@@ -12,7 +14,7 @@ public interface ValueListener {
         return false;
     }
 
-    default ArrayList<String> getItemList() {
+    default ArrayList<CustomUri> getItemList() {
         return new ArrayList<>();
     }
 
@@ -28,7 +30,7 @@ public interface ValueListener {
     default void writeValue(Class<?> itemClass) {
     }
 
-    default void writeValue(ArrayList<String> valueList) {
+    default void writeValue(ArrayList<CustomUri> valueList) {
     }
 
     default void registerCallback(InputCallbackInterface callback) {
