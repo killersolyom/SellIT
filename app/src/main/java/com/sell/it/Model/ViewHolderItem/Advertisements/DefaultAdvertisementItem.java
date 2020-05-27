@@ -22,6 +22,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     public static final String ID_KEY = "ID";
     public static final String ITEM_KEY = "ITEM_TYPE";
     public static final String PHONE_NUMBER_KEY = "PHONE_NUMBER";
+    public static final String IMAGE_LIST_KEY = "IMAGE_LIST_KEY";
 
     private String mId;
     private float mPrice;
@@ -30,7 +31,6 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     private String mDescription;
     private String mPhoneNumber;
 
-    @Exclude
     private ArrayList<ImageItem> mImageList = new ArrayList<>();
 
     @PropertyName(TITLE_KEY)
@@ -72,11 +72,14 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         return mOwner;
     }
 
+
     @Exclude
     public ImageItem getFirstImage() {
         return mImageList.isEmpty() ? new ImageItem() : mImageList.get(0);
     }
 
+
+    @PropertyName(IMAGE_LIST_KEY)
     public ArrayList<ImageItem> getImageList() {
         return mImageList;
     }
@@ -97,6 +100,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         addToListIfExist(descriptionList, R.string.phone_number, mPhoneNumber);
         return descriptionList;
     }
+
     @Exclude
     @Override
     public int getViewType() {
@@ -114,6 +118,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         mTitle = getStringValue(items.get(TITLE_KEY));
         mOwner = getStringValue(items.get(OWNER_KEY));
         mDescription = getStringValue(items.get(DESCRIPTION_KEY));
+        getArrayListValue(items.get(IMAGE_LIST_KEY));
     }
 
     protected boolean getBooleanValue(Object item) {
@@ -134,12 +139,25 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
                 item instanceof Long ? ((Long) item).intValue() : 0;
     }
 
+    protected void getArrayListValue(Object item) {
+        if(item instanceof ArrayList){
+            ((ArrayList)item).forEach(it -> {
+                mImageList.add(new ImageItem(it.toString()+".jpg"));
+            });
+        }
+    }
+
     protected String floatValueToDescriptionString(float value) {
         return value == 0 ? "" : String.valueOf(value).replace(".0", "");
     }
 
     protected String intValueToDescriptionString(int value) {
         return value == 0 ? "" : String.valueOf(value);
+    }
+
+    public void addImageList(ArrayList<String> images) {
+        mImageList.clear();
+        images.forEach(it -> mImageList.add(new ImageItem(it)));
     }
 
 }

@@ -141,6 +141,7 @@ public class AdvertisementFragment extends BaseFragment {
     }
 
     private void onRefresh() {
+        mItemAdapter.clearItems();
         mFragmentLayout.postDelayed(mRefreshRunnable, 2000);
         String[] lastSelected = DataManager.getLastSelectedCategory();
         if (lastSelected[0].equals(lastSelected[1])) {

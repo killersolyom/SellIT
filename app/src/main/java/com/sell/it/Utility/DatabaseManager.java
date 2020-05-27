@@ -5,8 +5,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,7 +13,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.sell.it.Model.CustomUri;
 import com.sell.it.Model.Event;
 import com.sell.it.Model.User;
@@ -37,6 +34,8 @@ public class DatabaseManager {
     private static FirebaseDatabase mFirebaseDatabase;
     private static DatabaseReference mDatabase;
     private static StorageReference mStorageRef;
+
+    static int counter;
 
     private static ArrayList<String> imagePathList = new ArrayList<>();
 
@@ -111,14 +110,17 @@ public class DatabaseManager {
     }
 
     public static void uploadAdvertisement(DefaultAdvertisementItem item, ArrayList<CustomUri> imageList) {
-        DatabaseManager.uploadPictureList(imageList);
+        counter = 0;
+        imagePathList.clear();
         String key = mDatabase.push().getKey();
-        item.setId(key);
-        mDatabase.child(FIREBASE_ADS_KEY)
-                .child(item.getCategoryType())
-                .child(item.getItemType())
-                .child(Objects.requireNonNull(key))
-                .setValue(item).addOnSuccessListener(aVoid -> saveAdvertisementId(key));
+
+        if (!imageList.isEmpty()) {
+            for (int i = 0; i < imageList.size(); i++) {
+                uploadData(imageList.size(), imageList, key, item, i);
+            }
+        } else {
+            verifyUploadTask(imageList.size(), item);
+        }
     }
 
     private static void saveAdvertisementId(String key) {
@@ -133,7 +135,7 @@ public class DatabaseManager {
         mDatabase.child(FIREBASE_ADS_KEY).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() instanceof HashMap){
+                if (dataSnapshot.getValue() instanceof HashMap) {
                     HashMap<?, ?> ads = (HashMap) dataSnapshot.getValue();
                     Bundle extraBundle = BundleUtil.createBundle(ALL_ADVERTISEMENT_KEY, ads);
                     EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
@@ -148,13 +150,13 @@ public class DatabaseManager {
         });
     }
 
-    public static void getCategoryAdvertisements(String selectedCategory){
+    public static void getCategoryAdvertisements(String selectedCategory) {
         mDatabase.child(FIREBASE_ADS_KEY).child(selectedCategory).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() instanceof  HashMap){
-                    HashMap<?,?> categoryAds = (HashMap) dataSnapshot.getValue();
-                    Bundle extraBundle = BundleUtil.createBundle(CATEGORY_ADVERTISEMENT_KEY,categoryAds);
+                if (dataSnapshot.getValue() instanceof HashMap) {
+                    HashMap<?, ?> categoryAds = (HashMap) dataSnapshot.getValue();
+                    Bundle extraBundle = BundleUtil.createBundle(CATEGORY_ADVERTISEMENT_KEY, categoryAds);
                     EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
                             Event.ACTION_GET_CATEGORY_ADVERTISEMENT, extraBundle));
                 }
@@ -167,13 +169,13 @@ public class DatabaseManager {
         });
     }
 
-    public static void getSubCategoryAdvertisements(String selectedSubCategory, String selectedCategory){
+    public static void getSubCategoryAdvertisements(String selectedSubCategory, String selectedCategory) {
         mDatabase.child(FIREBASE_ADS_KEY).child(selectedCategory).child(selectedSubCategory).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() instanceof  HashMap){
-                    HashMap<?,?> subCategoryAds = (HashMap) dataSnapshot.getValue();
-                    Bundle extraBundle = BundleUtil.createBundle(ITEM_TYPE_ADVERTISEMENT_KEY,subCategoryAds);
+                if (dataSnapshot.getValue() instanceof HashMap) {
+                    HashMap<?, ?> subCategoryAds = (HashMap) dataSnapshot.getValue();
+                    Bundle extraBundle = BundleUtil.createBundle(ITEM_TYPE_ADVERTISEMENT_KEY, subCategoryAds);
                     EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
                             Event.ACTION_GET_ITEM_TYPE_ADVERTISEMENT, extraBundle));
                 }
@@ -186,32 +188,33 @@ public class DatabaseManager {
         });
     }
 
-    public static void uploadPictureList(ArrayList<CustomUri> valueList){
-        String key = mDatabase.push().getKey();
-        uploadPictures(0,valueList,key);
-
+    private static void uploadData(int size, ArrayList<CustomUri> valueList, String key,
+                                   DefaultAdvertisementItem ad, int index) {
+        StorageReference filepath = mStorageRef.child(key).child("adv" + index + ".jpg");
+        filepath.putFile(valueList.get(index).getUri())
+                .addOnSuccessListener(taskSnapshot -> getImageURL(filepath, size, ad))
+                .addOnFailureListener(e -> counter++);
     }
 
-    private static void uploadPictures(int initial, ArrayList<CustomUri> valueList, String key){
-        StorageReference filepath = mStorageRef.child(key).child("adv" + initial + ".jpg");
-        filepath.putFile(valueList.get(initial).getUri())
-        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("TAG", "onSuccess: " + filepath.getDownloadUrl());
-                if(valueList.size()-1 != initial){
-                    uploadPictures(initial+1,valueList,key);
-                }
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if(valueList.size()-1 != initial){
-                    uploadPictures(initial+1,valueList,key);
-                }
-            }
+    private static void getImageURL(StorageReference filepath, int size, DefaultAdvertisementItem ad) {
+        filepath.getDownloadUrl().addOnSuccessListener(downloadUrl -> {
+            counter++;
+            imagePathList.add(downloadUrl.toString());
+            verifyUploadTask(size, ad);
         });
     }
 
+    private static void verifyUploadTask(int size, DefaultAdvertisementItem ad) {
+        if (size == counter) {
+            String key = mDatabase.push().getKey();
+            ad.setId(key);
+            ad.addImageList(imagePathList);
+            mDatabase.child(FIREBASE_ADS_KEY)
+                    .child(ad.getCategoryType())
+                    .child(ad.getItemType())
+                    .child(Objects.requireNonNull(key))
+                    .setValue(ad).addOnSuccessListener(aVoid -> saveAdvertisementId(key));
+
+        }
+    }
 }

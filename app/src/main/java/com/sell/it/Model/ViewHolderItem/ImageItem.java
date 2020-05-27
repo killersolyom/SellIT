@@ -1,5 +1,6 @@
 package com.sell.it.Model.ViewHolderItem;
 
+import com.google.firebase.database.Exclude;
 import com.sell.it.Model.Constant.Values;
 
 public class ImageItem extends BaseDefaultItem {
@@ -17,6 +18,7 @@ public class ImageItem extends BaseDefaultItem {
         return mImagePath;
     }
 
+    @Exclude
     @Override
     public int getViewType() {
         return Values.ViewType.IMAGE_ITEM_TYPE;
