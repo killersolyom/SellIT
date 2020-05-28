@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.sell.it.Model.ViewHolderItem.TextInfoPairItem;
 import com.sell.it.R;
+import com.sell.it.Utility.TextUtils;
 
 public class TextPairViewItem extends BaseCustomView<TextInfoPairItem> {
 
@@ -32,6 +33,7 @@ public class TextPairViewItem extends BaseCustomView<TextInfoPairItem> {
     public void bindItem(TextInfoPairItem item) {
         mItemTitle.setText(getContext().getText(item.getTextPairItem().first));
         mItemData.setText(item.getTextPairItem().second);
+        mItemData.setVisibility(TextUtils.isEmpty(item.getTextPairItem().second) ? GONE : VISIBLE);
     }
 
 }
