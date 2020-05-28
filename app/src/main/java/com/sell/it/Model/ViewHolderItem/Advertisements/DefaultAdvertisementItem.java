@@ -22,7 +22,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
     public static final String ID_KEY = "ID";
     public static final String ITEM_KEY = "ITEM_TYPE";
     public static final String PHONE_NUMBER_KEY = "PHONE_NUMBER";
-    public static final String IMAGE_LIST_KEY = "IMAGE_LIST_KEY";
+    public static final String IMAGE_LIST_KEY = "IMAGE_LIST";
 
     private String mId;
     private float mPrice;
@@ -141,9 +141,8 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
 
     protected void getArrayListValue(Object item) {
         if(item instanceof ArrayList){
-            ((ArrayList)item).forEach(it -> {
-                mImageList.add(new ImageItem(it.toString()+".jpg"));
-            });
+            ((ArrayList) item).forEach(it -> ((HashMap<?, ?>) it).entrySet().forEach(it2 ->
+                    mImageList.add(new ImageItem(it2.getValue().toString()))));
         }
     }
 

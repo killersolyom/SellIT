@@ -36,7 +36,8 @@
     <string name="invalid_id">Invalid identifier!</string>
     <string name="advertisement_title">Title</string>
     <string name="advertisement_description">Description</string>
-    <string name="advertisement_price">Price</string>
+    <string name="advertisement_price">Price  (Lej)</string>
+    <string name="advertisement_price_text">Price</string>
     <string name="advertisement_manufacturer">Manufacturer</string>
     <string name="advertisement_owner">Seller</string>
     <string name="advertisement_megapixel">Megapixel</string>

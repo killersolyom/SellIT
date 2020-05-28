@@ -11,7 +11,11 @@ public class ImageItem extends BaseDefaultItem {
     }
 
     public ImageItem(String mImagePath) {
-        this.mImagePath = mImagePath;
+        if (mImagePath == null) {
+            this.mImagePath = "";
+        } else {
+            this.mImagePath = mImagePath;
+        }
     }
 
     public String getImagePath() {
