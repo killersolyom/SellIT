@@ -72,5 +72,7 @@
     <string name="advertisement_all">All category</string>
     <string name="price_free">Free</string>
     <string name="advertisement_no_images">No image available!</string>
+    <string name="advertisement_upload_success">Successfully uploaded an advertisement!</string>
+    <string name="advertisement_upload_failed">Upload failed successfully!</string>
 
 </resources>

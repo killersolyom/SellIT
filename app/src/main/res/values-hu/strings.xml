@@ -73,5 +73,7 @@
     <string name="advertisement_all">Minden kategória</string>
     <string name="price_free">Ingyenes</string>
     <string name="advertisement_no_images">Nincs megjeleníthető kép!</string>
+    <string name="advertisement_upload_success">Sikeres feltöltés!</string>
+    <string name="advertisement_upload_failed">Sikertelen feltöltés!</string>
 
 </resources>

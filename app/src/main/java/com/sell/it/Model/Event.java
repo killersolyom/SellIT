@@ -34,6 +34,8 @@ public class Event {
     public static final int ACTION_GET_ALL_ADVERTISEMENT = 14;
     public static final int ACTION_GET_CATEGORY_ADVERTISEMENT = 15;
     public static final int ACTION_GET_ITEM_TYPE_ADVERTISEMENT = 16;
+    public static final int ACTION_UPLOAD_SUCCESS = 17;
+    public static final int ACTION_UPLOAD_FAIL = 18;
 
 
 

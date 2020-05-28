@@ -245,7 +245,13 @@ public class FragmentNavigation {
                         return true;
                     case Event.ACTION_VERIFICATION_SUCCESS:
                         DataCacheUtil.clearCache(AddAdvertisementFragment.class.getCanonicalName());
-                        FragmentNavigation.showFragment(new AddAdvertisementFragment());
+                        showFragment(new AddAdvertisementFragment());
+                        return true;
+                    case Event.ACTION_UPLOAD_SUCCESS:
+                        SnackBarUtility.showWithText(R.string.advertisement_upload_success, false);
+                        return true;
+                    case Event.ACTION_UPLOAD_FAIL:
+                        SnackBarUtility.showWithText(R.string.advertisement_upload_failed, true);
                         return true;
                 }
                 return false;

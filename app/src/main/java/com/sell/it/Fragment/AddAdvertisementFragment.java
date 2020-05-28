@@ -72,7 +72,7 @@ public class AddAdvertisementFragment extends BaseFragment {
     private RecyclerView mDataInputView;
     private ItemAdapter<BaseValueInputItem> mItemAdapter;
     private ArrayList<InputCallbackInterface> mItemCallbackList;
-    private ArrayList<CustomUri> mImageList = new ArrayList<>();
+    private static ArrayList<CustomUri> mImageList = new ArrayList<>();
     private HashMap<String, Object> mItemData = new HashMap<>();
     private Class<?> mItemType = null;
 

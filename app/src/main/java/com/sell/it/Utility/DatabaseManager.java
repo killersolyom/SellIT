@@ -129,6 +129,7 @@ public class DatabaseManager {
                 .child(FIREBASE_ADS_KEY)
                 .child(key)
                 .setValue("");
+        EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE, Event.ACTION_UPLOAD_SUCCESS));
     }
 
     public static void getAllAdvertisements() {
@@ -151,7 +152,8 @@ public class DatabaseManager {
     }
 
     public static void getCategoryAdvertisements(String selectedCategory) {
-        mDatabase.child(FIREBASE_ADS_KEY).child(selectedCategory).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child(FIREBASE_ADS_KEY).child(selectedCategory)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() instanceof HashMap) {
@@ -213,7 +215,9 @@ public class DatabaseManager {
                     .child(ad.getCategoryType())
                     .child(ad.getItemType())
                     .child(Objects.requireNonNull(key))
-                    .setValue(ad).addOnSuccessListener(aVoid -> saveAdvertisementId(key));
+                    .setValue(ad).addOnSuccessListener(aVoid -> saveAdvertisementId(key))
+                    .addOnFailureListener(e -> EventDispatcher.offerEvent(
+                            new Event(Event.TYPE_FIREBASE, Event.ACTION_UPLOAD_FAIL)));
 
         }
     }
