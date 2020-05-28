@@ -38,7 +38,7 @@
     <string name="advertisement_title">Cím</string>
     <string name="advertisement_description">Leírás</string>
     <string name="advertisement_price">Ár (Lej)</string>
-    <string name="advertisement_price_text">Price</string>
+    <string name="advertisement_price_text">Ár</string>
     <string name="advertisement_manufacturer">Gyártó</string>
     <string name="advertisement_owner">Eladó</string>
     <string name="advertisement_megapixel">Megapixel</string>
