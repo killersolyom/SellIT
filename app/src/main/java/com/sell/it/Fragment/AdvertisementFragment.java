@@ -27,7 +27,9 @@ import com.sell.it.Utility.FragmentNavigation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import static com.sell.it.Model.Constant.Values.ItemType.OTHERS_TYPE;
 import static com.sell.it.Model.Constant.Values.Orientation.PORTRAIT;
@@ -156,27 +158,30 @@ public class AdvertisementFragment extends BaseFragment {
     }
 
     private void loadAllAdvertisements(HashMap<?, ?> allItem) {
-        allItem.entrySet().forEach(it -> {
-            if (it.getValue() instanceof HashMap) {
-                loadCategoryAdvertisement((HashMap<?, ?>) it.getValue());
-            }
-        });
+        getFilteredStream(allItem).forEach(it ->
+                loadCategoryAdvertisement(castToHashMap(it.getValue())));
     }
 
     private void loadCategoryAdvertisement(HashMap<?, ?> allCategory) {
-        allCategory.entrySet().forEach(it2 -> {
-            if (it2.getValue() instanceof HashMap) {
-                loadSubCategoryAdvertisement((HashMap<?, ?>) it2.getValue());
-            }
-        });
+        getFilteredStream(allCategory).forEach(it ->
+                loadSubCategoryAdvertisement(castToHashMap(it.getValue())));
     }
 
     private void loadSubCategoryAdvertisement(HashMap<?, ?> allSubCategory) {
-        allSubCategory.entrySet().forEach(it3 -> {
-            if (it3.getValue() instanceof HashMap) {
-                loadAdvertisementItem((HashMap<String, Object>) it3.getValue());
-            }
-        });
+        getFilteredStream(allSubCategory).forEach(it ->
+                loadAdvertisementItem(castToHashMap(it.getValue())));
+    }
+
+    private boolean isHashMap(Object item) {
+        return item instanceof HashMap;
+    }
+
+    private HashMap<String, Object> castToHashMap(Object item) {
+        return (HashMap<String, Object>) item;
+    }
+
+    private Stream<? extends Map.Entry<?, ?>> getFilteredStream(HashMap<?, ?> itemList) {
+        return itemList.entrySet().stream().filter(it -> isHashMap(it.getValue()));
     }
 
     private void loadAdvertisementItem(HashMap<String, Object> advertisementItem) {
