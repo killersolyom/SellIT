@@ -10,7 +10,7 @@ import com.sell.it.Model.ViewHolderItem.BaseItem;
 
 import java.util.ArrayList;
 
-public class ItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter<BaseViewHolder> {
+public class ItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter<BaseViewHolder<Item>> {
 
     private ArrayList<Item> mItemList = new ArrayList<>();
     private int mSpanCount;
@@ -25,17 +25,17 @@ public class ItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter<Bas
 
     @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder<Item> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return LayoutSelector.getLayoutForItem(parent, viewType, mSpanCount);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaseViewHolder<Item> holder, int position) {
         holder.bindItem(mItemList.get(position));
     }
 
     @Override
-    public void onViewRecycled(@NonNull BaseViewHolder holder) {
+    public void onViewRecycled(@NonNull BaseViewHolder<Item> holder) {
         super.onViewRecycled(holder);
         holder.unBindItem();
     }
