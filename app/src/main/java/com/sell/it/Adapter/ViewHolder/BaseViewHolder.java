@@ -31,4 +31,5 @@ public abstract class BaseViewHolder<GenericItem> extends RecyclerView.ViewHolde
 
     protected void onItemClicked(GenericItem genericItem) {
     }
+
 }

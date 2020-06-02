@@ -33,4 +33,5 @@ public abstract class BaseCustomView<Item> extends ConstraintLayout {
 
     public void unbind() {
     }
+
 }

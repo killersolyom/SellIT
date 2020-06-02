@@ -92,4 +92,5 @@ public class ImageChooserViewItem extends BaseInputViewItem implements EventList
         }
         return false;
     }
+
 }

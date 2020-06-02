@@ -26,4 +26,5 @@ public class DropDownViewHolder extends BaseViewHolder<DropDownItem> {
         mInputView.bindItem(item);
     }
 
+
 }

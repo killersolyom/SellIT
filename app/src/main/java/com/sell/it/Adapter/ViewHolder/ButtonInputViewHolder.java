@@ -26,4 +26,5 @@ public class ButtonInputViewHolder extends BaseViewHolder<ButtonInputItem> {
         mInputViewItem = itemView.findViewById(R.id.button_input_view);
     }
 
+
 }

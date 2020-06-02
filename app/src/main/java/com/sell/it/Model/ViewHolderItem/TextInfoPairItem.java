@@ -20,4 +20,5 @@ public class TextInfoPairItem extends BaseDefaultItem {
     public int getViewType() {
         return Values.ViewType.TEXT_PAIR_ITEM_TYPE;
     }
+
 }

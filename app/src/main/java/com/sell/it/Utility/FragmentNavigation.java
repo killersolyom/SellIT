@@ -202,7 +202,7 @@ public class FragmentNavigation {
 
     public static void verifyUser() {
         if (!(getTopFragment() instanceof AddAdvertisementFragment)) {
-            if(!(TextUtils.isEmpty(DataManager.getEmailAddress()) || TextUtils.isEmpty(DataManager.getPassword()))) {
+            if (!(TextUtils.isEmpty(DataManager.getEmailAddress()) || TextUtils.isEmpty(DataManager.getPassword()))) {
                 showTransactionDialog(
                         new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_FAIL),
                         new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_SUCCESS));
@@ -258,5 +258,6 @@ public class FragmentNavigation {
         }
         return false;
     };
+
 
 }
