@@ -51,7 +51,7 @@ public class LaptopItem extends BaseComputeUnitItem {
         ArrayList<Pair<Integer, String>> descriptionList = super.getDescriptionList();
         addToListIfExist(descriptionList, R.string.advertisement_usb_number, intValueToDescriptionString(mNumberOfUsbPorts));
         if (dvdRom) {
-            descriptionList.add(new Pair<>(R.string.advertisement_storage, " "));
+            descriptionList.add(new Pair<>(R.string.advertisement_dvd_rom, ""));
         }
         return descriptionList;
     }

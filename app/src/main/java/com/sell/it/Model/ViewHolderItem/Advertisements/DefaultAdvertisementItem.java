@@ -58,6 +58,7 @@ public abstract class DefaultAdvertisementItem extends BaseDefaultItem {
         return mPrice;
     }
 
+    @Exclude
     public String getPriceString() {
         return String.valueOf(mPrice).replace(".0", "");
     }

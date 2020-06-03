@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintWidth_percent="0.35"
+        app:layout_constraintWidth_percent="0.4"
         android:maxLines="2"
         android:padding="10dp"
         android:textColor="@color/colorWhite"
