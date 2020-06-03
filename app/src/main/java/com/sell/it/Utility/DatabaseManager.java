@@ -154,21 +154,21 @@ public class DatabaseManager {
     public static void getCategoryAdvertisements(String selectedCategory) {
         mDatabase.child(FIREBASE_ADS_KEY).child(selectedCategory)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() instanceof HashMap) {
-                    HashMap<?, ?> categoryAds = (HashMap) dataSnapshot.getValue();
-                    Bundle extraBundle = BundleUtil.createBundle(CATEGORY_ADVERTISEMENT_KEY, categoryAds);
-                    EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
-                            Event.ACTION_GET_CATEGORY_ADVERTISEMENT, extraBundle));
-                }
-            }
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getValue() instanceof HashMap) {
+                            HashMap<?, ?> categoryAds = (HashMap) dataSnapshot.getValue();
+                            Bundle extraBundle = BundleUtil.createBundle(CATEGORY_ADVERTISEMENT_KEY, categoryAds);
+                            EventDispatcher.offerEvent(new Event(Event.TYPE_FIREBASE,
+                                    Event.ACTION_GET_CATEGORY_ADVERTISEMENT, extraBundle));
+                        }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
     public static void getSubCategoryAdvertisements(String selectedSubCategory, String selectedCategory) {

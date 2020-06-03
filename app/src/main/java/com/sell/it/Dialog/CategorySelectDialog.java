@@ -85,9 +85,9 @@ public class CategorySelectDialog extends BaseDialogFragment {
     private void onItemClicked(Object item) {
         if (item instanceof String) {
             String selectedCategory = item.toString();
-            if(selectedCategory.equals(ALL_CATEGORY)){
+            if (selectedCategory.equals(ALL_CATEGORY)) {
                 DatabaseManager.getAllAdvertisements();
-            }else{
+            } else {
                 DatabaseManager.getCategoryAdvertisements(selectedCategory);
             }
             DataManager.saveLastSelectedCategory(selectedCategory, selectedCategory);

@@ -26,4 +26,5 @@ public class BooleanInputViewHolder extends BaseViewHolder<BaseValueInputItem> {
         mInputViewItem = itemView.findViewById(R.id.boolean_input_view);
     }
 
+
 }

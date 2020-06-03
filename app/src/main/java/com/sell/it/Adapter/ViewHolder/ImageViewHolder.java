@@ -32,4 +32,5 @@ public class ImageViewHolder extends BaseViewHolder<ImageItem> {
         mImage = itemView.findViewById(R.id.image_component);
     }
 
+
 }

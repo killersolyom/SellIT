@@ -39,4 +39,5 @@ public class VerificationEditText extends androidx.appcompat.widget.AppCompatEdi
             hideError();
         }
     }
+
 }

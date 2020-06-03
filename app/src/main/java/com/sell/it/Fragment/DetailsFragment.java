@@ -82,4 +82,5 @@ public class DetailsFragment extends BaseFragment {
             advertisement.getDescriptionList().forEach(it -> mInfoAdapter.addItem(new TextInfoPairItem(it)));
         }
     }
+
 }

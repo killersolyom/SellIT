@@ -26,4 +26,5 @@ public class DefaultViewHolder extends BaseViewHolder<BaseDefaultItem> {
     protected void findView(View itemView) {
     }
 
+
 }

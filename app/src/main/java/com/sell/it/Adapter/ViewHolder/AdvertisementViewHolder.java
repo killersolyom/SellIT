@@ -41,4 +41,5 @@ public class AdvertisementViewHolder extends BaseViewHolder<DefaultAdvertisement
         mAdvertisement = itemView.findViewById(R.id.advertisement_item);
     }
 
+
 }

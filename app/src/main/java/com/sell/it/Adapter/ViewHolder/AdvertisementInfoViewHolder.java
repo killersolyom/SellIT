@@ -31,4 +31,6 @@ public class AdvertisementInfoViewHolder extends BaseViewHolder<AdvertisementInf
     public void unBindItem() {
         mInfoTextView.setText(null);
     }
+
+
 }

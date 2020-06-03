@@ -71,5 +71,5 @@ public class ItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter<Bas
     public ArrayList<Item> getItemList() {
         return mItemList;
     }
-    
+
 }

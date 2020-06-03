@@ -124,17 +124,17 @@ public class AdvertisementFragment extends BaseFragment {
                         }
                         return true;
                     case Event.ACTION_GET_CATEGORY_ADVERTISEMENT:
-                        if (BundleUtil.canCast(event.getExtras(), CATEGORY_ADVERTISEMENT_KEY,HashMap.class)){
+                        if (BundleUtil.canCast(event.getExtras(), CATEGORY_ADVERTISEMENT_KEY, HashMap.class)) {
                             mItemAdapter.clearItems();
                             mFragmentLayout.setRefreshing(false);
-                            loadCategoryAdvertisement(BundleUtil.castItem(event.getExtras(),CATEGORY_ADVERTISEMENT_KEY,HashMap.class));
+                            loadCategoryAdvertisement(BundleUtil.castItem(event.getExtras(), CATEGORY_ADVERTISEMENT_KEY, HashMap.class));
                         }
                         return true;
                     case Event.ACTION_GET_ITEM_TYPE_ADVERTISEMENT:
-                        if(BundleUtil.canCast(event.getExtras(),ITEM_TYPE_ADVERTISEMENT_KEY,HashMap.class)){
+                        if (BundleUtil.canCast(event.getExtras(), ITEM_TYPE_ADVERTISEMENT_KEY, HashMap.class)) {
                             mItemAdapter.clearItems();
                             mFragmentLayout.setRefreshing(false);
-                            loadSubCategoryAdvertisement(BundleUtil.castItem(event.getExtras(),ITEM_TYPE_ADVERTISEMENT_KEY,HashMap.class));
+                            loadSubCategoryAdvertisement(BundleUtil.castItem(event.getExtras(), ITEM_TYPE_ADVERTISEMENT_KEY, HashMap.class));
                         }
                         return true;
                 }

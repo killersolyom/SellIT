@@ -83,4 +83,5 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
         super.onResume();
         startTimeoutHandler();
     }
+
 }

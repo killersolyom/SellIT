@@ -63,4 +63,5 @@ public class User implements Serializable {
     public String getPassword() {
         return mPassword;
     }
+    
 }

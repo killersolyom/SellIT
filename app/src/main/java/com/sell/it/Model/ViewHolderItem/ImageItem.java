@@ -27,4 +27,5 @@ public class ImageItem extends BaseDefaultItem {
     public int getViewType() {
         return Values.ViewType.IMAGE_ITEM_TYPE;
     }
+
 }

@@ -44,4 +44,5 @@ public class CameraItem extends BaseElectronicUtilitiesItem {
         addToListIfExist(descriptionList, R.string.advertisement_megapixel, intValueToDescriptionString(mMegaPixels));
         return descriptionList;
     }
+
 }

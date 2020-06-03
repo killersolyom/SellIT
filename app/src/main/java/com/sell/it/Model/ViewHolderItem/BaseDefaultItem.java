@@ -13,4 +13,5 @@ public class BaseDefaultItem extends BaseItem {
     public int getViewType() {
         return Values.ViewType.BASE_DEFAULT_TYPE;
     }
+
 }

@@ -12,4 +12,5 @@ public class MiniImageItem extends ImageItem {
     public int getViewType() {
         return Values.ViewType.MINI_IMAGE_ITEM_TYPE;
     }
+
 }

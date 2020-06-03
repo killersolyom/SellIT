@@ -32,4 +32,5 @@ public class MiniImageViewHolder extends BaseViewHolder<MiniImageItem> {
         mImage = itemView.findViewById(R.id.image_component);
     }
 
+
 }

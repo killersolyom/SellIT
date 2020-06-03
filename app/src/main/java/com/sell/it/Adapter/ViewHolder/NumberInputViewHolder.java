@@ -31,4 +31,5 @@ public class NumberInputViewHolder extends BaseViewHolder<BaseValueInputItem> {
         mInputView = itemView.findViewById(R.id.input_view);
     }
 
+
 }

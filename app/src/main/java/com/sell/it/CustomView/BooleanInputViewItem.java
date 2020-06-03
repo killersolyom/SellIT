@@ -40,4 +40,5 @@ public class BooleanInputViewItem extends BaseInputViewItem {
     public void writeValue() {
         mValueListener.writeValue(mCheckBoxField.isChecked());
     }
+
 }

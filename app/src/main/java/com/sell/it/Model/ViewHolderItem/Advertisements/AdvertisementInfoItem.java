@@ -25,4 +25,5 @@ public class AdvertisementInfoItem extends BaseDefaultItem {
     public int getViewType() {
         return Values.ViewType.ADVERTISEMENT_INFO_TYPE;
     }
+
 }

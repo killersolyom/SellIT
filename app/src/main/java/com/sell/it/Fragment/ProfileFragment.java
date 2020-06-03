@@ -60,7 +60,7 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(mPhoneNumber.getText().length() <= 11){
+        if (mPhoneNumber.getText().length() <= 11) {
             DataManager.savePhoneNumber(mPhoneNumber.getText().toString());
         }
     }
