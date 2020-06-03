@@ -1,5 +1,6 @@
 package com.sell.it.Fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,9 +12,11 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import com.bumptech.glide.Glide;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
+import com.sell.it.Utility.BundleUtil;
 import com.sell.it.Utility.DataManager;
 import com.sell.it.Utility.DatabaseManager;
 import com.sell.it.Utility.FragmentNavigation;
+import com.sell.it.Utility.TextUtils;
 
 public class LoginFragment extends BaseAuthenticationFragment {
 
@@ -43,7 +46,12 @@ public class LoginFragment extends BaseAuthenticationFragment {
 
     @Override
     protected void initComponents() {
-        mRememberMe.setChecked(DataManager.getRememberMeStatus());
+        boolean rememberMe = DataManager.getRememberMeStatus();
+        mRememberMe.setChecked(rememberMe);
+        if (DataManager.isUserExist() && rememberMe) {
+            mEmailAddressField.setText(DataManager.getEmailAddress());
+            mPasswordField.setText(TextUtils.decrypt(DataManager.getPassword()));
+        }
     }
 
     @Override
@@ -51,7 +59,7 @@ public class LoginFragment extends BaseAuthenticationFragment {
         mSignUpText.setOnClickListener(v -> FragmentNavigation.showRegistrationFragment());
         mGuestUserText.setOnClickListener(v -> FragmentNavigation.showAdvertisementFragment());
         mRememberMe.setOnCheckedChangeListener((buttonView, isChecked) -> DataManager.saveRememberMeStatus(isChecked));
-        mLoginButton.setOnClickListener(v-> loginUser());
+        mLoginButton.setOnClickListener(v -> loginUser());
     }
 
     @Override
@@ -60,15 +68,40 @@ public class LoginFragment extends BaseAuthenticationFragment {
     }
 
     @Override
-    protected void clearImages() {
+    protected void removeCallbacks() {
         Glide.with(mContext).clear(mApplicationLogo);
     }
 
+    private void autoLogin() {
+        if (DataManager.isUserExist() && DataManager.getRememberMeStatus()) {
+            FragmentNavigation.showTransactionDialog(
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS),
+                    new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL));
 
-    private void loginUser(){
-        FragmentNavigation.showTransactionDialog(new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_FAIL), new Event(Event.TYPE_FIREBASE,Event.ACTION_LOGIN_SUCCESS));
+            DatabaseManager.loginUser(DataManager.getEmailAddress(),
+                    TextUtils.decrypt(DataManager.getPassword()));
+        }
+    }
+
+    private void loginUser() {
+        FragmentNavigation.showTransactionDialog(new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_FAIL), new Event(Event.TYPE_FIREBASE, Event.ACTION_LOGIN_SUCCESS));
         String username = mEmailAddressField.getText().toString().trim();
         String password = mPasswordField.getText().toString().trim();
-        DatabaseManager.loginUser(username,password);
+        DatabaseManager.loginUser(username, password);
+    }
+
+    @Override
+    protected void restoreItems(Bundle bundle) {
+        if (BundleUtil.canCast(bundle, TAG, Boolean.class)) {
+            if (BundleUtil.castItem(bundle, TAG, Boolean.class)) {
+                return;
+            }
+        }
+        autoLogin();
+    }
+
+    @Override
+    protected Bundle saveItems() {
+        return BundleUtil.createBundle(TAG, true);
     }
 }

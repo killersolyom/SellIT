@@ -56,4 +56,5 @@ public class LanguageItemViewHolder extends BaseViewHolder<LanguageItem> {
         EventDispatcher.offerEvent(new Event(Event.TYPE_CONTROL, Event.ACTION_LANGUAGE_CHANGE));
     }
 
+
 }

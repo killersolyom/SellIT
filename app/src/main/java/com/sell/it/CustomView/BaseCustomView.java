@@ -18,20 +18,20 @@ public abstract class BaseCustomView<Item> extends ConstraintLayout {
         initializeComponents();
     }
 
-    protected ViewGroup.LayoutParams getLayoutParams(View view) {
-        return view.getLayoutParams();
-    }
-
-    public void calculateOptimalSize(ViewGroup.LayoutParams itemParams) {
-    }
-
     protected abstract void inflateView(Context context);
 
     protected abstract void initView();
 
-    protected abstract void initializeComponents();
+    protected void initializeComponents() {
+    }
 
-    public abstract void bindItem(Item item);
+    public void bindItem(Item item, ViewGroup.LayoutParams layoutParams) {
+    }
 
-    public abstract void unbind();
+    public void bindItem(Item item) {
+    }
+
+    public void unbind() {
+    }
+
 }

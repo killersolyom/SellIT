@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class TextUtils {
 
     public static boolean isEmpty(String value) {
-        return value != null && value.isEmpty();
+        return value == null || value.isEmpty();
     }
 
     public static boolean isValidEmailAddress(String address) {
@@ -19,30 +19,26 @@ public class TextUtils {
     }
 
     public static boolean isValidName(String name) {
-        return !isEmpty(name) && name.matches(".*\\d.*");
+        return !isEmpty(name);
     }
 
     public static boolean isValidUserName(String username) {
-        return !isEmpty(username) && username.contains(" ");
+        return !isEmpty(username);
     }
 
     public static String encrypt(String plainText) {
-        byte[] textBytes = revertString(plainText).getBytes();
-        for (int i = 0; i < textBytes.length; ++i) {
-            textBytes[i] = (textBytes[i] == Byte.MAX_VALUE) ? textBytes[i] : ++textBytes[i];
-        }
-        return new String(textBytes);
+        return DataEncryption.encrypt(plainText);
     }
 
     public static String decrypt(String encryptedText) {
-        byte[] textBytes = revertString(encryptedText).getBytes();
-        for (int i = 0; i < textBytes.length; ++i) {
-            textBytes[i] = (textBytes[i] == Byte.MIN_VALUE) ? textBytes[i] : --textBytes[i];
-        }
-        return new String(textBytes);
+        return DataEncryption.decrypt(encryptedText);
     }
 
-    public static String revertString(String text) {
+    public static boolean containsOnlyNumbers(String text) {
+        return text.matches("[0-9]+");
+    }
+
+    public static String reverseString(String text) {
         return new StringBuilder().append(text).reverse().toString();
     }
 

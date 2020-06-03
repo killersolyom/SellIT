@@ -3,6 +3,7 @@ package com.sell.it.Utility;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.sell.it.Dialog.CategorySelectDialog;
 import com.sell.it.Model.Constant.Values;
 import com.sell.it.Model.User;
 
@@ -10,12 +11,15 @@ public class DataManager {
     private static final String REMEMBER_ME_KEY = "remember_me_key";
     private static final String PORTRAIT_KEY = "PORTRAIT_key";
     private static final String LANDSCAPE_KEY = "LANDSCAPE_key";
-    private static final String LANGUAGE_KEY = "Alpha_key";
-    private static final String EMAIL_KEY = "Alpha_key";
-    private static final String FIRSTNAME_KEY = "Alpha_key";
-    private static final String LASTNAME_KEY = "Alpha_key";
-    private static final String USERNAME_KEY = "Alpha_key";
-    private static final String PASSWORD_KEY = "Alpha_key";
+    private static final String LANGUAGE_KEY = "language_key";
+    private static final String EMAIL_KEY = "email_key";
+    private static final String FIRSTNAME_KEY = "firstname_key";
+    private static final String LASTNAME_KEY = "lastname_key";
+    private static final String USERNAME_KEY = "username_key";
+    private static final String PASSWORD_KEY = "password_key";
+    private static final String PHONE_KEY = "phone_key";
+    public static final String LAST_SELECTED_CATEGORY_KEY = "LAST_SELECTED_CATEGORY_KEY";
+    public static final String LAST_SELECTED_SUB_CATEGORY_KEY = "LAST_SELECTED_SUB_CATEGORY_KEY";
 
     private static SharedPreferences mPreference;
 
@@ -23,6 +27,10 @@ public class DataManager {
         if (mPreference == null) {
             mPreference = context.getSharedPreferences(context.getApplicationContext().getPackageName(), 0);
         }
+    }
+
+    private static void clearItem(String key) {
+        mPreference.edit().remove(key).apply();
     }
 
     private static void writeLongData(long number, String key) {
@@ -37,20 +45,12 @@ public class DataManager {
         return mPreference.getString(key, "");
     }
 
-    private static long readLongData(String key) {
-        return mPreference.getLong(key, 0);
+    private static String readStringData(String key, String defaultValue) {
+        return mPreference.getString(key, defaultValue);
     }
 
-    public static void increaseListenCounter(String title) {
-        writeLongData(readLongData(title) + 1, title);
-    }
-
-    public static long getListenCounter(String title) {
-        return readLongData(title);
-    }
-
-    public static void resetCounter(String title) {
-        mPreference.edit().remove(title).apply();
+    private static long readLongData(String key, long defaultValue) {
+        return mPreference.getLong(key, defaultValue);
     }
 
     private static void writeIntData(int value, String key) {
@@ -82,25 +82,55 @@ public class DataManager {
         writeString(user.getFirstName(), FIRSTNAME_KEY);
         writeString(user.getLastName(), LASTNAME_KEY);
         writeString(user.getUsername(), USERNAME_KEY);
-        writeString(user.getPassword(), PASSWORD_KEY);
+        writeString(TextUtils.encrypt(user.getPassword()), PASSWORD_KEY);
     }
 
     public static User getUser() {
-        String username = mPreference.getString(USERNAME_KEY, Values.User.USERNAME);
-        String email = mPreference.getString(EMAIL_KEY, Values.User.EMAIL);
-        String firstName = mPreference.getString(FIRSTNAME_KEY, Values.User.FIRST_NAME);
-        String lastName = mPreference.getString(LASTNAME_KEY, Values.User.LAST_NAME);
-        String password = mPreference.getString(PASSWORD_KEY, Values.User.PASSWORD);
-
-        return new User(email, firstName, lastName, username, password);
+        String password = TextUtils.decrypt(getPassword());
+        return new User(getEmailAddress(), getFirstName(), getLastName(), getUserName(), password);
     }
 
-    public static boolean isUserExist(User user) {
-        if (user.getEmailAddress().equals("email") || user.getPassword().equals("pass")) {
-            return false;
-        } else {
-            return false;
-        }
+    public static void savePhoneNumber(String phoneNumber) {
+        writeString(phoneNumber, PHONE_KEY);
+    }
+
+    public static String getPhoneNumber() {
+        return readStringData(PHONE_KEY);
+    }
+
+    public static String getUserName() {
+        return readStringData(USERNAME_KEY);
+    }
+
+    public static String getFirstName() {
+        return readStringData(FIRSTNAME_KEY);
+    }
+
+    public static String getLastName() {
+        return readStringData(LASTNAME_KEY);
+    }
+
+    public static String getEmailAddress() {
+        return readStringData(EMAIL_KEY);
+    }
+
+    public static String getPassword() {
+        return readStringData(PASSWORD_KEY);
+    }
+
+    public static boolean isUserExist() {
+        return TextUtils.isValidEmailAddress(readStringData(EMAIL_KEY)) &&
+                TextUtils.isValidPassword(readStringData(PASSWORD_KEY));
+    }
+
+    public static void clearUserData() {
+        clearItem(EMAIL_KEY);
+        clearItem(USERNAME_KEY);
+        clearItem(FIRSTNAME_KEY);
+        clearItem(LASTNAME_KEY);
+        clearItem(PASSWORD_KEY);
+        clearItem(REMEMBER_ME_KEY);
+        clearItem(PHONE_KEY);
     }
 
     public static int getLandscapeColumnNumber() {
@@ -127,4 +157,20 @@ public class DataManager {
         writeBooleanData(value, REMEMBER_ME_KEY);
     }
 
+    public static void saveLastSelectedCategory(String subCategory, String category) {
+        writeString(category, LAST_SELECTED_CATEGORY_KEY);
+        writeString(subCategory, LAST_SELECTED_SUB_CATEGORY_KEY);
+    }
+
+    public static String[] getLastSelectedCategory() {
+        String[] category = new String[2];
+        category[0] = readStringData(LAST_SELECTED_SUB_CATEGORY_KEY, CategorySelectDialog.ALL_CATEGORY);
+        category[1] = readStringData(LAST_SELECTED_CATEGORY_KEY, CategorySelectDialog.ALL_CATEGORY);
+        return category;
+    }
+
+    public static void clearLastSelectedItems() {
+        clearItem(LAST_SELECTED_SUB_CATEGORY_KEY);
+        clearItem(LAST_SELECTED_CATEGORY_KEY);
+    }
 }

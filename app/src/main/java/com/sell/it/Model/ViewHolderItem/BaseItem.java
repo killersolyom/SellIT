@@ -1,9 +1,11 @@
 package com.sell.it.Model.ViewHolderItem;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 
 public abstract class BaseItem implements Serializable {
-
-    public abstract int getItemType();
+    @Exclude
+    public abstract int getViewType();
 
 }

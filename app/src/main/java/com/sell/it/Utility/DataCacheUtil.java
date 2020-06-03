@@ -27,4 +27,7 @@ public class DataCacheUtil {
         mCacheMap.clear();
     }
 
+    public static void clearCache(String tag) {
+        mCacheMap.remove(tag);
+    }
 }

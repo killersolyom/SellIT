@@ -27,7 +27,7 @@ public class LanguageItem extends BaseDefaultItem {
     }
 
     @Override
-    public int getItemType() {
-        return Values.ItemType.LANGUAGE_ITEM_TYPE;
+    public int getViewType() {
+        return Values.ViewType.LANGUAGE_ITEM_TYPE;
     }
 }

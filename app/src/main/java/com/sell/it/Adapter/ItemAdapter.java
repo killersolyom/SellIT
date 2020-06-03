@@ -10,9 +10,9 @@ import com.sell.it.Model.ViewHolderItem.BaseItem;
 
 import java.util.ArrayList;
 
-public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class ItemAdapter<Item extends BaseItem> extends RecyclerView.Adapter<BaseViewHolder<Item>> {
 
-    private ArrayList<BaseItem> mItemList = new ArrayList<>();
+    private ArrayList<Item> mItemList = new ArrayList<>();
     private int mSpanCount;
 
     public ItemAdapter() {
@@ -25,24 +25,24 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseViewHolder<Item> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return LayoutSelector.getLayoutForItem(parent, viewType, mSpanCount);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BaseViewHolder<Item> holder, int position) {
         holder.bindItem(mItemList.get(position));
     }
 
     @Override
-    public void onViewRecycled(@NonNull BaseViewHolder holder) {
+    public void onViewRecycled(@NonNull BaseViewHolder<Item> holder) {
         super.onViewRecycled(holder);
         holder.unBindItem();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return mItemList.get(position).getItemType();
+        return mItemList.get(position).getViewType();
     }
 
     @Override
@@ -50,28 +50,26 @@ public class ItemAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return mItemList.size();
     }
 
-    public void setSpanCount(int spanCount) {
-        mSpanCount = spanCount;
-    }
-
-    public void addItemList(ArrayList<BaseItem> itemList) {
+    public void addItemList(ArrayList<Item> itemList) {
         mItemList = itemList;
     }
 
-    public void addItem(BaseItem item) {
+    public void addItem(Item item) {
         mItemList.add(item);
         notifyItemInserted(mItemList.indexOf(item));
     }
 
     public void clearItems() {
         mItemList.clear();
+        notifyDataSetChanged();
     }
 
     public boolean isEmpty() {
         return mItemList.isEmpty();
     }
 
-    public ArrayList<BaseItem> getItemList() {
+    public ArrayList<Item> getItemList() {
         return mItemList;
     }
+
 }

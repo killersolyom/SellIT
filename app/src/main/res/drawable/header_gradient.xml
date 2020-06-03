@@ -7,6 +7,12 @@
                 android:endColor="@color/colorBlack"
                 android:startColor="@color/colorTransparentOverlay"
                 android:type="linear" />
+
+            <corners
+                android:bottomLeftRadius="0px"
+                android:bottomRightRadius="0px"
+                android:topLeftRadius="@dimen/advertisement_item_radius"
+                android:topRightRadius="@dimen/advertisement_item_radius" />
         </shape>
     </item>
 </layer-list>

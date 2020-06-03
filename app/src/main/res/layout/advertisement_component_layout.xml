@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ImageView
         android:id="@+id/item_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/advertisement_background_selector"
+        android:background="@drawable/advertisement_background"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,37 +21,50 @@
         android:id="@+id/advertisement_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="1dp"
-        android:layout_marginStart="@dimen/advertisement_item_margin"
-        android:layout_marginEnd="@dimen/advertisement_item_margin"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@id/item_background"
         app:layout_constraintEnd_toEndOf="@id/item_background"
         app:layout_constraintStart_toStartOf="@id/item_background"
         app:layout_constraintTop_toTopOf="@id/item_background" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
         android:id="@+id/advertisement_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/advertisement_item_margin"
-        android:layout_marginEnd="@dimen/advertisement_item_margin"
+        android:layout_margin="@dimen/advertisement_item_margin"
         android:background="@drawable/header_gradient"
-        android:paddingStart="1dp"
-        android:paddingEnd="0dp"
-        app:layout_constraintEnd_toEndOf="@id/advertisement_image"
-        app:layout_constraintStart_toStartOf="@id/advertisement_image"
-        app:layout_constraintTop_toTopOf="@id/advertisement_image" />
+        android:ellipsize="end"
+        android:gravity="start"
+        android:maxLines="1"
+        android:paddingStart="3dp"
+        android:paddingEnd="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="@id/item_background"
+        app:layout_constraintStart_toStartOf="@id/item_background"
+        app:layout_constraintTop_toTopOf="@id/item_background" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
         android:id="@+id/advertisement_extra_info_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/advertisement_item_margin"
-        android:layout_marginEnd="@dimen/advertisement_item_margin"
+        android:layout_margin="@dimen/advertisement_item_margin"
         android:background="@drawable/footer_gradient"
-        app:layout_constraintBottom_toBottomOf="@id/advertisement_image"
-        app:layout_constraintEnd_toEndOf="@id/advertisement_image"
-        app:layout_constraintStart_toStartOf="@id/advertisement_image" />
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp"
+        android:paddingBottom="3dp"
+        android:maxLines="2"
+        app:layout_constraintBottom_toBottomOf="@id/item_background"
+        app:layout_constraintEnd_toEndOf="@id/item_background"
+        app:layout_constraintStart_toStartOf="@id/item_background" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/advertisement_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </merge>

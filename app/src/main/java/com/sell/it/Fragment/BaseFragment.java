@@ -34,13 +34,13 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle bundle) {
         if (mFragmentView == null) {
             mFragmentView = inflater.inflate(getLayoutId(), container, false);
-            mFragmentView.setBackgroundColor(ContextCompat.getColor(container.getContext(), R.color.fragmentBackground));
-            mContext = mFragmentView.getContext();
-            findView(mFragmentView);
-            initListeners();
-            getArgumentsFromBundle(getArguments());
         }
+        mContext = mFragmentView.getContext();
+        findView(mFragmentView);
+        initListeners();
+        mFragmentView.setBackgroundColor(ContextCompat.getColor(mContext, getBackgroundColorId()));
         initComponents();
+        getArgumentsFromBundle(getArguments());
         return mFragmentView;
     }
 
@@ -54,13 +54,17 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     protected void initListeners() {
     }
 
+    protected int getBackgroundColorId() {
+        return R.color.fragmentBackground;
+    }
+
     protected void getArgumentsFromBundle(Bundle bundle) {
     }
 
     protected void loadImages() {
     }
 
-    protected void clearImages() {
+    protected void removeCallbacks() {
     }
 
     protected Bundle saveItems() {
@@ -68,6 +72,10 @@ public abstract class BaseFragment extends Fragment implements EventListener {
     }
 
     protected void restoreItems(Bundle bundle) {
+    }
+
+    protected Bundle getSavedItems() {
+        return DataCacheUtil.getItem(TAG);
     }
 
     @Override
@@ -80,16 +88,21 @@ public abstract class BaseFragment extends Fragment implements EventListener {
         super.onPause();
         EventDispatcher.unSubscribe(this);
         DataCacheUtil.addItem(TAG, saveItems());
-        clearImages();
+        removeCallbacks();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         EventDispatcher.subscribe(this);
-        restoreItems(DataCacheUtil.getItem(TAG));
+        EventDispatcher.offerEvent(new Event(Event.TYPE_CONTROL, Event.ACTION_UNLOCK_ORIENTATION));
+        restoreItems(getSavedItems());
         loadImages();
         EventDispatcher.sendUnconsumedEvents();
+    }
+
+    public boolean compare(BaseFragment fragment) {
+        return fragment != null && this.getClass().equals(fragment.getClass());
     }
 
 }

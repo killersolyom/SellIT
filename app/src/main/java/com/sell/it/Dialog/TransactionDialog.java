@@ -13,22 +13,24 @@ import com.sell.it.Communication.EventListener;
 import com.sell.it.Model.Event;
 import com.sell.it.R;
 import com.sell.it.Utility.EventDispatcher;
+import com.sell.it.Utility.SnackBarUtility;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class TransactionDialog extends BaseDialogFragment implements EventListener {
 
-    private static Event[] mListenEvent;
-    private final int mTimeoutTime = 10000;
+    private static ArrayList<Event> mListenEvent;
+    private final int mTimeoutTime = 7500;
     private static final Handler mTimeoutHandler = new Handler();
 
     public TransactionDialog() {
     }
 
     public TransactionDialog(Event... listenEvent) {
-        mListenEvent = listenEvent;
+        mListenEvent = new ArrayList<>(Arrays.asList(listenEvent));
     }
 
     private void startTimeoutHandler() {
@@ -36,7 +38,7 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
             mTimeoutHandler.removeCallbacksAndMessages(null);
             mTimeoutHandler.postDelayed(() -> {
                 dismissDialog();
-                //TODO show notification
+                SnackBarUtility.showWithText(R.string.transaction_failed, true);
             }, mTimeoutTime);
             mTimeoutHandler.sendEmptyMessage(0);
         }
@@ -57,13 +59,12 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
     protected void initView(View view) {
         setCancelable(false);
         EventDispatcher.subscribe(this);
-        startTimeoutHandler();
     }
 
     @Override
     public boolean onEvent(Event event) {
-        if (Arrays.asList(mListenEvent).contains(event)) {
-            //TODO clear mListenEvent array!
+        if (mListenEvent.contains(event)) {
+            mListenEvent.clear();
             mTimeoutHandler.removeCallbacksAndMessages(null);
             dismissDialog();
             return true;
@@ -76,4 +77,11 @@ public class TransactionDialog extends BaseDialogFragment implements EventListen
         super.onDismiss(dialog);
         EventDispatcher.unSubscribe(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        startTimeoutHandler();
+    }
+
 }

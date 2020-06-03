@@ -1,6 +1,7 @@
-package com.sell.it.Model.ViewHolderItem;
+package com.sell.it.Model.ViewHolderItem.Advertisements;
 
 import com.sell.it.Model.Constant.Values;
+import com.sell.it.Model.ViewHolderItem.BaseDefaultItem;
 
 public class AdvertisementInfoItem extends BaseDefaultItem {
 
@@ -20,12 +21,9 @@ public class AdvertisementInfoItem extends BaseDefaultItem {
         return mTextSize;
     }
 
-    public void setInfo(String info) {
-        this.mInfo = info;
+    @Override
+    public int getViewType() {
+        return Values.ViewType.ADVERTISEMENT_INFO_TYPE;
     }
 
-    @Override
-    public int getItemType() {
-        return Values.ItemType.ADVERTISEMENT_INFO_TYPE;
-    }
 }

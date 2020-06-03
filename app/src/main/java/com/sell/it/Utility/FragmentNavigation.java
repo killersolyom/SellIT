@@ -3,11 +3,12 @@ package com.sell.it.Utility;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.sell.it.Activity.MainActivity;
-import com.sell.it.Communication.DrawerInterface;
+import com.sell.it.Communication.EventListener;
+import com.sell.it.Communication.MainInterface;
 import com.sell.it.Dialog.BaseDialogFragment;
+import com.sell.it.Dialog.CategorySelectDialog;
 import com.sell.it.Dialog.ColumnNumberSelectDialog;
 import com.sell.it.Dialog.ConfirmDialog;
 import com.sell.it.Dialog.LanguageSelectDialog;
@@ -21,7 +22,7 @@ import com.sell.it.Fragment.ProfileFragment;
 import com.sell.it.Fragment.RegistrationFragment;
 import com.sell.it.Fragment.SettingsFragment;
 import com.sell.it.Model.Event;
-import com.sell.it.Model.ViewHolderItem.BaseAdvertisementItem;
+import com.sell.it.Model.ViewHolderItem.Advertisements.DefaultAdvertisementItem;
 import com.sell.it.R;
 
 public class FragmentNavigation {
@@ -29,10 +30,11 @@ public class FragmentNavigation {
     private static long mLastBackPressTime;
     private static final long mExitTimeLimit = 350;
     private static FragmentManager mFragmentManager;
-    private static DrawerInterface mMainInterface;
+    private static MainInterface mMainInterface;
     private static FragmentManager.OnBackStackChangedListener mBackStackChangedListener;
 
-    static void initComponents(MainActivity activity, DrawerInterface mainInterface) {
+    static void initComponents(MainActivity activity, MainInterface mainInterface) {
+        EventDispatcher.subscribe(mEventListener);
         if (shouldInit()) {
             mFragmentManager = activity.getSupportFragmentManager();
             mBackStackChangedListener = FragmentNavigation::handleBackStackChangeEvent;
@@ -45,6 +47,10 @@ public class FragmentNavigation {
     private static boolean shouldInit() {
         return mFragmentManager == null || mMainInterface == null ||
                 mBackStackChangedListener == null || mFragmentManager.isDestroyed();
+    }
+
+    public static void showCategorySelectorDialog() {
+        showDialogFragment(new CategorySelectDialog());
     }
 
     public static void showColumnNumberSelectorDialog() {
@@ -79,15 +85,11 @@ public class FragmentNavigation {
         showFragment(new RegistrationFragment());
     }
 
-    public static void showAddAdvertisementFragment() {
-        showFragment(new AddAdvertisementFragment());
-    }
-
     public static void showProfileFragment() {
         showFragment(new ProfileFragment());
     }
 
-    public static void showDetailsFragment(BaseAdvertisementItem item) {
+    public static void showDetailsFragment(DefaultAdvertisementItem item) {
         showFragment(DetailsFragment.newInstance(item));
     }
 
@@ -97,6 +99,10 @@ public class FragmentNavigation {
     }
 
     public static void dismissDialogByTAG(String tag) {
+        if (mFragmentManager.isStateSaved()) {
+            return;
+        }
+
         Fragment dialogFragment = mFragmentManager.findFragmentByTag(tag);
         if (dialogFragment instanceof BaseDialogFragment) {
             ((DialogFragment) dialogFragment).dismiss();
@@ -104,25 +110,15 @@ public class FragmentNavigation {
     }
 
     private static void showFragment(BaseFragment fragment) {
-        BaseFragment fragmentFromBackStack =
-                castToBaseFragment(mFragmentManager.findFragmentByTag(fragment.TAG));
-        boolean isInBackStack = fragmentFromBackStack != null;
-
-        beforeFragmentLoaded(isInBackStack ? fragmentFromBackStack : fragment, isInBackStack);
-
-        if (isInBackStack) {
-            createTransaction().show(fragmentFromBackStack);
-        } else {
-            createTransaction().replace(R.id.fragment_container, fragment, fragment.TAG)
+        beforeFragmentLoaded(fragment);
+        if (!fragment.compare(getTopFragment())) {
+            mFragmentManager.beginTransaction().setCustomAnimations(
+                    R.anim.enter_from_right, R.anim.exit_to_left,
+                    R.anim.enter_from_left, R.anim.exit_to_right)
+                    .replace(R.id.fragment_container, fragment, fragment.TAG)
                     .addToBackStack(fragment.TAG)
                     .commit();
         }
-    }
-
-    private static FragmentTransaction createTransaction() {
-        return mFragmentManager.beginTransaction().setCustomAnimations(
-                R.anim.enter_from_right, R.anim.exit_to_left,
-                R.anim.enter_from_left, R.anim.exit_to_right);
     }
 
     private static BaseFragment castToBaseFragment(Fragment fragment) {
@@ -135,9 +131,14 @@ public class FragmentNavigation {
         }
     }
 
-    private static void beforeFragmentLoaded(BaseFragment fragment, boolean isInBackStack) {
+    private static void beforeFragmentLoaded(BaseFragment fragment) {
+        boolean isInBackStack =
+                castToBaseFragment(mFragmentManager.findFragmentByTag(fragment.TAG)) != null;
+
         if (fragment instanceof AdvertisementFragment) {
             clearBackStack(!isInBackStack);
+        } else if (fragment instanceof LoginFragment) {
+            clearBackStack(true);
         }
     }
 
@@ -174,7 +175,7 @@ public class FragmentNavigation {
                 showProfileFragment();
                 break;
             case R.id.advertisement:
-                showAddAdvertisementFragment();
+                verifyUser();
                 break;
             case R.id.nav_settings:
                 showSettingsFragment();
@@ -193,11 +194,21 @@ public class FragmentNavigation {
         } else if (isDoubleBackPressPerformed()) {
             if (shouldExit()) {
                 exit();
-            } else {
-                //TODO press again notification
             }
         } else if (shouldPop()) {
             popBackStack();
+        }
+    }
+
+    public static void verifyUser() {
+        if (!(getTopFragment() instanceof AddAdvertisementFragment)) {
+            if (!(TextUtils.isEmpty(DataManager.getEmailAddress()) || TextUtils.isEmpty(DataManager.getPassword()))) {
+                showTransactionDialog(
+                        new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_FAIL),
+                        new Event(Event.TYPE_FIREBASE, Event.ACTION_VERIFICATION_SUCCESS));
+                DatabaseManager.verifyUser(DataManager.getEmailAddress(),
+                        TextUtils.decrypt(DataManager.getPassword()));
+            }
         }
     }
 
@@ -223,5 +234,30 @@ public class FragmentNavigation {
         clearBackStack(true);
         System.exit(0);
     }
+
+    private static EventListener mEventListener = event -> {
+        switch (event.getEventType()) {
+            case Event.TYPE_FIREBASE:
+                switch (event.getAction()) {
+                    case Event.ACTION_VERIFICATION_FAIL:
+                        SnackBarUtility.showWithText(R.string.invalid_id, true);
+                        showLoginFragment();
+                        return true;
+                    case Event.ACTION_VERIFICATION_SUCCESS:
+                        DataCacheUtil.clearCache(AddAdvertisementFragment.class.getCanonicalName());
+                        showFragment(new AddAdvertisementFragment());
+                        return true;
+                    case Event.ACTION_UPLOAD_SUCCESS:
+                        SnackBarUtility.showWithText(R.string.advertisement_upload_success, false);
+                        return true;
+                    case Event.ACTION_UPLOAD_FAIL:
+                        SnackBarUtility.showWithText(R.string.advertisement_upload_failed, true);
+                        return true;
+                }
+                return false;
+        }
+        return false;
+    };
+
 
 }
