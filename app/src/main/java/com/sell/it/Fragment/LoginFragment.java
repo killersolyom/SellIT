@@ -48,7 +48,7 @@ public class LoginFragment extends BaseAuthenticationFragment {
     protected void initComponents() {
         boolean rememberMe = DataManager.getRememberMeStatus();
         mRememberMe.setChecked(rememberMe);
-        if (DataManager.isUserExist() && rememberMe) {
+        if (DataManager.isUserExist()) {
             mEmailAddressField.setText(DataManager.getEmailAddress());
             mPasswordField.setText(TextUtils.decrypt(DataManager.getPassword()));
         }
