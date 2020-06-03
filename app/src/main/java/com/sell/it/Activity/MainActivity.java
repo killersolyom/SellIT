@@ -168,6 +168,5 @@ public class MainActivity extends AppCompatActivity implements EventListener, Ma
             EventDispatcher.offerEvent(event);
         }
     }
-
-
+    
 }
